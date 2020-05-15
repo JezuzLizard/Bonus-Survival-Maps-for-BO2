@@ -1731,6 +1731,17 @@ init_barriers_for_custom_maps()
     tunnelclip3 setModel("collision_clip_wall_256x256x10");
     tunnelclip3 rotateTo((0,214,0), .1);
     //tunnelclip3 DisconnectPaths();
+    
+    //HOUSE BARRIERS
+    housebarrier1 = spawn("script_model", (5228,6530,-24));
+    housebarrier1 setModel("collision_player_wall_512x512x10");
+    housebarrier1 rotateTo((0,0,0),.1);
+    housebarrier1 ConnectPaths();
+
+    housebarrier2 = spawn("script_model", (5074,7089,-24));
+    housebarrier2 setModel("collision_player_wall_64x64x10");
+    housebarrier2 rotateTo((0,0,0),.1);
+    housebarrier2 ConnectPaths();
 }
 
 onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerberus output
