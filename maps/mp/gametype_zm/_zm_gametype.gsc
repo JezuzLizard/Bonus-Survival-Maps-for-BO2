@@ -35,10 +35,8 @@ main() //checked matches cerberus output
 	maps/mp/gametypes_zm/_weapons::registerthrowngrenadeduddvar( level.gametype, 0, 0, 1440 );
 	maps/mp/gametypes_zm/_weapons::registerkillstreakdelay( level.gametype, 0, 0, 1440 );
 	maps/mp/gametypes_zm/_globallogic::registerfriendlyfiredelay( level.gametype, 15, 0, 1440 );
-	
 	init_spawnpoints_for_custom_survival_maps();
 	init_barriers_for_custom_maps();
-	
 	level.takelivesondeath = 1;
 	level.teambased = 1;
 	level.disableprematchmessages = 1;
@@ -126,8 +124,6 @@ game_objects_allowed( mode, location ) //checked partially changed to match cerb
 						entities[ i ] connectpaths();
 					}
 				}
-				logline1 = "INFO: _zm_gametype.gsc game_objects_allowed() deleted: " + entities[ i ].target + "\n";
-				logprint( logline1 );
 				entities[ i ] delete();
 				i++;
 				continue;
@@ -242,8 +238,6 @@ setup_standard_objects( location ) //checked partially used cerberus output
 	{
 		if ( isdefined( structs[ i ].script_noteworthy ) && structs[ i ].script_noteworthy != location )
 		{
-			logline2 = "INFO: _zm_gametype.gsc setup_standard_objects() didn't spawn in: " + structs[ i ].script_parameters + "\n";
-			logprint( logline2 );
 			i++;
 			continue;
 		}
@@ -270,8 +264,6 @@ setup_standard_objects( location ) //checked partially used cerberus output
 				continue;
 			}
 		}
-		logline3 = "INFO: _zm_gametype.gsc setup_standard_objects() spawned: " + structs[ i ].script_parameters + "\n";
-		logprint( logline3 );
 		barricade = spawn( "script_model", structs[ i ].origin );
 		barricade.angles = structs[ i ].angles;
 		barricade setmodel( structs[ i ].script_parameters );
@@ -281,12 +273,6 @@ setup_standard_objects( location ) //checked partially used cerberus output
 	i = 0;
 	while ( i < objects.size )
 	{
-		logline5 = "INFO: _zm_gametype.gsc setup_standard_objects() found: " + objects[ i ].target + " target" + "\n";
-		logprint( logline5 );
-		logline6 = "INFO: _zm_gametype.gsc setup_standard_objects() found: " + objects[ i ].targetname + " targetname" + "\n";
-		logprint( logline6 );
-		logline7 = "INFO: _zm_gametype.gsc setup_standard_objects() found: " + objects[ i ].classname + " classname" + "\n";
-		logprint( logline7 );
 		if ( isDefined( objects[ i ].targetname ) && objects[ i ].targetname == "screecher_volume" )
 		{
 			objects[ i ] delete();
@@ -302,12 +288,6 @@ setup_standard_objects( location ) //checked partially used cerberus output
 		{
 			objects[ i ] connectpaths();
 		}
-		logline4 = "INFO: _zm_gametype.gsc setup_standard_objects() deleted: " + objects[ i ].target + " target" + "\n";
-		logprint( logline4 );
-		logline8 = "INFO: _zm_gametype.gsc setup_standard_objects() deleted: " + objects[ i ].targetname + " targetname" + "\n";
-		logprint( logline8 );
-		logline9 = "INFO: _zm_gametype.gsc setup_standard_objects() deleted: " + objects[ i ].classname + " classname" + "\n";
-		logprint( logline9 );
 		objects[ i ] delete();
 		i++;
 	}
@@ -869,7 +849,7 @@ setup_classic_gametype() //checked did not change to match cerberus output
 	ents = getentarray();
 	i = 0;
 	while ( i < ents.size )
-	{
+	{	
 		if ( isDefined( ents[ i ].script_parameters ) )
 		{
 			parameters = strtok( ents[ i ].script_parameters, " " );
@@ -883,12 +863,17 @@ setup_classic_gametype() //checked did not change to match cerberus output
 			}
 			if ( should_remove )
 			{
-				ent delete();
+				ents[ i ] delete();
 			}
+		}
+		if ( isDefined( ents[ i ].script_noteworthy ) && ents[ i ].script_noteworthy == "screecher_location" )
+		{
+			ents[ i ] delete();
 		}
 		i++;
 	}
 	structs = getstructarray( "game_mode_object" );
+	i = 0;
 	while ( i < structs.size )
 	{
 		if ( !isdefined( structs[ i ].script_string ) )
@@ -910,9 +895,9 @@ setup_classic_gametype() //checked did not change to match cerberus output
 			i++;
 			continue;
 		}
-		barricade = spawn( "script_model", struct.origin );
-		barricade.angles = struct.angles;
-		barricade setmodel( struct.script_parameters );
+		barricade = spawn( "script_model", structs[ i ].origin );
+		barricade.angles = structs[ i ].angles;
+		barricade setmodel( structs[ i ].script_parameters );
 		i++;
 	}
 	unlink_meat_traversal_nodes();
@@ -1651,7 +1636,7 @@ init_spawnpoints_for_custom_survival_maps()
 	level.powerStationSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 	level.powerStationSpawnpoints[ 7 ].script_int = 2;
 	
-		level.houseSpawnpoints = [];
+	level.houseSpawnpoints = [];
 	level.houseSpawnpoints[ 0 ] = spawnstruct();
 	level.houseSpawnpoints[ 0 ].origin = ( 5071, 7022, -20 );
 	level.houseSpawnpoints[ 0 ].angles = ( 0, 315, 0 );
@@ -1711,7 +1696,7 @@ init_spawnpoints_for_custom_survival_maps()
 
 init_barriers_for_custom_maps()
 {
-	//TUNNEL BARRIERS
+    //TUNNEL BARRIERS
     tunnelbarrier1 = spawn("script_model", (-11250,-520,255));
     tunnelbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
     tunnelbarrier1 rotateTo((0,172,0),.1);
@@ -1724,6 +1709,7 @@ init_barriers_for_custom_maps()
     tunnelclip2 rotateTo((0,180,0), .1);
     //tunnelclip2 DisconnectPaths();
 
+    //HOUSE BARRIERS
     tunnelbarrier4 = spawn("script_model", (-10770,-3240,255));
     tunnelbarrier4 setModel("veh_t6_civ_movingtrk_cab_dead");
     tunnelbarrier4 rotateTo((0,214,0),.1);
@@ -1731,8 +1717,7 @@ init_barriers_for_custom_maps()
     tunnelclip3 setModel("collision_clip_wall_256x256x10");
     tunnelclip3 rotateTo((0,214,0), .1);
     //tunnelclip3 DisconnectPaths();
-    
-    //HOUSE BARRIERS
+
     housebarrier1 = spawn("script_model", (5228,6530,-24));
     housebarrier1 setModel("collision_player_wall_512x512x10");
     housebarrier1 rotateTo((0,0,0),.1);
@@ -1758,113 +1743,58 @@ onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerbe
 		self [[ level.custom_spawnplayer ]]();
 		return;
 	}
-	if ( isDefined( level.customspawnlogic ) )
+	if ( flag( "begin_spawning" ) )
 	{
-		spawnpoint = self [[ level.customspawnlogic ]]( predictedspawn );
-		if ( predictedspawn )
-		{
-			return;
-		}
+		spawnpoint = maps/mp/zombies/_zm::check_for_valid_spawn_near_team( self, 1 );
 	}
-	else
+	if ( !isDefined( spawnpoint ) )
 	{
-		if ( flag( "begin_spawning" ) )
+		match_string = "";
+		location = level.scr_zm_map_start_location;
+		if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
 		{
-			spawnpoint = maps/mp/zombies/_zm::check_for_valid_spawn_near_team( self, 1 );
+			location = level.default_start_location;
 		}
-		if ( !isDefined( spawnpoint ) )
+		match_string = level.scr_zm_ui_gametype + "_" + location;
+		spawnpoints = [];
+		if ( isDefined( level.tunnelMap ) && level.tunnelMap )
 		{
-			match_string = "";
-			location = level.scr_zm_map_start_location;
-			if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
+			for ( i = 0; i < level.tunnelSpawnpoints.size; i++ )
 			{
-				location = level.default_start_location;
-			}
-			match_string = level.scr_zm_ui_gametype + "_" + location;
-			spawnpoints = [];
-			/*
-			structs = getstructarray( "initial_spawn", "script_noteworthy" );
-			if ( isdefined( structs ) )
-			{
-				i = 0;
-				while ( i < structs.size )
-				{
-					if ( isdefined( structs[ i ].script_string ) )
-					{
-						tokens = strtok( structs[ i ].script_string, " " );
-						foreach ( token in tokens )
-						{
-							if ( token == match_string )
-							{
-								spawnpoints[ spawnpoints.size ] = structs[ i ];
-							}
-						}
-					}
-					i++;
-				}
-			}
-			*/
-			if ( isDefined( level.tunnelMap ) && level.tunnelMap )
-			{
-				logline1 = "Using tunnelmap spawnpoints" + "\n";
-				logprint( logline1 );
-				for ( i = 0; i < level.tunnelSpawnpoints.size; i++ )
-				{
-					spawnpoints[ spawnpoints.size ] = level.tunnelSpawnpoints[ i ];
-				}
-			}
-			else if ( isDefined( level.dinerMap ) && level.dinerMap )
-			{
-				logline1 = "Using dinermap spawnpoints" + "\n";
-				logprint( logline1 );
-				for ( i = 0; i < level.dinerSpawnpoints.size; i++ )
-				{
-					spawnpoints[ spawnpoints.size ] = level.dinerSpawnpoints[ i ];
-				}
-			}
-			else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
-			{
-				logline1 = "Using cornfieldmap spawnpoints" + "\n";
-				logprint( logline1 );
-				for ( i = 0; i < level.cornfieldSpawnpoints.size; i++ )
-				{
-					spawnpoints[ spawnpoints.size ] = level.cornfieldSpawnpoints[ i ];
-				}
-			}
-			else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
-			{
-				logline1 = "Using powerstationmap spawnpoints" + "\n";
-				logprint( logline1 );
-				for ( i = 0; i < level.powerStationSpawnpoints.size; i++ )
-				{
-					spawnpoints[ spawnpoints.size ] = level.powerStationSpawnpoints[ i ];
-				}
-			}
-			else if ( isDefined( level.houseMap) && level.houseMap )
-			{
-				logline1 = "Using housemap spawnpoints" + "\n";
-				logprint ( logline1 );
-				for ( i = 0; i < level.houseSpawnpoints.size; i++ )
-				{
-					spawnpoints[spawnpoints.size] = level.houseSpawnpoints[ i ];
-				}
-			}
-			if ( !isDefined( spawnpoints ) || spawnpoints.size == 0 )
-			{
-				spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
-			}	
-			spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
-			if ( predictedspawn )
-			{
-				self predictspawnpoint( spawnpoint.origin, spawnpoint.angles );
-				return;
-			}
-			else
-			{
-				self spawn( spawnpoint.origin, spawnpoint.angles, "zsurvival" );
+				spawnpoints[ spawnpoints.size ] = level.tunnelSpawnpoints[ i ];
 			}
 		}
+		else if ( isDefined( level.dinerMap ) && level.dinerMap )
+		{
+			for ( i = 0; i < level.dinerSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.dinerSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+		{
+			for ( i = 0; i < level.cornfieldSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.cornfieldSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+		{
+			for ( i = 0; i < level.powerStationSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.powerStationSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.houseMap) && level.houseMap )
+		{
+			for ( i = 0; i < level.houseSpawnpoints.size; i++ )
+			{
+				spawnpoints[spawnpoints.size] = level.houseSpawnpoints[ i ];
+			}
+		}
+		spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
 	}
+	self spawn( spawnpoint.origin, spawnpoint.angles, "zsurvival" );
 	self.entity_num = self getentitynumber();
 	self thread maps/mp/zombies/_zm::onplayerspawned();
 	self thread maps/mp/zombies/_zm::player_revive_monitor();
@@ -1894,7 +1824,6 @@ onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerbe
 	}
 	pixendevent();
 }
-
 
 get_player_spawns_for_gametype() //fixed checked partially changed to match cerberus output
 {
@@ -2389,9 +2318,6 @@ blank()
 {
 	//empty function
 }
-
-
-
 
 
 
