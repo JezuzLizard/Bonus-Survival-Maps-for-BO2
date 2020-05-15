@@ -14,7 +14,7 @@ Compile _zm_weapons.gsc as _zm_weapons.gsc and place it in maps/mp/zombies
 
 Compile _zm_magicbox.gsc as _zm_magicbox.gsc and place it in maps/mp/zombies
 
-//Compile zm_transit_classic.gsc as zm_transit_classic.gsc and place it in maps/mp
+Compile zm_transit_classic.gsc as zm_transit_classic.gsc and place it in maps/mp
 
 ## Notes
 
