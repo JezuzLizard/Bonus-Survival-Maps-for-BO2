@@ -1835,7 +1835,7 @@ onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerbe
 				logprint ( logline1 );
 				for ( i = 0; i < level.houseSpawnpoints.size; i++ )
 				{
-					spawnpoints[spointpoints.size] = level.houseSpawnpoints[ i ];
+					spawnpoints[spawnpoints.size] = level.houseSpawnpoints[ i ];
 				}
 			}
 			if ( !isDefined( spawnpoints ) || spawnpoints.size == 0 )
