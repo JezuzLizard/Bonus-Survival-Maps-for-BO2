@@ -1727,6 +1727,46 @@ init_barriers_for_custom_maps()
     housebarrier2 setModel("collision_player_wall_64x64x10");
     housebarrier2 rotateTo((0,0,0),.1);
     housebarrier2 ConnectPaths();
+    
+    //POWER STATION BARRIERS
+    powerbarrier1 = spawn("script_model", (9965,8133,-556));
+    powerbarrier1 setModel("veh_t6_civ_60s_coupe_dead");
+    powerbarrier1 rotateTo((15,5,0),.1);
+    powerclip1 = spawn("script_model", (9955,8105,-575));
+    powerclip1 setModel("collision_clip_wall_256x256x10");
+    powerclip1 rotateTo((0,0,0),.1);
+
+    powerbarrier2 = spawn("script_model", (10056,8350,-584));
+    powerbarrier2 setModel("veh_t6_civ_bus_zombie");
+    powerbarrier2 rotateTo((0,340,0),.1);
+    powerbarrier2 DisconnectPaths();
+    powerclip2 = spawn("script_model", (10338,8173,-556));
+    powerclip2 setModel("collision_clip_wall_64x64x10");
+    powerclip2 rotateTo((0,340,0),.1);
+    powerclip3 = spawn("script_model", (10409,8220,-181));
+    powerclip3 setModel("collision_clip_wall_512x512x10");
+    powerclip3 rotateTo((0,250,0),.1);
+
+    powerbarrier3 = spawn("script_model", (10281,7257,-575));
+    powerbarrier3 setModel("veh_t6_civ_microbus_dead");
+    powerbarrier3 rotateTo((0,13,0),.1);
+    powerclip4 = spawn("script_model", (10268,7294,-569));
+    powerclip4 setModel("collision_clip_wall_256x256x10");
+    powerclip4 rotateTo((0,13,0),.1);
+
+    powerbarrier4 = spawn("script_model", (10100,7238,-575));
+    powerbarrier4 setModel("veh_t6_civ_60s_coupe_dead");
+    powerbarrier4 rotateTo((0,52,0),.1);
+    powerclip5 = spawn("script_model", (10170,7292,-505));
+    powerclip5 setModel("collision_clip_wall_128x128x10");
+    powerclip5 rotateTo((0,140,0),.1);
+    powerclip6 = spawn("script_model", (10030,7216,-569));
+    powerclip6 setModel("collision_clip_wall_256x256x10");
+    powerclip6 rotateTo((0,49,0),.1);
+
+    powerclip7 = spawn("script_model", (10563,8630,-344));
+    powerclip7 setModel("collision_clip_wall_256x256x10");
+    powerclip7 rotateTo((0,270,0),.1);
 }
 
 onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerberus output
