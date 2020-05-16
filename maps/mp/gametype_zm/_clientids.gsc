@@ -1,16 +1,153 @@
 #include maps/mp/zombies/_zm_utility;
-#include maps/common_scripts/utility;
+#include common_scripts/utility;
 #include maps/mp/_utility;
+#include maps/mp/zombies/_zm_buildables;
 
 init()
 {
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
+	level thread onplayerconnected();
+	disable_pers_upgrades();
+	buildbuildables();
 	if(isDefined(level.houseMap) && level.houseMap)
    	{
     		thread wunderfizz((5038,6698,-25),(0,130,0), "zombie_vending_jugg");
     	}
 }
+
+onplayerconnected()
+{
+	for ( ;; )
+	{
+		level waittill( "connected", player );
+		player thread onplayerspawned();
+	}
+}
+
+onplayerspawned()
+{
+	for ( ;; )
+	{
+		self waittill( "spawned_player" );
+		self thread disable_player_pers_upgrades();
+	}
+}
+
+disable_pers_upgrades() //credit to Jbleezy for this function
+{
+	level waittill("initial_disable_player_pers_upgrades");
+
+	level.pers_upgrades_keys = [];
+	level.pers_upgrades = [];
+}
+
+disable_player_pers_upgrades() //credit to Jbleezy for this function
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	if ( isDefined( self.pers_upgrades_awarded ) )
+	{
+		upgrade = getFirstArrayKey( self.pers_upgrades_awarded );
+		while ( isDefined( upgrade ) )
+		{
+			self.pers_upgrades_awarded[ upgrade ] = 0;
+			upgrade = getNextArrayKey( self.pers_upgrades_awarded, upgrade );
+		}
+	}
+
+	if ( isDefined( level.pers_upgrades_keys ) )
+	{
+		index = 0;
+		while ( index < level.pers_upgrades_keys.size )
+		{
+			str_name = level.pers_upgrades_keys[ index ];
+			stat_index = 0;
+			while ( stat_index < level.pers_upgrades[ str_name ].stat_names.size )
+			{
+				self maps/mp/zombies/_zm_stats::zero_client_stat( level.pers_upgrades[str_name].stat_names[ stat_index ], 0 );
+				stat_index++;
+			}
+			index++;
+		}
+	}
+
+	level notify("initial_disable_player_pers_upgrades");
+}
+
+buildbuildables() //credit to Jbleezy for this function
+{
+	// need a wait or else some buildables dont build
+	wait 1;
+
+	buildbuildable( "turbine" );
+	buildbuildable( "electric_trap" );
+	buildbuildable( "riotshield_zm" );
+	buildbuildable( "pap", 1 );
+
+	// power switch is not showing up from forced build
+}
+
+buildbuildable( buildable, craft ) //credit to Jbleezy for this function
+{
+	if ( !isDefined( craft ) )
+	{
+		craft = 0;
+	}
+
+	player = get_players()[ 0 ];
+	foreach ( stub in level.buildable_stubs )
+	{
+		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		{
+			if ( isDefined( buildable ) || stub.persistent != 3 )
+			{
+				if (craft)
+				{
+					stub maps/mp/zombies/_zm_buildables::buildablestub_finish_build( player );
+					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					stub.model notsolid();
+					stub.model show();
+				}
+				else
+				{
+					equipname = stub get_equipname();
+					level.zombie_buildables[ stub.equipname ].hint = "Hold ^3[{+activate}]^7 to craft " + equipname;
+					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
+				}
+
+				i = 0;
+				foreach ( piece in stub.buildablezone.pieces )
+				{
+					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					if ( !craft && i > 0 )
+					{
+						stub.buildablezone maps/mp/zombies/_zm_buildables::buildable_set_piece_built( piece );
+					}
+					i++;
+				}
+				return;
+			}
+		}
+	}
+}
+
+get_equipname() //credit to Jbleezy for this function
+{
+	if ( self.equipname == "turbine" )
+	{
+		return "Turbine";
+	}
+	else if ( self.equipname == "electric_trap" )
+	{
+		return "Electric Trap";
+	}
+	else if ( self.equipname == "riotshield_zm" )
+	{
+		return "Zombie Shield";
+	}
+}
+
 
 getPerks()
 {
@@ -175,3 +312,4 @@ givePerk(perk)
     		self notify("burp");
 	}
 }
+

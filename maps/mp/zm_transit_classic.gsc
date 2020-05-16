@@ -122,19 +122,7 @@ main() //checked partially changed to match cerberus output did not use continue
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
 	level thread maps/mp/zm_transit::delete_bus_pieces();
-	level notify( "revive_on" );
 	wait_network_frame();
-	level notify( "doubletap_on" );
-	wait_network_frame();
-	level notify( "marathon_on" );
-	wait_network_frame();
-	level notify( "juggernog_on" );
-	wait_network_frame();
-	level notify( "sleight_on" );
-	wait_network_frame();
-	level notify( "tombstone_on" );
-	wait_network_frame();
-	level notify( "Pack_A_Punch_on" );
 	
 }
 
