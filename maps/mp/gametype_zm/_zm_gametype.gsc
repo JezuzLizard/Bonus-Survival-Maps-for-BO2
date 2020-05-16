@@ -1719,12 +1719,12 @@ init_barriers_for_custom_maps()
     //tunnelclip3 DisconnectPaths();
 
     //HOUSE BARRIERS
-    housebarrier1 = spawn("script_model", (5568,6336,-24));
+    housebarrier1 = spawn("script_model", (5568,6336,-70));
     housebarrier1 setModel("collision_player_wall_512x512x10");
     housebarrier1 rotateTo((0,266,0),.1);
     housebarrier1 ConnectPaths();
 
-    housebarrier2 = spawn("script_model", (5074,7089,-70));
+    housebarrier2 = spawn("script_model", (5074,7089,-24));
     housebarrier2 setModel("collision_player_wall_128x128x10");
     housebarrier2 rotateTo((0,0,0),.1);
     housebarrier2 ConnectPaths();
