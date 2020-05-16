@@ -7,13 +7,18 @@ init()
 {
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
+	thread buildableBegin();
+	if(isDefined(level.houseMap) && level.houseMap)
+    	{
+    		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
+    	}
+}
+
+buildableBegin()
+{
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	buildbuildables();
-	if(isDefined(level.houseMap) && level.houseMap)
-   	{
-    		thread wunderfizz((5038,6698,-25),(0,130,0), "zombie_vending_jugg");
-    	}
 }
 
 onplayerconnected()
