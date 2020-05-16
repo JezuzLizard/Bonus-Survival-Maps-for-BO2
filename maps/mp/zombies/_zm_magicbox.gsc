@@ -55,12 +55,12 @@ init() //checked matches cerberus output
 			level.chests = [];
 			start_chest = spawnstruct();
 			start_chest.origin = ( 13644, -541, -188 );
-			start_chest.angles = ( 0, -146, 0 );
+			start_chest.angles = ( 0, -110, 0 );
 			start_chest.script_noteworthy = "start_chest";
 			start_chest.zombie_cost = 950;
 			start_chest2 = spawnstruct();
 			start_chest2.origin = ( 7330, 330, -206 );
-			start_chest2.angles = ( 0, -35, 0 );
+			start_chest2.angles = ( 0, 0, 0 );
 			start_chest2.script_noteworthy = "depot_chest";
 			start_chest2.zombie_cost = 950;
 			level.chests[ 0 ] = start_chest;
@@ -220,35 +220,38 @@ get_chest_pieces() //checked changed to match cerberus output
 	if ( level.tunnelMap && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( -10818, -203, 192 );
-		self.chest_box.angles = ( 0, -129, 0 );
+		self.chest_box.angles = ( 0, -179, 0 );
 	}
 	if ( level.cornfieldMap && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 13644, -541, -188 );
-		self.chest_box.angles = ( 0, -146, 0 );
+		self.chest_box.angles = ( 0, 90, 0 );
 	}
 	if ( level.cornfieldMap && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( 7330, 330, -206 );
-		self.chest_box.angles = ( 0, -35, 0 );
+		self.chest_box.angles = ( 0, 110, 0 );
 	}
 	if ( level.houseMap && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
-		self.chest_box.angles = ( 0, 90, 0 );
+		self.chest_box.angles = ( 0, -90, 0 );
 	}
-	collision = spawn( "script_model", self.chest_box.origin );
-    collision.angles = self.chest_box.angles;
-    collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
-    collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-    collision.angles = self.chest_box.angles;
-    collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
-    collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-    collision.angles = self.chest_box.angles;
-    collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	if ( level.houseMap || level.cornfieldMap || level.tunnelMap )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+	}
 	self.chest_rubble = [];
 	rubble = getentarray( self.script_noteworthy + "_rubble", "script_noteworthy" );
 	for ( i = 0; i < rubble.size; i++ )
@@ -1710,3 +1713,10 @@ magicbox_host_migration() //checked changed to match cerberus output
 		}
 	}
 }
+
+
+
+
+
+
+
