@@ -27,6 +27,7 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
+	precacheEffectsForWeapons();
 	init_custom_wallbuys();
 	init_weapons();
 	init_weapon_upgrade();
@@ -41,6 +42,19 @@ init() //checked matches cerberus output
 	setupretrievablehintstrings();
 	level thread onplayerconnect();
 
+}
+
+precacheEffectsForWeapons()
+{
+	level._effect[ "m14_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m14" );
+	level._effect[ "olympia_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_olympia" );
+	level._effect[ "mp5k_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_mp5k" );
+	level._effect[ "ak74u_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_ak74u" );
+	level._effect[ "b23r_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_berreta93r" );
+	level._effect[ "bowie_knife_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_bowie" );
+	level._effect[ "claymore_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
+	level._effect[ "m16_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
+	level._effect[ "galvaknuckles_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_taseknuck" );
 }
 
 setupretrievablehintstrings() //checked matches cerberus output
@@ -1055,18 +1069,21 @@ init_spawnable_weapon_upgrade()
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
-				spawn_list[ i ].origin = (5255, 6668, 31);
+				spawn_list[ i ].origin = (5270, 6668, 31);
 				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("m14_effect", spawn_list[ i ].origin, (0,0,0));
 			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
 			{
 				spawn_list[ i ].origin = (5004, 6696, 31);
 				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,270,0));
 			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
 			{
 				spawn_list[ i ].origin = (5143, 6651, 31);
 				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("mp5k_effect", spawn_list[ i ].origin, (0,180,0));
 			}
 		}
 		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
@@ -1201,6 +1218,17 @@ init_spawnable_weapon_upgrade()
 	}
 	level._spawned_wallbuys = spawn_list;
 	tempmodel delete();
+}
+
+playchalkfx(effect, origin, angles)
+{
+	for(;;)
+	{
+		fx = SpawnFX(level._effect[ effect ], origin,AnglesToForward(angles),AnglesToUp(angles));
+		TriggerFX(fx);
+		level waittill("connected", player);
+		fx Delete();
+	}
 }
 
 add_dynamic_wallbuy( weapon, wallbuy, pristine ) //checked partially changed to match cerberus output
