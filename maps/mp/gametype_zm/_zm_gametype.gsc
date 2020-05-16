@@ -1718,15 +1718,41 @@ init_barriers_for_custom_maps()
     tunnelclip3 rotateTo((0,214,0), .1);
     //tunnelclip3 DisconnectPaths();
 
-    housebarrier1 = spawn("script_model", (5228,6530,-24));
+    //HOUSE BARRIERS
+    housebarrier1 = spawn("script_model", (5568,6336,-24));
     housebarrier1 setModel("collision_player_wall_512x512x10");
-    housebarrier1 rotateTo((0,0,0),.1);
+    housebarrier1 rotateTo((0,266,0),.1);
     housebarrier1 ConnectPaths();
 
-    housebarrier2 = spawn("script_model", (5074,7089,-24));
-    housebarrier2 setModel("collision_player_wall_64x64x10");
+    housebarrier2 = spawn("script_model", (5074,7089,-70));
+    housebarrier2 setModel("collision_player_wall_128x128x10");
     housebarrier2 rotateTo((0,0,0),.1);
     housebarrier2 ConnectPaths();
+
+    housebarrier3 = spawn("script_model", (4985,5862,-64));
+    housebarrier3 setModel("collision_player_wall_512x512x10");
+    housebarrier3 rotateTo((0,159,0),.1);
+    housebarrier3 ConnectPaths();
+
+    housebarrier4 = spawn("script_model", (5207,5782,-64));
+    housebarrier4 setModel("collision_player_wall_512x512x10");
+    housebarrier4 rotateTo((0,159,0),.1);
+    housebarrier4 ConnectPaths();
+
+    housebarrier5 = spawn("script_model", (4819,6475,-64));
+    housebarrier5 setModel("collision_player_wall_512x512x10");
+    housebarrier5 rotateTo((0,258,0),.1);
+    housebarrier5 ConnectPaths();
+
+    housebarrier6 = spawn("script_model", (4767,6200,-64));
+    housebarrier6 setModel("collision_player_wall_512x512x10");
+    housebarrier6 rotateTo((0,258,0),.1);
+    housebarrier6 ConnectPaths();
+
+    housebarrier7 = spawn("script_model", (5459,5683,-64));
+    housebarrier7 setModel("collision_player_wall_512x512x10");
+    housebarrier7 rotateTo((0,159,0),.1);
+    housebarrier7 ConnectPaths();
     
     //POWER STATION BARRIERS
     powerbarrier1 = spawn("script_model", (9965,8133,-556));
