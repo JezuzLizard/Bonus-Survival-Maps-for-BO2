@@ -3118,6 +3118,14 @@ extra_perk_spawns()
 	level.tunnelPerks[ "specialty_quickrevive" ].angles = ( 0, 84, 0 );
 	level.tunnelPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
 	level.tunnelPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	
+	level.housePerkArray = array( "specialty_weapupgrade" );
+
+	level.housePerks["specialty_weapupgrade"] = spawnstruct();
+	level.housePerks["specialty_weapupgrade"].origin = (5394,6869,-23);
+	level.housePerks["specialty_weapupgrade"].angles = (0,90,0);
+	level.housePerks["specialty_weapupgrade"].model = "tag_origin";
+	level.housePerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
 
 perk_machine_spawn_init()
@@ -3193,6 +3201,13 @@ perk_machine_spawn_init()
 		foreach ( perk in level.tunnelPerkArray )
 		{
 			pos[ pos.size ] = level.tunnelPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.houseMap ) && level.houseMap )
+	{
+		foreach( perk in level.housePerkArray )
+		{
+			pos[pos.size] = level.housePerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )
