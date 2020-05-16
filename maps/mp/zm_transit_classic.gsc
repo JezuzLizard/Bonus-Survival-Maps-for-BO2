@@ -122,7 +122,6 @@ main() //checked partially changed to match cerberus output did not use continue
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
 	level thread maps/mp/zm_transit::delete_bus_pieces();
-	wait_network_frame();
 	
 }
 
