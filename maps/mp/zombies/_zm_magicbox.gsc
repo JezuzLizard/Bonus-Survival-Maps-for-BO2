@@ -72,7 +72,7 @@ init() //checked matches cerberus output
 			level.chests = [];
 			start_chest = spawnstruct();
 			start_chest.origin = ( 5387, 6594, -24 );
-			start_chest.angles = ( 0, 90, 0 );
+			start_chest.angles = ( 0, 270, 0 );
 			start_chest.script_noteworthy = "start_chest";
 			start_chest.zombie_cost = 950;
 			level.chests[ 0 ] = start_chest;
