@@ -27,6 +27,7 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
+	init_custom_wallbuys();
 	init_weapons();
 	init_weapon_upgrade();
 	init_weapon_toggle();
@@ -885,7 +886,53 @@ player_can_use_content( weapon ) //checked matches cerberus output
 	return 1;
 }
 
-init_spawnable_weapon_upgrade() //checked partially changed to match cerberus output
+custom_wallbuy(model, weapon, origin, angles) //custom wallbuy model
+{
+	originfix = origin + (0, 0, 55);
+	RW = spawn( "script_model", originfix );
+	RW setModel( model );
+	RW rotateTo( angles, .1 );
+}
+
+init_custom_wallbuys() //custom wallbuys for each map!
+{
+	if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+	{
+		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (-11165, -2844, 196), (0, 90, 0));
+		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (-10790, -1430, 196), (0, 90, 0));
+		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (-10625, -545, 196), (0, 90, 0));
+		custom_wallbuy("t6_wpn_taser_knuckles_view", "tazer_knuckles_zm", (-11839, -2406, 228), (0, 90, 0));
+	}
+	else if ( isDefined( level.dinerMap ) && level.dinerMap )
+	{
+		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (-4367, -7484, -63), (0, 0, 0));
+		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (-5085, -7793, -63), (0, 0, 0));
+		custom_wallbuy("t6_wpn_ar_m16a2_view", "m16_zm", (-3578, -7185, -59), (0, 0, 0));
+	}
+	else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+	{
+		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (13666, -1166, -189), (0, 90, 0));
+		custom_wallbuy("t6_wpn_ar_m16a2_view", "m16_zm", (14092, -353, -188), (0, 90, 0));
+		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (13542, -542, -188), (0, 90, 0));
+		custom_wallbuy("t6_wpn_taser_knuckles_view", "tazer_knuckles_zm", (13502, -12, -180), (0, 90, 0));
+	}
+	else if ( isDefined( level.houseMap ) && level.houseMap )
+	{
+		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (5255, 6668, -24), (0, 0, 0));
+		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (5004, 6696, -24), (0, 90, 0));
+		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (5143, 6651, -24), (0, 0, 0));
+	}
+	else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+	{
+		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (10559, 8226, -559), (0, 90, 0));
+		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (11769, 7662, -756), (0, -10, 0));
+		custom_wallbuy("t6_wpn_ar_m16a2_view", "m16_zm", (10859, 8144, -408), (0, 0, 0));
+		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (11109, 8935, -576), (0, 0, 0));
+		custom_wallbuy("viewmodel_knife_bowie", "bowie_knife_zm", (10829, 8135, -545), (0, 0, 0));
+	}
+}
+
+init_spawnable_weapon_upgrade()
 {
 	spawn_list = [];
 	spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
@@ -940,6 +987,116 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 	{
 		clientfieldname = spawn_list[ i ].zombie_weapon_upgrade + "_" + spawn_list[ i ].origin;
 		numbits = 2;
+		if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (-11165, -2844, 247);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (-10790, -1430, 247);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+			{
+				spawn_list[ i ].origin = (-10625, -545, 247);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "tazer_knuckles_zm" )
+			{
+				spawn_list[ i ].origin = (-11839, -2406, 283);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+		}
+		else if ( isDefined( level.dinerMap ) && level.dinerMap )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (-4360, -7489, -5);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (-5085, -7807, -5);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m16_zm" )
+			{
+				spawn_list[ i ].origin = (-3578, -7195, 0);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+		}
+		else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (13666, -1166, -134);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m16_zm" )
+			{
+				spawn_list[ i ].origin = (14092, -353, -133);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+			{
+				spawn_list[ i ].origin = (13542, -542, -133);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "tazer_knuckles_zm" )
+			{
+				spawn_list[ i ].origin = (13502, -12, -125);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+		}
+		else if ( isDefined( level.houseMap ) && level.houseMap )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (5255, 6668, 31);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (5004, 6696, 31);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+			{
+				spawn_list[ i ].origin = (5143, 6651, 31);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+		}
+		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (10559, 8226, -504);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (11769, 7662, -701);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m16_zm" )
+			{
+				spawn_list[ i ].origin = (10859, 8144, -353);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+			{
+				spawn_list[ i ].origin = (11109, 8935, -521);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "bowie_knife_zm" )
+			{
+				spawn_list[ i ].origin = (10837, 8135, -490);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+			}
+		}
 		if ( isDefined( level._wallbuy_override_num_bits ) )
 		{
 			numbits = level._wallbuy_override_num_bits;
@@ -958,13 +1115,6 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 			i++;
 			continue;
 		}
-		
-		if ( isDefined( level.dinerMap ) && level.dinerMap && spawn_list[ i ].zombie_weapon_upgrade == "sticky_grenade_zm" )
-		{
-			spawn_list[ i ].origin = ( -3991, -7317, -63 );
-			spawn_list[ i ].angles = ( 0, 161, 0 );
-		}
-		
 		precachemodel( target_struct.model );
 		unitrigger_stub = spawnstruct();
 		unitrigger_stub.origin = spawn_list[ i ].origin;
@@ -2816,12 +2966,3 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
-
-
-
-
-
-
-
-
-
