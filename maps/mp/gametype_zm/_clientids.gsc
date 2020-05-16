@@ -109,12 +109,6 @@ buildbuildable( buildable, craft ) //credit to Jbleezy for this function
 					stub.model notsolid();
 					stub.model show();
 				}
-				else
-				{
-					equipname = stub get_equipname();
-					level.zombie_buildables[ stub.equipname ].hint = "Hold ^3[{+activate}]^7 to craft " + equipname;
-					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
-				}
 
 				i = 0;
 				foreach ( piece in stub.buildablezone.pieces )
@@ -147,7 +141,6 @@ get_equipname() //credit to Jbleezy for this function
 		return "Zombie Shield";
 	}
 }
-
 
 getPerks()
 {
@@ -312,4 +305,5 @@ givePerk(perk)
     		self notify("burp");
 	}
 }
+
 
