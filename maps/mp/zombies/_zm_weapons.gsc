@@ -1139,8 +1139,6 @@ init_spawnable_weapon_upgrade()
 		unitrigger_stub.target = spawn_list[ i ].target;
 		unitrigger_stub.targetname = spawn_list[ i ].targetname;
 		unitrigger_stub.cursor_hint = "HINT_NOICON";
-		unitrigger_stub.hint_string = get_weapon_hint( spawn_list[ i ].zombie_weapon_upgrade );
-		unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
 		if ( spawn_list[ i ].targetname == "weapon_upgrade" )
 		{
 			unitrigger_stub.cost = get_weapon_cost( spawn_list[ i ].zombie_weapon_upgrade );
@@ -1774,10 +1772,6 @@ get_upgraded_ammo_cost( weapon_name ) //checked matches cerberus output
 
 get_weapon_display_name( weapon_name ) //checked changed to match cerberus output
 {
-	if ( weapon_name == "m14_zm" )
-	{
-		weapon_display = "M14";
-	}
 	weapon_display = getweapondisplayname( weapon_name );
 	if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 	{
