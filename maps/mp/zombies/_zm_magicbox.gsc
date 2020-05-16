@@ -39,7 +39,7 @@ init() //checked matches cerberus output
 	{
 		level.chests = getstructarray( "treasure_chest_use", "targetname" );
 		normalChests = level.chests;
-		if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+		if ( level.customMap == "tunnel" )
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
@@ -50,7 +50,7 @@ init() //checked matches cerberus output
 			level.chests[ 0 ] = start_chest;
 			treasure_chest_init( "start_chest" );
 		}
-		else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+		else if ( level.customMap == "cornfield" )
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
@@ -67,7 +67,7 @@ init() //checked matches cerberus output
 			level.chests[ 1 ] = start_chest2;
 			treasure_chest_init( "start_chest" );
 		}
-		else if ( isDefined( level.houseMap ) && level.houseMap )
+		else if ( level.customMap == "house" )
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
@@ -78,13 +78,13 @@ init() //checked matches cerberus output
 			level.chests[ 0 ] = start_chest;
 			treasure_chest_init( "start_chest" );
 		}
-		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+		else if ( level.customMap == "power" )
 		{
 			level.chests = [];
 			level.chests[ 0 ] = normalChests[ 2 ];
 			treasure_chest_init( "pow_chest" );
 		}
-		else
+		else if ( level.customMap == "diner" )
 		{
 			level.chests = [];
 			level.chests[ 0 ] = normalChests[ 3 ];
@@ -217,27 +217,27 @@ set_treasure_chest_cost( cost ) //checked matches cerberus output
 get_chest_pieces() //checked changed to match cerberus output
 {
 	self.chest_box = getent( self.script_noteworthy + "_zbarrier", "script_noteworthy" );
-	if ( level.tunnelMap && self.script_noteworthy == "start_chest" )
+	if ( level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( -10818, -203, 192 );
 		self.chest_box.angles = ( 0, -179, 0 );
 	}
-	if ( level.cornfieldMap && self.script_noteworthy == "start_chest" )
+	if ( level.customMap == "cornfield" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 13644, -541, -188 );
 		self.chest_box.angles = ( 0, 90, 0 );
 	}
-	if ( level.cornfieldMap && self.script_noteworthy == "depot_chest" )
+	if ( level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( 7330, 330, -206 );
 		self.chest_box.angles = ( 0, 110, 0 );
 	}
-	if ( level.houseMap && self.script_noteworthy == "start_chest" )
+	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
-		self.chest_box.angles = ( 0, 90, 0 );
+		self.chest_box.angles = ( 0, -90, 0 );
 	}
-	if ( level.houseMap || level.cornfieldMap || level.tunnelMap )
+	if ( level.customMap == "house" || level.customMap == "cornfield" || level.customMap == "tunnel" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -1713,6 +1713,7 @@ magicbox_host_migration() //checked changed to match cerberus output
 		}
 	}
 }
+
 
 
 

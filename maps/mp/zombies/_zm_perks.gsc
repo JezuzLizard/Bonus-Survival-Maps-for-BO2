@@ -3175,35 +3175,35 @@ perk_machine_spawn_init()
 		}
 		i++;
 	}
-	if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+	if ( level.customMap == "cornfield" )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
 		{
 			pos[ pos.size ] = level.cornfieldPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+	else if ( level.customMap == "power" )
 	{
 		foreach ( perk in level.powerStationPerkArray )
 		{
 			pos[ pos.size ] = level.powerStationPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.dinerMap ) && level.dinerMap  )
+	else if ( level.customMap =="diner" )
 	{
 		foreach ( perk in level.dinerPerkArray )
 		{
 			pos[ pos.size ] = level.dinerPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.tunnelMap ) && level.tunnelMap  )
+	else if ( level.customMap == "tunnel" )
 	{
 		foreach ( perk in level.tunnelPerkArray )
 		{
 			pos[ pos.size ] = level.tunnelPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.houseMap ) && level.houseMap )
+	else if ( level.customMap == "house" )
 	{
 		foreach( perk in level.housePerkArray )
 		{
@@ -4142,6 +4142,7 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
+
 
 
 

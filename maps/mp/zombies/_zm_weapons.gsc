@@ -27,6 +27,7 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
+	level.monolingustic_prompt_format = 0;
 	precacheEffectsForWeapons();
 	init_custom_wallbuys();
 	init_weapons();
@@ -910,33 +911,33 @@ custom_wallbuy(model, weapon, origin, angles) //custom wallbuy model
 
 init_custom_wallbuys() //custom wallbuys for each map!
 {
-	if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+	if ( level.customMap == "tunnel" )
 	{
 		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (-11165, -2844, 196), (0, 90, 0));
 		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (-10790, -1430, 196), (0, 90, 0));
 		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (-10625, -545, 196), (0, 90, 0));
 		custom_wallbuy("t6_wpn_taser_knuckles_view", "tazer_knuckles_zm", (-11839, -2406, 228), (0, 90, 0));
 	}
-	else if ( isDefined( level.dinerMap ) && level.dinerMap )
+	else if ( level.customMap == "diner" )
 	{
 		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (-4367, -7484, -63), (0, 0, 0));
 		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (-5085, -7793, -63), (0, 0, 0));
 		custom_wallbuy("t6_wpn_ar_m16a2_view", "m16_zm", (-3578, -7185, -59), (0, 0, 0));
 	}
-	else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+	else if ( level.customMap == "cornfield" )
 	{
 		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (13666, -1166, -189), (0, 90, 0));
 		custom_wallbuy("t6_wpn_ar_m16a2_view", "m16_zm", (14092, -353, -188), (0, 90, 0));
 		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (13542, -542, -188), (0, 90, 0));
 		custom_wallbuy("t6_wpn_taser_knuckles_view", "tazer_knuckles_zm", (13502, -12, -180), (0, 90, 0));
 	}
-	else if ( isDefined( level.houseMap ) && level.houseMap )
+	else if ( level.customMap == "house" )
 	{
 		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (5255, 6668, -24), (0, 0, 0));
 		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (5004, 6696, -24), (0, 90, 0));
 		custom_wallbuy("t6_wpn_smg_mp5_view", "mp5k_zm", (5143, 6651, -24), (0, 0, 0));
 	}
-	else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+	else if ( level.customMap == "power" )
 	{
 		custom_wallbuy("t6_wpn_ar_m14_view", "m14_zm", (10559, 8226, -559), (0, 90, 0));
 		custom_wallbuy("t6_wpn_shotty_olympia_view", "rottweil72_zm", (11769, 7662, -756), (0, -10, 0));
@@ -946,7 +947,7 @@ init_custom_wallbuys() //custom wallbuys for each map!
 	}
 }
 
-init_spawnable_weapon_upgrade()
+init_spawnable_weapon_upgrade() //checked partially changed to match cerberus output
 {
 	spawn_list = [];
 	spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
@@ -1001,7 +1002,7 @@ init_spawnable_weapon_upgrade()
 	{
 		clientfieldname = spawn_list[ i ].zombie_weapon_upgrade + "_" + spawn_list[ i ].origin;
 		numbits = 2;
-		if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+		if ( level.customMap == "tunnel" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1024,7 +1025,7 @@ init_spawnable_weapon_upgrade()
 				spawn_list[ i ].angles = ( 0, 0, 0 );
 			}
 		}
-		else if ( isDefined( level.dinerMap ) && level.dinerMap )
+		else if ( level.customMap == "diner" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1042,7 +1043,7 @@ init_spawnable_weapon_upgrade()
 				spawn_list[ i ].angles = ( 0, 0, 0 );
 			}
 		}
-		else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+		else if ( level.customMap == "cornfield" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
 			{
@@ -1065,7 +1066,7 @@ init_spawnable_weapon_upgrade()
 				spawn_list[ i ].angles = ( 0, 0, 0 );
 			}
 		}
-		else if ( isDefined( level.houseMap ) && level.houseMap )
+		else if ( level.customMap == "house" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1086,7 +1087,7 @@ init_spawnable_weapon_upgrade()
 				thread playchalkfx("mp5k_effect", spawn_list[ i ].origin, (0,180,0));
 			}
 		}
-		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+		else if ( level.customMap == "power" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1167,17 +1168,7 @@ init_spawnable_weapon_upgrade()
 			else
 			{
 				unitrigger_stub.hint_parm1 = get_weapon_display_name( spawn_list[ i ].zombie_weapon_upgrade );
-				if ( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
-					unitrigger_stub.hint_parm1 = "M14";
-				else if ( spawn_list[ i ].zombie_weapon_upgrade == "m16_zm" )
-					unitrigger_stub.hint_parm1 = "M16";
-				else if ( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
-					unitrigger_stub.hint_parm1 = "MP5";
-				else if ( spawn_list[ i ].zombie_weapon_upgrade == "ak74u_zm" )
-					unitrigger_stub.hint_parm1 = "AK-74u";
-				else if ( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
-					unitrigger_stub.hint_parm1 = "Olympia";
-				else if ( !isDefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
+				if ( !isDefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
 				{
 					unitrigger_stub.hint_parm1 = "missing weapon name " + spawn_list[ i ].zombie_weapon_upgrade;
 				}
@@ -1395,17 +1386,7 @@ wall_weapon_update_prompt( player ) //checked partially changed to match cerberu
 		{
 			cost = get_weapon_cost( weapon );
 			weapon_display = get_weapon_display_name( weapon );
-			if ( weapon == "m14_zm" )
-				weapon_display = "M14";
-			else if ( weapon == "m16_zm" )
-				weapon_display = "M16";
-			else if ( weapon == "mp5k_zm" )
-				weapon_display = "MP5";
-			else if ( weapon == "ak74u_zm" )
-				weapon_display = "AK-74u";
-			else if ( weapon == "rottweil72_zm" )
-				weapon_display = "Olympia";
-			else if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
+			if ( isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 			{
 				weapon_display = "missing weapon name " + weapon;
 			}
@@ -1515,23 +1496,14 @@ init_weapon_upgrade() //checked changed to match cerberus output
 		{
 			cost = get_weapon_cost( weapon_spawns[ i ].zombie_weapon_upgrade );
 			weapon_display = get_weapon_display_name( weapon_spawns[ i ].zombie_weapon_upgrade );
-			if ( weapon_spawns[ i ].zombie_weapon_upgrade == "m14_zm" )
-				weapon_display = "M14";
-			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "m16_zm" )
-				weapon_display = "M16";
-			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "mp5k_zm" )
-				weapon_display = "MP5";
-			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "ak74u_zm" )
-				weapon_display = "AK-74u";
-			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
-				weapon_display = "Olympia";
-			else if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
+			if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 			{
 				weapon_display = "missing weapon name " + weapon_spawns[ i ].zombie_weapon_upgrade;
 			}
 			hint_string = &"ZOMBIE_WEAPONCOSTONLY";
 			weapon_spawns[ i ] sethintstring( hint_string, weapon_display, cost );
 		}
+	
 		weapon_spawns[ i ] usetriggerrequirelookat();
 		weapon_spawns[ i ] thread weapon_spawn_think();
 		model = getent( weapon_spawns[ i ].target, "targetname" );
@@ -3024,3 +2996,14 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+

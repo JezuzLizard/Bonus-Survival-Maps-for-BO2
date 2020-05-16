@@ -273,12 +273,6 @@ setup_standard_objects( location ) //checked partially used cerberus output
 	i = 0;
 	while ( i < objects.size )
 	{
-		if ( isDefined( objects[ i ].targetname ) && objects[ i ].targetname == "screecher_volume" )
-		{
-			objects[ i ] delete();
-			i++;
-			continue;
-		}
 		if ( !objects[ i ] is_survival_object() )
 		{	
 			i++;
@@ -866,9 +860,11 @@ setup_classic_gametype() //checked did not change to match cerberus output
 				ents[ i ] delete();
 			}
 		}
-		if ( isDefined( ents[ i ].script_noteworthy ) && ents[ i ].script_noteworthy == "screecher_location" )
+		if ( isDefined( ents[ i ].script_noteworthy ) && ents[ i ].script_noteworthy == "diner" && ents[ i ].model == "veh_t6_civ_movingtrk_cab_dead" )
 		{
-			ents[ i ] delete();
+			barricade = spawn( "script_model", ents[ i ].origin );
+			barricade.angles = ents[ i ].angles;
+			barricade setmodel( "collision_clip_256x256x10" );
 		}
 		i++;
 	}
@@ -1395,14 +1391,74 @@ onspawnplayerunified() //checked matches cerberus output
 	onspawnplayer( 0 );
 }
 
+/*
+next_map_maprotation_system()
+{
+	if ( !level.customMapsMapRotationActive ) 
+	{
+		return;
+	}
+	if ( !isDefined( level.customMapsMapRotation ) || level.customMapsMapRotation == "" ) 
+	{
+		level.customMapsMapRotation = "cornfield diner house power tunnel";
+	}
+	tokens = strtok( level.customMapsMapRotation, " " );
+	foreach ( token in tokens )
+	{
+		tokensArray = [];
+		tokensArray[ tokensArray.size ] = token;
+	}
+	if ( level.customMapsMapRotationRandomization && !level.customMapsMapsRandomized )
+	{
+		tokensArray = array_randomize( tokensArray );
+		setDvar( "customMapsRandomized", 1 );
+	}
+	if ( getDvarIntDefault( tokensArray[ 0 ], 1 ) )
+	{
+		setDvar( "customMap", tokensArray[ 0 ] );
+		setDvar( tokensArray[ 0 ], 0 );
+		return;
+	}
+	if ( getDvarIntDefault( tokensArray[ 1 ], 1 ) )
+	{
+		setDvar( "customMap", tokensArray[ 1 ] );
+		setDvar( tokensArray[ 1 ], 0 );
+		return;
+	}
+	if ( getDvarIntDefault( tokensArray[ 2 ], 1 ) )
+	{
+		setDvar( "customMap", tokensArray[ 2 ] );
+		setDvar( tokensArray[ 2 ], 0 );
+		return;
+	}
+	if ( getDvarIntDefault( tokensArray[ 3 ], 1 ) )
+	{
+		setDvar( "customMap", tokensArray[ 3 ] );
+		setDvar( tokensArray[ 3 ], 0 );
+		return;
+	}
+	if ( getDvarIntDefault( tokensArray[ 4 ], 1 ) )
+	{
+		setDvar( "customMap", tokensArray[ 4 ] );
+		setDvar( tokensArray[ 4 ], 0 );
+		return;
+	}
+	setDvar( tokens[ 0 ], 1 );
+	setDvar( tokens[ 1 ], 1 );
+	setDvar( tokens[ 2 ], 1 );
+	setDvar( tokens[ 3 ], 1 );
+	setDvar( tokens[ 4 ], 1 );
+}
+*/
+
 init_spawnpoints_for_custom_survival_maps()
 {
-	level.tunnelMap = getDvarIntDefault( "tunnelMapActive", 0 );
-	level.dinerMap = getDvarIntDefault( "dinerMapActive", 0 );
-	level.powerStationMap = getdvarIntDefault( "powerStationMapActive", 0 );
-	level.cornfieldMap = getDvarIntDefault( "cornfieldMapActive", 0 );
-	level.houseMap = getDvarIntDefault( "houseMapActive", 0 );
-	level.customMapsMapRotation = getDvar( "customMapsMapRotation" );//looks like this "tunnel diner power cornfield"
+	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
+	//level.customMapsMapRotationRandomization = getDvarIntDefault( "customMapsMapRotationRandomization", 0 );
+	//level.customMapsRandomized = getDvarIntDefault( "customMapsRandomized", 0 );
+	//level.customMapsMapRotationActive = getDvarIntDefault( "customMapsMapRotationActive", 0 );
+	//level.customMapsMapRotation = getDvar( "customMapsMapRotation" );//looks like this "tunnel diner power cornfield"
+	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield"
 	
 	//TUNNEL
 	level.tunnelSpawnpoints = [];
@@ -1696,27 +1752,25 @@ init_spawnpoints_for_custom_survival_maps()
 
 init_barriers_for_custom_maps()
 {
-    //TUNNEL BARRIERS
+	//TUNNEL BARRIERS
     tunnelbarrier1 = spawn("script_model", (-11250,-520,255));
     tunnelbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
     tunnelbarrier1 rotateTo((0,172,0),.1);
     tunnelclip1 = spawn("script_model", (-11250,-580,255));
     tunnelclip1 setModel("collision_clip_wall_256x256x10");
     tunnelclip1 rotateTo((0,180,0), .1);
-    //tunnelclip1 DisconnectPaths();
     tunnelclip2 = spawn("script_model", (-11506,-580,255));
     tunnelclip2 setModel("collision_clip_wall_256x256x10");
     tunnelclip2 rotateTo((0,180,0), .1);
-    //tunnelclip2 DisconnectPaths();
 
-    //HOUSE BARRIERS
     tunnelbarrier4 = spawn("script_model", (-10770,-3240,255));
     tunnelbarrier4 setModel("veh_t6_civ_movingtrk_cab_dead");
     tunnelbarrier4 rotateTo((0,214,0),.1);
     tunnelclip3 = spawn("script_model", (-10840,-3190,255));
     tunnelclip3 setModel("collision_clip_wall_256x256x10");
     tunnelclip3 rotateTo((0,214,0), .1);
-    //tunnelclip3 DisconnectPaths();
+    
+        //tunnelclip3 DisconnectPaths();
 
     //HOUSE BARRIERS
     housebarrier1 = spawn("script_model", (5568,6336,-70));
@@ -1823,35 +1877,35 @@ onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerbe
 		}
 		match_string = level.scr_zm_ui_gametype + "_" + location;
 		spawnpoints = [];
-		if ( isDefined( level.tunnelMap ) && level.tunnelMap )
+		if ( isDefined( level.customMap ) && level.customMap == "tunnel" )
 		{
 			for ( i = 0; i < level.tunnelSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.tunnelSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.dinerMap ) && level.dinerMap )
+		else if ( isDefined( level.customMap ) && level.customMap == "diner" )
 		{
 			for ( i = 0; i < level.dinerSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.dinerSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.cornfieldMap ) && level.cornfieldMap )
+		else if ( isDefined( level.customMap ) && level.customMap == "cornfield" )
 		{
 			for ( i = 0; i < level.cornfieldSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.cornfieldSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.powerStationMap ) && level.powerStationMap )
+		else if ( isDefined( level.customMap ) && level.customMap == "power" )
 		{
 			for ( i = 0; i < level.powerStationSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.powerStationSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.houseMap) && level.houseMap )
+		else if ( isDefined( level.customMap ) && level.customMap == "house" )
 		{
 			for ( i = 0; i < level.houseSpawnpoints.size; i++ )
 			{
@@ -2384,7 +2438,6 @@ blank()
 {
 	//empty function
 }
-
 
 
 

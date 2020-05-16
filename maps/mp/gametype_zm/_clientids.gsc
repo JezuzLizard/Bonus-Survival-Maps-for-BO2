@@ -5,20 +5,17 @@
 
 init()
 {
+    thread gscRestart();
+    thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
-	thread buildableBegin();
-	if(isDefined(level.houseMap) && level.houseMap)
-    	{
-    		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    	}
-}
-
-buildableBegin()
-{
 	level thread onplayerconnected();
 	disable_pers_upgrades();
-	buildbuildables();
+	thread buildbuildables();
+	if ( level.customMap == "house" )
+   	{
+    		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
+    }
 }
 
 onplayerconnected()
@@ -27,6 +24,7 @@ onplayerconnected()
 	{
 		level waittill( "connected", player );
 		player thread onplayerspawned();
+		player thread [[ level.givecustomcharacters ]]();
 	}
 }
 
@@ -311,4 +309,58 @@ givePerk(perk)
 	}
 }
 
+gscRestart()
+{
+	level waittill( "end_game" );
+	setDvar( "customMapsMapRestarted", 1 );
+    wait 12; //20 is ideal
+    map_restart( false );
+}
+
+setPlayersToSpectator()
+{
+	level.no_end_game_check = 1;
+	wait 3;
+	players = get_players();
+	i = 0;
+	while ( i < players.size )
+	{
+		if ( i == 0 )
+		{
+			i++;
+		}
+		players[ i ] setToSpectator();
+		i++;
+	}
+	wait 5; 
+	spawnAllPlayers();
+}
+
+setToSpectator()
+{
+    self.sessionstate = "spectator"; 
+    if (isDefined(self.is_playing))
+    {
+        self.is_playing = false;
+    }
+}
+
+spawnAllPlayers()
+{
+	players = get_players();
+	i = 0;
+	while ( i < players.size )
+	{
+		if ( players[ i ].sessionstate == "spectator" && isDefined( players[ i ].spectator_respawn ) )
+		{
+			players[ i ] [[ level.spawnplayer ]]();
+			if ( level.script != "zm_tomb" || level.script != "zm_prison" || !is_classic() )
+			{
+				thread maps\mp\zombies\_zm::refresh_player_navcard_hud();
+			}
+		}
+		i++;
+	}
+	level.no_end_game_check = 0;
+}
 
