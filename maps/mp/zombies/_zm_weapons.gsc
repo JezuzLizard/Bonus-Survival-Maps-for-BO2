@@ -1139,6 +1139,8 @@ init_spawnable_weapon_upgrade()
 		unitrigger_stub.target = spawn_list[ i ].target;
 		unitrigger_stub.targetname = spawn_list[ i ].targetname;
 		unitrigger_stub.cursor_hint = "HINT_NOICON";
+		unitrigger_stub.hint_string = get_weapon_hint( spawn_list[ i ].zombie_weapon_upgrade );
+		unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
 		if ( spawn_list[ i ].targetname == "weapon_upgrade" )
 		{
 			unitrigger_stub.cost = get_weapon_cost( spawn_list[ i ].zombie_weapon_upgrade );
@@ -1150,7 +1152,17 @@ init_spawnable_weapon_upgrade()
 			else
 			{
 				unitrigger_stub.hint_parm1 = get_weapon_display_name( spawn_list[ i ].zombie_weapon_upgrade );
-				if ( !isDefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
+				if ( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+					unitrigger_stub.hint_parm1 = "M14";
+				else if ( spawn_list[ i ].zombie_weapon_upgrade == "m16_zm" )
+					unitrigger_stub.hint_parm1 = "M16";
+				else if ( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+					unitrigger_stub.hint_parm1 = "MP5";
+				else if ( spawn_list[ i ].zombie_weapon_upgrade == "ak74u_zm" )
+					unitrigger_stub.hint_parm1 = "AK-74u";
+				else if ( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+					unitrigger_stub.hint_parm1 = "Olympia";
+				else if ( !isDefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
 				{
 					unitrigger_stub.hint_parm1 = "missing weapon name " + spawn_list[ i ].zombie_weapon_upgrade;
 				}
@@ -1357,7 +1369,17 @@ wall_weapon_update_prompt( player ) //checked partially changed to match cerberu
 		{
 			cost = get_weapon_cost( weapon );
 			weapon_display = get_weapon_display_name( weapon );
-			if ( isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
+			if ( weapon == "m14_zm" )
+				weapon_display = "M14";
+			else if ( weapon == "m16_zm" )
+				weapon_display = "M16";
+			else if ( weapon == "mp5k_zm" )
+				weapon_display = "MP5";
+			else if ( weapon == "ak74u_zm" )
+				weapon_display = "AK-74u";
+			else if ( weapon == "rottweil72_zm" )
+				weapon_display = "Olympia";
+			else if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 			{
 				weapon_display = "missing weapon name " + weapon;
 			}
@@ -1467,7 +1489,17 @@ init_weapon_upgrade() //checked changed to match cerberus output
 		{
 			cost = get_weapon_cost( weapon_spawns[ i ].zombie_weapon_upgrade );
 			weapon_display = get_weapon_display_name( weapon_spawns[ i ].zombie_weapon_upgrade );
-			if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
+			if ( weapon_spawns[ i ].zombie_weapon_upgrade == "m14_zm" )
+				weapon_display = "M14";
+			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "m16_zm" )
+				weapon_display = "M16";
+			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+				weapon_display = "MP5";
+			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "ak74u_zm" )
+				weapon_display = "AK-74u";
+			else if ( weapon_spawns[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+				weapon_display = "Olympia";
+			else if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 			{
 				weapon_display = "missing weapon name " + weapon_spawns[ i ].zombie_weapon_upgrade;
 			}
@@ -1742,6 +1774,10 @@ get_upgraded_ammo_cost( weapon_name ) //checked matches cerberus output
 
 get_weapon_display_name( weapon_name ) //checked changed to match cerberus output
 {
+	if ( weapon_name == "m14_zm" )
+	{
+		weapon_display = "M14";
+	}
 	weapon_display = getweapondisplayname( weapon_name );
 	if ( !isDefined( weapon_display ) || weapon_display == "" || weapon_display == "none" )
 	{
