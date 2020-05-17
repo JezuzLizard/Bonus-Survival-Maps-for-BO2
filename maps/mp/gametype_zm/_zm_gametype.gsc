@@ -102,6 +102,7 @@ main() //checked matches cerberus output
 	set_gamemode_var( "match_end_func", undefined );
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
+	thread map_rotation();
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
@@ -1385,65 +1386,68 @@ onspawnplayerunified() //checked matches cerberus output
 	onspawnplayer( 0 );
 }
 
-/*
-next_map_maprotation_system()
+map_rotation()
 {
-	if ( !level.customMapsMapRotationActive ) 
+	level waittill( "end_game");
+	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
+	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
+	level.customMapRotation = getDvar( "customMapRotation" );
+	level.mapList = strTok( level.customMapRotation, " " );
+	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
+	{
+		level.customMapRotation = "cornfield diner house power tunnel";
+	}
+	if ( !level.customMapRotationActive )
 	{
 		return;
 	}
-	if ( !isDefined( level.customMapsMapRotation ) || level.customMapsMapRotation == "" ) 
+	if ( level.randomizeMapRotation && level.mapList.size > 3 )
 	{
-		level.customMapsMapRotation = "cornfield diner house power tunnel";
-	}
-	tokens = strtok( level.customMapsMapRotation, " " );
-	foreach ( token in tokens )
-	{
-		tokensArray = [];
-		tokensArray[ tokensArray.size ] = token;
-	}
-	if ( level.customMapsMapRotationRandomization && !level.customMapsMapsRandomized )
-	{
-		tokensArray = array_randomize( tokensArray );
-		setDvar( "customMapsRandomized", 1 );
-	}
-	if ( getDvarIntDefault( tokensArray[ 0 ], 1 ) )
-	{
-		setDvar( "customMap", tokensArray[ 0 ] );
-		setDvar( tokensArray[ 0 ], 0 );
+		level thread random_map_rotation();
 		return;
 	}
-	if ( getDvarIntDefault( tokensArray[ 1 ], 1 ) )
+	if( isDefined( level.mapList[ 1 ] ) && level.customMap == level.mapList[ 0 ] )
 	{
-		setDvar( "customMap", tokensArray[ 1 ] );
-		setDvar( tokensArray[ 1 ], 0 );
+		setDvar( "customMap", level.mapList[ 1 ] );
 		return;
 	}
-	if ( getDvarIntDefault( tokensArray[ 2 ], 1 ) )
+	else if( isDefined( level.mapList[ 2 ] ) && level.customMap == level.mapList[ 1 ] )
 	{
-		setDvar( "customMap", tokensArray[ 2 ] );
-		setDvar( tokensArray[ 2 ], 0 );
+		setDvar( "customMap", level.mapList[ 2 ] );
 		return;
 	}
-	if ( getDvarIntDefault( tokensArray[ 3 ], 1 ) )
+	else if( isDefined( level.mapList[ 3 ] ) && level.customMap == level.mapList[ 2 ] )
 	{
-		setDvar( "customMap", tokensArray[ 3 ] );
-		setDvar( tokensArray[ 3 ], 0 );
+		setDvar( "customMap", level.mapList[ 3 ] );
 		return;
 	}
-	if ( getDvarIntDefault( tokensArray[ 4 ], 1 ) )
+	else if( isDefined( level.mapList[ 4 ] ) && level.customMap == level.mapList[ 3 ] )
 	{
-		setDvar( "customMap", tokensArray[ 4 ] );
-		setDvar( tokensArray[ 4 ], 0 );
+		setDvar( "customMap", level.mapList[ 4 ] );
 		return;
 	}
-	setDvar( tokens[ 0 ], 1 );
-	setDvar( tokens[ 1 ], 1 );
-	setDvar( tokens[ 2 ], 1 );
-	setDvar( tokens[ 3 ], 1 );
-	setDvar( tokens[ 4 ], 1 );
+	else
+	{
+		setDvar( "customMap", level.mapList[ 0 ] );
+		return;
+	}
 }
-*/
+
+random_map_rotation()
+{
+	level.nextMap = RandomInt( level.mapList.size );
+	level.lastMap = getDvar( "lastMap" );
+	if( level.customMap == level.mapList[ level.nextMap ] || level.mapList[ level.nextMap ] == level.lastMap )
+	{
+		return random_map_rotation();
+	}
+	else
+	{
+		setDvar( "lastMap", level.customMap );
+		setDvar( "customMap", level.mapList[ level.nextMap ] );
+		return;
+	}
+}
 
 init_spawnpoints_for_custom_survival_maps()
 {
