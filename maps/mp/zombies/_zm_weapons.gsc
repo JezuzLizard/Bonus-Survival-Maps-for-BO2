@@ -27,7 +27,6 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
-	level.zombiemode_reusing_pack_a_punch = 1;
 	level.monolingustic_prompt_format = 0;
 	precacheEffectsForWeapons();
 	init_weapons();
@@ -864,7 +863,6 @@ limited_weapon_below_quota( weapon, ignore_player, pap_triggers ) //checked chan
 				}
 			}
 		}
-		return 1;
 	}
 	return 1;
 }
@@ -897,14 +895,6 @@ player_can_use_content( weapon ) //checked matches cerberus output
 		}
 	}
 	return 1;
-}
-
-custom_wallbuy(model, weapon, origin, angles) //custom wallbuy model
-{
-	originfix = origin + (0, 0, 55);
-	RW = spawn( "script_model", originfix );
-	RW setModel( model );
-	RW rotateTo( angles, .1 );
 }
 
 init_spawnable_weapon_upgrade() //checked partially changed to match cerberus output
@@ -1799,7 +1789,6 @@ weapon_supports_attachments( weaponname ) //checked changed at own discretion
 	{
 		return 1;
 	}
-	return 0;
 }
 
 random_attachment( weaponname, exclude ) //checked changed to match cerberus output
@@ -2973,14 +2962,3 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
