@@ -27,6 +27,7 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
+	level.zombiemode_reusing_pack_a_punch = 1;
 	level.monolingustic_prompt_format = 0;
 	precacheEffectsForWeapons();
 	init_weapons();
@@ -603,16 +604,16 @@ add_attachments( weapon_name, upgrade_name ) //checked does not match cerberus o
 	row = tablelookuprownum( table, 0, upgrade_name );
 	if ( row > -1 )
 	{
-		level.zombie_weapons[ weapon_name ].default_attachment = TableLookUp( table, 0, upgrade.name, 1 );
+		level.zombie_weapons[ weapon_name ].default_attachment = TableLookUp( table, 0, upgrade_name, 1 );
 		level.zombie_weapons[ weapon_name ].addon_attachments = [];
 		index = 2;
-		next_addon = TableLookUp( table, 0, upgrade.name, index );
+		next_addon = TableLookUp( table, 0, upgrade_name, index );
 
 		while ( isdefined( next_addon ) && next_addon.size > 0 )
 		{
 			level.zombie_weapons[ weapon_name ].addon_attachments[ level.zombie_weapons[ weapon_name ].addon_attachments.size ] = next_addon;
 			index++;
-			next_addon = TableLookUp( table, 0, upgrade.name, index );
+			next_addon = TableLookUp( table, 0, upgrade_name, index );
 		}
 	}
 }
@@ -755,11 +756,6 @@ init_weapons() //checked matches cerberus output
 		[[ level._zombie_custom_add_weapons ]]();
 	}
 	precachemodel( "zombie_teddybear" );
-	if ( level.debugLogging_zm_weapons )
-	{
-		logline1 = "_zm_weapons.gsc init_weapons() completed its operation" + "\n";
-		logprint( logline1 );
-	}
 }
 
 add_limited_weapon( weapon_name, amount ) //checked matches cerberus output
@@ -788,7 +784,7 @@ limited_weapon_below_quota( weapon, ignore_player, pap_triggers ) //checked chan
 		}
 		if ( is_true( level.no_limited_weapons ) )
 		{
-			return 0;
+			return 1;
 		}
 		upgradedweapon = weapon;
 		if ( isDefined( level.zombie_weapons[ weapon ] ) && isDefined( level.zombie_weapons[ weapon ].upgrade_name ) )
@@ -818,7 +814,7 @@ limited_weapon_below_quota( weapon, ignore_player, pap_triggers ) //checked chan
 		}
 		for ( k = 0; k < pap_triggers.size; k++ )
 		{
-			if ( isDefined( pap_triggers[ k ].current_weapon ) && pap_triggers[ k ].current_weapon == weapon || pap_triggers[ k ].current_weapon == upgradedweapon )
+			if ( isDefined( pap_triggers[ k ].current_weapon ) && pap_triggers[ k ].current_weapon == weapon || isDefined( pap_triggers[ k ].current_weapon ) && pap_triggers[ k ].current_weapon == upgradedweapon )
 			{
 				count++;
 				if ( count >= limit )
@@ -1015,11 +1011,11 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 				thread playchalkfx("m16_effect", spawn_list[ i ].origin, (0,90,0));
 			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
-			{
-				spawn_list[ i ].origin = (13542, -542, -133);
-				spawn_list[ i ].angles = ( 0, 0, 0 );
-				thread playchalkfx("mp5k_effect", spawn_list[ i ].origin + (0, 7, 0), (0,90,0));
-			}
+            {
+                spawn_list[ i ].origin = (13542, -764, -133);
+                spawn_list[ i ].angles = ( 0, 0, 0 );
+                thread playchalkfx("mp5k_effect", spawn_list[ i ].origin + (0, 7, 0), (0,90,0));
+            }
 			if( spawn_list[ i ].zombie_weapon_upgrade == "tazer_knuckles_zm" )
 			{
 				spawn_list[ i ].origin = (13502, -12, -125);
@@ -1373,11 +1369,6 @@ wall_weapon_update_prompt( player ) //checked partially changed to match cerberu
 	self.stub.cursor_hint = "HINT_WEAPON";
 	self.stub.cursor_hint_weapon = weapon;
 	self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
-	if ( level.debugLogging_zm_weapons )
-	{
-		logline3 = "_zm_weapons.gsc wall_weapon_update_prompt() completed its operation" + "\n";
-		logprint( logline3 );
-	}
 	return 1;
 }
 
@@ -1758,7 +1749,11 @@ weapon_supports_default_attachment( weaponname ) //checked matches cerberus outp
 	{
 		attachment = level.zombie_weapons[ weaponname ].default_attachment;
 	}
-	return isDefined( attachment );
+	if ( isDefined( attachment ) )
+	{
+		return 1;
+	}
+	return 0;
 }
 
 default_attachment( weaponname ) //checked matches cerberus output
@@ -1789,6 +1784,7 @@ weapon_supports_attachments( weaponname ) //checked changed at own discretion
 	{
 		return 1;
 	}
+	return 0;
 }
 
 random_attachment( weaponname, exclude ) //checked changed to match cerberus output
@@ -2769,7 +2765,8 @@ ammo_give( weapon ) //checked changed to match cerberus output
 			stockmax = weaponstartammo( weapon );
 			clipcount = self getweaponammoclip( weapon );
 			currstock = self getammocount( weapon );
-			if ( currstock - clipcount >= stockmax )
+			stockleft = currstock - clipcount;
+			if ( stockleft >= stockmax )
 			{
 				give_ammo = 0;
 			}
@@ -2962,3 +2959,15 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
