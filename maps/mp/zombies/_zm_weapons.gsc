@@ -603,14 +603,14 @@ add_attachments( weapon_name, upgrade_name ) //checked does not match cerberus o
 	row = tablelookuprownum( table, 0, upgrade_name );
 	if ( row > -1 )
 	{
-		level.zombie_weapons[weapon].default_attachment = TableLookUp( table, 0, upgrade.name, 1 );
-		level.zombie_weapons[weapon].addon_attachments = [];
+		level.zombie_weapons[ weapon_name ].default_attachment = TableLookUp( table, 0, upgrade.name, 1 );
+		level.zombie_weapons[ weapon_name ].addon_attachments = [];
 		index = 2;
 		next_addon = TableLookUp( table, 0, upgrade.name, index );
 
 		while ( isdefined( next_addon ) && next_addon.size > 0 )
 		{
-			level.zombie_weapons[weapon].addon_attachments[level.zombie_weapons[weapon].addon_attachments.size] = next_addon;
+			level.zombie_weapons[ weapon_name ].addon_attachments[ level.zombie_weapons[ weapon_name ].addon_attachments.size ] = next_addon;
 			index++;
 			next_addon = TableLookUp( table, 0, upgrade.name, index );
 		}
@@ -970,7 +970,6 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 				spawn_list[ i ].origin = (-11166, -2844, 247);
 				spawn_list[ i ].angles = ( 0, 0, 0 );
 				thread playchalkfx("m14_effect", spawn_list[ i ].origin, (0,-86,0));
-				
 			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
 			{
@@ -2974,3 +2973,14 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
