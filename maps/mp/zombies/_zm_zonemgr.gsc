@@ -917,9 +917,23 @@ create_spawner_list( zkeys ) //checked changed to match cerberus output
 				{
 					zone.spawn_locations[ i ].is_enabled = 0;
 				}
+				else if ( zone.spawn_locations[ i ].origin == ( -10944 , -3846 , 221.14 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -11251 , -4397 , 200.02 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -11334 , -5280 , 212.7 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
 				if(zone.spawn_locations[ i ].is_enabled)
 				{
 					level.zombie_spawn_locations[level.zombie_spawn_locations.size] = zone.spawn_locations[i];
+					logline1 = "level.zombie_spawn_locations " + i + " origin is: " + level.zombie_spawn_locations[ i ].origin + "\n";
+                    logprint( logline1 );
 				}
 			}
 			for(x = 0; x < zone.inert_locations.size; x++)
@@ -943,6 +957,7 @@ create_spawner_list( zkeys ) //checked changed to match cerberus output
 					level.zombie_screecher_locations[level.zombie_screecher_locations.size] = zone.screecher_locations[x];
 				}
 			}
+			/*
 			for(x = 0; x < zone.avogadro_locations.size; x++)
 			{
 				if(zone.avogadro_locations[x].is_enabled)
@@ -950,6 +965,7 @@ create_spawner_list( zkeys ) //checked changed to match cerberus output
 					level.zombie_avogadro_locations[level.zombie_avogadro_locations.size] = zone.avogadro_locations[x];
 				}
 			}
+			*/
 			for(x = 0; x < zone.quad_locations.size; x++)
 			{
 				if(zone.quad_locations[x].is_enabled)
@@ -1153,4 +1169,3 @@ is_player_in_zone( zone_name ) //checked changed to match cerberus output
 	}
 	return 0;
 }
-
