@@ -9,13 +9,18 @@ init()
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
-	level thread onplayerconnected();
-	disable_pers_upgrades();
-	thread buildbuildables();
+	thread buildablebegin();
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
     	}
+}
+
+buildablebegin()
+{
+	level thread onplayerconnected();
+	disable_pers_upgrades();
+	thread buildbuildables();
 }
 
 onplayerconnected()
