@@ -409,7 +409,7 @@ diner_hatch_access() //checked matches cerberus output
 	diner_hatch hide();
 	diner_hatch_mantle.start_origin = diner_hatch_mantle.origin;
 	diner_hatch_mantle.origin += vectorScale( ( 0, 0, 0 ), 500 );
-	player = wait_for_buildable( "dinerhatch" );
+	//player = wait_for_buildable( "dinerhatch" );
 	diner_hatch show();
 	diner_hatch_col delete();
 	diner_hatch_mantle.origin = diner_hatch_mantle.start_origin;
