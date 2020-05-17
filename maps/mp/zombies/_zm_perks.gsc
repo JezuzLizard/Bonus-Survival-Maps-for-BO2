@@ -3021,8 +3021,8 @@ extra_perk_spawns()
 	level.dinerPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.dinerPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.dinerPerks[ "specialty_rof" ] = spawnstruct();
-	level.dinerPerks[ "specialty_rof" ].origin = ( -4163, -7610, -62 );
-	level.dinerPerks[ "specialty_rof" ].angles = ( 0, -84, 0 );
+	level.dinerPerks[ "specialty_rof" ].origin = ( -4170, -7610, -61 );
+	level.dinerPerks[ "specialty_rof" ].angles = ( 0, -90, 0 );
 	level.dinerPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.dinerPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.dinerPerks[ "specialty_longersprint" ] = spawnstruct();
