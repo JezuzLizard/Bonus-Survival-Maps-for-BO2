@@ -1337,7 +1337,10 @@ turn_marathon_on() //checked changed to match cerberus output
 		machine_triggers = getentarray( "vending_marathon", "target" );
 		for ( i = 0; i < machine.size; i++ )
 		{
-			machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
+			if( level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" )
+				machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
+			else
+				machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
 		}
 		array_thread( machine_triggers, ::set_power_on, 0 );
 		level thread do_initial_power_off_callback( machine, "marathon" );
@@ -3004,7 +3007,7 @@ extra_perk_spawns()
 	level.cornfieldPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.cornfieldPerks[ "specialty_weapupgrade" ].origin = ( 9960, -1288, -217 );
 	level.cornfieldPerks[ "specialty_weapupgrade" ].angles = ( 0, 123, 0);
-	level.cornfieldPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.cornfieldPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.cornfieldPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.cornfieldPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.cornfieldPerks[ "specialty_quickrevive" ].origin = ( 7831, -479, -203 );
@@ -3038,7 +3041,7 @@ extra_perk_spawns()
 	level.dinerPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.dinerPerks[ "specialty_weapupgrade" ].origin = ( -6351, -7778, 227 );
 	level.dinerPerks[ "specialty_weapupgrade" ].angles = ( 0, 175, 0 );
-	level.dinerPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.dinerPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.dinerPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.dinerPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.dinerPerks[ "specialty_quickrevive" ].origin = ( -5424, -7920, -64 );
@@ -3072,7 +3075,7 @@ extra_perk_spawns()
 	level.powerStationPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.powerStationPerks[ "specialty_weapupgrade" ].origin = ( 12625, 7434, -755 );
 	level.powerStationPerks[ "specialty_weapupgrade" ].angles = ( 0, 162, 0 );
-	level.powerStationPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.powerStationPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.powerStationPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.powerStationPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.powerStationPerks[ "specialty_quickrevive" ].origin = ( 11156, 8120, -575 );
@@ -3111,7 +3114,7 @@ extra_perk_spawns()
 	level.tunnelPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.tunnelPerks[ "specialty_weapupgrade" ].origin = ( -11301, -2096, 184 );
 	level.tunnelPerks[ "specialty_weapupgrade" ].angles = ( 0, 115, 0 );
-	level.tunnelPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.tunnelPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.tunnelPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.tunnelPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.tunnelPerks[ "specialty_quickrevive" ].origin = ( -10780, -2565, 224 );
