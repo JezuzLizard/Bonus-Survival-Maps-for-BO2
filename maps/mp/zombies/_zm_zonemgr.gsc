@@ -863,43 +863,59 @@ create_spawner_list( zkeys ) //checked changed to match cerberus output
 			{
 				if ( zone.spawn_locations[ i ].origin == ( 8394, -2545, -205.16 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( 9914, 8408, -576 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( 9914, 8408, -576 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( 10015, 6931, -571.7 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( 10015, 6931, -571.7 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( 13019.1, 7382.5, -754 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( 13019.1, 7382.5, -754 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -3825, -6576, -52.7 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -3825, -6576, -52.7 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -4165, -6098, -64 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -3450, -6559, -51.9 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -5058, -5902, -73.4 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -4165, -6098, -64 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -5373, -6231, -51.9 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -5058, -5902, -73.4 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -5540, -6508, -42 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -5846, -6607, -56.8 ))
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
-				if ( zone.spawn_locations[ i ].origin == ( -11093 , 393 , 192 ) )
+				else if ( zone.spawn_locations[ i ].origin == ( -6462, -7159, -64 ) )
 				{
-					i++;
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -6531, -6613, -54.4 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -5373, -6231, -51.9 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -5540, -6508, -42 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
+				}
+				else if ( zone.spawn_locations[ i ].origin == ( -11093 , 393 , 192 ) )
+				{
+					zone.spawn_locations[ i ].is_enabled = 0;
 				}
 				if(zone.spawn_locations[ i ].is_enabled)
 				{
