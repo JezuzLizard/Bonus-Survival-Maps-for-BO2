@@ -1847,6 +1847,22 @@ init_barriers_for_custom_maps()
     powerclip7 = spawn("script_model", (10563,8630,-344));
     powerclip7 setModel("collision_clip_wall_256x256x10");
     powerclip7 rotateTo((0,270,0),.1);
+    
+	//CORNFIELD BARRIERS
+	cornfieldbarrier1 = spawn("script_model", (10190,135,-159));
+	cornfieldbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
+	cornfieldbarrier1 rotateTo((0,172,0),.1);
+	cornfieldclip1 = spawn("script_model", (10100,100,-159));
+	cornfieldclip1 setModel("collision_player_wall_512x512x10");
+	cornfieldclip1 rotateTo((0,172,0),.1);
+
+	cornfieldbarrier2 = spawn("script_model", (10100,-1800,-217));
+	cornfieldbarrier2 setModel("veh_t6_civ_bus_zombie");
+	cornfieldbarrier2 rotateTo((0,126,0),.1);
+	cornfieldbarrier2 DisconnectPaths();
+	cornfieldclip1 = spawn("script_model", (10045,-1607,-181));
+	cornfieldclip1 setModel("collision_player_wall_512x512x10");
+	cornfieldclip1 rotateTo((0,126,0),.1);
 }
 
 onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerberus output
