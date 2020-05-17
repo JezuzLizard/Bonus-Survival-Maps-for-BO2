@@ -2977,13 +2977,13 @@ extra_perk_spawns()
 							 "specialty_scavenger", "specialty_weapupgrade", "specialty_quickrevive" );
 							 
 	level.cornfieldPerks[ "specialty_armorvest" ] = spawnstruct();
-	level.cornfieldPerks[ "specialty_armorvest" ].origin = ( 13936, -649, -184 );
+	level.cornfieldPerks[ "specialty_armorvest" ].origin = ( 13936, -649, -188 );
 	level.cornfieldPerks[ "specialty_armorvest" ].angles = ( 0, 179, 0 );
 	level.cornfieldPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.cornfieldPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.cornfieldPerks[ "specialty_rof" ] = spawnstruct();
-	level.cornfieldPerks[ "specialty_rof" ].origin = ( 12022, -1913, -160 );
-	level.cornfieldPerks[ "specialty_rof" ].angles = ( 0, -43, 0 );
+	level.cornfieldPerks[ "specialty_rof" ].origin = ( 12052, -1943, -160 );
+	level.cornfieldPerks[ "specialty_rof" ].angles = ( 0, -137, 0 );
 	level.cornfieldPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.cornfieldPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.cornfieldPerks[ "specialty_fastreload" ] = spawnstruct();
@@ -2994,17 +2994,17 @@ extra_perk_spawns()
 	level.cornfieldPerks[ "specialty_longersprint" ] = spawnstruct();
 	level.cornfieldPerks[ "specialty_longersprint" ].origin = ( 6939, -583, -209 );
 	level.cornfieldPerks[ "specialty_longersprint" ].angles = ( 0, 91, 0 );
-	level.cornfieldPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+	level.cornfieldPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon_on";
 	level.cornfieldPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.cornfieldPerks[ "specialty_scavenger" ] = spawnstruct();
-	level.cornfieldPerks[ "specialty_scavenger" ].origin = ( 13566, -1305, -188 );
+	level.cornfieldPerks[ "specialty_scavenger" ].origin = ( 13546, -1384, -188 );
 	level.cornfieldPerks[ "specialty_scavenger" ].angles = ( 0, 90, 0 );
 	level.cornfieldPerks[ "specialty_scavenger" ].model = "zombie_vending_tombstone";
 	level.cornfieldPerks[ "specialty_scavenger" ].script_noteworthy = "specialty_scavenger";
 	level.cornfieldPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.cornfieldPerks[ "specialty_weapupgrade" ].origin = ( 9960, -1288, -217 );
 	level.cornfieldPerks[ "specialty_weapupgrade" ].angles = ( 0, 123, 0);
-	level.cornfieldPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.cornfieldPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.cornfieldPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.cornfieldPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.cornfieldPerks[ "specialty_quickrevive" ].origin = ( 7831, -479, -203 );
@@ -3021,24 +3021,24 @@ extra_perk_spawns()
 	level.dinerPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.dinerPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.dinerPerks[ "specialty_rof" ] = spawnstruct();
-	level.dinerPerks[ "specialty_rof" ].origin = ( -4183, -7610, -62 );
+	level.dinerPerks[ "specialty_rof" ].origin = ( -4163, -7610, -62 );
 	level.dinerPerks[ "specialty_rof" ].angles = ( 0, -84, 0 );
 	level.dinerPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.dinerPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.dinerPerks[ "specialty_longersprint" ] = spawnstruct();
 	level.dinerPerks[ "specialty_longersprint" ].origin = ( -4576, -6704, -61 );
 	level.dinerPerks[ "specialty_longersprint" ].angles = ( 0, 4, 0 );
-	level.dinerPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+	level.dinerPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon_on";
 	level.dinerPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.dinerPerks[ "specialty_scavenger" ] = spawnstruct();
-	level.dinerPerks[ "specialty_scavenger" ].origin = ( -6496, -7691, 0 );
+	level.dinerPerks[ "specialty_scavenger" ].origin = ( -6516, -7691, 0 );
 	level.dinerPerks[ "specialty_scavenger" ].angles = ( 0, 90, 0 );
 	level.dinerPerks[ "specialty_scavenger" ].model = "zombie_vending_tombstone";
 	level.dinerPerks[ "specialty_scavenger" ].script_noteworthy = "specialty_scavenger";
 	level.dinerPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.dinerPerks[ "specialty_weapupgrade" ].origin = ( -6351, -7778, 227 );
 	level.dinerPerks[ "specialty_weapupgrade" ].angles = ( 0, 175, 0 );
-	level.dinerPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.dinerPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.dinerPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.dinerPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.dinerPerks[ "specialty_quickrevive" ].origin = ( -5424, -7920, -64 );
@@ -3051,12 +3051,12 @@ extra_perk_spawns()
 							 
 	level.powerStationPerks[ "specialty_armorvest" ] = spawnstruct();
 	level.powerStationPerks[ "specialty_armorvest" ].origin = ( 10746, 7282, -557 );
-	level.powerStationPerks[ "specialty_armorvest" ].angles = ( 0, -42, 0 );
+	level.powerStationPerks[ "specialty_armorvest" ].angles = ( 0, -132, 0 );
 	level.powerStationPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.powerStationPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.powerStationPerks[ "specialty_rof" ] = spawnstruct();
-	level.powerStationPerks[ "specialty_rof" ].origin = ( 11852, 7307, -755 );
-	level.powerStationPerks[ "specialty_rof" ].angles = ( 0, -22, 0 );
+	level.powerStationPerks[ "specialty_rof" ].origin = ( 11879, 7296, -755 );
+	level.powerStationPerks[ "specialty_rof" ].angles = ( 0, -138, 0 );
 	level.powerStationPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.powerStationPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.powerStationPerks[ "specialty_fastreload" ] = spawnstruct();
@@ -3072,7 +3072,7 @@ extra_perk_spawns()
 	level.powerStationPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.powerStationPerks[ "specialty_weapupgrade" ].origin = ( 12625, 7434, -755 );
 	level.powerStationPerks[ "specialty_weapupgrade" ].angles = ( 0, 162, 0 );
-	level.powerStationPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.powerStationPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.powerStationPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.powerStationPerks[ "specialty_quickrevive" ] = spawnstruct();
 	level.powerStationPerks[ "specialty_quickrevive" ].origin = ( 11156, 8120, -575 );
@@ -3084,18 +3084,18 @@ extra_perk_spawns()
 							 	   "specialty_scavenger", "specialty_weapupgrade", "specialty_quickrevive" );
 							 
 	level.tunnelPerks[ "specialty_armorvest" ] = spawnstruct();
-	level.tunnelPerks[ "specialty_armorvest" ].origin = ( -11532, -2631, 194 );
-	level.tunnelPerks[ "specialty_armorvest" ].angles = ( 0, -6, 0 );
+	level.tunnelPerks[ "specialty_armorvest" ].origin = ( -11541, -2630, 194 );
+	level.tunnelPerks[ "specialty_armorvest" ].angles = ( 0, -180, 0 );
 	level.tunnelPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.tunnelPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.tunnelPerks[ "specialty_rof" ] = spawnstruct();
-	level.tunnelPerks[ "specialty_rof" ].origin = ( -11200, -508, 196 );
-	level.tunnelPerks[ "specialty_rof" ].angles = ( 0, -76, 0 );
+	level.tunnelPerks[ "specialty_rof" ].origin = ( -11170, -590, 196 );
+	level.tunnelPerks[ "specialty_rof" ].angles = ( 0, -10, 0 );
 	level.tunnelPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.tunnelPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.tunnelPerks[ "specialty_fastreload" ] = spawnstruct();
-	level.tunnelPerks[ "specialty_fastreload" ].origin = ( -11377, -1651, 192 );
-	level.tunnelPerks[ "specialty_fastreload" ].angles = ( 0, -64, 0 );
+	level.tunnelPerks[ "specialty_fastreload" ].origin = ( -11373, -1674, 192 );
+	level.tunnelPerks[ "specialty_fastreload" ].angles = ( 0, -89, 0 );
 	level.tunnelPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
 	level.tunnelPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
 	level.tunnelPerks[ "specialty_longersprint" ] = spawnstruct();
@@ -3104,18 +3104,18 @@ extra_perk_spawns()
 	level.tunnelPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
 	level.tunnelPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.tunnelPerks[ "specialty_scavenger" ] = spawnstruct();
-	level.tunnelPerks[ "specialty_scavenger" ].origin = ( -10669, -752, 196 );
-	level.tunnelPerks[ "specialty_scavenger" ].angles = ( 0, -84, 0 );
+	level.tunnelPerks[ "specialty_scavenger" ].origin = ( -10649, -762, 196 );
+	level.tunnelPerks[ "specialty_scavenger" ].angles = ( 0, -95, 0 );
 	level.tunnelPerks[ "specialty_scavenger" ].model = "zombie_vending_tombstone";
 	level.tunnelPerks[ "specialty_scavenger" ].script_noteworthy = "specialty_scavenger";
 	level.tunnelPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.tunnelPerks[ "specialty_weapupgrade" ].origin = ( -11301, -2096, 184 );
 	level.tunnelPerks[ "specialty_weapupgrade" ].angles = ( 0, 115, 0 );
-	level.tunnelPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap";
+	level.tunnelPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.tunnelPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.tunnelPerks[ "specialty_quickrevive" ] = spawnstruct();
-	level.tunnelPerks[ "specialty_quickrevive" ].origin = ( -10785, -2565, 234 );
-	level.tunnelPerks[ "specialty_quickrevive" ].angles = ( 0, 84, 0 );
+	level.tunnelPerks[ "specialty_quickrevive" ].origin = ( -10780, -2565, 224 );
+	level.tunnelPerks[ "specialty_quickrevive" ].angles = ( 0, 270, 0 );
 	level.tunnelPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
 	level.tunnelPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 	
@@ -4142,28 +4142,3 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
