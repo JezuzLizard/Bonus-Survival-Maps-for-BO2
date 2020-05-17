@@ -5,17 +5,17 @@
 
 init()
 {
-    thread gscRestart();
-    thread setPlayersToSpectator();
+	thread gscRestart();
+	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread buildbuildables();
 	if ( level.customMap == "house" )
-   	{
-    		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    }
+	{
+		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
+    	}
 }
 
 onplayerconnected()
@@ -224,6 +224,22 @@ getPerkName(perk)
 		return "Vulture Aid";
 }
 
+getPerkModel(perk)
+{
+	if(perk == "specialty_armorvest")
+		return "zombie_vending_jugg";
+	if(perk == "specialty_rof")
+		return "zombie_vending_doubletap2";
+	if(perk == "specialty_longersprint")
+		return "zombie_vending_marathon";
+	if(perk == "specialty_fastreload")
+		return "zombie_vending_sleight";
+	if(perk == "specialty_quickrevive")
+		return "zombie_vending_revive";
+	if(perk == "specialty_scavenger")
+		return "zombie_vending_tombstone";
+}
+
 wunderfizz(origin, angles, model)
 {
 	collision = spawn("script_model", origin);
@@ -234,7 +250,7 @@ wunderfizz(origin, angles, model)
 	wunderfizzMachine rotateTo(angles, .1);
 	perks = getPerks();
 	cost = 1500;
-	trig = spawn("trigger_radius", origin, 1, 25, 25);
+	trig = spawn("trigger_radius", origin, 1, 50, 50);
 	trig SetCursorHint("HINT_NOICON");
 	trig SetHintString("Hold ^3&&1^7 to buy Perk-a-Cola [Cost: " + cost + "]");
 	level waittill("connected", player);
@@ -250,13 +266,35 @@ wunderfizz(origin, angles, model)
 					player playsound("zmb_cha_ching");
 					player.score -= cost;
 					trig setHintString("Randomizing");
-					wait 3;
+					rtime = 3;
+					while(rtime>0)
+					{
+						if(level.script == "zm_transit")
+						{
+							for(;;)
+							{
+								perkForRandom = perks[randomInt(perks.size)];
+								if(!(player hasPerk(perkForRandom)))
+								{
+									wunderfizzMachine setModel(getPerkModel(perkForRandom));
+									break;
+								}
+							}
+						}
+						wait .1;
+						rtime -= .1;
+					}
 					perklist = array_randomize(perks);
 					for(j=0;j<perklist.size;j++)
 					{
 						if(!(player hasPerk(perklist[j])))
 						{
 							perkName = getPerkName(perklist[j]);
+							if(level.script == "zm_transit")
+								perkModel = getPerkModel(perklist[j]);
+							wunderfizzMachine setModel(perkModel + "_on");
+							fx = SpawnFX(level._effect["tombstone_light"], origin, AnglesToForward(angles),AnglesToUp(angles));
+							TriggerFX(fx);
 							trig SetHintString("Hold ^3&&1^7 for " + perkName);
 							time = 7;
 							while(time > 0)
@@ -264,11 +302,17 @@ wunderfizz(origin, angles, model)
 								if(player UseButtonPressed() && distance(player.origin, trig.origin) < 50)
 								{
 									player thread givePerk(perklist[j]);
+									wunderfizzMachine setModel(model);
+									trig SetHintString(" ");
+									fx Delete();
 									break;
 								}
 								wait .1;
 								time -= .1;
 							}
+							wunderfizzMachine setModel(model);
+							trig SetHintString(" ");
+							fx Delete();
 							break;
 						}
 					}
@@ -313,8 +357,8 @@ gscRestart()
 {
 	level waittill( "end_game" );
 	setDvar( "customMapsMapRestarted", 1 );
-    wait 12; //20 is ideal
-    map_restart( false );
+	wait 12; //20 is ideal
+	map_restart( false );
 }
 
 setPlayersToSpectator()
