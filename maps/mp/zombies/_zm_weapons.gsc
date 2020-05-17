@@ -27,6 +27,7 @@ init() //checked matches cerberus output
 		level.debugLogging_zm_weapons = 0;
 	}
 	//end debug
+	level.zombiemode_reusing_pack_a_punch = 1;
 	level.monolingustic_prompt_format = 0;
 	precacheEffectsForWeapons();
 	init_weapons();
@@ -773,10 +774,8 @@ add_limited_weapon( weapon_name, amount ) //checked matches cerberus output
 
 limited_weapon_below_quota( weapon, ignore_player, pap_triggers ) //checked changed to match cerberus output
 {
-
 	if ( isDefined( level.limited_weapons[ weapon ] ) )
 	{
-
 		if ( !isDefined( pap_triggers ) )
 		{
 			if ( !isDefined( level.pap_triggers ) )
@@ -865,9 +864,9 @@ limited_weapon_below_quota( weapon, ignore_player, pap_triggers ) //checked chan
 				}
 			}
 		}
+		return 1;
 	}
 	return 1;
-
 }
 
 add_custom_limited_weapon_check( callback ) //checked matches cerberus output
@@ -1800,6 +1799,7 @@ weapon_supports_attachments( weaponname ) //checked changed at own discretion
 	{
 		return 1;
 	}
+	return 0;
 }
 
 random_attachment( weaponname, exclude ) //checked changed to match cerberus output
