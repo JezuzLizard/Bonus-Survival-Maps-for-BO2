@@ -52,6 +52,7 @@ precache() //checked matches cerberus output
 	onplayerconnect_callback( maps/mp/zm_transit_bus::onplayerconnect );
 	onplayerconnect_callback( maps/mp/zm_transit_ai_screecher::portal_player_watcher );
 	level thread maps/mp/zombies/_zm_banking::init();
+	level.ignore_spawner_func = ::transit_ignore_spawner;
 }
 
 main() //checked partially changed to match cerberus output did not use continues in foreaches see github for more info
@@ -548,5 +549,56 @@ transit_custom_powerup_vo_response( powerup_player, powerup ) //checked partiall
 	}
 }
 
+transit_ignore_spawner( spawner )
+{
+	if ( spawner.classname == "actor_zm_zombie_transit_screecher" )
+	{
+		return 1;
+	}
+	if ( level.script == "zm_transit" )
+	{
+		if ( spawner.origin == ( 8394, -2545, -205.16 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin == ( 9914, 8408, -576 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin == ( 10015, 6931, -571.7 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin == ( 13019.1, 7382.5, -754 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -3825, -6576, -52.7 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -4165, -6098, -64 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -5058, -5902, -73.4 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -5373, -6231, -51.9 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -5540, -6508, -42 ) )
+		{
+			return 1;
+		}
+		if ( spawner.origin = ( -11093 , 393 , 192 ) )
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
 
 
