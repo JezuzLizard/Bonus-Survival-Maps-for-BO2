@@ -235,7 +235,7 @@ get_chest_pieces() //checked changed to match cerberus output
 	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
-		self.chest_box.angles = ( 0, -90, 0 );
+		self.chest_box.angles = ( 0, 90, 0 );
 	}
 	if ( level.customMap == "house" || level.customMap == "cornfield" || level.customMap == "tunnel" )
 	{
