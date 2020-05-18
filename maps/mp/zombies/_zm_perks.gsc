@@ -2995,8 +2995,8 @@ extra_perk_spawns()
 	level.cornfieldPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
 	level.cornfieldPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
 	level.cornfieldPerks[ "specialty_longersprint" ] = spawnstruct();
-	level.cornfieldPerks[ "specialty_longersprint" ].origin = ( 6939, -583, -209 );
-	level.cornfieldPerks[ "specialty_longersprint" ].angles = ( 0, 91, 0 );
+	level.cornfieldPerks[ "specialty_longersprint" ].origin = ( 9944, -725, -211 );
+	level.cornfieldPerks[ "specialty_longersprint" ].angles = ( 0, 133, 0 );
 	level.cornfieldPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
 	level.cornfieldPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.cornfieldPerks[ "specialty_scavenger" ] = spawnstruct();
@@ -3010,8 +3010,8 @@ extra_perk_spawns()
 	level.cornfieldPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 	level.cornfieldPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	level.cornfieldPerks[ "specialty_quickrevive" ] = spawnstruct();
-	level.cornfieldPerks[ "specialty_quickrevive" ].origin = ( 7831, -479, -203 );
-	level.cornfieldPerks[ "specialty_quickrevive" ].angles = ( 0, -89, 0 );
+	level.cornfieldPerks[ "specialty_quickrevive" ].origin = ( 7831, -464, -203 );
+	level.cornfieldPerks[ "specialty_quickrevive" ].angles = ( 0, -90, 0 );
 	level.cornfieldPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
 	level.cornfieldPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 	
