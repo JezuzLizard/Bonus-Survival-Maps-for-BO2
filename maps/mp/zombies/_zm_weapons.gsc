@@ -998,6 +998,20 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 		}
 		else if ( level.customMap == "cornfield" )
 		{
+			/*
+			if( spawn_list[ i ].zombie_weapon_upgrade == "beretta93r_zm" )
+			{
+				spawn_list[ i ].origin = (12968, -917, -142);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("b23r_effect", spawn_list[ i ].origin, (0,0,0));
+			}
+			*/
+			if( spawn_list[ i ].zombie_weapon_upgrade == "claymore_zm" )
+			{
+				spawn_list[ i ].origin = (13603, -1282, -134);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("claymore_effect", spawn_list[ i ].origin, (0,-180,0));
+			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
 			{
 				spawn_list[ i ].origin = (13663, -1166, -134);
@@ -2959,15 +2973,3 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
