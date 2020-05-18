@@ -13,7 +13,7 @@ init()
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    	}
+    }
 }
 
 buildablebegin()
@@ -21,6 +21,12 @@ buildablebegin()
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread buildbuildables();
+	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "cornfield" || level.customMap == "power" || level.customMap == "house" )
+	{
+		removebuildable( "jetgun_zm" );
+		removebuildable( "powerswitch" );
+		removebuildable( "sq_common" );
+	}
 }
 
 onplayerconnected()
@@ -129,6 +135,46 @@ buildbuildable( buildable, craft ) //credit to Jbleezy for this function
 					i++;
 				}
 				return;
+			}
+		}
+	}
+}
+
+removebuildable( buildable, after_built )
+{
+	if (!isDefined(after_built))
+	{
+		after_built = 0;
+	}
+
+	if (after_built)
+	{
+		foreach (stub in level._unitriggers.trigger_stubs)
+		{
+			if(IsDefined(stub.equipname) && stub.equipname == buildable)
+			{
+				stub.model hide();
+				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+				return;
+			}
+		}
+	}
+	else
+	{
+		foreach (stub in level.buildable_stubs)
+		{
+			if ( !isDefined( buildable ) || stub.equipname == buildable )
+			{
+				if ( isDefined( buildable ) || stub.persistent != 3 )
+				{
+					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					foreach (piece in stub.buildablezone.pieces)
+					{
+						piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					}
+					maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+					return;
+				}
 			}
 		}
 	}
@@ -412,4 +458,3 @@ spawnAllPlayers()
 	}
 	level.no_end_game_check = 0;
 }
-
