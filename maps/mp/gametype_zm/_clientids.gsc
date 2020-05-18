@@ -294,8 +294,8 @@ getPerkModel(perk)
 wunderfizz(origin, angles, model)
 {
 	collision = spawn("script_model", origin);
-	collision setModel("collision_geo_cylinder_32x128_standard");
-	collision rotateTo(angles, .1);
+    collision setModel("collision_geo_cylinder_32x128_standard");
+    collision rotateTo(angles, .1);
 	wunderfizzMachine = spawn("script_model", origin);
 	wunderfizzMachine setModel(model);
 	wunderfizzMachine rotateTo(angles, .1);
@@ -308,7 +308,7 @@ wunderfizz(origin, angles, model)
 	for(;;)
 	{
 		trig waittill("trigger", player);
-		if(player UseButtonPressed() && player.score >= cost)
+		if(player UseButtonPressed() && player.score >= cost && player.isDrinkingPerk == 0)
 		{
 			if(player.num_perks < level.perk_purchase_limit)
 			{
@@ -389,18 +389,18 @@ wunderfizz(origin, angles, model)
 
 givePerk(perk)
 {
-	self iPrintLn("Enjoy Your Perk");
-	perkcheck = 0;
 	if(!(self hasPerk(perk) || (self maps/mp/zombies/_zm_perks::has_perk_paused(perk))))
 	{
+		self.isDrinkingPerk = 1;
 		gun = self maps/mp/zombies/_zm_perks::perk_give_bottle_begin(perk);
-        	evt = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
-        	if (evt == "weapon_change_complete")
-        	self thread maps/mp/zombies/_zm_perks::wait_give_perk(perk, 1);
-       		self maps/mp/zombies/_zm_perks::perk_give_bottle_end(gun, perk);
-    		if (self maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined(self.intermission) && self.intermission)
-        	return;
-    		self notify("burp");
+		evt = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+		if (evt == "weapon_change_complete")
+		self thread maps/mp/zombies/_zm_perks::wait_give_perk(perk, 1);
+		self maps/mp/zombies/_zm_perks::perk_give_bottle_end(gun, perk);
+		self.isDrinkingPerk = 0;
+		if (self maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined(self.intermission) && self.intermission)
+			return;
+		self notify("burp");
 	}
 }
 
