@@ -1847,13 +1847,16 @@ init_barriers_for_custom_maps()
 	powerbarrier2 = spawn("script_model", (10056,8350,-584));
 	powerbarrier2 setModel("veh_t6_civ_bus_zombie");
 	powerbarrier2 rotateTo((0,340,0),.1);
-	powerbarrier2 DisconnectPaths();
-	powerclip2 = spawn("script_model", (10338,8173,-556));
-	powerclip2 setModel("collision_player_wall_64x64x10");
+	powerbarrier2 NotSolid();
+	powerclip2 = spawn("script_model", (10267,8194,-556));
+	powerclip2 setModel("collision_player_wall_256x256x10");
 	powerclip2 rotateTo((0,340,0),.1);
 	powerclip3 = spawn("script_model", (10409,8220,-181));
 	powerclip3 setModel("collision_player_wall_512x512x10");
 	powerclip3 rotateTo((0,250,0),.1);
+	powerclip4 = spawn("script_model", (10409,8220,-556));
+	powerclip4 setModel("collision_player_wall_128x128x10");
+	powerclip4 rotateTo((0,250,0),.1);
 
 	powerbarrier3 = spawn("script_model", (10281,7257,-575));
 	powerbarrier3 setModel("veh_t6_civ_microbus_dead");
@@ -1887,7 +1890,7 @@ init_barriers_for_custom_maps()
 	cornfieldbarrier2 = spawn("script_model", (10100,-1800,-217));
 	cornfieldbarrier2 setModel("veh_t6_civ_bus_zombie");
 	cornfieldbarrier2 rotateTo((0,126,0),.1);
-	cornfieldbarrier2 DisconnectPaths();
+	cornfieldbarrier2 NotSolid();
 	cornfieldclip1 = spawn("script_model", (10045,-1607,-181));
 	cornfieldclip1 setModel("collision_player_wall_512x512x10");
 	cornfieldclip1 rotateTo((0,126,0),.1);
@@ -2018,6 +2021,47 @@ get_player_spawns_for_gametype() //fixed checked partially changed to match cerb
 		}
 		player_spawns[ player_spawns.size ] = structs[ i ];
 		i++;
+	}
+	custom_spawns = [];
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" )
+	{
+		for(i=0;i<level.tunnelSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.tunnelSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "diner")
+	{
+		for(i=0;i<level.dinerSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.dinerSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "cornfield")
+	{
+		for(i=0;i<level.cornfieldSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.cornfieldSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "power")
+	{
+		for(i=0;i<level.powerStationSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.powerStationSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "house")
+	{
+		for(i=0;i<level.houseSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.houseSpawnpoints[i];
+		}
+		return custom_spawns;
 	}
 	return player_spawns;
 }
