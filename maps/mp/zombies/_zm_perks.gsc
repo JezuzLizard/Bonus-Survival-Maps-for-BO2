@@ -1337,7 +1337,7 @@ turn_marathon_on() //checked changed to match cerberus output
 		machine_triggers = getentarray( "vending_marathon", "target" );
 		for ( i = 0; i < machine.size; i++ )
 		{
-			if( level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" )
+			if( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" )
 				machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
 			else
 				machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
