@@ -1465,56 +1465,56 @@ init_spawnpoints_for_custom_survival_maps()
 	level.tunnelSpawnpoints[ 0 ].angles = ( 0, -94, 0 );
 	level.tunnelSpawnpoints[ 0 ].radius = 32;
 	level.tunnelSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 0 ].script_int = 1;
+	level.tunnelSpawnpoints[ 0 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 1 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 1 ].origin = ( -11386, -863, 192 );
 	level.tunnelSpawnpoints[ 1 ].angles = ( 0, -44, 0 );
 	level.tunnelSpawnpoints[ 1 ].radius = 32;
 	level.tunnelSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 1 ].script_int = 1;
+	level.tunnelSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 2 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 2 ].origin = ( -11405, -1000, 192 );
 	level.tunnelSpawnpoints[ 2 ].angles = ( 0, -32, 0 );
 	level.tunnelSpawnpoints[ 2 ].radius = 32;
 	level.tunnelSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 2 ].script_int = 1;
+	level.tunnelSpawnpoints[ 2 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 3 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 3 ].origin = ( -11498, -1151, 192 );
 	level.tunnelSpawnpoints[ 3 ].angles = ( 0, 4, 0 );
 	level.tunnelSpawnpoints[ 3 ].radius = 32;
 	level.tunnelSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 3 ].script_int = 1;
+	level.tunnelSpawnpoints[ 3 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 4 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 4 ].origin = ( -11398, -1326, 191 );
 	level.tunnelSpawnpoints[ 4 ].angles = ( 0, 50, 0 );
 	level.tunnelSpawnpoints[ 4 ].radius = 32;
 	level.tunnelSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 4 ].script_int = 2;
+	level.tunnelSpawnpoints[ 4 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 5 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 5 ].origin = ( -11222, -1345, 192 );
 	level.tunnelSpawnpoints[ 5 ].angles = ( 0, 89, 0 );
 	level.tunnelSpawnpoints[ 5 ].radius = 32;
 	level.tunnelSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 5 ].script_int = 2;
+	level.tunnelSpawnpoints[ 5 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 6 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 6 ].origin = ( -10934, -1380, 192 );
 	level.tunnelSpawnpoints[ 6 ].angles = ( 0, 157, 0 );
 	level.tunnelSpawnpoints[ 6 ].radius = 32;
 	level.tunnelSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 6 ].script_int = 2;
+	level.tunnelSpawnpoints[ 6 ].script_int = 2048;
 	
 	level.tunnelSpawnpoints[ 7 ] = spawnstruct();
 	level.tunnelSpawnpoints[ 7 ].origin = ( -10999, -1072, 192 );
 	level.tunnelSpawnpoints[ 7 ].angles = ( 0, -144, 0 );
 	level.tunnelSpawnpoints[ 7 ].radius = 32;
 	level.tunnelSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
-	level.tunnelSpawnpoints[ 7 ].script_int = 2;
+	level.tunnelSpawnpoints[ 7 ].script_int = 2048;
 	
 	//DINER
 	level.dinerSpawnpoints = [];									 
@@ -1523,56 +1523,56 @@ init_spawnpoints_for_custom_survival_maps()
 	level.dinerSpawnpoints[ 0 ].angles = ( 0, 161, 0 );
 	level.dinerSpawnpoints[ 0 ].radius = 32;
 	level.dinerSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 0 ].script_int = 1;
+	level.dinerSpawnpoints[ 0 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 1 ] = spawnstruct();
 	level.dinerSpawnpoints[ 1 ].origin = ( -4231, -7395, -60 );
 	level.dinerSpawnpoints[ 1 ].angles = ( 0, 120, 0 );
 	level.dinerSpawnpoints[ 1 ].radius = 32;
 	level.dinerSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 1 ].script_int = 1;
+	level.dinerSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 2 ] = spawnstruct();
 	level.dinerSpawnpoints[ 2 ].origin = ( -4465, -7346, -58 );
 	level.dinerSpawnpoints[ 2 ].angles = ( 0, 65, 0 );
 	level.dinerSpawnpoints[ 2 ].radius = 32;
 	level.dinerSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 2 ].script_int = 1;
+	level.dinerSpawnpoints[ 2 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 3 ] = spawnstruct();
 	level.dinerSpawnpoints[ 3 ].origin = ( -4465, -7346, -58 );
 	level.dinerSpawnpoints[ 3 ].angles = ( 0, 173, 0 );
 	level.dinerSpawnpoints[ 3 ].radius = 32;
 	level.dinerSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 3 ].script_int = 1;
+	level.dinerSpawnpoints[ 3 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 4 ] = spawnstruct();
 	level.dinerSpawnpoints[ 4 ].origin = ( -5770, -6600, -55 );
 	level.dinerSpawnpoints[ 4 ].angles = ( 0, -106, 0 );
 	level.dinerSpawnpoints[ 4 ].radius = 32;
 	level.dinerSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 4 ].script_int = 2;
+	level.dinerSpawnpoints[ 4 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 5 ] = spawnstruct();
 	level.dinerSpawnpoints[ 5 ].origin = ( -6135, -6671, -56 );
 	level.dinerSpawnpoints[ 5 ].angles = ( 0, -46, 0 );
 	level.dinerSpawnpoints[ 5 ].radius = 32;
 	level.dinerSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 5 ].script_int = 2;
+	level.dinerSpawnpoints[ 5 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 6 ] = spawnstruct();
 	level.dinerSpawnpoints[ 6 ].origin = ( -6182, -7120, -60 );
 	level.dinerSpawnpoints[ 6 ].angles = ( 0, 51, 0 );
 	level.dinerSpawnpoints[ 6 ].radius = 32;
 	level.dinerSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 6 ].script_int = 2;
+	level.dinerSpawnpoints[ 6 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 7 ] = spawnstruct();
 	level.dinerSpawnpoints[ 7 ].origin = ( -5882, -7174, -61 );
 	level.dinerSpawnpoints[ 7 ].angles = ( 0, 99, 0 );
 	level.dinerSpawnpoints[ 7 ].radius = 32;
 	level.dinerSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
-	level.dinerSpawnpoints[ 7 ].script_int = 2;
+	level.dinerSpawnpoints[ 7 ].script_int = 2048;
 	
 	//CORNFIELD
 	level.cornfieldSpawnpoints = [];
@@ -1581,56 +1581,56 @@ init_spawnpoints_for_custom_survival_maps()
 	level.cornfieldSpawnpoints[ 0 ].angles = ( 0, 40, 0 );
 	level.cornfieldSpawnpoints[ 0 ].radius = 32;
 	level.cornfieldSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 0 ].script_int = 1;
+	level.cornfieldSpawnpoints[ 0 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 1 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 1 ].origin = ( 7751, -522, -202 );
 	level.cornfieldSpawnpoints[ 1 ].angles = ( 0, 145, 0 );
 	level.cornfieldSpawnpoints[ 1 ].radius = 32;
 	level.cornfieldSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 1 ].script_int = 1;
+	level.cornfieldSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 2 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 2 ].origin = ( 7691, -395, -201 );
 	level.cornfieldSpawnpoints[ 2 ].angles = ( 0, -131, 0 );
 	level.cornfieldSpawnpoints[ 2 ].radius = 32;
 	level.cornfieldSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 2 ].script_int = 1;
+	level.cornfieldSpawnpoints[ 2 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 3 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 3 ].origin = ( 7536, -432, -199 );
 	level.cornfieldSpawnpoints[ 3 ].angles = ( 0, -24, 0 );
 	level.cornfieldSpawnpoints[ 3 ].radius = 32;
 	level.cornfieldSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 3 ].script_int = 1;
+	level.cornfieldSpawnpoints[ 3 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 4 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 4 ].origin = ( 13745, -336, -188 );
 	level.cornfieldSpawnpoints[ 4 ].angles = ( 0, -178, 0 );
 	level.cornfieldSpawnpoints[ 4 ].radius = 32;
 	level.cornfieldSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 4 ].script_int = 2;
+	level.cornfieldSpawnpoints[ 4 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 5 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 5 ].origin = ( 13758, -681, -188 );
 	level.cornfieldSpawnpoints[ 5 ].angles = ( 0, -179, 0 );
 	level.cornfieldSpawnpoints[ 5 ].radius = 32;
 	level.cornfieldSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 5 ].script_int = 2;
+	level.cornfieldSpawnpoints[ 5 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 6 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 6 ].origin = ( 13816, -1088, -189 );
 	level.cornfieldSpawnpoints[ 6 ].angles = ( 0, -177, 0 );
 	level.cornfieldSpawnpoints[ 6 ].radius = 32;
 	level.cornfieldSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 6 ].script_int = 2;
+	level.cornfieldSpawnpoints[ 6 ].script_int = 2048;
 	
 	level.cornfieldSpawnpoints[ 7 ] = spawnstruct();
 	level.cornfieldSpawnpoints[ 7 ].origin = ( 13752, -1444, -182 );
 	level.cornfieldSpawnpoints[ 7 ].angles = ( 0, -177, 0 ); 
 	level.cornfieldSpawnpoints[ 7 ].radius = 32;
 	level.cornfieldSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
-	level.cornfieldSpawnpoints[ 7 ].script_int = 2;
+	level.cornfieldSpawnpoints[ 7 ].script_int = 2048;
 	
 	//POWER STATION
 	level.powerStationSpawnpoints = [];
@@ -1639,56 +1639,56 @@ init_spawnpoints_for_custom_survival_maps()
 	level.powerStationSpawnpoints[ 0 ].angles = ( 0, -137, 0 );
 	level.powerStationSpawnpoints[ 0 ].radius = 32;
 	level.powerStationSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 0 ].script_int = 1;
+	level.powerStationSpawnpoints[ 0 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 1 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 1 ].origin = ( 11284, 7760, -549 );
 	level.powerStationSpawnpoints[ 1 ].angles = ( 0, 177, 0 );
 	level.powerStationSpawnpoints[ 1 ].radius = 32;
 	level.powerStationSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 1 ].script_int = 1;
+	level.powerStationSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 2 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 2 ].origin = ( 10784, 7623, -584 );
 	level.powerStationSpawnpoints[ 2 ].angles = ( 0, -10, 0 );
 	level.powerStationSpawnpoints[ 2 ].radius = 32;
 	level.powerStationSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 2 ].script_int = 1;
+	level.powerStationSpawnpoints[ 2 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 3 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 3 ].origin = ( 10866, 7473, -580 );
 	level.powerStationSpawnpoints[ 3 ].angles = ( 0, 21, 0 );
 	level.powerStationSpawnpoints[ 3 ].radius = 32;
 	level.powerStationSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 3 ].script_int = 1;
+	level.powerStationSpawnpoints[ 3 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 4 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 4 ].origin = ( 10261, 8146, -580 );
 	level.powerStationSpawnpoints[ 4 ].angles = ( 0, -31, 0 );
 	level.powerStationSpawnpoints[ 4 ].radius = 32;
 	level.powerStationSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 4 ].script_int = 2;
+	level.powerStationSpawnpoints[ 4 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 5 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 5 ].origin = ( 10595, 8055, -541 );
 	level.powerStationSpawnpoints[ 5 ].angles = ( 0, -43, 0 );
 	level.powerStationSpawnpoints[ 5 ].radius = 32;
 	level.powerStationSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 5 ].script_int = 2;
+	level.powerStationSpawnpoints[ 5 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 6 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 6 ].origin = ( 10477, 7679, -567 );
 	level.powerStationSpawnpoints[ 6 ].angles = ( 0, -9, 0 );
 	level.powerStationSpawnpoints[ 6 ].radius = 32;
 	level.powerStationSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 6 ].script_int = 2;
+	level.powerStationSpawnpoints[ 6 ].script_int = 2048;
 	
 	level.powerStationSpawnpoints[ 7 ] = spawnstruct();
 	level.powerStationSpawnpoints[ 7 ].origin = ( 10165, 7879, -570 );
 	level.powerStationSpawnpoints[ 7 ].angles = ( 0, -15, 0 );
 	level.powerStationSpawnpoints[ 7 ].radius = 32;
 	level.powerStationSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
-	level.powerStationSpawnpoints[ 7 ].script_int = 2;
+	level.powerStationSpawnpoints[ 7 ].script_int = 2048;
 	
 	level.houseSpawnpoints = [];
 	level.houseSpawnpoints[ 0 ] = spawnstruct();
@@ -1696,56 +1696,56 @@ init_spawnpoints_for_custom_survival_maps()
 	level.houseSpawnpoints[ 0 ].angles = ( 0, 315, 0 );
 	level.houseSpawnpoints[ 0 ].radius = 32;
 	level.houseSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 0 ].script_int = 1;
+	level.houseSpawnpoints[ 0 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 1 ] = spawnstruct();
 	level.houseSpawnpoints[ 1 ].origin = ( 5358, 7034, -20 );
 	level.houseSpawnpoints[ 1 ].angles = ( 0, 246, 0 );
 	level.houseSpawnpoints[ 1 ].radius = 32;
 	level.houseSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 1 ].script_int = 1;
+	level.houseSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 2 ] = spawnstruct();
 	level.houseSpawnpoints[ 2 ].origin = ( 5078, 6733, -20 );
 	level.houseSpawnpoints[ 2 ].angles = ( 0, 56, 0 );
 	level.houseSpawnpoints[ 2 ].radius = 32;
 	level.houseSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 2 ].script_int = 1;
+	level.houseSpawnpoints[ 2 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 3 ] = spawnstruct();
 	level.houseSpawnpoints[ 3 ].origin = ( 5334, 6723, -20 );
 	level.houseSpawnpoints[ 3 ].angles = ( 0, 123, 0 );
 	level.houseSpawnpoints[ 3 ].radius = 32;
 	level.houseSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 3 ].script_int = 1;
+	level.houseSpawnpoints[ 3 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 4 ] = spawnstruct();
 	level.houseSpawnpoints[ 4 ].origin = ( 5057, 6583, -10 );
 	level.houseSpawnpoints[ 4 ].angles = ( 0, 0, 0 );
 	level.houseSpawnpoints[ 4 ].radius = 32;
 	level.houseSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 4 ].script_int = 2;
+	level.houseSpawnpoints[ 4 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 5 ] = spawnstruct();
 	level.houseSpawnpoints[ 5 ].origin = ( 5305, 6591, -20 );
 	level.houseSpawnpoints[ 5 ].angles = ( 0, 180, 0 );
 	level.houseSpawnpoints[ 5 ].radius = 32;
 	level.houseSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 5 ].script_int = 2;
+	level.houseSpawnpoints[ 5 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 6 ] = spawnstruct();
 	level.houseSpawnpoints[ 6 ].origin = ( 5350, 6882, -20 );
 	level.houseSpawnpoints[ 6 ].angles = ( 0, 180, 0 );
 	level.houseSpawnpoints[ 6 ].radius = 32;
 	level.houseSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 6 ].script_int = 2;
+	level.houseSpawnpoints[ 6 ].script_int = 2048;
 	
 	level.houseSpawnpoints[ 7 ] = spawnstruct();
 	level.houseSpawnpoints[ 7 ].origin = ( 5102, 6851, -20 );
 	level.houseSpawnpoints[ 7 ].angles = ( 0, 0, 0 );
 	level.houseSpawnpoints[ 7 ].radius = 32;
 	level.houseSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
-	level.houseSpawnpoints[ 7 ].script_int = 2;
+	level.houseSpawnpoints[ 7 ].script_int = 2048;
 }
 
 init_barriers_for_custom_maps()
