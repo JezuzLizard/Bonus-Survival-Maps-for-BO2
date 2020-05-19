@@ -64,7 +64,7 @@ main() //checked partially changed to match cerberus output did not use continue
 		level.custom_ai_type = [];
 	}
 	level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_screecher::init;
-	level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_avogadro::init;
+	//level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_avogadro::init;
 	level.enemy_location_override_func = maps/mp/zm_transit_bus::enemy_location_override;
 	level.adjust_enemyoverride_func = maps/mp/zm_transit_bus::adjust_enemyoverride;
 	//level.closest_player_override = closest_player_transit;
