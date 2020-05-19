@@ -13,7 +13,7 @@ init()
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    }
+    	}
 }
 
 buildablebegin()
@@ -21,12 +21,6 @@ buildablebegin()
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread buildbuildables();
-	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "cornfield" || level.customMap == "power" || level.customMap == "house" )
-	{
-		removebuildable( "jetgun_zm" );
-		removebuildable( "powerswitch" );
-		removebuildable( "sq_common" );
-	}
 }
 
 onplayerconnected()
@@ -93,13 +87,20 @@ buildbuildables() //credit to Jbleezy for this function
 {
 	// need a wait or else some buildables dont build
 	wait 1;
-
-	buildbuildable( "turbine" );
-	buildbuildable( "electric_trap" );
-	buildbuildable( "riotshield_zm" );
-	buildbuildable( "pap", 1 );
-
-	// power switch is not showing up from forced build
+	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "cornfield" || level.customMap == "power" || level.customMap == "house" )
+	{
+		buildbuildable( "dinerhatch", 1 );
+		buildbuildable( "pap", 1 );
+		buildbuildable( "turbine" );
+		buildbuildable( "electric_trap" );
+		buildbuildable( "riotshield_zm" );
+		removebuildable( "jetgun_zm" );
+		removebuildable( "powerswitch" );
+		removebuildable( "sq_common" );
+		removebuildable( "busladder" );
+		removebuildable( "bushatch" );
+		removebuildable( "cattlecatcher" );
+	}
 }
 
 buildbuildable( buildable, craft ) //credit to Jbleezy for this function
