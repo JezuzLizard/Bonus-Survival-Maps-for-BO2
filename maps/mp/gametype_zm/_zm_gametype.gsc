@@ -1533,8 +1533,8 @@ init_spawnpoints_for_custom_survival_maps()
 	level.dinerSpawnpoints[ 1 ].script_int = 2048;
 	
 	level.dinerSpawnpoints[ 2 ] = spawnstruct();
-	level.dinerSpawnpoints[ 2 ].origin = ( -4465, -7346, -58 );
-	level.dinerSpawnpoints[ 2 ].angles = ( 0, 65, 0 );
+	level.dinerSpawnpoints[ 2 ].origin = ( -4127, -6757, -54 );
+	level.dinerSpawnpoints[ 2 ].angles = ( 0, 217, 0 );
 	level.dinerSpawnpoints[ 2 ].radius = 32;
 	level.dinerSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
 	level.dinerSpawnpoints[ 2 ].script_int = 2048;
