@@ -16,8 +16,7 @@ init()
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    }
-    setDvar( "sv_hostname", "Bonus Survival Maps ^6[Current Map: ^7" + level.customMap +"^6]" );
+    	}
 }
 
 buildablebegin()
