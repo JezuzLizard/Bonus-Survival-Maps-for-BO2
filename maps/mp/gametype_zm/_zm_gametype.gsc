@@ -1471,9 +1471,15 @@ init_spawnpoints_for_custom_survival_maps()
 	//level.customMapsMapRotationActive = getDvarIntDefault( "customMapsMapRotationActive", 0 );
 	//level.customMapsMapRotation = getDvar( "customMapsMapRotation" );//looks like this "tunnel diner power cornfield"
 	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield"
-
+	level.serverName = getDvar( "serverName" );
+	if ( !isDefined( level.serverName ) || level.serverName == "" )
+	{
+		level.OGName = getDvar( "sv_hostname" );
+		setDvar( "serverName", level.OGName );
+		level.serverName = getDvar( "serverName" );
+	}
 	map = level.customMap;
-	setDvar( "sv_hostname", "^1Bonus^7 Survival Maps [Current Map: ^1" + getMapString(map) +"^7]" );
+	setDvar( "sv_hostname", "" + level.serverName +" [Current Map: ^1" + getMapString(map) +"^7]" );
 	
 	//TUNNEL
 	level.tunnelSpawnpoints = [];
