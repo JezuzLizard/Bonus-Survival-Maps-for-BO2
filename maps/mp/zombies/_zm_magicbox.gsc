@@ -279,7 +279,7 @@ get_chest_pieces() //checked changed to match cerberus output
 	}
 	if ( level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
 	{
-		self.chest_box.origin = ( -11772, -2501, 232 );
+		self.chest_box.origin = ( -11772, -2501, 229 );
 		self.chest_box.angles = ( 0, 0, 0 );
 	}
 	if ( level.customMap == "diner" && self.script_noteworthy == "depot_chest" )
