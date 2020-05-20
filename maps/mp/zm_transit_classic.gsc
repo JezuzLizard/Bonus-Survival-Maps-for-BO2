@@ -52,6 +52,7 @@ precache() //checked matches cerberus output
 	onplayerconnect_callback( maps/mp/zm_transit_bus::onplayerconnect );
 	onplayerconnect_callback( maps/mp/zm_transit_ai_screecher::portal_player_watcher );
 	level thread maps/mp/zombies/_zm_banking::init();
+	level thread override_zombie_count();
 }
 
 main() //checked partially changed to match cerberus output did not use continues in foreaches see github for more info
@@ -545,5 +546,72 @@ transit_custom_powerup_vo_response( powerup_player, powerup ) //checked partiall
 		{
 			player do_player_general_vox( "general", "exert_laugh", 10, 5 );
 		}
+	}
+}
+
+override_zombie_count()
+{
+	level endon( "end_game" );
+	level.speed_change_round = undefined;
+	
+	if( level.customMap == "house" || level.customMap == "cornfield" )
+	{
+		level.zombie_vars[ "zombie_spawn_delay" ] = 1.5;
+	}
+	for ( ;; )
+	{
+		level waittill_any( "start_of_round", "intermission", "check_count" );
+		level thread adjust_zombie_count();
+		if ( level.customMap == "house" )
+		{
+			if ( level.round_number <= 3 )
+			{
+				level.zombie_move_speed = 30;
+			}
+		}
+		else if ( level.customMap == "cornfield" )
+		{
+			if ( level.round_number == 1 )
+			{
+				level.zombie_move_speed = 30;
+			}
+			else if ( level.round_number <= 4 )
+			{
+				level.zombie_move_speed = 40;
+			}
+			else if ( level.round_number <= 7 )
+			{
+				level.zombie_move_speed = 70;
+			}
+		}
+	}
+}
+
+adjust_zombie_count()
+{
+	if ( level.players.size == 8 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 3;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 32 );
+	}
+	else if ( level.players.size == 7 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 4;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 30 );
+	}
+	else if ( level.players.size == 6 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 5;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 28 );
+	}
+	else if ( level.players.size == 5 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 5;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 26 );
+	}
+	else
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 6;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 24 );
 	}
 }
