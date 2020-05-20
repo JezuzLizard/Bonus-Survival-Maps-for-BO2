@@ -362,7 +362,7 @@ get_chest_pieces() //checked changed to match cerberus output
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "house" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
