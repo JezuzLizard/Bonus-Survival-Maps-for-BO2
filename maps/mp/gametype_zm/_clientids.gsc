@@ -2,18 +2,23 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 #include maps/mp/zombies/_zm_buildables;
+#include maps/mp/zombies/_zm_game_module;
+#include maps/mp/zombies/_zm_ai_basic;
+#include maps/mp/gametypes_zm/_weapons;
 
 init()
 {
 	thread gscRestart();
 	thread setPlayersToSpectator();
+	thread override_zombie_count();
 	level.player_out_of_playable_area_monitor = 0;
+	level.speed_change_round = undefined;
 	setDvar( "scr_screecher_ignore_player", 1 );
 	thread buildablebegin();
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    	}
+    }
 }
 
 buildablebegin()
@@ -39,6 +44,7 @@ onplayerspawned()
 	{
 		self waittill( "spawned_player" );
 		self thread disable_player_pers_upgrades();
+		level notify ( "check_count" );
 	}
 }
 
@@ -87,13 +93,13 @@ buildbuildables() //credit to Jbleezy for this function
 {
 	// need a wait or else some buildables dont build
 	wait 1;
-	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "cornfield" || level.customMap == "power" || level.customMap == "house" )
+	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" || level.customMap == "house" )
 	{
 		buildbuildable( "dinerhatch", 1 );
 		buildbuildable( "pap", 1 );
 		buildbuildable( "turbine" );
 		buildbuildable( "electric_trap" );
-		buildbuildable( "riotshield_zm" );
+		buildbuildable( "riotshield_zm", 1 );
 		removebuildable( "jetgun_zm" );
 		removebuildable( "powerswitch" );
 		removebuildable( "sq_common" );
@@ -458,4 +464,70 @@ spawnAllPlayers()
 		i++;
 	}
 	level.no_end_game_check = 0;
+}
+
+override_zombie_count()
+{
+	level endon( "end_game" );
+	
+	if( level.customMap == "house" || level.customMap == "cornfield" )
+	{
+		level.zombie_vars[ "zombie_spawn_delay" ] = 1.5;
+	}
+	for ( ;; )
+	{
+		level waittill_any( "start_of_round", "intermission", "check_count" );
+		level thread adjust_zombie_count();
+		if ( level.customMap == "house" )
+		{
+			if ( level.round_number <= 3 )
+			{
+				level.zombie_move_speed = 30;
+			}
+		}
+		else if ( level.customMap == "cornfield" )
+		{
+			if ( level.round_number == 1 )
+			{
+				level.zombie_move_speed = 30;
+			}
+			else if ( level.round_number <= 4 )
+			{
+				level.zombie_move_speed = 40;
+			}
+			else if ( level.round_number <= 7 )
+			{
+				level.zombie_move_speed = 70;
+			}
+		}
+	}
+}
+
+adjust_zombie_count()
+{
+	if ( level.players.size == 8 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 3;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 32 );
+	}
+	else if ( level.players.size == 7 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 4;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 30 );
+	}
+	else if ( level.players.size == 6 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 5;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 28 );
+	}
+	else if ( level.players.size == 5 )
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 5;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 26 );
+	}
+	else
+	{
+		level.zombie_vars["zombie_ai_per_player"] = 6;
+		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 24 );
+	}
 }
