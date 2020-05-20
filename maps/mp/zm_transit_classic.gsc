@@ -591,27 +591,27 @@ adjust_zombie_count()
 {
 	if ( level.players.size == 8 )
 	{
-		level.zombie_vars["zombie_ai_per_player"] = 3;
-		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 32 );
+		set_zombie_var( "zombie_max_ai", 32, 0, column );
+		set_zombie_var( "zombie_ai_per_player", 3, 0, column );
 	}
 	else if ( level.players.size == 7 )
 	{
-		level.zombie_vars["zombie_ai_per_player"] = 4;
-		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 30 );
+		set_zombie_var( "zombie_max_ai", 30, 0, column );
+		set_zombie_var( "zombie_ai_per_player", 4, 0, column );
 	}
 	else if ( level.players.size == 6 )
 	{
-		level.zombie_vars["zombie_ai_per_player"] = 5;
-		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 28 );
+		set_zombie_var( "zombie_max_ai", 28, 0, column );
+		set_zombie_var( "zombie_ai_per_player", 5, 0, column );
 	}
 	else if ( level.players.size == 5 )
 	{
-		level.zombie_vars["zombie_ai_per_player"] = 5;
-		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 26 );
+		set_zombie_var( "zombie_max_ai", 26, 0, column );
+		set_zombie_var( "zombie_ai_per_player", 6, 0, column );
 	}
 	else
 	{
-		level.zombie_vars["zombie_ai_per_player"] = 6;
-		level.zombie_ai_limit = getDvarIntDefault( "zombieAiLimit", 24 );
+		set_zombie_var( "zombie_max_ai", 24, 0, column );
+		set_zombie_var( "zombie_ai_per_player", 6, 0, column );
 	}
 }
