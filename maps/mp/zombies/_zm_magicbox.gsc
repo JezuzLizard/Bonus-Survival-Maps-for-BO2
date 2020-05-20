@@ -73,11 +73,19 @@ init() //checked matches cerberus output
 			start_chest2.angles = ( 0, -90, 0 );
 			start_chest2.script_noteworthy = "depot_chest";
 			start_chest2.zombie_cost = 950;
+			start_chest3 = spawnstruct();
+			start_chest3.origin = ( 10158, 49, -220 );
+			start_chest3.angles = ( 0, -185, 0 );
+			start_chest3.script_noteworthy = "farm_chest";
+			start_chest3.zombie_cost = 950;
 			level.chests[ 0 ] = start_chest;
 			level.chests[ 1 ] = start_chest2;
+			level.chests[ 2 ] = start_chest3;
 			randy = RandomIntRange(0,3);
 			if ( randy == 1 )
 				treasure_chest_init( "start_chest" );
+			else if ( randy == 2 )
+				treasure_chest_init( "farm_chest" );
 			else
 				treasure_chest_init( "depot_chest" );
 		}
@@ -299,12 +307,17 @@ get_chest_pieces() //checked changed to match cerberus output
 		self.chest_box.origin = ( 7458, -464, -196 );
 		self.chest_box.angles = ( 0, -90, 0 );
 	}
+	if ( level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" )
+	{
+		self.chest_box.origin = ( 10158, 49, -220 );
+		self.chest_box.angles = ( 0, -185, 0 );
+	}
 	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
 		self.chest_box.angles = ( 0, 90, 0 );
 	}
-	if ( level.customMap == "power" && self.script_noteworthy == "farm_chest" || level.customMap == "power" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "farm_chest" )
+	if ( level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" || level.customMap == "power" && self.script_noteworthy == "farm_chest" || level.customMap == "power" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "farm_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -334,7 +347,7 @@ get_chest_pieces() //checked changed to match cerberus output
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "house" || level.customMap == "cornfield" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( level.customMap == "house" || level.customMap == "cornfield" && self.script_noteworthy != "farm_chest" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
