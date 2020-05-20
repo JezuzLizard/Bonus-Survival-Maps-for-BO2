@@ -564,24 +564,20 @@ override_zombie_count()
 		level thread adjust_zombie_count();
 		if ( level.customMap == "house" )
 		{
-			if ( level.round_number <= 3 )
+			if ( level.round_number <= 2 )
 			{
-				level.zombie_move_speed = 30;
+				level.zombie_move_speed = 20;
 			}
 		}
 		else if ( level.customMap == "cornfield" )
 		{
 			if ( level.round_number == 1 )
 			{
+				level.zombie_move_speed = 20;
+			}
+			if ( level.round_number <= 3 )
+			{
 				level.zombie_move_speed = 30;
-			}
-			else if ( level.round_number <= 4 )
-			{
-				level.zombie_move_speed = 40;
-			}
-			else if ( level.round_number <= 7 )
-			{
-				level.zombie_move_speed = 70;
 			}
 		}
 	}
