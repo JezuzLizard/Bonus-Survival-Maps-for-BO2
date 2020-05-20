@@ -1386,15 +1386,27 @@ onspawnplayerunified() //checked matches cerberus output
 	onspawnplayer( 0 );
 }
 
+getMapString(map)
+{
+	if(map == "tunnel")
+		return "Tunnel";
+	if(map == "diner")
+		return "Diner";
+	if(map == "power")
+		return "Power Station";
+	if(map == "house")
+		return "Cabin";
+	if(map == "cornfield")
+		return "Cornfield";
+}
+
 map_rotation()
 {
 	level waittill( "end_game");
-	level.customMapSvHostname = getDvar( "sv_hostname" );
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
 	level.mapList = strTok( level.customMapRotation, " " );
-	setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.customMap );
 	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
 	{
 		level.customMapRotation = "cornfield diner house power tunnel";
@@ -1411,31 +1423,26 @@ map_rotation()
 	if( isDefined( level.mapList[ 1 ] ) && level.customMap == level.mapList[ 0 ] )
 	{
 		setDvar( "customMap", level.mapList[ 1 ] );
-		setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.mapList[ 1 ] );
 		return;
 	}
 	else if( isDefined( level.mapList[ 2 ] ) && level.customMap == level.mapList[ 1 ] )
 	{
 		setDvar( "customMap", level.mapList[ 2 ] );
-		setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.mapList[ 2 ] );
 		return;
 	}
 	else if( isDefined( level.mapList[ 3 ] ) && level.customMap == level.mapList[ 2 ] )
 	{
 		setDvar( "customMap", level.mapList[ 3 ] );
-		setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.mapList[ 3 ] );
 		return;
 	}
 	else if( isDefined( level.mapList[ 4 ] ) && level.customMap == level.mapList[ 3 ] )
 	{
 		setDvar( "customMap", level.mapList[ 4 ] );
-		setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.mapList[ 4 ] );
 		return;
 	}
 	else
 	{
 		setDvar( "customMap", level.mapList[ 0 ] );
-		setDvar( "sv_hostname", level.customMapSvHostname + " Current Map: " + level.mapList[ 0 ] );
 		return;
 	}
 }
@@ -1464,6 +1471,9 @@ init_spawnpoints_for_custom_survival_maps()
 	//level.customMapsMapRotationActive = getDvarIntDefault( "customMapsMapRotationActive", 0 );
 	//level.customMapsMapRotation = getDvar( "customMapsMapRotation" );//looks like this "tunnel diner power cornfield"
 	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield"
+
+	map = level.customMap;
+	setDvar( "sv_hostname", "^1Bonus^7 Survival Maps [Current Map: ^1" + getMapString(map) +"^7]" );
 	
 	//TUNNEL
 	level.tunnelSpawnpoints = [];
@@ -2533,4 +2543,3 @@ blank()
 {
 	//empty function
 }
-
