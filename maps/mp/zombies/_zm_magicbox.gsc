@@ -118,7 +118,7 @@ init() //checked matches cerberus output
 			level.chests[ 2 ] = start_chest2;
 			randy = RandomIntRange(0,3);
 			if ( randy == 1 )
-				treasure_chest_init( "start_chest" );
+				treasure_chest_init( "pow_chest" );
 			else if ( randy == 2 )
 				treasure_chest_init( "depot_chest" );
 			else
