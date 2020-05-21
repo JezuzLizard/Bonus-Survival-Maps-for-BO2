@@ -1,25 +1,28 @@
 # Bonus-Survival-Maps-for-BO2
 
-## How to install
+## Features
 
-Create any folders if they do not exist
+This mod allows you to launch up 5 extra survival maps on Tranzit.
+All maps feature all 6 perks, the pack a punch and the mystery box.
+Map restart fix.
+Announcer fix.
+Custom spawn and respawn points.
+Barriers preventing players from leaving the area.
+Denizens disabled.
+House has the wunderfizz machine instead of individual machines.
 
-Compile _clientids.gsc as _clientids.gsc and place it in maps/mp/gametypes_zm
+## Playable Maps:
 
-Compile _zm_gametype.gsc as _zm_gametype.gsc and place it in maps/mp/gametypes_zm
+Cornfield
+Diner
+House
+Power
+Tunnel
 
-Compile _zm_perks.gsc as _zm_perks.gsc and place it in maps/mp/zombies
+See INSTRUCTIONS.md for how to install and run.
 
-Compile _zm_weapons.gsc as _zm_weapons.gsc and place it in maps/mp/zombies
+Report any bugs found to the forum, we will try to fix them as soon as possible.
 
-Compile _zm_magicbox.gsc as _zm_magicbox.gsc and place it in maps/mp/zombies
-
-Compile _zm_zonemgr.gsc as _zm_zonemgr.gsc and place it maps/mp/zombies
-
-Compile _zm_powerups.gsc as _zm_powerups.gsc and place it maps/mp/zombies
-
-Compile zm_transit_classic.gsc as zm_transit_classic.gsc and place it in maps/mp
-
-## Notes
-
-Do not run this mod on maps other than tranzit it will be buggy.
+# Soon to be added
+Docks survival on MoTD
+Origins no mans land survival

@@ -491,7 +491,7 @@ powerup_round_start() //checked matches cerberus output
 	level.powerup_drop_count = 0;
 }
 
-powerup_drop( drop_point ) //checked partially changed to match cerberus output
+powerup_drop( drop_point ) //modified function
 {
 	if ( level.powerup_drop_count >= level.zombie_vars[ "zombie_powerup_drop_max_per_round" ] )
 	{
@@ -2892,3 +2892,4 @@ zombies_always_drop_powerups() //debug code added
 		wait 0.05;
 	}
 }
+

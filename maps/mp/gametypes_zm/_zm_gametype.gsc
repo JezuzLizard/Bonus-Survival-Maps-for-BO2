@@ -35,8 +35,8 @@ main() //checked matches cerberus output
 	maps/mp/gametypes_zm/_weapons::registerthrowngrenadeduddvar( level.gametype, 0, 0, 1440 );
 	maps/mp/gametypes_zm/_weapons::registerkillstreakdelay( level.gametype, 0, 0, 1440 );
 	maps/mp/gametypes_zm/_globallogic::registerfriendlyfiredelay( level.gametype, 15, 0, 1440 );
-	init_spawnpoints_for_custom_survival_maps();
-	init_barriers_for_custom_maps();
+	init_spawnpoints_for_custom_survival_maps(); //custom function
+	init_barriers_for_custom_maps(); //custom function
 	level.takelivesondeath = 1;
 	level.teambased = 1;
 	level.disableprematchmessages = 1;
@@ -1386,7 +1386,7 @@ onspawnplayerunified() //checked matches cerberus output
 	onspawnplayer( 0 );
 }
 
-getMapString(map)
+getMapString(map) //custom function
 {
 	if(map == "tunnel")
 		return "Tunnel";
@@ -1400,7 +1400,7 @@ getMapString(map)
 		return "Cornfield";
 }
 
-map_rotation()
+map_rotation() //custom function
 {
 	level waittill( "end_game");
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
@@ -1447,7 +1447,7 @@ map_rotation()
 	}
 }
 
-random_map_rotation()
+random_map_rotation() //custom function
 {
 	level.nextMap = RandomInt( level.mapList.size );
 	level.lastMap = getDvar( "lastMap" );
@@ -1463,7 +1463,7 @@ random_map_rotation()
 	}
 }
 
-init_spawnpoints_for_custom_survival_maps()
+init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
 	//level.customMapsMapRotationRandomization = getDvarIntDefault( "customMapsMapRotationRandomization", 0 );
@@ -1771,7 +1771,7 @@ init_spawnpoints_for_custom_survival_maps()
 	level.houseSpawnpoints[ 7 ].script_int = 2048;
 }
 
-init_barriers_for_custom_maps()
+init_barriers_for_custom_maps() //custom function
 {
 
 	//DINER CLIPS
@@ -1919,7 +1919,7 @@ init_barriers_for_custom_maps()
 	cornfieldclip1 rotateTo((0,126,0),.1);
 }
 
-onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerberus output
+onspawnplayer( predictedspawn ) //modified function
 {
 	if ( !isDefined( predictedspawn ) )
 	{
@@ -2015,7 +2015,7 @@ onspawnplayer( predictedspawn ) //fixed checked changed partially to match cerbe
 	pixendevent();
 }
 
-get_player_spawns_for_gametype() //fixed checked partially changed to match cerberus output
+get_player_spawns_for_gametype() //modified function
 {
 	match_string = "";
 	location = level.scr_zm_map_start_location;
@@ -2545,7 +2545,8 @@ hide_gump_loading_for_hotjoiners() //checked matches cerberus output
 	}
 }
 
-blank()
+blank() //this function is intentionally empty
 {
 	//empty function
 }
+

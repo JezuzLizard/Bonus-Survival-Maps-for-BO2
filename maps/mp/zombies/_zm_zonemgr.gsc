@@ -841,7 +841,7 @@ old_manage_zones( initial_zone ) //checked changed to match cerberus output
 	}
 }
 */
-create_spawner_list( zkeys ) //checked changed to match cerberus output
+create_spawner_list( zkeys ) //modified function
 {
 	level.zombie_spawn_locations = [];
 	level.inert_locations = [];
@@ -1190,3 +1190,4 @@ is_player_in_zone( zone_name ) //checked changed to match cerberus output
 	}
 	return 0;
 }
+

@@ -17,7 +17,7 @@
 #include maps/mp/zombies/_zm_weap_ballistic_knife;
 
 
-init() //checked matches cerberus output
+init() //modified function
 {
 	//begin debug
 	level.custom_zm_weapons_loaded = 1;
@@ -29,7 +29,7 @@ init() //checked matches cerberus output
 	//end debug
 	level.zombiemode_reusing_pack_a_punch = 1;
 	level.monolingustic_prompt_format = 0;
-	precacheEffectsForWeapons();
+	precacheEffectsForWeapons(); //custom function
 	init_weapons();
 	init_weapon_upgrade();
 	init_weapon_toggle();
@@ -45,7 +45,7 @@ init() //checked matches cerberus output
 
 }
 
-precacheEffectsForWeapons()
+precacheEffectsForWeapons() //custom function
 {
 	level._effect[ "m14_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m14" );
 	level._effect[ "olympia_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_olympia" );
@@ -893,7 +893,7 @@ player_can_use_content( weapon ) //checked matches cerberus output
 	return 1;
 }
 
-init_spawnable_weapon_upgrade() //checked partially changed to match cerberus output
+init_spawnable_weapon_upgrade() //modified function
 {
 	spawn_list = [];
 	spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
@@ -1187,7 +1187,7 @@ init_spawnable_weapon_upgrade() //checked partially changed to match cerberus ou
 	tempmodel delete();
 }
 
-playchalkfx(effect, origin, angles)
+playchalkfx(effect, origin, angles) //custom function
 {
 	for(;;)
 	{
@@ -2973,3 +2973,4 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
+

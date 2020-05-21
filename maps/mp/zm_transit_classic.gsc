@@ -55,7 +55,7 @@ precache() //checked matches cerberus output
 	level thread override_zombie_count();
 }
 
-main() //checked partially changed to match cerberus output did not use continues in foreaches see github for more info
+main() //modified function
 {
 	level.ta_vaultfee = 100;
 	level.ta_tellerfee = 100;
@@ -397,7 +397,7 @@ bus_roof_damage() //checked changed to match cerberus output
 	}
 }
 
-diner_hatch_access() //checked matches cerberus output
+diner_hatch_access() //modified function
 {
 	diner_hatch = getent( "diner_hatch", "targetname" );
 	diner_hatch_col = getent( "diner_hatch_collision", "targetname" );
@@ -549,7 +549,7 @@ transit_custom_powerup_vo_response( powerup_player, powerup ) //checked partiall
 	}
 }
 
-override_zombie_count()
+override_zombie_count() //custom function
 {
 	level endon( "end_game" );
 	level.speed_change_round = undefined;
@@ -575,7 +575,7 @@ override_zombie_count()
 			{
 				level.zombie_move_speed = 20;
 			}
-			if ( level.round_number <= 3 )
+			else if ( level.round_number <= 3 )
 			{
 				level.zombie_move_speed = 30;
 			}
@@ -583,31 +583,32 @@ override_zombie_count()
 	}
 }
 
-adjust_zombie_count()
+adjust_zombie_count() //custom function
 {
 	if ( level.players.size == 8 )
 	{
-		set_zombie_var( "zombie_max_ai", 32, 0, column );
-		set_zombie_var( "zombie_ai_per_player", 3, 0, column );
+		level.zombie_ai_limit = 32;
+		level.zombie_vars["zombie_ai_per_player"] = 3;
 	}
 	else if ( level.players.size == 7 )
 	{
-		set_zombie_var( "zombie_max_ai", 30, 0, column );
-		set_zombie_var( "zombie_ai_per_player", 4, 0, column );
+		level.zombie_ai_limit = 30;
+		level.zombie_vars["zombie_ai_per_player"] = 4;
 	}
 	else if ( level.players.size == 6 )
 	{
-		set_zombie_var( "zombie_max_ai", 28, 0, column );
-		set_zombie_var( "zombie_ai_per_player", 5, 0, column );
+		level.zombie_ai_limit = 28;
+		level.zombie_vars["zombie_ai_per_player"] = 5;
 	}
 	else if ( level.players.size == 5 )
 	{
-		set_zombie_var( "zombie_max_ai", 26, 0, column );
-		set_zombie_var( "zombie_ai_per_player", 6, 0, column );
+		level.zombie_ai_limit = 26;
+		level.zombie_vars["zombie_ai_per_player"] = 5;
 	}
 	else
 	{
-		set_zombie_var( "zombie_max_ai", 24, 0, column );
-		set_zombie_var( "zombie_ai_per_player", 6, 0, column );
+		level.zombie_ai_limit = 24;
+		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
+

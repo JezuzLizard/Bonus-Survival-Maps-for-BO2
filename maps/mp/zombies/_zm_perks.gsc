@@ -2974,7 +2974,7 @@ perk_machine_removal( machine, replacement_model ) //checked changed to match ce
 	}
 }
 
-extra_perk_spawns()
+extra_perk_spawns() //custom function
 {
 	level.cornfieldPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_longersprint",
 							 "specialty_scavenger", "specialty_weapupgrade", "specialty_quickrevive" );
@@ -3131,7 +3131,7 @@ extra_perk_spawns()
 	level.housePerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
 
-perk_machine_spawn_init()
+perk_machine_spawn_init() //modified function
 {
 	extra_perk_spawns();
 	match_string = "";
@@ -4145,3 +4145,4 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
+

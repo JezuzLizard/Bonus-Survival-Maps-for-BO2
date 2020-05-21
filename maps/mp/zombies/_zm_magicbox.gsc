@@ -10,7 +10,7 @@
 #include maps/mp/_utility;
 #include common_scripts/utility;
 
-init() //checked matches cerberus output
+init() //modified function
 {
 	//begin debug code
 	level.custom_zm_magicbox_loaded = 1;
@@ -264,7 +264,7 @@ set_treasure_chest_cost( cost ) //checked matches cerberus output
 	level.zombie_treasure_chest_cost = cost;
 }
 
-get_chest_pieces() //checked changed to match cerberus output
+get_chest_pieces() //modified function
 {
 	self.chest_box = getent( self.script_noteworthy + "_zbarrier", "script_noteworthy" );
 	if ( level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
@@ -1853,3 +1853,4 @@ magicbox_host_migration() //checked changed to match cerberus output
 		}
 	}
 }
+
