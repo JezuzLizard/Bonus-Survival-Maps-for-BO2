@@ -108,21 +108,13 @@ init() //modified function
 			start_chest.angles = ( 0, 180, 0 );
 			start_chest.script_noteworthy = "depot_chest";
 			start_chest.zombie_cost = 950;
-			start_chest2 = spawnstruct();
-			start_chest2.origin = ( 11110, 8920, -575 );
-			start_chest2.angles = ( 0, 180, 0 );
-			start_chest2.script_noteworthy = "farm_chest";
-			start_chest2.zombie_cost = 950;
 			level.chests[ 0 ] = normalChests[ 2 ];
 			level.chests[ 1 ] = start_chest;
-			level.chests[ 2 ] = start_chest2;
-			randy = RandomIntRange(0,3);
+			randy = RandomIntRange(0,2);
 			if ( randy == 1 )
 				treasure_chest_init( "pow_chest" );
-			else if ( randy == 2 )
-				treasure_chest_init( "depot_chest" );
 			else
-				treasure_chest_init( "farm_chest" );
+				treasure_chest_init( "depot_chest" );
 		}
 		else if ( level.customMap == "diner" )
 		{
