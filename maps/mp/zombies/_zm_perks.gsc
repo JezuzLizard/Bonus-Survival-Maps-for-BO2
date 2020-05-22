@@ -1956,6 +1956,15 @@ vending_trigger_think() //checked changed to match cerberus output
 	}
 }
 
+get_player_perk_purchase_limit()
+{
+	if ( isDefined( self.player_perk_purchase_limit ) )
+	{
+		return self.player_perk_purchase_limit;
+	}
+	return level.perk_purchase_limit;
+}
+
 vending_trigger_post_think( player, perk ) //checked matches cerberus output
 {
 	player endon( "disconnect" );
@@ -4145,4 +4154,3 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
-
