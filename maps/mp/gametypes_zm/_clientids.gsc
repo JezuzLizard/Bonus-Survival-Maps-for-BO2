@@ -16,7 +16,7 @@ init()
 	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
-    	}
+    }
 }
 
 buildablebegin()
@@ -31,8 +31,30 @@ onplayerconnected()
 	for ( ;; )
 	{
 		level waittill( "connected", player );
+		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
+	}
+}
+
+addPerkSlot()
+{
+	perks = getPerks();
+	killsNeeded = getDvarIntDefault( "perkSlotIncreaseKills", 0 );
+	completedCount = 0;
+	for(;;)
+	{
+		if(killsNeeded == 0)
+			break;
+		if((self.kills - (killsNeeded * completedCount)) >= killsNeeded)
+		{
+			self increment_player_perk_purchase_limit();
+			self IPrintLnBold("You can now hold: " + self.player_perk_purchase_limit + " perks!");
+			completedCount++;
+		}
+		if((perks.size - level.perk_purchase_limit) <= completedCount)
+			break;
+		wait .1;
 	}
 }
 
@@ -315,7 +337,7 @@ wunderfizz(origin, angles, model)
 		trig waittill("trigger", player);
 		if(player UseButtonPressed() && player.score >= cost && player.isDrinkingPerk == 0)
 		{
-			if(player.num_perks < level.perk_purchase_limit)
+			if(player.num_perks < (player get_player_perk_purchase_limit()))
 			{
 				if(player.num_perks < perks.size)
 				{
@@ -383,12 +405,34 @@ wunderfizz(origin, angles, model)
 				}
 			}
 			else{
-				trig SetHintString("You Can Only Hold " + level.perk_purchase_limit + " Perks");
+				trig SetHintString("You Can Only Hold " + (player get_player_perk_purchase_limit()) + " Perks");
 				wait 2;
 				trig SetHintString("Hold ^3&&1^7 to buy Perk-a-Cola [Cost: " + cost + "]");
 			}
 		}
 		wait .1;
+	}
+}
+
+get_player_perk_purchase_limit()
+{
+	if ( isDefined( self.player_perk_purchase_limit ) )
+	{
+		return self.player_perk_purchase_limit;
+	}
+	return level.perk_purchase_limit;
+}
+
+increment_player_perk_purchase_limit()
+{
+	perks = getPerks();
+	if ( !isDefined( self.player_perk_purchase_limit ) )
+	{
+		self.player_perk_purchase_limit = level.perk_purchase_limit;
+	}
+	if ( self.player_perk_purchase_limit < perks.size )
+	{
+		self.player_perk_purchase_limit++;
 	}
 }
 
