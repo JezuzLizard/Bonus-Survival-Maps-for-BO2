@@ -40,101 +40,104 @@ init() //modified function
 	{
 		level.chests = getstructarray( "treasure_chest_use", "targetname" );
 		normalChests = level.chests;
-		if ( level.customMap == "tunnel" )
+		if(isDefined(level.customMap))
 		{
-			level.chests = [];
-			start_chest = spawnstruct();
-			start_chest.origin = ( -11090, -349, 193 );
-			start_chest.angles = ( 0, -100, 0 );
-			start_chest.script_noteworthy = "start_chest";
-			start_chest.zombie_cost = 950;
-			start_chest2 = spawnstruct();
-			start_chest2.origin = ( -11772, -2501, 232 );
-			start_chest2.angles = ( 0, 90, 0 );
-			start_chest2.script_noteworthy = "farm_chest";
-			start_chest2.zombie_cost = 950;
-			level.chests[ 0 ] = start_chest;
-			level.chests[ 1 ] = start_chest2;
-			randy = RandomIntRange(0,3);
-			if ( randy == 1 )
+			if ( level.customMap == "tunnel" )
+			{
+				level.chests = [];
+				start_chest = spawnstruct();
+				start_chest.origin = ( -11090, -349, 193 );
+				start_chest.angles = ( 0, -100, 0 );
+				start_chest.script_noteworthy = "start_chest";
+				start_chest.zombie_cost = 950;
+				start_chest2 = spawnstruct();
+				start_chest2.origin = ( -11772, -2501, 232 );
+				start_chest2.angles = ( 0, 90, 0 );
+				start_chest2.script_noteworthy = "farm_chest";
+				start_chest2.zombie_cost = 950;
+				level.chests[ 0 ] = start_chest;
+				level.chests[ 1 ] = start_chest2;
+				randy = RandomIntRange(0,3);
+				if ( randy == 1 )
+					treasure_chest_init( "start_chest" );
+				else
+					treasure_chest_init( "farm_chest" );
+			}
+			else if ( level.customMap == "cornfield" )
+			{
+				level.chests = [];
+				start_chest = spawnstruct();
+				start_chest.origin = ( 13566, -541, -188 );
+				start_chest.angles = ( 0, -90, 0 );
+				start_chest.script_noteworthy = "start_chest";
+				start_chest.zombie_cost = 950;
+				start_chest2 = spawnstruct();
+				start_chest2.origin = ( 7458, -464, -196 );
+				start_chest2.angles = ( 0, -90, 0 );
+				start_chest2.script_noteworthy = "depot_chest";
+				start_chest2.zombie_cost = 950;
+				start_chest3 = spawnstruct();
+				start_chest3.origin = ( 10158, 49, -220 );
+				start_chest3.angles = ( 0, -185, 0 );
+				start_chest3.script_noteworthy = "farm_chest";
+				start_chest3.zombie_cost = 950;
+				level.chests[ 0 ] = start_chest;
+				level.chests[ 1 ] = start_chest2;
+				level.chests[ 2 ] = start_chest3;
+				randy = RandomIntRange(0,3);
+				if ( randy == 1 )
+					treasure_chest_init( "start_chest" );
+				else if ( randy == 2 )
+					treasure_chest_init( "farm_chest" );
+				else
+					treasure_chest_init( "depot_chest" );
+			}
+			else if ( level.customMap == "house" )
+			{
+				level.chests = [];
+				start_chest = spawnstruct();
+				start_chest.origin = ( 5387, 6594, -24 );
+				start_chest.angles = ( 0, 90, 0 );
+				start_chest.script_noteworthy = "start_chest";
+				start_chest.zombie_cost = 950;
+				level.chests[ 0 ] = start_chest;
 				treasure_chest_init( "start_chest" );
-			else
-				treasure_chest_init( "farm_chest" );
-		}
-		else if ( level.customMap == "cornfield" )
-		{
-			level.chests = [];
-			start_chest = spawnstruct();
-			start_chest.origin = ( 13566, -541, -188 );
-			start_chest.angles = ( 0, -90, 0 );
-			start_chest.script_noteworthy = "start_chest";
-			start_chest.zombie_cost = 950;
-			start_chest2 = spawnstruct();
-			start_chest2.origin = ( 7458, -464, -196 );
-			start_chest2.angles = ( 0, -90, 0 );
-			start_chest2.script_noteworthy = "depot_chest";
-			start_chest2.zombie_cost = 950;
-			start_chest3 = spawnstruct();
-			start_chest3.origin = ( 10158, 49, -220 );
-			start_chest3.angles = ( 0, -185, 0 );
-			start_chest3.script_noteworthy = "farm_chest";
-			start_chest3.zombie_cost = 950;
-			level.chests[ 0 ] = start_chest;
-			level.chests[ 1 ] = start_chest2;
-			level.chests[ 2 ] = start_chest3;
-			randy = RandomIntRange(0,3);
-			if ( randy == 1 )
-				treasure_chest_init( "start_chest" );
-			else if ( randy == 2 )
-				treasure_chest_init( "farm_chest" );
-			else
-				treasure_chest_init( "depot_chest" );
-		}
-		else if ( level.customMap == "house" )
-		{
-			level.chests = [];
-			start_chest = spawnstruct();
-			start_chest.origin = ( 5387, 6594, -24 );
-			start_chest.angles = ( 0, 90, 0 );
-			start_chest.script_noteworthy = "start_chest";
-			start_chest.zombie_cost = 950;
-			level.chests[ 0 ] = start_chest;
-			treasure_chest_init( "start_chest" );
-		}
-		else if ( level.customMap == "power" )
-		{
-			level.chests = [];
-			start_chest = spawnstruct();
-			start_chest.origin = ( 10806, 8518, -407 );
-			start_chest.angles = ( 0, 180, 0 );
-			start_chest.script_noteworthy = "depot_chest";
-			start_chest.zombie_cost = 950;
-			level.chests[ 0 ] = normalChests[ 2 ];
-			level.chests[ 1 ] = start_chest;
-			randy = RandomIntRange(0,2);
-			if ( randy == 1 )
-				treasure_chest_init( "pow_chest" );
-			else
-				treasure_chest_init( "depot_chest" );
-		}
-		else if ( level.customMap == "diner" )
-		{
-			level.chests = [];
-			start_chest = spawnstruct();
-			start_chest.origin = ( -5708, -7968, 232 );
-			start_chest.angles = ( 0, 1, 0 );
-			start_chest.script_noteworthy = "depot_chest";
-			start_chest.zombie_cost = 950;
-			level.chests[ 0 ] = normalChests[ 3 ];
-			level.chests[ 1 ] = start_chest;
-			randy = RandomIntRange(0,3);
-			if ( randy == 1 )
-				treasure_chest_init( "start_chest" );
-			else
-				treasure_chest_init( "depot_chest" );
+			}
+			else if ( level.customMap == "power" )
+			{
+				level.chests = [];
+				start_chest = spawnstruct();
+				start_chest.origin = ( 10806, 8518, -407 );
+				start_chest.angles = ( 0, 180, 0 );
+				start_chest.script_noteworthy = "depot_chest";
+				start_chest.zombie_cost = 950;
+				level.chests[ 0 ] = normalChests[ 2 ];
+				level.chests[ 1 ] = start_chest;
+				randy = RandomIntRange(0,2);
+				if ( randy == 1 )
+					treasure_chest_init( "pow_chest" );
+				else
+					treasure_chest_init( "depot_chest" );
+			}
+			else if ( level.customMap == "diner" )
+			{
+				level.chests = [];
+				start_chest = spawnstruct();
+				start_chest.origin = ( -5708, -7968, 232 );
+				start_chest.angles = ( 0, 1, 0 );
+				start_chest.script_noteworthy = "depot_chest";
+				start_chest.zombie_cost = 950;
+				level.chests[ 0 ] = normalChests[ 3 ];
+				level.chests[ 1 ] = start_chest;
+				randy = RandomIntRange(0,3);
+				if ( randy == 1 )
+					treasure_chest_init( "start_chest" );
+				else
+					treasure_chest_init( "depot_chest" );
+			}
 		}
 		else{
-			treasure_chest_init("start_chest");
+			treasure_chest_init( "start_chest" );
 		}
 	}
 	if ( level.createfx_enabled )
