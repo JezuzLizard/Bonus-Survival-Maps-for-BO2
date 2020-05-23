@@ -40,6 +40,7 @@ init() //modified function
 	{
 		level.chests = getstructarray( "treasure_chest_use", "targetname" );
 		normalChests = level.chests;
+
 		if (isDefined(level.customMap) && level.customMap == "tunnel" )
 		{
 			level.chests = [];
@@ -132,6 +133,12 @@ init() //modified function
 				treasure_chest_init( "start_chest" );
 			else
 				treasure_chest_init( "depot_chest" );
+		}
+		else if (isDefined(level.customMap) && level.customMap == "docks")
+		{
+			level.chests = [];
+			level.chests[0] = normalChests[3];
+			treasure_chest_init("dock_chest");
 		}
 		else
 		{
@@ -410,7 +417,7 @@ get_chest_pieces() //modified function
 	self.unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
 	self.unitrigger_stub.script_width = 104;
 	self.unitrigger_stub.script_height = 50;
-	self.unitrigger_stub.script_length = 45;
+	self.unitrigger_stub.script_length = 60;
 	self.unitrigger_stub.trigger_target = self;
 	unitrigger_force_per_player_triggers( self.unitrigger_stub, 1 );
 	self.unitrigger_stub.prompt_and_visibility_func = ::boxtrigger_update_prompt;
