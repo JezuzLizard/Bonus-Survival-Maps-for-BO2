@@ -39,6 +39,7 @@ set customMapRotation "diner power cornfield tunnel house" // rearrange the orde
 set randomizeMapRotation 0 //set this to 1 to enable randomized map rotation
 set customMapRotationActive 0 //set this to 1 to enable map rotation
 set customMap "tunnel" //the initial map or constant map if map rotation is off
+set perkSlotIncreaseKills 0 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
 ```
 
 # How to modify
