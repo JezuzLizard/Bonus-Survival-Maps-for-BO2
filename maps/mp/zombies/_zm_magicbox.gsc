@@ -133,6 +133,9 @@ init() //modified function
 			else
 				treasure_chest_init( "depot_chest" );
 		}
+		else{
+			treasure_chest_init("start_chest");
+		}
 	}
 	if ( level.createfx_enabled )
 	{
@@ -1846,4 +1849,3 @@ magicbox_host_migration() //checked changed to match cerberus output
 		}
 	}
 }
-
