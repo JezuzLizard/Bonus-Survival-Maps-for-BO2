@@ -56,8 +56,11 @@ precacheEffectsForWeapons() //custom function
 	level._effect[ "claymore_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
 	level._effect[ "m16_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
 	level._effect[ "galvaknuckles_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_taseknuck" );
-	level._effect[ "thompson_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_thompson" );
-	level._effect[ "870mcs_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
+	if(level.script == "zm_prison")
+	{
+		level._effect[ "thompson_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_thompson" );
+		level._effect[ "870mcs_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
+	}
 }
 
 setupretrievablehintstrings() //checked matches cerberus output
@@ -950,7 +953,7 @@ init_spawnable_weapon_upgrade() //modified function
 	{
 		clientfieldname = spawn_list[ i ].zombie_weapon_upgrade + "_" + spawn_list[ i ].origin;
 		numbits = 2;
-		if ( level.customMap == "docks" )
+		if ( isDefined(level.customMap) && level.customMap == "docks" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "870mcs_zm" && spawn_list[ i ].origin == (601, 9407, 1163) )
 			{
@@ -971,7 +974,7 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,90,0));
 			}
 		}
-		else if ( level.customMap == "tunnel" )
+		else if ( isDefined(level.customMap) && level.customMap == "tunnel" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -998,7 +1001,7 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("galvaknuckles_effect", spawn_list[ i ].origin, (0,-93,0));
 			}
 		}
-		else if ( level.customMap == "diner" )
+		else if ( isDefined(level.customMap) && level.customMap == "diner" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1019,7 +1022,7 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("m16_effect", spawn_list[ i ].origin, (0,180,0));
 			}
 		}
-		else if ( level.customMap == "cornfield" )
+		else if ( isDefined(level.customMap) && level.customMap == "cornfield" )
 		{
 			/*
 			if( spawn_list[ i ].zombie_weapon_upgrade == "beretta93r_zm" )
@@ -1060,7 +1063,7 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("galvaknuckles_effect", spawn_list[ i ].origin + (0, 13, 0), (0,90,0));
 			}
 		}
-		else if ( level.customMap == "house" )
+		else if ( isDefined(level.customMap) && level.customMap == "house" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -1081,7 +1084,7 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("mp5k_effect", spawn_list[ i ].origin, (0,180,0));
 			}
 		}
-		else if ( level.customMap == "power" )
+		else if ( isDefined(level.customMap) && level.customMap == "power" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
