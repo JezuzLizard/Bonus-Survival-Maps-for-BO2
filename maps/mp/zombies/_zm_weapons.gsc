@@ -952,9 +952,8 @@ init_spawnable_weapon_upgrade() //modified function
 		numbits = 2;
 		if ( level.customMap == "docks" )
 		{
-			if( spawn_list[ i ].zombie_weapon_upgrade == "870mcs_zm" && !isDefined( level.remmingtonActivated ) )
+			if( spawn_list[ i ].zombie_weapon_upgrade == "870mcs_zm" && spawn_list[ i ].origin == (601, 9407, 1163) )
 			{
-				level.remmingtonActivated = true;
 				spawn_list[ i ].origin = (-340, 6204, 43.5);
 				spawn_list[ i ].angles = ( 0, 10, 0 );
 				thread playchalkfx("870mcs_effect", spawn_list[ i ].origin, (0,190,0));
