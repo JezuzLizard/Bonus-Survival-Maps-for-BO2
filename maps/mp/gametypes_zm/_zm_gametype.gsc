@@ -1773,150 +1773,152 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 
 init_barriers_for_custom_maps() //custom function
 {
+	if(level.script == "zm_transit")
+	{
+		//DINER CLIPS
+		dinerclip1 = spawn("script_model", (-3952,-6957,-67));
+		dinerclip1 setModel("collision_player_wall_256x256x10");
+		dinerclip1 rotateTo((0,82,0), .1);
 
-	//DINER CLIPS
-	dinerclip1 = spawn("script_model", (-3952,-6957,-67));
-	dinerclip1 setModel("collision_player_wall_256x256x10");
-	dinerclip1 rotateTo((0,82,0), .1);
+		dinerclip2 = spawn("script_model", (-4173,-6679,-60));
+		dinerclip2 setModel("collision_player_wall_512x512x10");
+		dinerclip2 rotateTo((0,0,0), .1);
 
-	dinerclip2 = spawn("script_model", (-4173,-6679,-60));
-	dinerclip2 setModel("collision_player_wall_512x512x10");
-	dinerclip2 rotateTo((0,0,0), .1);
+		dinerclip3 = spawn("script_model", (-5073,-6732,-59));
+		dinerclip3 setModel("collision_player_wall_512x512x10");
+		dinerclip3 rotateTo((0,328,0), .1);
 
-	dinerclip3 = spawn("script_model", (-5073,-6732,-59));
-	dinerclip3 setModel("collision_player_wall_512x512x10");
-	dinerclip3 rotateTo((0,328,0), .1);
+		dinerclip4 = spawn("script_model", (-6104,-6490,-38));
+		dinerclip4 setModel("collision_player_wall_512x512x10");
+		dinerclip4 rotateTo((0,2,0), .1);
 
-	dinerclip4 = spawn("script_model", (-6104,-6490,-38));
-	dinerclip4 setModel("collision_player_wall_512x512x10");
-	dinerclip4 rotateTo((0,2,0), .1);
+		dinerclip5 = spawn("script_model", (-5850,-6486,-38));
+		dinerclip5 setModel("collision_player_wall_256x256x10");
+		dinerclip5 rotateTo((0,0,0), .1);
 
-	dinerclip5 = spawn("script_model", (-5850,-6486,-38));
-	dinerclip5 setModel("collision_player_wall_256x256x10");
-	dinerclip5 rotateTo((0,0,0), .1);
+		dinerclip6 = spawn("script_model", (-5624,-6406,-40));
+		dinerclip6 setModel("collision_player_wall_256x256x10");
+		dinerclip6 rotateTo((0,226,0), .1);
 
-	dinerclip6 = spawn("script_model", (-5624,-6406,-40));
-	dinerclip6 setModel("collision_player_wall_256x256x10");
-	dinerclip6 rotateTo((0,226,0), .1);
+		dinerclip7 = spawn("script_model", (-6348,-6886,-55));
+		dinerclip7 setModel("collision_player_wall_512x512x10");
+		dinerclip7 rotateTo((0,98,0), .1);
 
-	dinerclip7 = spawn("script_model", (-6348,-6886,-55));
-	dinerclip7 setModel("collision_player_wall_512x512x10");
-	dinerclip7 rotateTo((0,98,0), .1);
+		//TUNNEL BARRIERS
+		tunnelbarrier1 = spawn("script_model", (-11250,-520,255));
+		tunnelbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
+		tunnelbarrier1 rotateTo((0,172,0),.1);
+		tunnelclip1 = spawn("script_model", (-11250,-580,255));
+		tunnelclip1 setModel("collision_player_wall_256x256x10");
+		tunnelclip1 rotateTo((0,180,0), .1);
+		tunnelclip2 = spawn("script_model", (-11506,-580,255));
+		tunnelclip2 setModel("collision_player_wall_256x256x10");
+		tunnelclip2 rotateTo((0,180,0), .1);
 
-	//TUNNEL BARRIERS
-	tunnelbarrier1 = spawn("script_model", (-11250,-520,255));
-	tunnelbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
-	tunnelbarrier1 rotateTo((0,172,0),.1);
-	tunnelclip1 = spawn("script_model", (-11250,-580,255));
-	tunnelclip1 setModel("collision_player_wall_256x256x10");
-	tunnelclip1 rotateTo((0,180,0), .1);
-	tunnelclip2 = spawn("script_model", (-11506,-580,255));
-	tunnelclip2 setModel("collision_player_wall_256x256x10");
-	tunnelclip2 rotateTo((0,180,0), .1);
+		tunnelbarrier4 = spawn("script_model", (-10770,-3240,255));
+		tunnelbarrier4 setModel("veh_t6_civ_movingtrk_cab_dead");
+		tunnelbarrier4 rotateTo((0,214,0),.1);
+		tunnelclip3 = spawn("script_model", (-10840,-3190,255));
+		tunnelclip3 setModel("collision_player_wall_256x256x10");
+		tunnelclip3 rotateTo((0,214,0), .1);
 
-	tunnelbarrier4 = spawn("script_model", (-10770,-3240,255));
-	tunnelbarrier4 setModel("veh_t6_civ_movingtrk_cab_dead");
-	tunnelbarrier4 rotateTo((0,214,0),.1);
-	tunnelclip3 = spawn("script_model", (-10840,-3190,255));
-	tunnelclip3 setModel("collision_player_wall_256x256x10");
-	tunnelclip3 rotateTo((0,214,0), .1);
+		    //tunnelclip3 DisconnectPaths();
 
-	    //tunnelclip3 DisconnectPaths();
+		//HOUSE BARRIERS
+		housebarrier1 = spawn("script_model", (5568,6336,-70));
+		housebarrier1 setModel("collision_player_wall_512x512x10");
+		housebarrier1 rotateTo((0,266,0),.1);
+		housebarrier1 ConnectPaths();
 
-	//HOUSE BARRIERS
-	housebarrier1 = spawn("script_model", (5568,6336,-70));
-	housebarrier1 setModel("collision_player_wall_512x512x10");
-	housebarrier1 rotateTo((0,266,0),.1);
-	housebarrier1 ConnectPaths();
+		housebarrier2 = spawn("script_model", (5074,7089,-24));
+		housebarrier2 setModel("collision_player_wall_128x128x10");
+		housebarrier2 rotateTo((0,0,0),.1);
+		housebarrier2 ConnectPaths();
 
-	housebarrier2 = spawn("script_model", (5074,7089,-24));
-	housebarrier2 setModel("collision_player_wall_128x128x10");
-	housebarrier2 rotateTo((0,0,0),.1);
-	housebarrier2 ConnectPaths();
+		housebarrier3 = spawn("script_model", (4985,5862,-64));
+		housebarrier3 setModel("collision_player_wall_512x512x10");
+		housebarrier3 rotateTo((0,159,0),.1);
+		housebarrier3 ConnectPaths();
 
-	housebarrier3 = spawn("script_model", (4985,5862,-64));
-	housebarrier3 setModel("collision_player_wall_512x512x10");
-	housebarrier3 rotateTo((0,159,0),.1);
-	housebarrier3 ConnectPaths();
+		housebarrier4 = spawn("script_model", (5207,5782,-64));
+		housebarrier4 setModel("collision_player_wall_512x512x10");
+		housebarrier4 rotateTo((0,159,0),.1);
+		housebarrier4 ConnectPaths();
 
-	housebarrier4 = spawn("script_model", (5207,5782,-64));
-	housebarrier4 setModel("collision_player_wall_512x512x10");
-	housebarrier4 rotateTo((0,159,0),.1);
-	housebarrier4 ConnectPaths();
+		housebarrier5 = spawn("script_model", (4819,6475,-64));
+		housebarrier5 setModel("collision_player_wall_512x512x10");
+		housebarrier5 rotateTo((0,258,0),.1);
+		housebarrier5 ConnectPaths();
 
-	housebarrier5 = spawn("script_model", (4819,6475,-64));
-	housebarrier5 setModel("collision_player_wall_512x512x10");
-	housebarrier5 rotateTo((0,258,0),.1);
-	housebarrier5 ConnectPaths();
+		housebarrier6 = spawn("script_model", (4767,6200,-64));
+		housebarrier6 setModel("collision_player_wall_512x512x10");
+		housebarrier6 rotateTo((0,258,0),.1);
+		housebarrier6 ConnectPaths();
 
-	housebarrier6 = spawn("script_model", (4767,6200,-64));
-	housebarrier6 setModel("collision_player_wall_512x512x10");
-	housebarrier6 rotateTo((0,258,0),.1);
-	housebarrier6 ConnectPaths();
+		housebarrier7 = spawn("script_model", (5459,5683,-64));
+		housebarrier7 setModel("collision_player_wall_512x512x10");
+		housebarrier7 rotateTo((0,159,0),.1);
+		housebarrier7 ConnectPaths();
 
-	housebarrier7 = spawn("script_model", (5459,5683,-64));
-	housebarrier7 setModel("collision_player_wall_512x512x10");
-	housebarrier7 rotateTo((0,159,0),.1);
-	housebarrier7 ConnectPaths();
+		//POWER STATION BARRIERS
+		powerbarrier1 = spawn("script_model", (9965,8133,-556));
+		powerbarrier1 setModel("veh_t6_civ_60s_coupe_dead");
+		powerbarrier1 rotateTo((15,5,0),.1);
+		powerclip1 = spawn("script_model", (9955,8105,-575));
+		powerclip1 setModel("collision_player_wall_256x256x10");
+		powerclip1 rotateTo((0,0,0),.1);
 
-	//POWER STATION BARRIERS
-	powerbarrier1 = spawn("script_model", (9965,8133,-556));
-	powerbarrier1 setModel("veh_t6_civ_60s_coupe_dead");
-	powerbarrier1 rotateTo((15,5,0),.1);
-	powerclip1 = spawn("script_model", (9955,8105,-575));
-	powerclip1 setModel("collision_player_wall_256x256x10");
-	powerclip1 rotateTo((0,0,0),.1);
+		powerbarrier2 = spawn("script_model", (10056,8350,-584));
+		powerbarrier2 setModel("veh_t6_civ_bus_zombie");
+		powerbarrier2 rotateTo((0,340,0),.1);
+		powerbarrier2 NotSolid();
+		powerclip2 = spawn("script_model", (10267,8194,-556));
+		powerclip2 setModel("collision_player_wall_256x256x10");
+		powerclip2 rotateTo((0,340,0),.1);
+		powerclip3 = spawn("script_model", (10409,8220,-181));
+		powerclip3 setModel("collision_player_wall_512x512x10");
+		powerclip3 rotateTo((0,250,0),.1);
+		powerclip4 = spawn("script_model", (10409,8220,-556));
+		powerclip4 setModel("collision_player_wall_128x128x10");
+		powerclip4 rotateTo((0,250,0),.1);
 
-	powerbarrier2 = spawn("script_model", (10056,8350,-584));
-	powerbarrier2 setModel("veh_t6_civ_bus_zombie");
-	powerbarrier2 rotateTo((0,340,0),.1);
-	powerbarrier2 NotSolid();
-	powerclip2 = spawn("script_model", (10267,8194,-556));
-	powerclip2 setModel("collision_player_wall_256x256x10");
-	powerclip2 rotateTo((0,340,0),.1);
-	powerclip3 = spawn("script_model", (10409,8220,-181));
-	powerclip3 setModel("collision_player_wall_512x512x10");
-	powerclip3 rotateTo((0,250,0),.1);
-	powerclip4 = spawn("script_model", (10409,8220,-556));
-	powerclip4 setModel("collision_player_wall_128x128x10");
-	powerclip4 rotateTo((0,250,0),.1);
+		powerbarrier3 = spawn("script_model", (10281,7257,-575));
+		powerbarrier3 setModel("veh_t6_civ_microbus_dead");
+		powerbarrier3 rotateTo((0,13,0),.1);
+		powerclip4 = spawn("script_model", (10268,7294,-569));
+		powerclip4 setModel("collision_player_wall_256x256x10");
+		powerclip4 rotateTo((0,13,0),.1);
 
-	powerbarrier3 = spawn("script_model", (10281,7257,-575));
-	powerbarrier3 setModel("veh_t6_civ_microbus_dead");
-	powerbarrier3 rotateTo((0,13,0),.1);
-	powerclip4 = spawn("script_model", (10268,7294,-569));
-	powerclip4 setModel("collision_player_wall_256x256x10");
-	powerclip4 rotateTo((0,13,0),.1);
+		powerbarrier4 = spawn("script_model", (10100,7238,-575));
+		powerbarrier4 setModel("veh_t6_civ_60s_coupe_dead");
+		powerbarrier4 rotateTo((0,52,0),.1);
+		powerclip5 = spawn("script_model", (10170,7292,-505));
+		powerclip5 setModel("collision_player_wall_128x128x10");
+		powerclip5 rotateTo((0,140,0),.1);
+		powerclip6 = spawn("script_model", (10030,7216,-569));
+		powerclip6 setModel("collision_player_wall_256x256x10");
+		powerclip6 rotateTo((0,49,0),.1);
 
-	powerbarrier4 = spawn("script_model", (10100,7238,-575));
-	powerbarrier4 setModel("veh_t6_civ_60s_coupe_dead");
-	powerbarrier4 rotateTo((0,52,0),.1);
-	powerclip5 = spawn("script_model", (10170,7292,-505));
-	powerclip5 setModel("collision_player_wall_128x128x10");
-	powerclip5 rotateTo((0,140,0),.1);
-	powerclip6 = spawn("script_model", (10030,7216,-569));
-	powerclip6 setModel("collision_player_wall_256x256x10");
-	powerclip6 rotateTo((0,49,0),.1);
+		powerclip7 = spawn("script_model", (10563,8630,-344));
+		powerclip7 setModel("collision_player_wall_256x256x10");
+		powerclip7 rotateTo((0,270,0),.1);
 
-	powerclip7 = spawn("script_model", (10563,8630,-344));
-	powerclip7 setModel("collision_player_wall_256x256x10");
-	powerclip7 rotateTo((0,270,0),.1);
+		//CORNFIELD BARRIERS
+		cornfieldbarrier1 = spawn("script_model", (10190,135,-159));
+		cornfieldbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
+		cornfieldbarrier1 rotateTo((0,172,0),.1);
+		cornfieldclip1 = spawn("script_model", (10100,100,-159));
+		cornfieldclip1 setModel("collision_player_wall_512x512x10");
+		cornfieldclip1 rotateTo((0,172,0),.1);
 
-	//CORNFIELD BARRIERS
-	cornfieldbarrier1 = spawn("script_model", (10190,135,-159));
-	cornfieldbarrier1 setModel("veh_t6_civ_movingtrk_cab_dead");
-	cornfieldbarrier1 rotateTo((0,172,0),.1);
-	cornfieldclip1 = spawn("script_model", (10100,100,-159));
-	cornfieldclip1 setModel("collision_player_wall_512x512x10");
-	cornfieldclip1 rotateTo((0,172,0),.1);
-
-	cornfieldbarrier2 = spawn("script_model", (10100,-1800,-217));
-	cornfieldbarrier2 setModel("veh_t6_civ_bus_zombie");
-	cornfieldbarrier2 rotateTo((0,126,0),.1);
-	cornfieldbarrier2 NotSolid();
-	cornfieldclip1 = spawn("script_model", (10045,-1607,-181));
-	cornfieldclip1 setModel("collision_player_wall_512x512x10");
-	cornfieldclip1 rotateTo((0,126,0),.1);
+		cornfieldbarrier2 = spawn("script_model", (10100,-1800,-217));
+		cornfieldbarrier2 setModel("veh_t6_civ_bus_zombie");
+		cornfieldbarrier2 rotateTo((0,126,0),.1);
+		cornfieldbarrier2 NotSolid();
+		cornfieldclip1 = spawn("script_model", (10045,-1607,-181));
+		cornfieldclip1 setModel("collision_player_wall_512x512x10");
+		cornfieldclip1 rotateTo((0,126,0),.1);
+	}
 }
 
 onspawnplayer( predictedspawn ) //modified function
@@ -1981,6 +1983,9 @@ onspawnplayer( predictedspawn ) //modified function
 			{
 				spawnpoints[spawnpoints.size] = level.houseSpawnpoints[ i ];
 			}
+		}
+		else{
+			spawnpoints = getstructarray("initial_spawn", "script_noteworthy");
 		}
 		spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
 	}
@@ -2549,4 +2554,3 @@ blank() //this function is intentionally empty
 {
 	//empty function
 }
-
