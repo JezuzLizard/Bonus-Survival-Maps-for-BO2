@@ -158,10 +158,12 @@ deactivate_initial_barrier_goals() //checked changed to match cerberus output
 
 zone_init( zone_name ) //checked changed to match cerberus output
 {
+
 	if ( isDefined( level.zones[ zone_name ] ) )
 	{
 		return;
 	}
+
 	level.zones[ zone_name ] = spawnstruct();
 	zone = level.zones[ zone_name ];
 	zone.is_enabled = 0;
@@ -169,6 +171,7 @@ zone_init( zone_name ) //checked changed to match cerberus output
 	zone.is_active = 0;
 	zone.adjacent_zones = [];
 	zone.is_spawning_allowed = 0;
+
 	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
 	for( i = 0; i < spawn_points.size; i++ )
 	{
@@ -533,14 +536,16 @@ zone_flag_wait( flag_name )
 							break;
 						}
 					}
-					//break;
 				}
-				flags_set = 1;
-				for ( f = 0; f < azone.flags.size; f++ )
+				else
 				{
-					if ( !flag(azone.flags[ f ] ) )
+					flags_set = 1;
+					for ( f = 0; f < azone.flags.size; f++ )
 					{
-						flags_set = 0;
+						if ( !flag(azone.flags[ f ] ) )
+						{
+							flags_set = 0;
+						}
 					}
 				}
 				if ( flags_set )
@@ -1190,4 +1195,3 @@ is_player_in_zone( zone_name ) //checked changed to match cerberus output
 	}
 	return 0;
 }
-
