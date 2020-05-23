@@ -2985,6 +2985,34 @@ perk_machine_removal( machine, replacement_model ) //checked changed to match ce
 
 extra_perk_spawns() //custom function
 {
+	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade" );
+	
+	level.docksPerks[ "specialty_deadshot" ] = spawnstruct();
+	level.docksPerks[ "specialty_deadshot" ].origin = ( -1566, 5542.5, -64 );
+	level.docksPerks[ "specialty_deadshot" ].angles = ( 0, 45, 0 );
+	level.docksPerks[ "specialty_deadshot" ].model = "zombie_vending_ads_on";
+	level.docksPerks[ "specialty_deadshot" ].script_noteworthy = "specialty_deadshot";
+	level.docksPerks[ "specialty_fastreload" ] = spawnstruct();
+	level.docksPerks[ "specialty_fastreload" ].origin = ( -1232.75, 5205.5, -71.875 );
+	level.docksPerks[ "specialty_fastreload" ].angles = ( 0, 179, 0 );
+	level.docksPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+	level.docksPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.docksPerks[ "specialty_rof" ] = spawnstruct();
+	level.docksPerks[ "specialty_rof" ].origin = ( 208.5, 6373.25, 64 );
+	level.docksPerks[ "specialty_rof" ].angles = ( 0, 235, 0 );
+	level.docksPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+	level.docksPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+	level.docksPerks[ "specialty_grenadepulldeath" ] = spawnstruct();
+	level.docksPerks[ "specialty_grenadepulldeath" ].origin = ( 446, 6146, 54 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].angles = ( 0, 275, 5 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].model = "p6_zm_vending_electric_cherry_off";
+	level.docksPerks[ "specialty_grenadepulldeath" ].script_noteworthy = "specialty_grenadepulldeath";
+	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
+	level.docksPerks[ "specialty_weapupgrade" ].origin = ( -394, 5633.75, -71.875 );
+	level.docksPerks[ "specialty_weapupgrade" ].angles = ( 0, 6, 0 );
+	level.docksPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
+	level.docksPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	
 	level.cornfieldPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_longersprint",
 							 "specialty_scavenger", "specialty_weapupgrade", "specialty_quickrevive" );
 							 
@@ -3187,7 +3215,14 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( level.customMap == "cornfield" )
+	if ( level.customMap == "docks" )
+	{
+		foreach ( perk in level.docksPerkArray )
+		{
+			pos[ pos.size ] = level.docksPerks[ perk ];
+		}
+	}
+	else if ( level.customMap == "cornfield" )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
 		{
@@ -3227,6 +3262,10 @@ perk_machine_spawn_init() //modified function
 		return;
 	}
 	PreCacheModel("zm_collision_perks1");
+	PreCacheModel("collision_geo_cylinder_32x128_standard");
+	PreCacheModel("collision_clip_64x64x128");
+	PreCacheModel("collision_clip_64x64x256");
+	PreCacheModel("collision_clip_32x32x128");
 	for ( i = 0; i < pos.size; i++ )
 	{
 		perk = pos[ i ].script_noteworthy;
@@ -3256,13 +3295,12 @@ perk_machine_spawn_init() //modified function
 				{
 					bump_trigger thread thread_bump_trigger();
 				}
-			}	
+			}
 			collision = Spawn( "script_model", pos[ i ].origin, 1 );
 			collision.angles = pos[ i ].angles;
 			collision SetModel( "zm_collision_perks1" );
 			collision.script_noteworthy = "clip";
 			collision DisconnectPaths();
-			
 			// Connect all of the pieces for easy access.
 			use_trigger.clip = collision;
 			use_trigger.machine = perk_machine;
