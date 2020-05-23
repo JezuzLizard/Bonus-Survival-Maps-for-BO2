@@ -57,6 +57,7 @@ precacheEffectsForWeapons() //custom function
 	level._effect[ "m16_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
 	level._effect[ "galvaknuckles_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_taseknuck" );
 	level._effect[ "thompson_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_thompson" );
+	level._effect[ "870mcs_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
 }
 
 setupretrievablehintstrings() //checked matches cerberus output
@@ -951,6 +952,13 @@ init_spawnable_weapon_upgrade() //modified function
 		numbits = 2;
 		if ( level.customMap == "docks" )
 		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "870mcs_zm" && !isDefined( level.remmingtonActivated ) )
+			{
+				level.remmingtonActivated = true;
+				spawn_list[ i ].origin = (-340, 6204, 43.5);
+				spawn_list[ i ].angles = ( 0, 10, 0 );
+				thread playchalkfx("870mcs_effect", spawn_list[ i ].origin, (0,190,0));
+			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
 				spawn_list[ i ].origin = (306.5, 6376, 319);
