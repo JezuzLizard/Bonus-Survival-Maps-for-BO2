@@ -56,6 +56,7 @@ precacheEffectsForWeapons() //custom function
 	level._effect[ "claymore_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
 	level._effect[ "m16_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
 	level._effect[ "galvaknuckles_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_taseknuck" );
+	level._effect[ "thompson_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_thompson" );
 }
 
 setupretrievablehintstrings() //checked matches cerberus output
@@ -948,7 +949,22 @@ init_spawnable_weapon_upgrade() //modified function
 	{
 		clientfieldname = spawn_list[ i ].zombie_weapon_upgrade + "_" + spawn_list[ i ].origin;
 		numbits = 2;
-		if ( level.customMap == "tunnel" )
+		if ( level.customMap == "docks" )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (306.5, 6376, 319);
+				spawn_list[ i ].angles = ( 0, -90, 0 );
+				thread playchalkfx("m14_effect", spawn_list[ i ].origin, (0,-83,0));
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (1030.5, 5800, 319);
+				spawn_list[ i ].angles = ( 0, 90, 0 );
+				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,90,0));
+			}
+		}
+		else if ( level.customMap == "tunnel" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
 			{
@@ -2973,4 +2989,3 @@ register_zombie_weapon_callback( str_weapon, func ) //checked matches cerberus o
 		level.zombie_weapons_callbacks[ str_weapon ] = func;
 	}
 }
-
