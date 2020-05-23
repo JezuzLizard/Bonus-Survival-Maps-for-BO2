@@ -1985,7 +1985,7 @@ onspawnplayer( predictedspawn ) //modified function
 			}
 		}
 		else{
-			spawnpoints = getstructarray("initial_spawn", "script_noteworthy");
+			spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
 		}
 		spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
 	}
