@@ -2043,7 +2043,7 @@ onspawnplayer( predictedspawn ) //modified function
 		}
 		else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 		{
-			for ( i = 0; i < level.houseSpawnpoints.size; i++ )
+			for ( i = 0; i < level.docksSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.docksSpawnpoints[ i ];
 			}
