@@ -2988,8 +2988,8 @@ extra_perk_spawns() //custom function
 	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade" );
 	
 	level.docksPerks[ "specialty_deadshot" ] = spawnstruct();
-	level.docksPerks[ "specialty_deadshot" ].origin = ( -1566, 5542.5, -64 );
-	level.docksPerks[ "specialty_deadshot" ].angles = ( 0, 45, 0 );
+	level.docksPerks[ "specialty_deadshot" ].origin = ( 80.35, 7990.6, 276 );
+	level.docksPerks[ "specialty_deadshot" ].angles = ( 0, -90, 0 );
 	level.docksPerks[ "specialty_deadshot" ].model = "zombie_vending_ads_on";
 	level.docksPerks[ "specialty_deadshot" ].script_noteworthy = "specialty_deadshot";
 	level.docksPerks[ "specialty_fastreload" ] = spawnstruct();
@@ -3008,8 +3008,8 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_grenadepulldeath" ].model = "p6_zm_vending_electric_cherry_off";
 	level.docksPerks[ "specialty_grenadepulldeath" ].script_noteworthy = "specialty_grenadepulldeath";
 	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
-	level.docksPerks[ "specialty_weapupgrade" ].origin = ( -394, 5633.75, -71.875 );
-	level.docksPerks[ "specialty_weapupgrade" ].angles = ( 0, 6, 0 );
+	level.docksPerks[ "specialty_weapupgrade" ].origin = ( 389.25, 8316.3, 64 );
+	level.docksPerks[ "specialty_weapupgrade" ].angles = ( 0, -2, 0 );
 	level.docksPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.docksPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	
