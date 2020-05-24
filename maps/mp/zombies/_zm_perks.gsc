@@ -3215,42 +3215,42 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( level.customMap == "docks" )
+	if ( isDefined(level.customMap) && level.customMap == "docks" )
 	{
 		foreach ( perk in level.docksPerkArray )
 		{
 			pos[ pos.size ] = level.docksPerks[ perk ];
 		}
 	}
-	else if ( level.customMap == "cornfield" )
+	else if ( isDefined(level.customMap) && level.customMap == "cornfield" )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
 		{
 			pos[ pos.size ] = level.cornfieldPerks[ perk ];
 		}
 	}
-	else if ( level.customMap == "power" )
+	else if ( isDefined(level.customMap) && level.customMap == "power" )
 	{
 		foreach ( perk in level.powerStationPerkArray )
 		{
 			pos[ pos.size ] = level.powerStationPerks[ perk ];
 		}
 	}
-	else if ( level.customMap =="diner" )
+	else if ( isDefined(level.customMap) && level.customMap =="diner" )
 	{
 		foreach ( perk in level.dinerPerkArray )
 		{
 			pos[ pos.size ] = level.dinerPerks[ perk ];
 		}
 	}
-	else if ( level.customMap == "tunnel" )
+	else if ( isDefined(level.customMap) && level.customMap == "tunnel" )
 	{
 		foreach ( perk in level.tunnelPerkArray )
 		{
 			pos[ pos.size ] = level.tunnelPerks[ perk ];
 		}
 	}
-	else if ( level.customMap == "house" )
+	else if ( isDefined(level.customMap) && level.customMap == "house" )
 	{
 		foreach( perk in level.housePerkArray )
 		{
@@ -3262,10 +3262,6 @@ perk_machine_spawn_init() //modified function
 		return;
 	}
 	PreCacheModel("zm_collision_perks1");
-	PreCacheModel("collision_geo_cylinder_32x128_standard");
-	PreCacheModel("collision_clip_64x64x128");
-	PreCacheModel("collision_clip_64x64x256");
-	PreCacheModel("collision_clip_32x32x128");
 	for ( i = 0; i < pos.size; i++ )
 	{
 		perk = pos[ i ].script_noteworthy;
@@ -3302,9 +3298,12 @@ perk_machine_spawn_init() //modified function
 			collision.script_noteworthy = "clip";
 			collision DisconnectPaths();
 			// Connect all of the pieces for easy access.
-			use_trigger.clip = collision;
+			if(level.script != "zm_prison")
+			{
+				use_trigger.clip = collision;
+				use_trigger.bump = bump_trigger;
+			}
 			use_trigger.machine = perk_machine;
-			use_trigger.bump = bump_trigger;
 			//missing code found in cerberus output
 			if ( isdefined( pos[ i ].blocker_model ) )
 			{
