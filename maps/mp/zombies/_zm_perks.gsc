@@ -3003,8 +3003,8 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.docksPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.docksPerks[ "specialty_grenadepulldeath" ] = spawnstruct();
-	level.docksPerks[ "specialty_grenadepulldeath" ].origin = ( 446, 6146, 54 );
-	level.docksPerks[ "specialty_grenadepulldeath" ].angles = ( 0, 275, 5 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].origin = ( -652.5, 5326, -72 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].angles = ( 0, 145, 0 );
 	level.docksPerks[ "specialty_grenadepulldeath" ].model = "p6_zm_vending_electric_cherry_off";
 	level.docksPerks[ "specialty_grenadepulldeath" ].script_noteworthy = "specialty_grenadepulldeath";
 	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
