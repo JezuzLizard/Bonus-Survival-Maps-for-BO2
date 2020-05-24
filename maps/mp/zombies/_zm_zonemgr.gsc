@@ -628,19 +628,25 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 	{
 		[[ level.zone_manager_init_func ]]();
 	}
-
+	if ( level.customMap == "docks" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_dock";
+		initial_zone[ 1 ] = "zone_dock_puzzle";
+		initial_zone[ 2 ] = "zone_dock_gondola";	
+	}
 	if ( isarray( initial_zone ) )
 	{
 		for ( i = 0; i < initial_zone.size; i++ )
 		{
 			zone_init( initial_zone[ i ] );
-			enable_zone( initial_zone[ i ] ); //was disabled
+			enable_zone( initial_zone[ i ] );
 		}
 	}
 	else
 	{
 		zone_init( initial_zone );
-		enable_zone( initial_zone ); //was disabled
+		enable_zone( initial_zone );
 	}
 	setup_zone_flag_waits();
 	zkeys = getarraykeys( level.zones );
@@ -1198,3 +1204,4 @@ is_player_in_zone( zone_name ) //checked changed to match cerberus output
 	}
 	return 0;
 }
+
