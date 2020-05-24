@@ -137,8 +137,14 @@ init() //modified function
 		else if (isDefined(level.customMap) && level.customMap == "docks")
 		{
 			level.chests = [];
-			level.chests[0] = normalChests[3];
-			treasure_chest_init("dock_chest");
+			start_chest = spawnstruct();
+			start_chest.origin = ( -613.8, 6988, 64.125 );
+			start_chest.angles = ( 0, -80, 0 );
+			start_chest.script_noteworthy = "start_chest";
+			start_chest.zombie_cost = 950;
+			level.chests[ 0 ] = start_chest;
+			level.chests[ 1 ] = normalChests[ 3 ];
+			treasure_chest_init("start_chest");
 		}
 		else
 		{
@@ -271,57 +277,62 @@ set_treasure_chest_cost( cost ) //checked matches cerberus output
 get_chest_pieces() //modified function
 {
 	self.chest_box = getent( self.script_noteworthy + "_zbarrier", "script_noteworthy" );
-	if ( level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "docks" && self.script_noteworthy == "start_chest" )
+	{
+		self.chest_box.origin = ( -613.8, 6988, 64.125 );
+		self.chest_box.angles = ( 0, -80, 0 );
+	}
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( -11090, -349, 195 );
 		self.chest_box.angles = ( 0, -100, 0 );
 	}
-	if ( level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( -10745, -2982, 195 );
 		self.chest_box.angles = ( 0, 92, 0 );
 	}
-	if ( level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
 	{
 		self.chest_box.origin = ( -11772, -2501, 229 );
 		self.chest_box.angles = ( 0, 0, 0 );
 	}
-	if ( level.customMap == "diner" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "diner" && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( -5708, -7968, 229 );
 		self.chest_box.angles = ( 0, 1, 0 );
 	}
-	if ( level.customMap == "power" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( 10806, 8518, -407 );
 		self.chest_box.angles = ( 0, 180, 0 );
 	}
-	if ( level.customMap == "power" && self.script_noteworthy == "farm_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "farm_chest" )
 	{
 		self.chest_box.origin = ( 11110, 8920, -575 );
 		self.chest_box.angles = ( 0, 180, 0 );
 	}
-	if ( level.customMap == "cornfield" && self.script_noteworthy == "start_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 13566, -541, -188 );
 		self.chest_box.angles = ( 0, -90, 0 );
 	}
-	if ( level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" )
 	{
 		self.chest_box.origin = ( 7458, -464, -196 );
 		self.chest_box.angles = ( 0, -90, 0 );
 	}
-	if ( level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" )
 	{
 		self.chest_box.origin = ( 10158, 49, -220 );
 		self.chest_box.angles = ( 0, -185, 0 );
 	}
-	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "house" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
 		self.chest_box.angles = ( 0, 90, 0 );
 	}
-	if ( level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" || level.customMap == "power" && self.script_noteworthy == "farm_chest" || level.customMap == "power" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "depot_chest" || level.customMap == "diner" && self.script_noteworthy == "farm_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" || isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "farm_chest" || isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "depot_chest" || isDefined( level.customMap ) && level.customMap == "diner" && self.script_noteworthy == "depot_chest" || isDefined( level.customMap ) && level.customMap == "diner" && self.script_noteworthy == "farm_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -336,7 +347,7 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -351,7 +362,7 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "cornfield" && self.script_noteworthy == "start_chest" || level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "start_chest" || isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" || isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -366,7 +377,7 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "house" && self.script_noteworthy == "start_chest" || level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "house" && self.script_noteworthy == "start_chest" || isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -381,7 +392,7 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
@@ -392,6 +403,21 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 		collision = spawn( "script_model", self.chest_box.origin + ( 4, 30, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+	}
+	if ( isDefined( level.customMap ) && level.customMap == "docks" && self.script_noteworthy == "start_chest" )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 0, 34, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 0, 34, 0 ) );
 		collision.angles = self.chest_box.angles;
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
