@@ -969,9 +969,9 @@ init_spawnable_weapon_upgrade() //modified function
 			}
 			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
 			{
-				spawn_list[ i ].origin = (1030.5, 5800, 319);
-				spawn_list[ i ].angles = ( 0, 90, 0 );
-				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,90,0));
+				spawn_list[ i ].origin = (-709, 5721, -19.875);
+				spawn_list[ i ].angles = ( 0, -80, 30 );
+				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,-80,30));
 			}
 		}
 		else if ( isDefined(level.customMap) && level.customMap == "tunnel" )
