@@ -12,18 +12,18 @@ init()
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
-	thread buildablebegin();
-	if ( level.customMap == "house" )
+	thread init_custom_map();
+	if ( isDefined( level.customMap ) && level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
     }
 }
 
-buildablebegin()
+init_custom_map()
 {
 	level thread onplayerconnected();
 	disable_pers_upgrades();
-	thread buildbuildables();
+	thread init_buildables();
 }
 
 onplayerconnected()
@@ -105,15 +105,153 @@ disable_player_pers_upgrades() //credit to Jbleezy for this function
 			index++;
 		}
 	}
-
 	level notify("initial_disable_player_pers_upgrades");
 }
 
-buildbuildables() //credit to Jbleezy for this function
+changecraftableoption( index )
 {
-	// need a wait or else some buildables dont build
+	foreach (craftable in level.a_uts_craftables)
+	{
+		if (craftable.equipname == "open_table")
+		{
+			craftable thread setcraftableoption( index );
+		}
+	}
+}
+
+setcraftableoption( index )
+{
+	self endon("death");
+
+	while (self.a_uts_open_craftables_available.size <= 0)
+	{
+		wait 0.05;
+	}
+	if (self.a_uts_open_craftables_available.size > 1)
+	{
+		self.n_open_craftable_choice = index;
+		self.equipname = self.a_uts_open_craftables_available[self.n_open_craftable_choice].equipname;
+		self.hint_string = self.a_uts_open_craftables_available[self.n_open_craftable_choice].hint_string;
+		foreach (trig in self.playertrigger)
+		{
+			trig sethintstring( self.hint_string );
+		}
+	}
+}
+
+takecraftableparts( buildable )
+{
+	player = get_players()[ 0 ];
+	foreach (stub in level.zombie_include_craftables)
+	{
+		if ( stub.name == buildable )
+		{
+			foreach (piece in stub.a_piecestubs)
+			{
+				piecespawn = piece.piecespawn;
+				if ( isDefined( piecespawn ) )
+				{
+					player player_take_piece( piecespawn );
+				}
+			}
+
+			return;
+		}
+	}
+}
+
+buildcraftable( buildable )
+{
+	player = get_players()[ 0 ];
+	foreach (stub in level.a_uts_craftables)
+	{
+		if ( stub.craftablestub.name == buildable )
+		{
+			foreach (piece in stub.craftablespawn.a_piecespawns)
+			{
+				piecespawn = get_craftable_piece( stub.craftablestub.name, piece.piecename );
+				if ( isDefined( piecespawn ) )
+				{
+					player player_take_piece( piecespawn );
+				}
+			}
+			return;
+		}
+	}
+}
+
+get_craftable_piece( str_craftable, str_piece )
+{
+	foreach (uts_craftable in level.a_uts_craftables)
+	{
+		if ( uts_craftable.craftablestub.name == str_craftable )
+		{
+			foreach (piecespawn in uts_craftable.craftablespawn.a_piecespawns)
+			{
+				if ( piecespawn.piecename == str_piece )
+				{
+					return piecespawn;
+				}
+			}
+		}
+	}
+	return undefined;
+}
+
+player_take_piece( piecespawn )
+{
+	piecestub = piecespawn.piecestub;
+	damage = piecespawn.damage;
+
+	if ( isDefined( piecestub.onpickup ) )
+	{
+		piecespawn [[ piecestub.onpickup ]]( self );
+	}
+
+	if ( isDefined( piecestub.is_shared ) && piecestub.is_shared )
+	{
+		if ( isDefined( piecestub.client_field_id ) )
+		{
+			level setclientfield( piecestub.client_field_id, 1 );
+		}
+	}
+	else
+	{
+		if ( isDefined( piecestub.client_field_state ) )
+		{
+			self setclientfieldtoplayer( "craftable", piecestub.client_field_state );
+		}
+	}
+
+	piecespawn piece_unspawn();
+	piecespawn notify( "pickup" );
+
+	if ( isDefined( piecestub.is_shared ) && piecestub.is_shared )
+	{
+		piecespawn.in_shared_inventory = 1;
+	}
+
+	self adddstat( "buildables", piecespawn.craftablename, "pieces_pickedup", 1 );
+}
+
+piece_unspawn()
+{
+	if ( isDefined( self.model ) )
+	{
+		self.model delete();
+	}
+	self.model = undefined;
+	if ( isDefined( self.unitrigger ) )
+	{
+		thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.unitrigger );
+	}
+	self.unitrigger = undefined;
+}
+
+init_buildables()
+{
 	wait 1;
-	if ( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" || level.customMap == "house" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" )
 	{
 		buildbuildable( "dinerhatch", 1 );
 		buildbuildable( "pap", 1 );
@@ -126,6 +264,34 @@ buildbuildables() //credit to Jbleezy for this function
 		removebuildable( "busladder" );
 		removebuildable( "bushatch" );
 		removebuildable( "cattlecatcher" );
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
+	{
+		flag_set( "power_on" );
+		level setclientfield( "zombie_power_on", 1 );
+		buildcraftable( "alcatraz_shield_zm" );
+		changecraftableoption( 0 );
+		wait 1;
+		level notify( "sleight_on" );
+		wait_network_frame();
+		level notify( "doubletap_on" );
+		wait_network_frame();
+		level notify( "juggernog_on" );
+		wait_network_frame();
+		level notify( "electric_cherry_on" );
+		wait_network_frame();
+		level notify( "deadshot_on" );
+		wait_network_frame();
+		level notify( "divetonuke_on" );
+		wait_network_frame();
+		level notify( "additionalprimaryweapon_on" );
+		wait_network_frame();
+		level notify( "Pack_A_Punch_on" );
+		wait_network_frame();
+		thread disable_gondola();
+		thread disable_helldog();
+		flag_set( "soul_catchers_charged" );
+		level notify( "soul_catchers_charged" );
 	}
 }
 
@@ -506,4 +672,34 @@ spawnAllPlayers()
 		i++;
 	}
 	level.no_end_game_check = 0;
+}
+
+disable_gondola()
+{
+	level notify( "gondola_powered_on_roof" );
+	t_move_triggers = getentarray( "gondola_move_trigger", "targetname" );
+	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
+	a_t_gondola_triggers = arraycombine( t_move_triggers, t_call_triggers, 1, 0 );
+		
+	all_triggers = getFirstArrayKey( a_t_gondola_triggers );
+	call_triggers = getFirstArrayKey( t_call_triggers );
+	wait 5;
+	while ( isDefined( call_triggers ) )
+	{
+		trigger = t_call_triggers[ call_triggers ];
+		trigger.origin = ( 0, 0, 0 );
+		return;
+	}
+}
+
+disable_helldog()
+{
+	level.soul_catchers = [];
+	level.a_wolf_structs = getstructarray( "wolf_position", "targetname" );
+	i = 0;
+	while ( i < level.a_wolf_structs.size )
+	{
+		level.a_wolf_structs[ i ].souls_reveived = 6;
+		i++;
+	}
 }
