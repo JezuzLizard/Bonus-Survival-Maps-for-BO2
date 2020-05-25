@@ -108,7 +108,7 @@ main() //checked changed to match cerberus output
 	level.zombiemode_using_deadshot_perk = 1;
 
 	level.zombiemode_using_marathon_perk = 1;
-	//level.zombiemode_using_revive_perk = 1;
+	level.zombiemode_using_revive_perk = 1;
 	level.zombiemode_using_additionalprimaryweapon_perk = 1;
 	//level.zombiemode_using_divetonuke_perk = 1;
 	//maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
@@ -414,17 +414,16 @@ custom_vending_precaching() //checked changed to match cerberus output
 	}
 	if ( isDefined( level.zombiemode_using_revive_perk ) && level.zombiemode_using_revive_perk )
 	{
-		precacheitem( "zombie_perk_bottle_revive" );
-		precacheshader( "specialty_quickrevive_zombies" );
-		precachemodel( "zombie_vending_revive" );
-		precachemodel( "zombie_vending_revive_on" );
+		precacheshader( "specialty_instakill_zombies" );
+		//precachemodel( "zombie_vending_revive" );
+		//precachemodel( "zombie_vending_revive_on" );
 		precachestring( &"ZOMBIE_PERK_QUICKREVIVE" );
-		level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
-		level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
+		//level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
+		//level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
 		level.machine_assets[ "revive" ] = spawnstruct();
-		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_revive";
-		level.machine_assets[ "revive" ].off_model = "zombie_vending_revive";
-		level.machine_assets[ "revive" ].on_model = "zombie_vending_revive_on";
+		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_cherry";
+		level.machine_assets[ "revive" ].off_model = "p6_zm_vending_electric_cherry_off";
+		level.machine_assets[ "revive" ].on_model = "p6_zm_vending_electric_cherry_on";
 	}
 	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
 	{
