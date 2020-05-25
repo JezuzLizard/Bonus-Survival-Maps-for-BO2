@@ -4,7 +4,7 @@
 #include maps/mp/zombies/_zm_buildables;
 #include maps/mp/zombies/_zm_game_module;
 #include maps/mp/zombies/_zm_ai_basic;
-#include maps/mp/gametypes_zm/_weapons;
+#include maps/mp/zombies/_zm_afterlife;
 
 init()
 {
@@ -267,10 +267,12 @@ init_buildables()
 	}
 	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
+		wait 2;
 		flag_set( "power_on" );
 		level setclientfield( "zombie_power_on", 1 );
 		buildcraftable( "quest_key1" );
 		buildcraftable( "alcatraz_shield_zm" );
+		buildcraftable( "plane" );
 		changecraftableoption( 0 );
 		wait 1;
 		level notify( "sleight_on" );
@@ -292,8 +294,10 @@ init_buildables()
 		thread disable_gondola();
 		thread disable_helldog();
 		thread disable_door();
+		thread disable_afterlife_boxes();
 		flag_set( "soul_catchers_charged" );
 		level notify( "soul_catchers_charged" );
+		level notify( "cable_puzzle_gate_afterlife" );
 	}
 }
 
@@ -679,11 +683,7 @@ spawnAllPlayers()
 disable_gondola()
 {
 	level notify( "gondola_powered_on_roof" );
-	t_move_triggers = getentarray( "gondola_move_trigger", "targetname" );
 	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
-	a_t_gondola_triggers = arraycombine( t_move_triggers, t_call_triggers, 1, 0 );
-		
-	all_triggers = getFirstArrayKey( a_t_gondola_triggers );
 	call_triggers = getFirstArrayKey( t_call_triggers );
 	wait 5;
 	while ( isDefined( call_triggers ) )
@@ -696,27 +696,43 @@ disable_gondola()
 
 disable_helldog()
 {
-	level.soul_catchers = [];
-	level.a_wolf_structs = getstructarray( "wolf_position", "targetname" );
+	a_wolf_structs = getstructarray( "wolf_position", "targetname" );
 	i = 0;
-	while ( i < level.a_wolf_structs.size )
+	while ( i < a_wolf_structs.size )
 	{
-		level.a_wolf_structs[ i ].souls_reveived = 6;
+		a_wolf_structs[ i ].souls_received = 6;
 		i++;
 	}
 }
 
 disable_door()
 {
-	level.zm_doors = getentarray( "zombie_door", "targetname" );
+	zm_doors = getentarray( "zombie_door", "targetname" );
 	wait 5;
 	i = 0;
-	while ( i < level.zm_doors.size )
+	while ( i < zm_doors.size )
 	{
-		if ( level.zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		if ( zm_doors[ i ].origin == ( 101, 8124, 311 ) )
 		{
-			level.zm_doors[ i ].origin = ( 0, 0, 0 );
+			zm_doors[ i ].origin = ( 0, 0, 0 );
 		}
 		i++;
+	}
+}
+
+disable_afterlife_boxes()
+{
+	a_afterlife_triggers = getstructarray( "afterlife_trigger", "targetname" );
+	_a87 = a_afterlife_triggers;
+	_k87 = getFirstArrayKey( _a87 );
+	wait 5;
+	while ( isDefined( _k87 ) )
+	{
+		struct = _a87[ _k87 ];
+		if ( struct.origin == ( -1390.02, 5371.56, -24 ) || struct.origin == ( 339.684, 6529.53, 312 ) )
+		{
+			struct.unitrigger_stub.origin = ( 0, 0, 0 );
+		}
+		_k87 = getNextArrayKey( _a87, _k87 );
 	}
 }
