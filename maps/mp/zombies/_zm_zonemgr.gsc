@@ -964,6 +964,17 @@ create_spawner_list( zkeys ) //modified function
 						zone.spawn_locations[ i ].origin = (-11241.2, -1118.76, 184.125);
 					}
 				}
+				else if (level.script == "zm_prison")
+				{
+					if( zone.spawn_locations[ i ].origin == ( -1880.2, 5419.9, -55 ) )
+					{
+						zone.spawn_locations[ i ].is_enabled = 0;
+					}
+					else if( zone.spawn_locations[ i ].origin == ( -1852.2, 5307.9, -55 ) )
+					{
+						zone.spawn_locations[ i ].is_enabled = 0;
+					}
+				}
 				if(zone.spawn_locations[ i ].is_enabled)
 				{
 					level.zombie_spawn_locations[level.zombie_spawn_locations.size] = zone.spawn_locations[i];
@@ -1204,4 +1215,3 @@ is_player_in_zone( zone_name ) //checked changed to match cerberus output
 	}
 	return 0;
 }
-
