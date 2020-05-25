@@ -8,6 +8,7 @@
 #include maps/mp/zm_prison;
 #include maps/mp/_visionset_mgr;
 #include maps/mp/zm_alcatraz_grief_cellblock;
+#include maps/mp/zm_alcatraz_weap_quest;
 #include maps/mp/zombies/_zm_zonemgr;
 #include maps/mp/zombies/_zm_weap_tomahawk;
 #include maps/mp/zombies/_zm_weap_blundersplat;
