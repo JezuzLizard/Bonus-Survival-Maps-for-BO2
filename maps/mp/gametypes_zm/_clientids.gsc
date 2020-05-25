@@ -5,6 +5,7 @@
 #include maps/mp/zombies/_zm_game_module;
 #include maps/mp/zombies/_zm_ai_basic;
 #include maps/mp/zombies/_zm_afterlife;
+#include maps/mp/zombies/_zm_weapons;
 
 init()
 {
@@ -19,13 +20,6 @@ init()
     }
 }
 
-init_custom_map()
-{
-	level thread onplayerconnected();
-	disable_pers_upgrades();
-	thread init_buildables();
-}
-
 onplayerconnected()
 {
 	for ( ;; )
@@ -34,6 +28,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
+		player thread afterlife_doors_close(); //this fixes the afterlife walls
 	}
 }
 
@@ -248,7 +243,17 @@ piece_unspawn()
 	self.unitrigger = undefined;
 }
 
-init_buildables()
+init_custom_map()
+{
+	level thread onplayerconnected();
+	if ( isDefined ( level.customMap ) && level.customMap != "" )
+	{
+		thread init_map_modifications();
+		disable_pers_upgrades();
+	}
+}
+
+init_map_modifications()
 {
 	wait 1;
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" )
@@ -292,11 +297,9 @@ init_buildables()
 		level notify( "Pack_A_Punch_on" );
 		wait_network_frame();
 		thread disable_gondola();
-		thread disable_helldog();
+		thread modify_helldog();
 		thread disable_door();
 		thread disable_afterlife_boxes();
-		flag_set( "soul_catchers_charged" );
-		level notify( "soul_catchers_charged" );
 		level notify( "cable_puzzle_gate_afterlife" );
 	}
 }
@@ -694,17 +697,6 @@ disable_gondola()
 	}
 }
 
-disable_helldog()
-{
-	a_wolf_structs = getstructarray( "wolf_position", "targetname" );
-	i = 0;
-	while ( i < a_wolf_structs.size )
-	{
-		a_wolf_structs[ i ].souls_received = 6;
-		i++;
-	}
-}
-
 disable_door()
 {
 	zm_doors = getentarray( "zombie_door", "targetname" );
@@ -734,5 +726,49 @@ disable_afterlife_boxes()
 			struct.unitrigger_stub.origin = ( 0, 0, 0 );
 		}
 		_k87 = getNextArrayKey( _a87, _k87 );
+	}
+}
+
+modified_hellhound()
+{
+	tomahawk_effect = getstruct( "tomahawk_pickup_pos", "targetname" );
+	tomahawk_effect.origin = ( 981.75, 5818.75, 314.125 );
+	
+	tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
+	tomahawk_trigger.origin = ( 981.75, 5818.75, 314.125 );
+	
+	level.zombies_required = 0;
+	
+	for(;;)
+	{
+		a_wolf_structs = getstructarray( "wolf_position", "targetname" );
+		i = 0;
+		while ( i < a_wolf_structs.size )
+		{
+			if ( a_wolf_structs[ i ].souls_received == 1 )
+			{
+				level.zombies_required++;
+			}
+			a_wolf_structs[ i ].souls_received = 0;
+			i++;
+		}
+		if ( level.zombies_required == 35 )
+		{
+			a_wolf_structs = getstructarray( "wolf_position", "targetname" );
+			i = 0;
+			while ( i < a_wolf_structs.size )
+			{
+				a_wolf_structs[ i ].souls_received = 6;
+				i++;
+			}
+			flag_set( "soul_catchers_charged" );
+			level notify( "soul_catchers_charged" );
+			level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
+			return;
+		}
+		else
+		{
+			wait 0.25;
+		}
 	}
 }
