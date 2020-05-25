@@ -297,9 +297,9 @@ init_map_modifications()
 		level notify( "Pack_A_Punch_on" );
 		wait_network_frame();
 		thread disable_gondola();
-		thread modify_helldog();
 		thread disable_door();
 		thread disable_afterlife_boxes();
+		thread modified_hellhound();
 		level notify( "cable_puzzle_gate_afterlife" );
 	}
 }
