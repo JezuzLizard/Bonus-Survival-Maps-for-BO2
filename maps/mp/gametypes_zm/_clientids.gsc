@@ -269,6 +269,7 @@ init_buildables()
 	{
 		flag_set( "power_on" );
 		level setclientfield( "zombie_power_on", 1 );
+		buildcraftable( "quest_key1" );
 		buildcraftable( "alcatraz_shield_zm" );
 		changecraftableoption( 0 );
 		wait 1;
@@ -290,6 +291,7 @@ init_buildables()
 		wait_network_frame();
 		thread disable_gondola();
 		thread disable_helldog();
+		thread disable_door();
 		flag_set( "soul_catchers_charged" );
 		level notify( "soul_catchers_charged" );
 	}
@@ -700,6 +702,21 @@ disable_helldog()
 	while ( i < level.a_wolf_structs.size )
 	{
 		level.a_wolf_structs[ i ].souls_reveived = 6;
+		i++;
+	}
+}
+
+disable_door()
+{
+	level.zm_doors = getentarray( "zombie_door", "targetname" );
+	wait 5;
+	i = 0;
+	while ( i < level.zm_doors.size )
+	{
+		if ( level.zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		{
+			level.zm_doors[ i ].origin = ( 0, 0, 0 );
+		}
 		i++;
 	}
 }
