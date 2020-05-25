@@ -2344,6 +2344,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2367,6 +2368,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2390,6 +2392,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2413,6 +2416,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2436,6 +2440,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2448,7 +2453,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_doublepoints_zombies", 0, (2, 2, 0));
+					self thread drawCustomPerkHUD("specialty_doublepoints_zombies", 0, (1, 1, 0));
 				}
 				else
 				{
@@ -2459,6 +2464,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2467,7 +2473,28 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_quickrevive":
-			self setclientfieldtoplayer( "perk_quick_revive", state );
+			if(level.script == "zm_prison")
+			{
+				if(state == 1)
+				{
+					self thread drawCustomPerkHUD("specialty_instakill_zombies", 0, (0, 0.8, 1));
+				}
+				else
+				{
+					self.perkicon1 Destroy(); self.perkicon1 = undefined;
+					self.perkicon2 Destroy(); self.perkicon2 = undefined;
+					self.perkicon3 Destroy(); self.perkicon3 = undefined;
+					self.perkicon4 Destroy(); self.perkicon4 = undefined;
+					self.perkicon5 Destroy(); self.perkicon5 = undefined;
+					self.perkicon6 Destroy(); self.perkicon6 = undefined;
+					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+				}
+			}
+			else
+			{
+				self setclientfieldtoplayer( "perk_quick_revive", state );
+			}
 			break;
 		case "specialty_fastreload":
 			if(level.script == "zm_prison")
@@ -2485,6 +2512,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon5 Destroy(); self.perkicon5 = undefined;
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
+					self.perkicon8 Destroy(); self.perkicon8 = undefined;
 				}
 			}
 			else
@@ -2518,6 +2546,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 						self.perkicon5 Destroy(); self.perkicon5 = undefined;
 						self.perkicon6 Destroy(); self.perkicon6 = undefined;
 						self.perkicon7 Destroy(); self.perkicon7 = undefined;
+						self.perkicon8 Destroy(); self.perkicon8 = undefined;
 					}
 				}
 			}
@@ -2584,6 +2613,11 @@ drawCustomPerkHUD(perk, x, color)
 	{
 		x = 68;
 		self.perkicon7 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
+	}
+	else if(!isDefined(self.perkicon8))
+	{
+		x = 96;
+		self.perkicon8 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
 	}
 }
 
@@ -3207,7 +3241,7 @@ perk_machine_removal( machine, replacement_model ) //checked changed to match ce
 
 extra_perk_spawns() //custom function
 {
-	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon" );
+	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_quickrevive" );
 	
 	level.docksPerks[ "specialty_deadshot" ] = spawnstruct();
 	level.docksPerks[ "specialty_deadshot" ].origin = ( -1566, 5542.5, -64 );
@@ -3220,18 +3254,18 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
 	level.docksPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
 	level.docksPerks[ "specialty_rof" ] = spawnstruct();
-	level.docksPerks[ "specialty_rof" ].origin = ( 208.5, 6373.25, 64 );
-	level.docksPerks[ "specialty_rof" ].angles = ( 0, 235, 0 );
+	level.docksPerks[ "specialty_rof" ].origin = ( -578, 6095, -36 );
+	level.docksPerks[ "specialty_rof" ].angles = ( 0, 282, 0 );
 	level.docksPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.docksPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.docksPerks[ "specialty_grenadepulldeath" ] = spawnstruct();
-	level.docksPerks[ "specialty_grenadepulldeath" ].origin = ( -652.5, 5326, -72 );
-	level.docksPerks[ "specialty_grenadepulldeath" ].angles = ( 0, 145, 0 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].origin = ( 82, 8102, 276 );
+	level.docksPerks[ "specialty_grenadepulldeath" ].angles = ( 0, 315, 0 );
 	level.docksPerks[ "specialty_grenadepulldeath" ].model = "p6_zm_vending_electric_cherry_off";
 	level.docksPerks[ "specialty_grenadepulldeath" ].script_noteworthy = "specialty_grenadepulldeath";
 	level.docksPerks[ "specialty_longersprint" ] = spawnstruct();
-	level.docksPerks[ "specialty_longersprint" ].origin = ( 82, 8102, 276 );
-	level.docksPerks[ "specialty_longersprint" ].angles = ( 0, 315, 0 );
+	level.docksPerks[ "specialty_longersprint" ].origin = ( -652.5, 5326, -72 );
+	level.docksPerks[ "specialty_longersprint" ].angles = ( 0, 145, 0 );
 	level.docksPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
 	level.docksPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.docksPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
@@ -3239,8 +3273,13 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 0, 0 );
 	level.docksPerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
 	level.docksPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.docksPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.docksPerks[ "specialty_quickrevive" ].origin = ( 208.5, 6373.25, 64 );
+	level.docksPerks[ "specialty_quickrevive" ].angles = ( 0, 235, 0 );
+	level.docksPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
+	level.docksPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
-	level.docksPerks[ "specialty_weapupgrade" ].origin = ( -1769, 5391, -71 );
+	level.docksPerks[ "specialty_weapupgrade" ].origin = ( -1769, 5391, -72 );
 	level.docksPerks[ "specialty_weapupgrade" ].angles = ( 0, 100, 0 );
 	level.docksPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.docksPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
@@ -3743,7 +3782,10 @@ perks_register_clientfield() //checked matches cerberus output
 	}
 	if ( isDefined( level.zombiemode_using_revive_perk ) && level.zombiemode_using_revive_perk )
 	{
-		registerclientfield( "toplayer", "perk_quick_revive", 1, 2, "int" );
+		if(level.script != "zm_prison")
+		{
+			registerclientfield( "toplayer", "perk_quick_revive", 1, 2, "int" );
+		}
 	}
 	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
 	{
