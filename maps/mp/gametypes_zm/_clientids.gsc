@@ -628,7 +628,7 @@ gscRestart()
 {
 	level waittill( "end_game" );
 	setDvar( "customMapsMapRestarted", 1 );
-	wait 12; //20 is ideal
+	wait 10;
 	map_restart( false );
 }
 
@@ -715,7 +715,7 @@ disable_afterlife_boxes()
 	while ( isDefined( _k87 ) )
 	{
 		struct = _a87[ _k87 ];
-		if ( struct.origin == ( -1390.02, 5371.56, -24 ) || struct.origin == ( 339.684, 6529.53, 312 ) )
+		if ( struct.origin == ( -1390.02, 5371.56, -24 ) || struct.origin == ( 339.684, 6529.53, 312 ) || struct.origin == ( -49.9826, 6533.44, 112 ) )
 		{
 			struct.unitrigger_stub.origin = ( 0, 0, 0 );
 		}
@@ -725,6 +725,8 @@ disable_afterlife_boxes()
 
 modified_hellhound()
 {
+	level endon( "end_game");
+	
 	tomahawk_effect = getstruct( "tomahawk_pickup_pos", "targetname" );
 	tomahawk_effect.origin = ( 981.75, 5818.75, 314.125 );
 	
@@ -769,6 +771,7 @@ modified_hellhound()
 
 auto_upgrade_tower()
 {
+	level endon( "end_game");
 	for(;;)
 	{
 		level waittill( "trap_activated" );
