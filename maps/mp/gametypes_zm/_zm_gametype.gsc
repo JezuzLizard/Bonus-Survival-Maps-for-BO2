@@ -2010,42 +2010,42 @@ onspawnplayer( predictedspawn ) //modified function
 		}
 		match_string = level.scr_zm_ui_gametype + "_" + location;
 		spawnpoints = [];
-		if ( isDefined( level.customMap ) && level.customMap == "tunnel" )
+		if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "tunnel" )
 		{
 			for ( i = 0; i < level.tunnelSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.tunnelSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.customMap ) && level.customMap == "diner" )
+		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "diner" )
 		{
 			for ( i = 0; i < level.dinerSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.dinerSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.customMap ) && level.customMap == "cornfield" )
+		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "cornfield" )
 		{
 			for ( i = 0; i < level.cornfieldSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.cornfieldSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.customMap ) && level.customMap == "power" )
+		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "power" )
 		{
 			for ( i = 0; i < level.powerStationSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.powerStationSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.customMap ) && level.customMap == "house" )
+		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "house" )
 		{
 			for ( i = 0; i < level.houseSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.houseSpawnpoints[ i ];
 			}
 		}
-		else if ( isDefined( level.customMap ) && level.customMap == "docks" )
+		else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
 		{
 			for ( i = 0; i < level.docksSpawnpoints.size; i++ )
 			{
