@@ -5,7 +5,6 @@
 #include maps/mp/zombies/_zm_game_module;
 #include maps/mp/zombies/_zm_ai_basic;
 #include maps/mp/gametypes_zm/_weapons;
-#include maps/mp/zombies/_zm_afterlife;
 
 init()
 {
