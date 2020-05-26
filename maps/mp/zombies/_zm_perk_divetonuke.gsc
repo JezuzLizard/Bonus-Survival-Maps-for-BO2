@@ -8,9 +8,18 @@
 
 enable_divetonuke_perk_for_level() //checked matches cerberus output
 {
-	maps/mp/zombies/_zm_perks::register_perk_basic_info( "specialty_flakjacket", "divetonuke", 2000, &"ZOMBIE_PERK_DIVETONUKE", "zombie_perk_bottle_deadshot" );
+	map = getDvar("customMap");
+	if(isDefined(map) && map == "docks")
+	{
+		maps/mp/zombies/_zm_perks::register_perk_basic_info( "specialty_flakjacket", "divetonuke", 2000, &"ZOMBIE_PERK_DIVETONUKE", "zombie_perk_bottle_deadshot" );
+	}
+	else
+	{
+		maps/mp/zombies/_zm_perks::register_perk_basic_info( "specialty_flakjacket", "divetonuke", 2000, &"ZOMBIE_PERK_DIVETONUKE", "zombie_perk_bottle_nuke" );
+	}
 	maps/mp/zombies/_zm_perks::register_perk_precache_func( "specialty_flakjacket", ::divetonuke_precache );
-	//maps/mp/zombies/_zm_perks::register_perk_clientfields( "specialty_flakjacket", ::divetonuke_register_clientfield, ::divetonuke_set_clientfield );
+	if(level.phdUsesClientfield)
+		maps/mp/zombies/_zm_perks::register_perk_clientfields( "specialty_flakjacket", ::divetonuke_register_clientfield, ::divetonuke_set_clientfield );
 	maps/mp/zombies/_zm_perks::register_perk_machine( "specialty_flakjacket", ::divetonuke_perk_machine_setup, ::divetonuke_perk_machine_think );
 	maps/mp/zombies/_zm_perks::register_perk_host_migration_func( "specialty_flakjacket", ::divetonuke_host_migration_func );
 }
@@ -49,12 +58,12 @@ divetonuke_precache() //checked matches cerberus output
 
 divetonuke_register_clientfield() //checked matches cerberus output
 {
-	//registerclientfield( "toplayer", "perk_dive_to_nuke", 9000, 1, "int" );
+	registerclientfield( "toplayer", "perk_dive_to_nuke", 9000, 1, "int" );
 }
 
 divetonuke_set_clientfield( state ) //checked matches cerberus output
 {
-	//self setclientfieldtoplayer( "perk_dive_to_nuke", state );
+	self setclientfieldtoplayer( "perk_dive_to_nuke", state );
 }
 
 divetonuke_perk_machine_setup( use_trigger, perk_machine, bump_trigger, collision ) //checked matches cerberus output
@@ -135,18 +144,17 @@ divetonuke_explode( attacker, origin )
 		radiusdamage( origin, radius, max_damage, min_damage, attacker, "MOD_GRENADE_SPLASH" );
 	}
 	attacker playsound( "zmb_phdflop_explo" );
-	if(level.script == "zm_prison")
+	if(level.phdUsesClientfield)
 	{
-		fx = loadfx("explosions/fx_default_explosion");
-		playfx( fx, origin );
-	}
-	else
-	{
-		fx = loadfx("maps/zombie/fx_zmb_phdflopper_exp");
-		playfx( fx, origin );
+		playfx( level._effect["fx_zmb_phdflopper_exp"], origin );
 		maps/mp/_visionset_mgr::vsmgr_activate( "visionset", "zm_perk_divetonuke", attacker );
 		wait 1;
 		maps/mp/_visionset_mgr::vsmgr_deactivate( "visionset", "zm_perk_divetonuke", attacker );
+	}
+	else
+	{
+		fx = loadfx("explosions/fx_default_explosion");
+		playfx( fx, origin );
 	}
 }
 
