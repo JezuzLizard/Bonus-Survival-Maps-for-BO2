@@ -38,6 +38,7 @@
 #include maps/mp/zombies/_zm_utility;
 #include maps/mp/_utility;
 #include common_scripts/utility;
+#include maps/mp/zombies/_zm_afterlife;
 
 gamemode_callback_setup() //checked matches cerberus output
 {
@@ -229,6 +230,7 @@ main() //checked changed to match cerberus output
 	level thread title_update_main_end();
 	//flag_wait( "start_zombie_round_logic" ); //players can't join if this is uncommented
 	level thread onplayerconnect();
+	level thread onplayerconnected();
 }
 onplayerconnect()
 {
@@ -251,6 +253,14 @@ onplayerconnect()
 	wait_network_frame();
 	level notify( "Pack_A_Punch_on" );
 	wait_network_frame();
+}
+onplayerconnected()
+{
+	for(;;)
+	{
+		level waittill("connected", player);
+		player thread afterlife_doors_close();
+	}
 }
 
 title_update_main_start() //checked matches cerberus output
