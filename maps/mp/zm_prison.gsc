@@ -110,8 +110,8 @@ main() //checked changed to match cerberus output
 	level.zombiemode_using_marathon_perk = 1;
 	level.zombiemode_using_revive_perk = 1;
 	level.zombiemode_using_additionalprimaryweapon_perk = 1;
-	//level.zombiemode_using_divetonuke_perk = 1;
-	//maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	level.zombiemode_using_divetonuke_perk = 1;
+	maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 	if ( maps/mp/zombies/_zm_utility::is_gametype_active( "zclassic" ) )
 	{
 		level.zombiemode_using_electric_cherry_perk = 1;
@@ -362,13 +362,13 @@ custom_vending_precaching() //checked changed to match cerberus output
 	}
 	if ( isDefined( level.zombiemode_using_divetonuke_perk ) && level.zombiemode_using_divetonuke_perk )
 	{
-		precacheitem( "zombie_perk_bottle_nuke" );
+		//precacheitem( "zombie_perk_bottle_nuke" );
 		precacheshader( "specialty_divetonuke_zombies" );
 		precachemodel( "p6_zm_al_vending_nuke_on" );
-		precachestring( &"ZOMBIE_PERK_DIVETONUKE" );
-		level._effect[ "divetonuke_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		//precachestring( &"ZOMBIE_PERK_DIVETONUKE" );
+		//level._effect[ "divetonuke_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
 		level.machine_assets[ "divetonuke" ] = spawnstruct();
-		level.machine_assets[ "divetonuke" ].weapon = "zombie_perk_bottle_nuke";
+		level.machine_assets[ "divetonuke" ].weapon = "zombie_perk_bottle_deadshot";
 		level.machine_assets[ "divetonuke" ].off_model = "p6_zm_al_vending_nuke_on";
 		level.machine_assets[ "divetonuke" ].on_model = "p6_zm_al_vending_nuke_on";
 		level.machine_assets[ "divetonuke" ].power_on_callback = ::custom_vending_power_on;
@@ -511,6 +511,40 @@ give_personality_characters() //checked matches cerberus output
 #/
 	}
 	*/
+	switch(self.characterindex)
+	{
+		case 0:
+			self setmodel( "c_zom_player_oleary_fb" );
+			self set_player_is_female( 0 );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
+			self.characterindex = 0;
+			break;
+		case 1:
+			self setmodel( "c_zom_player_oleary_fb" );
+			self set_player_is_female( 0 );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
+			self.characterindex = 0;
+			break;
+		case 2:
+			self setmodel( "c_zom_player_oleary_fb" );
+			self set_player_is_female( 0 );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
+			self.characterindex = 0;
+		case 3:
+			self setmodel( "c_zom_player_oleary_fb" );
+			self set_player_is_female( 0 );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
+			self.characterindex = 0;
+	}
+	/*
 	switch( self.characterindex )
 	{
 		case 0:
@@ -546,6 +580,7 @@ give_personality_characters() //checked matches cerberus output
 			self.character_name = "Arlington";
 			break;
 	}
+	*/
 	self setmovespeedscale( 1 );
 	self setsprintduration( 4 );
 	self setsprintcooldown( 0 );
