@@ -2329,7 +2329,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 	switch( perk )
 	{
 		case "specialty_additionalprimaryweapon":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2354,7 +2354,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_deadshot":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2379,7 +2379,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_flakjacket":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2404,7 +2404,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_rof":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2429,7 +2429,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_armorvest":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2454,7 +2454,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_longersprint":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2479,7 +2479,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_quickrevive":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2504,7 +2504,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			}
 			break;
 		case "specialty_fastreload":
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(state == 1)
 				{
@@ -2537,7 +2537,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 		default:
 		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].clientfield_set ) )
 		{
-			if(level.script == "zm_prison")
+			if(level.script == "zm_prison" && level.customMap != "vanilla")
 			{
 				if(perk == "specialty_grenadepulldeath")
 				{
@@ -3588,7 +3588,7 @@ perk_machine_spawn_init() //modified function
 			collision.script_noteworthy = "clip";
 			collision DisconnectPaths();
 			// Connect all of the pieces for easy access.
-			if(level.script != "zm_prison")
+			if(level.script != "zm_prison" || level.script == "zm_prison" && level.customMap == "vanilla")
 			{
 				use_trigger.clip = collision;
 				use_trigger.bump = bump_trigger;
