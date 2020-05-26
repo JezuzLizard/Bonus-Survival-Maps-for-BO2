@@ -57,6 +57,7 @@ precache() //checked matches cerberus output
 
 main() //modified function
 {
+	map = getDvar("customMap");
 	level.ta_vaultfee = 100;
 	level.ta_tellerfee = 100;
 	if ( !isDefined( level.custom_ai_type ) )
@@ -64,10 +65,10 @@ main() //modified function
 		level.custom_ai_type = [];
 	}
 	level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_screecher::init;
-	//level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_avogadro::init;
+	if(isDefined(map) && map == "vanilla")
+		level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_avogadro::init;
 	level.enemy_location_override_func = maps/mp/zm_transit_bus::enemy_location_override;
 	level.adjust_enemyoverride_func = maps/mp/zm_transit_bus::adjust_enemyoverride;
-	//level.closest_player_override = closest_player_transit;
 	door_triggers = getentarray( "electric_door", "script_noteworthy" );
 	foreach ( trigger in door_triggers )
 	{
@@ -92,7 +93,8 @@ main() //modified function
 	}
 	level.zm_traversal_override = ::zm_traversal_override;
 	level.the_bus = getent( "the_bus", "targetname" );
-	//level thread init_bus();
+	if(isDefined(map) && map == "vanilla")
+		level thread init_bus();
 	level thread maps/mp/zm_transit_sq::start_transit_sidequest();
 	level thread inert_zombies_init();
 	level thread maps/mp/zm_transit_power::initializepower();
@@ -119,10 +121,12 @@ main() //modified function
 	level.custom_powerup_vo_response = ::transit_custom_powerup_vo_response;
 	level.zombie_vars[ "zombie_intermission_time" ] = 12;
 	flag_wait( "initial_blackscreen_passed" );
-	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
+	if(isDefined(map) && map != "vanilla")
+		maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
-	level thread maps/mp/zm_transit::delete_bus_pieces();
+	if(isDefined(map) && map != "vanilla")
+		level thread maps/mp/zm_transit::delete_bus_pieces();
 	
 }
 
@@ -409,7 +413,8 @@ diner_hatch_access() //modified function
 	diner_hatch hide();
 	diner_hatch_mantle.start_origin = diner_hatch_mantle.origin;
 	diner_hatch_mantle.origin += vectorScale( ( 0, 0, 0 ), 500 );
-	//player = wait_for_buildable( "dinerhatch" );
+	if(isDefined(level.customMap) && level.customMap == "vanilla")
+		player = wait_for_buildable( "dinerhatch" );
 	diner_hatch show();
 	diner_hatch_col delete();
 	diner_hatch_mantle.origin = diner_hatch_mantle.start_origin;
@@ -611,4 +616,3 @@ adjust_zombie_count() //custom function
 		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
-
