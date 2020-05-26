@@ -138,8 +138,8 @@ init() //modified function
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
-			start_chest.origin = ( -613.8, 6988, 64.125 );
-			start_chest.angles = ( 0, -80, 0 );
+			start_chest.origin = ( -423.33, 6952, 64.125 );
+			start_chest.angles = ( 0, 10, 0 );
 			start_chest.script_noteworthy = "start_chest";
 			start_chest.zombie_cost = 950;
 			level.chests[ 0 ] = start_chest;
@@ -279,8 +279,8 @@ get_chest_pieces() //modified function
 	self.chest_box = getent( self.script_noteworthy + "_zbarrier", "script_noteworthy" );
 	if ( isDefined( level.customMap ) && level.customMap == "docks" && self.script_noteworthy == "start_chest" )
 	{
-		self.chest_box.origin = ( -613.8, 6988, 64.125 );
-		self.chest_box.angles = ( 0, -80, 0 );
+		self.chest_box.origin = ( -423.33, 6952, 64.125 );
+		self.chest_box.angles = ( 0, 10, 0 );
 	}
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
@@ -413,11 +413,11 @@ get_chest_pieces() //modified function
 		collision.angles = self.chest_box.angles;
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 34, 0 ) );
+		collision = spawn( "script_model", self.chest_box.origin - ( 32, 0, 0 ) );
 		collision.angles = self.chest_box.angles;
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 34, 0 ) );
+		collision = spawn( "script_model", self.chest_box.origin + ( 32, 0, 0 ) );
 		collision.angles = self.chest_box.angles;
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
