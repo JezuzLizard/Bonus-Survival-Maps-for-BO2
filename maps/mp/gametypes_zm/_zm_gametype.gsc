@@ -1398,6 +1398,10 @@ getMapString(map) //custom function
 		return "Cabin";
 	if(map == "cornfield")
 		return "Cornfield";
+	if(map == "docks")
+		return "Docks";
+	if(map == "vanilla")
+		return "Vanilla";
 }
 
 map_rotation() //custom function
@@ -1466,7 +1470,7 @@ random_map_rotation() //custom function
 init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
-	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield"
+	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks"
 	level.serverName = getDvar( "serverName" );
 	if ( !isDefined( level.serverName ) || level.serverName == "" )
 	{
@@ -1830,7 +1834,7 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 
 init_barriers_for_custom_maps() //custom function
 {
-	if(level.script == "zm_transit")
+	if(level.script == "zm_transit" && isDefined(level.customMap) && level.customMap != "vanilla")
 	{
 		//DINER CLIPS
 		dinerclip1 = spawn("script_model", (-3952,-6957,-67));
@@ -2619,4 +2623,3 @@ blank() //this function is intentionally empty
 {
 	//empty function
 }
-
