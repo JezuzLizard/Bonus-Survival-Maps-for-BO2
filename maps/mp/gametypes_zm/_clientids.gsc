@@ -35,7 +35,10 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
-		player thread afterlife_doors_close();
+		if(level.script == "zm_prison")
+		{
+			player thread afterlife_doors_close();
+		}
 	}
 }
 
