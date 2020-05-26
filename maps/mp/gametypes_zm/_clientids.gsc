@@ -13,8 +13,6 @@ init()
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
-	level.player_starting_points = 500000;
-	level.start_weapon = "raygun_mark2_zm";
 	thread init_custom_map();
 	if ( level.customMap == "house" )
 	{
