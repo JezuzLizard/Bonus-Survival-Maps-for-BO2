@@ -134,12 +134,20 @@ divetonuke_explode( attacker, origin )
 	{
 		radiusdamage( origin, radius, max_damage, min_damage, attacker, "MOD_GRENADE_SPLASH" );
 	}
-	fx = loadfx("explosions/fx_default_explosion");
-	playfx( fx, origin );
 	attacker playsound( "zmb_phdflop_explo" );
-	//maps/mp/_visionset_mgr::vsmgr_activate( "visionset", "zm_perk_divetonuke", attacker );
-	wait 1;
-	//maps/mp/_visionset_mgr::vsmgr_deactivate( "visionset", "zm_perk_divetonuke", attacker );
+	if(level.script == "zm_prison")
+	{
+		fx = loadfx("explosions/fx_default_explosion");
+		playfx( fx, origin );
+	}
+	else
+	{
+		fx = loadfx("maps/zombie/fx_zmb_phdflopper_exp");
+		playfx( fx, origin );
+		maps/mp/_visionset_mgr::vsmgr_activate( "visionset", "zm_perk_divetonuke", attacker );
+		wait 1;
+		maps/mp/_visionset_mgr::vsmgr_deactivate( "visionset", "zm_perk_divetonuke", attacker );
+	}
 }
 
 divetonuke_explode_network_optimized(origin, radius, max_damage, min_damage, damage_mod)
@@ -171,4 +179,3 @@ divetonuke_explode_network_optimized(origin, radius, max_damage, min_damage, dam
 		}
 	}
 }
-
