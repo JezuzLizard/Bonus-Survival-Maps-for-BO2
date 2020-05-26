@@ -252,9 +252,9 @@ piece_unspawn()
 
 init_buildables()
 {
-	wait 1;
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" )
 	{
+		wait 1;
 		buildbuildable( "dinerhatch", 1 );
 		buildbuildable( "pap", 1 );
 		buildbuildable( "turbine" );
@@ -269,7 +269,12 @@ init_buildables()
 	}
 	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
+		thread disable_gondola();
+		thread disable_door();
+		thread disable_afterlife_boxes();
+		thread modified_hellhound();
 		wait 2;
+		level notify( "cable_puzzle_gate_afterlife" );
 		flag_set( "power_on" );
 		level setclientfield( "zombie_power_on", 1 );
 		buildcraftable( "quest_key1" );
@@ -293,11 +298,6 @@ init_buildables()
 		wait_network_frame();
 		level notify( "Pack_A_Punch_on" );
 		wait_network_frame();
-		thread disable_gondola();
-		thread disable_door();
-		thread disable_afterlife_boxes();
-		thread modified_hellhound();
-		level notify( "cable_puzzle_gate_afterlife" );
 	}
 }
 
@@ -682,10 +682,10 @@ spawnAllPlayers()
 
 disable_gondola()
 {
+	wait 3;
 	level notify( "gondola_powered_on_roof" );
 	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
 	call_triggers = getFirstArrayKey( t_call_triggers );
-	wait 5;
 	while ( isDefined( call_triggers ) )
 	{
 		trigger = t_call_triggers[ call_triggers ];
@@ -697,7 +697,6 @@ disable_gondola()
 disable_door()
 {
 	zm_doors = getentarray( "zombie_door", "targetname" );
-	wait 5;
 	i = 0;
 	while ( i < zm_doors.size )
 	{
@@ -714,7 +713,6 @@ disable_afterlife_boxes()
 	a_afterlife_triggers = getstructarray( "afterlife_trigger", "targetname" );
 	_a87 = a_afterlife_triggers;
 	_k87 = getFirstArrayKey( _a87 );
-	wait 5;
 	while ( isDefined( _k87 ) )
 	{
 		struct = _a87[ _k87 ];
