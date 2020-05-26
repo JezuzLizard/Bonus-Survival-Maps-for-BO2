@@ -4,8 +4,8 @@
 #include maps/mp/zombies/_zm_buildables;
 #include maps/mp/zombies/_zm_game_module;
 #include maps/mp/zombies/_zm_ai_basic;
+#include maps/mp/gametypes_zm/_weapons;
 #include maps/mp/zombies/_zm_afterlife;
-#include maps/mp/zombies/_zm_weapons;
 
 init()
 {
@@ -13,11 +13,20 @@ init()
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	setDvar( "scr_screecher_ignore_player", 1 );
+	level.player_starting_points = 500000;
+	level.start_weapon = "raygun_mark2_zm";
 	thread init_custom_map();
-	if ( isDefined( level.customMap ) && level.customMap == "house" )
+	if ( level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
     }
+}
+
+init_custom_map()
+{
+	level thread onplayerconnected();
+	disable_pers_upgrades();
+	thread init_buildables();
 }
 
 onplayerconnected()
@@ -28,7 +37,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
-		player thread afterlife_doors_close(); //this fixes the afterlife walls
+		player thread afterlife_doors_close();
 	}
 }
 
@@ -243,17 +252,7 @@ piece_unspawn()
 	self.unitrigger = undefined;
 }
 
-init_custom_map()
-{
-	level thread onplayerconnected();
-	if ( isDefined ( level.customMap ) && level.customMap != "" )
-	{
-		thread init_map_modifications();
-		disable_pers_upgrades();
-	}
-}
-
-init_map_modifications()
+init_buildables()
 {
 	wait 1;
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" )
