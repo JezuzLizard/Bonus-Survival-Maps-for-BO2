@@ -2345,6 +2345,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2369,6 +2370,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2381,7 +2383,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_doubletap_zombies", 0, (1, 0.25, 1));
+					self thread drawCustomPerkHUD("specialty_divetonuke_zombies", 0, (1, 1, 1));
 				}
 				else
 				{
@@ -2393,6 +2395,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2417,6 +2420,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2441,6 +2445,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2465,6 +2470,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2489,6 +2495,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2513,6 +2520,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					self.perkicon6 Destroy(); self.perkicon6 = undefined;
 					self.perkicon7 Destroy(); self.perkicon7 = undefined;
 					self.perkicon8 Destroy(); self.perkicon8 = undefined;
+					self.perkicon9 Destroy(); self.perkicon9 = undefined;
 				}
 			}
 			else
@@ -2547,6 +2555,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 						self.perkicon6 Destroy(); self.perkicon6 = undefined;
 						self.perkicon7 Destroy(); self.perkicon7 = undefined;
 						self.perkicon8 Destroy(); self.perkicon8 = undefined;
+						self.perkicon9 Destroy(); self.perkicon9 = undefined;
 					}
 				}
 			}
@@ -2618,6 +2627,11 @@ drawCustomPerkHUD(perk, x, color)
 	{
 		x = 96;
 		self.perkicon8 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
+	}
+	else if(!isDefined(self.perkicon9))
+	{
+		x = 124;
+		self.perkicon9 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
 	}
 }
 
@@ -3241,7 +3255,7 @@ perk_machine_removal( machine, replacement_model ) //checked changed to match ce
 
 extra_perk_spawns() //custom function
 {
-	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_quickrevive" );
+	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_quickrevive" );
 	
 	level.docksPerks[ "specialty_deadshot" ] = spawnstruct();
 	level.docksPerks[ "specialty_deadshot" ].origin = ( -1566, 5542.5, -64 );
@@ -3278,6 +3292,11 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_quickrevive" ].angles = ( 0, 235, 0 );
 	level.docksPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
 	level.docksPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.docksPerks[ "specialty_flakjacket" ] = spawnstruct();
+	level.docksPerks[ "specialty_flakjacket" ].origin = ( -610, 6977, 64 );
+	level.docksPerks[ "specialty_flakjacket" ].angles = ( 0, 102, 0 );
+	level.docksPerks[ "specialty_flakjacket" ].model = "p6_zm_al_vending_nuke_on";
+	level.docksPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
 	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.docksPerks[ "specialty_weapupgrade" ].origin = ( -1769, 5391, -72 );
 	level.docksPerks[ "specialty_weapupgrade" ].angles = ( 0, 100, 0 );
