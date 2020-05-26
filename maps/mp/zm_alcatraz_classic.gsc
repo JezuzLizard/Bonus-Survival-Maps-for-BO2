@@ -53,7 +53,11 @@ main() //checked changed to match cerberus output
 		clip connectpaths();
 		clip delete();
 	}
-	level thread give_afterlife();
+	map = GetDvar("customMap");
+	if(isDefined(map) && map == "vanilla")
+	{
+		level thread give_afterlife();
+	}
 	level thread maps/mp/zm_alcatraz_sq::start_alcatraz_sidequest();
 	onplayerconnect_callback( ::player_quest_vfx );
 	flag_wait( "initial_blackscreen_passed" );
@@ -82,7 +86,6 @@ zm_treasure_chest_init() //checked matches cerberus output
 
 give_afterlife() //checked changed to match cerberus output
 {
-	/*
 	onplayerconnect_callback( maps/mp/zombies/_zm_afterlife::init_player );
 	flag_wait( "initial_players_connected" );
 	wait 0.5;
@@ -96,7 +99,6 @@ give_afterlife() //checked changed to match cerberus output
 			n_start_pos++;
 		}
 	}
-	*/
 }
 
 fake_kill_player( n_start_pos ) //checked changed to match cerberus output
@@ -303,5 +305,3 @@ player_quest_vfx() //checked matches cerberus output
 		exploder( 2000 );
 	}
 }
-
-
