@@ -269,6 +269,7 @@ init_buildables()
 	}
 	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
+		thread auto_upgrade_tower();
 		thread disable_gondola();
 		thread disable_door();
 		thread disable_afterlife_boxes();
@@ -765,5 +766,15 @@ modified_hellhound()
 		{
 			wait 0.25;
 		}
+	}
+}
+
+auto_upgrade_tower()
+{
+	for(;;)
+	{
+		level waittill( "trap_activated" );
+		wait 2;
+		level notify( "tower_trap_upgraded" );
 	}
 }
