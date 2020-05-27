@@ -2010,42 +2010,42 @@ onspawnplayer( predictedspawn ) //modified function
 		}
 		match_string = level.scr_zm_ui_gametype + "_" + location;
 		spawnpoints = [];
-		if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "tunnel" )
+		if ( isDefined( level.customMap ) && level.customMap == "tunnel" )
 		{
 			for ( i = 0; i < level.tunnelSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.tunnelSpawnpoints[ i ];
 			}
 		}
-		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "diner" )
+		else if ( isDefined( level.customMap ) && level.customMap == "diner" )
 		{
 			for ( i = 0; i < level.dinerSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.dinerSpawnpoints[ i ];
 			}
 		}
-		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "cornfield" )
+		else if ( isDefined( level.customMap ) && level.customMap == "cornfield" )
 		{
 			for ( i = 0; i < level.cornfieldSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.cornfieldSpawnpoints[ i ];
 			}
 		}
-		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "power" )
+		else if ( isDefined( level.customMap ) && level.customMap == "power" )
 		{
 			for ( i = 0; i < level.powerStationSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.powerStationSpawnpoints[ i ];
 			}
 		}
-		else if ( level.script == "zm_transit" && isDefined( level.customMap ) && level.customMap == "house" )
+		else if ( isDefined( level.customMap ) && level.customMap == "house" )
 		{
 			for ( i = 0; i < level.houseSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.houseSpawnpoints[ i ];
 			}
 		}
-		else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
+		else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 		{
 			for ( i = 0; i < level.docksSpawnpoints.size; i++ )
 			{
@@ -2157,6 +2157,14 @@ get_player_spawns_for_gametype() //modified function
 		for(i=0;i<level.houseSpawnpoints.size;i++)
 		{
 			custom_spawns[custom_spawns.size] = level.houseSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "docks")
+	{
+		for(i=0;i<level.docksSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.docksSpawnpoints[i];
 		}
 		return custom_spawns;
 	}
