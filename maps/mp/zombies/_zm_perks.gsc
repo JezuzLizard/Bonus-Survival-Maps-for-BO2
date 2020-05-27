@@ -2341,7 +2341,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2362,7 +2362,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2383,7 +2383,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2404,7 +2404,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2425,7 +2425,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2446,7 +2446,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2467,7 +2467,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2488,7 +2488,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				}
 				else
 				{
-					self thread removePerkHUD(perk);
+					self thread removeAllPerksHUD(perk);
 				}
 			}
 			else
@@ -2519,7 +2519,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					}
 					else
 					{
-						self thread removePerkHUD(perk);
+						self thread removeAllPerksHUD(perk);
 					}
 				}
 			}
@@ -2552,6 +2552,22 @@ addPerkHUD(shader, x, color, perk)
 	self.perk_hud[self.perk_hud.size] = hud;
 }
 
+removeAllPerksHUD(perk)
+{
+	if(self.perk_hud[0].perk == perk)
+	{
+		for(i=self.perk_hud.size-1;i>=0;i--)
+		{
+			self.perk_hud[ i ] FadeOverTime(.5);
+			self.perk_hud[ i ].alpha = 0;
+			wait .5;
+			self.perk_hud[ i ] Destroy();
+			self.perk_hud[ i ] = undefined;
+		}
+		iPrintLn(self.perk_hud.size);
+	}
+}
+
 removePerkHUD( perk )
 {
 	new_array = [];
@@ -2570,7 +2586,6 @@ removePerkHUD( perk )
 		}
 		
 	}
-	self.perk_hud = undefined;
 	self.perk_hud = new_array;
 	for ( i = 0; i < self.perk_hud.size; i++ )
 	{
@@ -3254,8 +3269,8 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
 	level.docksPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 	level.docksPerks[ "specialty_flakjacket" ] = spawnstruct();
-	level.docksPerks[ "specialty_flakjacket" ].origin = ( -610, 6977, 64 );
-	level.docksPerks[ "specialty_flakjacket" ].angles = ( 0, 102, 0 );
+	level.docksPerks[ "specialty_flakjacket" ].origin = ( -643, 7057, 64 );
+	level.docksPerks[ "specialty_flakjacket" ].angles = ( 0, 57, 0 );
 	level.docksPerks[ "specialty_flakjacket" ].model = "p6_zm_al_vending_nuke_on";
 	level.docksPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
 	level.docksPerks[ "specialty_weapupgrade" ] = spawnstruct();
