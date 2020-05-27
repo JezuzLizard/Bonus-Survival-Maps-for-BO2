@@ -2333,19 +2333,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_additionalprimaryweapon_zombies", 0, (1,1,1));
+					self thread addPerkHUD("specialty_additionalprimaryweapon_zombies", 0, (1,1,1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2358,19 +2354,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_ads_zombies", 0, (1,1,1));
+					self thread addPerkHUD("specialty_ads_zombies", 0, (1,1,1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2383,19 +2375,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_divetonuke_zombies", 0, (1, 1, 1));
+					self thread addPerkHUD("specialty_divetonuke_zombies", 0, (1, 1, 1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2408,19 +2396,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_doubletap_zombies", 0, (1,1,1));
+					self thread addPerkHUD("specialty_doubletap_zombies", 0, (1,1,1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2433,19 +2417,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_juggernaut_zombies", 0, (1,1,1));
+					self thread addPerkHUD("specialty_juggernaut_zombies", 0, (1,1,1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2458,19 +2438,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_doublepoints_zombies", 0, (1, 1, 0));
+					self thread addPerkHUD("specialty_doublepoints_zombies", 0, (1, 1, 0), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2483,19 +2459,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_instakill_zombies", 0, (0, 0.8, 1));
+					self thread addPerkHUD("specialty_instakill_zombies", 0, (0, 0.8, 1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2508,19 +2480,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 			{
 				if(state == 1)
 				{
-					self thread drawCustomPerkHUD("specialty_fastreload_zombies", 0, (1,1,1));
+					self thread addPerkHUD("specialty_fastreload_zombies", 0, (1,1,1), perk);
+				}
+				else if(state == 2)
+				{
+					self thread fadePerkHUD(perk);
 				}
 				else
 				{
-					self.perkicon1 Destroy(); self.perkicon1 = undefined;
-					self.perkicon2 Destroy(); self.perkicon2 = undefined;
-					self.perkicon3 Destroy(); self.perkicon3 = undefined;
-					self.perkicon4 Destroy(); self.perkicon4 = undefined;
-					self.perkicon5 Destroy(); self.perkicon5 = undefined;
-					self.perkicon6 Destroy(); self.perkicon6 = undefined;
-					self.perkicon7 Destroy(); self.perkicon7 = undefined;
-					self.perkicon8 Destroy(); self.perkicon8 = undefined;
-					self.perkicon9 Destroy(); self.perkicon9 = undefined;
+					self thread removePerkHUD(perk);
 				}
 			}
 			else
@@ -2543,19 +2511,15 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				{
 					if(state == 1)
 					{
-						self thread drawCustomPerkHUD("specialty_electric_cherry_zombie", 0, (1,1,1));
+						self thread addPerkHUD("specialty_electric_cherry_zombie", 0, (1,1,1));
+					}
+					else if(state == 2)
+					{
+						self thread fadePerkHUD(perk);
 					}
 					else
 					{
-						self.perkicon1 Destroy(); self.perkicon1 = undefined;
-						self.perkicon2 Destroy(); self.perkicon2 = undefined;
-						self.perkicon3 Destroy(); self.perkicon3 = undefined;
-						self.perkicon4 Destroy(); self.perkicon4 = undefined;
-						self.perkicon5 Destroy(); self.perkicon5 = undefined;
-						self.perkicon6 Destroy(); self.perkicon6 = undefined;
-						self.perkicon7 Destroy(); self.perkicon7 = undefined;
-						self.perkicon8 Destroy(); self.perkicon8 = undefined;
-						self.perkicon9 Destroy(); self.perkicon9 = undefined;
+						self thread removePerkHUD(perk);
 					}
 				}
 			}
@@ -2567,71 +2531,68 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 	}
 }
 
-drawshader( shader, x, y, width, height, color, alpha, sort )
+addPerkHUD(shader, x, color, perk)
 {
+	if ( !isDefined( self.perk_hud ) )
+		self.perk_hud = [];
 	hud = create_simple_hud( self );
+	hud.perk = perk;
 	hud.elemtype = "icon";
-	hud.foreground = false;
+	hud.foreground = true;
 	hud.hidewheninmenu = true;
 	hud.color = color;
-	hud.alpha = alpha;
-	hud.sort = sort;
-	hud SetShader( shader, width, height );
-	//hud.alignX = "right";
-	//hud.alignY = "bottom";
-	//hud.horzAlign = "right";
-	//hud.vertAlign = "bottom";
-	hud.x = x;
-	hud.y = y;
-	return hud;
+	hud.alpha = 0;
+	hud.sort = 1;
+	hud SetShader( shader, 48, 48 );
+	hud scaleOverTime( .5, 24, 24 );
+	hud fadeOverTime( .5 );
+	hud.alpha = 1;
+	hud.x = -100 + self.perk_hud.size * 27;
+	hud.y = 387;
+	self.perk_hud[self.perk_hud.size] = hud;
 }
 
-drawCustomPerkHUD(perk, x, color)
+removePerkHUD( perk )
 {
-	if(!isDefined(self.perkicon1))
+	new_array = [];
+	for ( i = 0; i < self.perk_hud.size; i++ )
 	{
-		x = -100;
-		self.perkicon1 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
+		if ( self.perk_hud[ i ].perk == perk )
+		{
+			self.perk_hud[ i ] FadeOverTime(.5);
+			self.perk_hud[ i ].alpha = 0;
+			wait .5;
+			self.perk_hud[ i ] Destroy();
+		}
+		else
+		{
+			new_array[ new_array.size ] = self.perk_hud[ i ];
+		}
+		
 	}
-	else if(!isDefined(self.perkicon2))
+	self.perk_hud = undefined;
+	self.perk_hud = new_array;
+	for ( i = 0; i < self.perk_hud.size; i++ )
 	{
-		x = -72;
-		self.perkicon2 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
+		self.perk_hud[ i ] moveOverTime( .5 );
+		self.perk_hud[ i ].x = -100 + i * 27;
+		self.perk_hud[ i ].y = 387;
 	}
-	else if(!isDefined(self.perkicon3))
+}
+
+fadePerkHUD( perk )
+{
+	if ( !isDefined( self.perk_hud ) || self.perk_hud.size < 1 )
+		return;
+		
+	for ( i = 0; i < self.perk_hud.size; i++ )
 	{
-		x = -44;
-		self.perkicon3 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon4))
-	{
-		x = -16;
-		self.perkicon4 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon5))
-	{
-		x = 12;
-		self.perkicon5 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon6))
-	{
-		x = 40;
-		self.perkicon6 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon7))
-	{
-		x = 68;
-		self.perkicon7 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon8))
-	{
-		x = 96;
-		self.perkicon8 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
-	}
-	else if(!isDefined(self.perkicon9))
-	{
-		x = 124;
-		self.perkicon9 = self drawshader( perk, x, 387, 24, 25, color, 100, 0 );
+		if ( self.perk_hud[ i ].perk != perk )
+			continue;
+			
+		self.perk_hud[ i ] fadeOverTime( .5 );
+		self.perk_hud[ i ].alpha = .25;
+		
 	}
 }
 
