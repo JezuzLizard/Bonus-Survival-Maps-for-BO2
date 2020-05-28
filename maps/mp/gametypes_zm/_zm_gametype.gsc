@@ -103,6 +103,7 @@ main() //checked matches cerberus output
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
 	thread map_rotation();
+	thread override_map();
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
@@ -1402,6 +1403,30 @@ getMapString(map) //custom function
 		return "Docks";
 	if(map == "vanilla")
 		return "Vanilla";
+}
+
+override_map()
+{
+	wait 2;
+	if ( level.script == "zm_transit" )
+	{
+		if ( isDefined ( level.customMap ) && level.customMap != "tunnel" && level.customMap != "diner" && level.customMap != "power" && level.customMap != "cornfield" && level.customMap != "house" && level.customMap != "vanilla" )
+		{
+			setDvar( "customMap", "house" );
+			setDvar( "customMapRotation", "house power cornfield diner tunnel" );
+			setDvar( "customMapRotationActive", 1 );
+			map_restart( false );
+		}
+	}
+	if ( level.script == "zm_prison" )
+	{
+		if ( isDefined ( level.customMap ) && level.customMap != "docks" && level.customMap != "vanilla" )
+		{
+			setDvar( "customMap", "docks" );
+			map_restart( false );
+		}
+	}
+	return;
 }
 
 map_rotation() //custom function
