@@ -377,7 +377,22 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "house" && self.script_noteworthy == "start_chest" || isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "house" && self.script_noteworthy == "start_chest" )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+	}
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
