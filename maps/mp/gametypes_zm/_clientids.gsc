@@ -34,6 +34,11 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
+		if ( isDefined ( level.customMap ) && level.customMap == "docks" )
+		{
+			player thread tomahawk_upgrade_modified();
+			player thread toggle_redeemer_modified();
+		}
 	}
 }
 
@@ -272,6 +277,7 @@ init_buildables()
 		thread disable_door();
 		thread disable_afterlife_boxes();
 		thread modified_hellhound();
+		thread spawn_tomahawk_trigger();
 		wait 2;
 		level notify( "cable_puzzle_gate_afterlife" );
 		flag_set( "power_on" );
@@ -491,6 +497,7 @@ getPerkModel(perk)
 
 wunderfizz(origin, angles, model)
 {
+	level endon( "end_game");
 	collision = spawn("script_model", origin);
     collision setModel("collision_geo_cylinder_32x128_standard");
     collision rotateTo(angles, .1);
@@ -733,6 +740,12 @@ modified_hellhound()
 	tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
 	tomahawk_trigger.origin = ( 981.75, 5818.75, 314.125 );
 	
+	tomahawk_upgraded = getent( "spinning_tomahawk_pickup", "targetname" );
+	tomahawk_upgraded.origin = ( 981.75, 5818.75, 314.125 );
+	
+	tomahawk_hellhole_trigger = getent( "trig_cellblock_hellhole", "targetname" );
+	tomahawk_hellhole_trigger.origin = ( -58.3, 7880.5, -69 );
+	
 	level.zombies_required = 0;
 	
 	for(;;)
@@ -748,7 +761,7 @@ modified_hellhound()
 			a_wolf_structs[ i ].souls_received = 0;
 			i++;
 		}
-		if ( level.zombies_required == 35 )
+		if ( level.zombies_required == 20 )
 		{
 			a_wolf_structs = getstructarray( "wolf_position", "targetname" );
 			i = 0;
@@ -777,5 +790,148 @@ auto_upgrade_tower()
 		level waittill( "trap_activated" );
 		wait 2;
 		level notify( "tower_trap_upgraded" );
+	}
+}
+
+tomahawk_upgrade_modified()
+{
+	level endon( "end_game");
+	self endon( "disconnect" );
+	
+	self.tomahawk_upgrade_kills = 0;
+	while ( self.tomahawk_upgrade_kills < 30 )
+	{
+		self waittill( "got_a_tomahawk_kill" );
+		self.tomahawk_upgrade_kills++;
+	}
+	wait 1;
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
+	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
+	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
+	e_org waittill( "easteregg_scream_complete" );
+	e_org delete();
+	self ent_flag_init( "gg_round_done" );
+	while ( !self ent_flag( "gg_round_done" ) )
+	{
+		level waittill( "between_round_over" );
+		self.killed_with_only_tomahawk = 1;
+		self.killed_something_thq = 0;
+		level waittill( "end_of_round" );
+		if ( !self.killed_with_only_tomahawk || !self.killed_something_thq )
+		{
+			continue;
+		}
+		self ent_flag_set( "gg_round_done" );
+	}
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
+	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
+	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
+	e_org waittill( "easteregg_scream_complete" );
+	e_org delete();
+	self notify( "hellhole_time" );
+	self waittill( "tomahawk_in_hellhole" );
+	if ( isDefined( self.retriever_trigger ) )
+	{
+		self.retriever_trigger setinvisibletoplayer( self );
+	}
+	else
+	{
+		trigger = getent( "retriever_pickup_trigger", "script_noteworthy" );
+		self.retriever_trigger = trigger;
+		self.retriever_trigger setinvisibletoplayer( self );
+	}
+	self takeweapon( "bouncing_tomahawk_zm" );
+	self set_player_tactical_grenade( "none" );
+	self notify( "tomahawk_upgraded_swap" );
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
+	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
+	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
+	e_org waittill( "easteregg_scream_complete" );
+	e_org delete();
+	level waittill( "end_of_round" );
+	self.ilostmytommyhawk = 1;
+	tomahawk_pick = getent( "spinning_tomahawk_pickup", "targetname" );
+	tomahawk_pick setclientfield( "play_tomahawk_fx", 2 );
+	self.current_tomahawk_weapon = "upgraded_tomahawk_zm";
+}
+
+toggle_redeemer_modified()
+{
+	level endon( "end_game");
+	self endon( "disconnect" );
+	flag_wait( "tomahawk_pickup_complete" );
+	upgraded_tomahawk_trigger = getent( "redeemer_pickup_trigger", "script_noteworthy" );
+	upgraded_tomahawk_trigger setinvisibletoplayer( self );
+	tomahawk_model = getent( "spinning_tomahawk_pickup", "targetname" );
+	tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
+	while ( 1 )
+	{
+		if ( isDefined( self.current_tomahawk_weapon ) && self.current_tomahawk_weapon == "upgraded_tomahawk_zm" )
+		{
+			break;
+		}
+		else wait 1;
+	}
+	while ( 1 )
+	{
+		if ( isDefined( self.ilostmytommyhawk ) && self.ilostmytommyhawk )
+		{
+			tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
+			tomahawk_trigger setinvisibletoplayer( self );
+			tomahawk_model setvisibletoplayer( self );
+		}
+		else
+		{
+			tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
+			tomahawk_trigger setvisibletoplayer( self );
+			tomahawk_model setinvisibletoplayer( self );
+		}
+		wait 1;
+	}
+}
+
+spawn_tomahawk_trigger()
+{
+	level endon( "end_game" );
+	trig = spawn("trigger_radius", (981.75, 5818.75, 314.125), 1, 25, 25);
+	trig SetCursorHint( "HINT_NOICON" );
+	trig SetHintString(" ");
+	for(;;)
+	{
+		trig waittill("trigger", player);
+		trig SetHintString(" ");
+		if(player UseButtonPressed() && isDefined ( player.ilostmytommyhawk ) && player.ilostmytommyhawk && !isDefined( player.Redeemed ) )
+		{
+			player.Redeemed = true;
+			player thread lose_redeemer_on_death();
+			gun = player getcurrentweapon();
+			player giveweapon( "zombie_tomahawk_flourish" );
+			player switchtoweapon( "zombie_tomahawk_flourish" );
+			player waittill_any( "player_downed", "weapon_change_complete" );
+			level notify( "bouncing_tomahawk_zm_aquired" );
+			player notify( "tomahawk_picked_up" );
+			player notify( "player_obtained_tomahawk" );
+			player setclientfieldtoplayer( "tomahawk_in_use", 1 );
+			player setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
+			gun = player getcurrentweapon();
+			player switchtoweapon( gun );
+			player giveweapon( "upgraded_tomahawk_zm" );
+			player givemaxammo( "upgraded_tomahawk_zm" );
+			player set_player_tactical_grenade( "upgraded_tomahawk_zm" );
+		}
+		wait 0.05;
+	}
+}
+
+lose_redeemer_on_death()
+{
+	self endon("disconnect");
+	level endon("end_game");
+	for(;;)
+	{
+		self waittill( "death" );
+		self.ilostmytommyhawk = undefined;
+		self.Redeemed = undefined;
+		return;
 	}
 }
