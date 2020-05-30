@@ -54,7 +54,7 @@ addPerkSlot()
 		if((self.kills - (killsNeeded * completedCount)) >= killsNeeded)
 		{
 			self increment_player_perk_purchase_limit();
-			self IPrintLnBold("You can now hold: " + self.player_perk_purchase_limit + " perks!");
+			self IPrintLnBold("You can now hold ^1" + self.player_perk_purchase_limit + " ^7perks!");
 			completedCount++;
 		}
 		if((perks.size - level.perk_purchase_limit) <= completedCount)
@@ -70,6 +70,7 @@ onplayerspawned()
 		self waittill( "spawned_player" );
 		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
+		self.Redeemed = undefined;
 	}
 }
 
@@ -748,7 +749,7 @@ modified_hellhound()
 	
 	level.zombies_required = 0;
 	
-	for(;;)
+	while( 1 )
 	{
 		a_wolf_structs = getstructarray( "wolf_position", "targetname" );
 		i = 0;
@@ -761,7 +762,7 @@ modified_hellhound()
 			a_wolf_structs[ i ].souls_received = 0;
 			i++;
 		}
-		if ( level.zombies_required == 20 )
+		if ( level.zombies_required == 18 )
 		{
 			a_wolf_structs = getstructarray( "wolf_position", "targetname" );
 			i = 0;
@@ -773,7 +774,7 @@ modified_hellhound()
 			flag_set( "soul_catchers_charged" );
 			level notify( "soul_catchers_charged" );
 			level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
-			return;
+			break;
 		}
 		else
 		{
@@ -785,7 +786,7 @@ modified_hellhound()
 auto_upgrade_tower()
 {
 	level endon( "end_game");
-	for(;;)
+	while ( 1 )
 	{
 		level waittill( "trap_activated" );
 		wait 2;
@@ -810,19 +811,6 @@ tomahawk_upgrade_modified()
 	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
 	e_org waittill( "easteregg_scream_complete" );
 	e_org delete();
-	self ent_flag_init( "gg_round_done" );
-	while ( !self ent_flag( "gg_round_done" ) )
-	{
-		level waittill( "between_round_over" );
-		self.killed_with_only_tomahawk = 1;
-		self.killed_something_thq = 0;
-		level waittill( "end_of_round" );
-		if ( !self.killed_with_only_tomahawk || !self.killed_something_thq )
-		{
-			continue;
-		}
-		self ent_flag_set( "gg_round_done" );
-	}
 	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
 	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
 	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
@@ -896,15 +884,14 @@ spawn_tomahawk_trigger()
 	trig = spawn("trigger_radius", (981.75, 5818.75, 314.125), 1, 25, 25);
 	trig SetCursorHint( "HINT_NOICON" );
 	trig SetHintString(" ");
-	for(;;)
+	while( 1 )
 	{
 		trig waittill("trigger", player);
-		trig SetHintString(" ");
-		if(player UseButtonPressed() && isDefined ( player.ilostmytommyhawk ) && player.ilostmytommyhawk && !isDefined( player.Redeemed ) )
+		if(distance(player.origin, (981.75, 5818.75, 314.125)) < 50 && player UseButtonPressed() && isDefined ( player.ilostmytommyhawk ) && player.ilostmytommyhawk && !isDefined( player.Redeemed ) )
 		{
-			player.Redeemed = true;
-			player thread lose_redeemer_on_death();
 			gun = player getcurrentweapon();
+			player.Redeemed = true;
+			wait 0.05;
 			player giveweapon( "zombie_tomahawk_flourish" );
 			player switchtoweapon( "zombie_tomahawk_flourish" );
 			player waittill_any( "player_downed", "weapon_change_complete" );
@@ -913,25 +900,10 @@ spawn_tomahawk_trigger()
 			player notify( "player_obtained_tomahawk" );
 			player setclientfieldtoplayer( "tomahawk_in_use", 1 );
 			player setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
-			gun = player getcurrentweapon();
 			player switchtoweapon( gun );
 			player giveweapon( "upgraded_tomahawk_zm" );
 			player givemaxammo( "upgraded_tomahawk_zm" );
 			player set_player_tactical_grenade( "upgraded_tomahawk_zm" );
 		}
-		wait 0.05;
-	}
-}
-
-lose_redeemer_on_death()
-{
-	self endon("disconnect");
-	level endon("end_game");
-	for(;;)
-	{
-		self waittill( "death" );
-		self.ilostmytommyhawk = undefined;
-		self.Redeemed = undefined;
-		return;
 	}
 }
