@@ -977,6 +977,33 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,-80,30));
 			}
 		}
+		else if ( isDefined(level.customMap) && level.customMap == "rooftop" )
+		{
+			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
+			{
+				spawn_list[ i ].origin = (3153, 9873.5, 1759);
+				spawn_list[ i ].angles = ( 0, 90, 0 );
+				thread playchalkfx("m14_effect", spawn_list[ i ].origin, (0,90,0));
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "rottweil72_zm" )
+			{
+				spawn_list[ i ].origin = (3079.5, 9358, 1759);
+				spawn_list[ i ].angles = ( 0, 90, 0 );
+				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (0,90,0));
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "thompson_zm" )
+			{
+				spawn_list[ i ].origin = (2479.5, 9490.5, 1583);
+				spawn_list[ i ].angles = ( 0, 0, 0 );
+				thread playchalkfx("thompson_effect", spawn_list[ i ].origin, (0,0,0));
+			}
+			if( spawn_list[ i ].zombie_weapon_upgrade == "mp5k_zm" )
+			{
+				spawn_list[ i ].origin = (2991.5, 9982, 1615);
+				spawn_list[ i ].angles = ( 0, 180, 0 );
+				thread playchalkfx("mp5k_effect", spawn_list[ i ].origin, (0,180,0));
+			}
+		}
 		else if ( isDefined(level.customMap) && level.customMap == "tunnel" )
 		{
 			if( spawn_list[ i ].zombie_weapon_upgrade == "m14_zm" )
