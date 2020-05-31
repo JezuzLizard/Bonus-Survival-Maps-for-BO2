@@ -1401,13 +1401,17 @@ getMapString(map) //custom function
 		return "Cornfield";
 	if(map == "docks")
 		return "Docks";
+	if(map == "cellblock")
+		return "Cellblock";
+	if(map == "rooftop")
+		return "Rooftop/Bridge";
 	if(map == "vanilla")
 		return "Vanilla";
 }
 
 override_map()
 {
-	wait 2;
+	wait 3;
 	if ( level.script == "zm_transit" )
 	{
 		if ( isDefined ( level.customMap ) && level.customMap != "tunnel" && level.customMap != "diner" && level.customMap != "power" && level.customMap != "cornfield" && level.customMap != "house" && level.customMap != "vanilla" )
@@ -1420,9 +1424,11 @@ override_map()
 	}
 	if ( level.script == "zm_prison" )
 	{
-		if ( isDefined ( level.customMap ) && level.customMap != "docks" && level.customMap != "vanilla" )
+		if ( isDefined ( level.customMap ) && level.customMap != "docks" && level.customMap != "cellblock" && level.customMap != "rooftop" && level.customMap != "vanilla" )
 		{
 			setDvar( "customMap", "docks" );
+			setDvar( "customMapRotation", "docks cellblock rooftop" );
+			setDvar( "customMapRotationActive", 1 );
 			map_restart( false );
 		}
 	}
@@ -1436,13 +1442,20 @@ map_rotation() //custom function
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
 	level.mapList = strTok( level.customMapRotation, " " );
-	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
-	{
-		level.customMapRotation = "cornfield diner house power tunnel";
-	}
 	if ( !level.customMapRotationActive )
 	{
 		return;
+	}
+	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
+	{
+		if ( level.script == "zm_transit" )
+		{
+			level.customMapRotation = "cornfield diner house power tunnel";
+		}
+		else if ( level.script == "zm_prison" )
+		{
+			level.customMapRotation = "docks cellblock rooftop";
+		}
 	}
 	if ( level.randomizeMapRotation && level.mapList.size > 3 )
 	{
@@ -1452,28 +1465,24 @@ map_rotation() //custom function
 	if( isDefined( level.mapList[ 1 ] ) && level.customMap == level.mapList[ 0 ] )
 	{
 		setDvar( "customMap", level.mapList[ 1 ] );
-		return;
 	}
 	else if( isDefined( level.mapList[ 2 ] ) && level.customMap == level.mapList[ 1 ] )
 	{
 		setDvar( "customMap", level.mapList[ 2 ] );
-		return;
 	}
 	else if( isDefined( level.mapList[ 3 ] ) && level.customMap == level.mapList[ 2 ] )
 	{
 		setDvar( "customMap", level.mapList[ 3 ] );
-		return;
 	}
 	else if( isDefined( level.mapList[ 4 ] ) && level.customMap == level.mapList[ 3 ] )
 	{
 		setDvar( "customMap", level.mapList[ 4 ] );
-		return;
 	}
 	else
 	{
 		setDvar( "customMap", level.mapList[ 0 ] );
-		return;
 	}
+	return;
 }
 
 random_map_rotation() //custom function
@@ -1495,7 +1504,7 @@ random_map_rotation() //custom function
 init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
-	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks"
+	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks", "cellblock", "rooftop"
 	level.serverName = getDvar( "serverName" );
 	if ( !isDefined( level.serverName ) || level.serverName == "" )
 	{
@@ -1504,7 +1513,7 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.serverName = getDvar( "serverName" );
 	}
 	map = level.customMap;
-	setDvar( "sv_hostname", "" + level.serverName +" [Current Map: ^1" + getMapString(map) +"^7]" );
+	setDvar( "sv_hostname", "" + level.serverName +" ^6| ^7Current Map: ^6" + getMapString(map) );
 	if ( level.script == "zm_transit" )
 	{
 		//TUNNEL
@@ -1854,6 +1863,120 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.docksSpawnpoints[ 7 ].radius = 32;
 		level.docksSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.docksSpawnpoints[ 7 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints = [];
+		level.cellblockSpawnpoints[ 0 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 0 ].origin = ( 954, 10521, 1338 );
+		level.cellblockSpawnpoints[ 0 ].angles = ( 0, 12, 0 );
+		level.cellblockSpawnpoints[ 0 ].radius = 32;
+		level.cellblockSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 1 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 1 ].origin = ( 977, 10649, 1338 );
+		level.cellblockSpawnpoints[ 1 ].angles = ( 0, 45, 0 );
+		level.cellblockSpawnpoints[ 1 ].radius = 32;
+		level.cellblockSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 2 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 2 ].origin = ( 118, 10498, 1338 );
+		level.cellblockSpawnpoints[ 2 ].angles = ( 0, 90, 0 );
+		level.cellblockSpawnpoints[ 2 ].radius = 32;
+		level.cellblockSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 3 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 3 ].origin = ( 1217, 10498, 1338 );
+		level.cellblockSpawnpoints[ 3 ].angles = ( 0, 90, 0 );
+		level.cellblockSpawnpoints[ 3 ].radius = 32;
+		level.cellblockSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 4 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 4 ].origin = ( 1917, 10376, 1338 );
+		level.cellblockSpawnpoints[ 4 ].angles = ( 0, 69, 0 );
+		level.cellblockSpawnpoints[ 4 ].radius = 32;
+		level.cellblockSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 5 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 5 ].origin = ( 2025, 10362, 1338 );
+		level.cellblockSpawnpoints[ 5 ].angles = ( 0, 121, 0 );
+		level.cellblockSpawnpoints[ 5 ].radius = 32;
+		level.cellblockSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 6 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 6 ].origin = ( 2090, 10426, 1338 );
+		level.cellblockSpawnpoints[ 6 ].angles = ( 0, 121, 0 );
+		level.cellblockSpawnpoints[ 6 ].radius = 32;
+		level.cellblockSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.cellblockSpawnpoints[ 7 ] = spawnstruct();
+		level.cellblockSpawnpoints[ 7 ].origin = ( 1758, 10562, 1338 );
+		level.cellblockSpawnpoints[ 7 ].angles = ( 0, 180, 0 );
+		level.cellblockSpawnpoints[ 7 ].radius = 32;
+		level.cellblockSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.cellblockSpawnpoints[ 7 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints = [];
+		level.rooftopSpawnpoints[ 0 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 0 ].origin = ( 2708, 9596, 1714 );
+		level.rooftopSpawnpoints[ 0 ].angles = ( 0, 328, 0 );
+		level.rooftopSpawnpoints[ 0 ].radius = 32;
+		level.rooftopSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 1 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 1 ].origin = ( 2875, 9596, 1706 );
+		level.rooftopSpawnpoints[ 1 ].angles = ( 0, 275, 0 );
+		level.rooftopSpawnpoints[ 1 ].radius = 32;
+		level.rooftopSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 2 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 2 ].origin = ( 3125.5, 9461.5, 1706 );
+		level.rooftopSpawnpoints[ 2 ].angles = ( 0, 70, 0 );
+		level.rooftopSpawnpoints[ 2 ].radius = 32;
+		level.rooftopSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 3 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 3 ].origin = ( 3408, 9512.5, 1706 );
+		level.rooftopSpawnpoints[ 3 ].angles = ( 0, 133, 0 );
+		level.rooftopSpawnpoints[ 3 ].radius = 32;
+		level.rooftopSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 4 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 4 ].origin = ( 3421, 9803.5, 1706 );
+		level.rooftopSpawnpoints[ 4 ].angles = ( 0, 229, 0 );
+		level.rooftopSpawnpoints[ 4 ].radius = 32;
+		level.rooftopSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 5 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 5 ].origin = ( 3168, 9807, 1706 );
+		level.rooftopSpawnpoints[ 5 ].angles = ( 0, 295, 0 );
+		level.rooftopSpawnpoints[ 5 ].radius = 32;
+		level.rooftopSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 6 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 6 ].origin = ( 2900, 9731.5, 1706 );
+		level.rooftopSpawnpoints[ 6 ].angles = ( 0, 68, 0 );
+		level.rooftopSpawnpoints[ 6 ].radius = 32;
+		level.rooftopSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.rooftopSpawnpoints[ 7 ] = spawnstruct();
+		level.rooftopSpawnpoints[ 7 ].origin = ( 2589, 9731.5, 1706 );
+		level.rooftopSpawnpoints[ 7 ].angles = ( 0, 36, 0 );
+		level.rooftopSpawnpoints[ 7 ].radius = 32;
+		level.rooftopSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.rooftopSpawnpoints[ 7 ].script_int = 2048;
 	}
 }
 
@@ -2077,6 +2200,20 @@ onspawnplayer( predictedspawn ) //modified function
 				spawnpoints[ spawnpoints.size ] = level.docksSpawnpoints[ i ];
 			}
 		}
+		else if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
+		{
+			for ( i = 0; i < level.cellblockSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.cellblockSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "rooftop" )
+		{
+			for ( i = 0; i < level.rooftopSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.rooftopSpawnpoints[ i ];
+			}
+		}
 		else
 		{
 			spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
@@ -2190,6 +2327,22 @@ get_player_spawns_for_gametype() //modified function
 		for(i=0;i<level.docksSpawnpoints.size;i++)
 		{
 			custom_spawns[custom_spawns.size] = level.docksSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "cellblock")
+	{
+		for(i=0;i<level.cellblockSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.cellblockSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "rooftop")
+	{
+		for(i=0;i<level.rooftopSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.rooftopSpawnpoints[i];
 		}
 		return custom_spawns;
 	}
