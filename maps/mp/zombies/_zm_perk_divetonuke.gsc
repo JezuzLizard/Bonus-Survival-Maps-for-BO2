@@ -9,7 +9,7 @@
 enable_divetonuke_perk_for_level() //checked matches cerberus output
 {
 	map = getDvar("customMap");
-	if(isDefined(map) && map == "docks")
+	if(isDefined(map) && map == "docks" || isDefined(map) && map == "cellblock" || isDefined(map) && map == "rooftop")
 	{
 		maps/mp/zombies/_zm_perks::register_perk_basic_info( "specialty_flakjacket", "divetonuke", 2000, &"ZOMBIE_PERK_DIVETONUKE", "zombie_perk_bottle_deadshot" );
 	}
