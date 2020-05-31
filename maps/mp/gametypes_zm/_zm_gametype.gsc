@@ -1880,14 +1880,14 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.cellblockSpawnpoints[ 1 ].script_int = 2048;
 		
 		level.cellblockSpawnpoints[ 2 ] = spawnstruct();
-		level.cellblockSpawnpoints[ 2 ].origin = ( 118, 10498, 1338 );
+		level.cellblockSpawnpoints[ 2 ].origin = ( 1118, 10498, 1338 );
 		level.cellblockSpawnpoints[ 2 ].angles = ( 0, 90, 0 );
 		level.cellblockSpawnpoints[ 2 ].radius = 32;
 		level.cellblockSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
 		level.cellblockSpawnpoints[ 2 ].script_int = 2048;
 		
 		level.cellblockSpawnpoints[ 3 ] = spawnstruct();
-		level.cellblockSpawnpoints[ 3 ].origin = ( 1217, 10498, 1338 );
+		level.cellblockSpawnpoints[ 3 ].origin = ( 1435, 10591, 1338 );
 		level.cellblockSpawnpoints[ 3 ].angles = ( 0, 90, 0 );
 		level.cellblockSpawnpoints[ 3 ].radius = 32;
 		level.cellblockSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
@@ -2809,3 +2809,4 @@ blank() //this function is intentionally empty
 {
 	//empty function
 }
+
