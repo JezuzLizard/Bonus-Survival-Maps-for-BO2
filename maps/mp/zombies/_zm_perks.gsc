@@ -3532,6 +3532,12 @@ perk_machine_spawn_init() //modified function
 		}
 	}
 	else if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
+	{
+		foreach ( perk in level.cellblockPerkArray )
+		{
+			pos[ pos.size ] = level.cellblockPerks[ perk ];
+		}
+	}
 	else if ( isDefined(level.customMap) && level.customMap == "cornfield" )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
