@@ -3279,6 +3279,49 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.docksPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	
+	level.cellblockPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_quickrevive" );
+	
+	level.cellblockPerks[ "specialty_deadshot" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_deadshot" ].origin = ( 2827, 9263, 1336 );
+	level.cellblockPerks[ "specialty_deadshot" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_deadshot" ].model = "zombie_vending_ads_on";
+	level.cellblockPerks[ "specialty_deadshot" ].script_noteworthy = "specialty_deadshot";
+	level.cellblockPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_armorvest" ].origin = ( 1403, 9744, 1336 );
+	level.cellblockPerks[ "specialty_armorvest" ].angles = ( 0, 0, 0 );
+	level.cellblockPerks[ "specialty_armorvest" ].model = "zombie_vending_sleight";
+	level.cellblockPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.cellblockPerks[ "specialty_rof" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_rof" ].origin = ( 878, 9956, 1344 );
+	level.cellblockPerks[ "specialty_rof" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+	level.cellblockPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+	level.cellblockPerks[ "specialty_longersprint" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_longersprint" ].origin = ( 2152, 9671, 1450 );
+	level.cellblockPerks[ "specialty_longersprint" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
+	level.cellblockPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].origin = ( 887, 9399, 1344 );
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, -90, 0 );
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.cellblockPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_quickrevive" ].origin = ( 1786, 10688, 1336 );
+	level.cellblockPerks[ "specialty_quickrevive" ].angles = ( 0, -133, 0 );
+	level.cellblockPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
+	level.cellblockPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.cellblockPerks[ "specialty_flakjacket" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_flakjacket" ].origin = ( 1584, 9162, 1336 );
+	level.cellblockPerks[ "specialty_flakjacket" ].angles = ( 0, 180, 0 );
+	level.cellblockPerks[ "specialty_flakjacket" ].model = "p6_zm_al_vending_nuke_on";
+	level.cellblockPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
+	level.cellblockPerks[ "specialty_weapupgrade" ] = spawnstruct();
+	level.cellblockPerks[ "specialty_weapupgrade" ].origin = ( 891, 8349, 1544 );
+	level.cellblockPerks[ "specialty_weapupgrade" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
+	level.cellblockPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	
 	level.cornfieldPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_longersprint",
 							 "specialty_scavenger", "specialty_weapupgrade", "specialty_quickrevive" );
 							 
@@ -3481,13 +3524,14 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( isDefined(level.customMap) && level.customMap == "docks" )
+	if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
 		foreach ( perk in level.docksPerkArray )
 		{
 			pos[ pos.size ] = level.docksPerks[ perk ];
 		}
 	}
+	else if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
 	else if ( isDefined(level.customMap) && level.customMap == "cornfield" )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
@@ -3747,7 +3791,7 @@ get_perk_machine_start_state( perk ) //checked matches cerberus output
 	return 0;
 }
 
-perks_register_clientfield() //checked matches cerberus output
+perks_register_clientfield() //modified function
 {
 	if ( isDefined( level.zombiemode_using_additionalprimaryweapon_perk ) && level.zombiemode_using_additionalprimaryweapon_perk )
 	{
@@ -4466,3 +4510,4 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
+

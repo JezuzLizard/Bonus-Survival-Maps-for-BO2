@@ -978,8 +978,6 @@ create_spawner_list( zkeys ) //modified function
 				if(zone.spawn_locations[ i ].is_enabled)
 				{
 					level.zombie_spawn_locations[level.zombie_spawn_locations.size] = zone.spawn_locations[i];
-					logline1 = "level.zombie_spawn_locations " + i + " origin is: " + level.zombie_spawn_locations[ i ].origin + "\n";
-                    logprint( logline1 );
 				}
 			}
 			for(x = 0; x < zone.inert_locations.size; x++)
