@@ -146,6 +146,29 @@ init() //modified function
 			level.chests[ 1 ] = normalChests[ 3 ];
 			treasure_chest_init("start_chest");
 		}
+		else if (isDefined(level.customMap) && level.customMap == "cellblock")
+		{
+			level.chests = [];
+			level.chests[ 0 ] = normalChests[ 0 ];
+			level.chests[ 1 ] = normalChests[ 1 ];
+			treasure_chest_init("start_chest");
+		}
+		else if (isDefined(level.customMap) && level.customMap == "rooftop")
+		{
+			level.chests = [];
+			start_chest = spawnstruct();
+			start_chest.origin = ( 2249, 9869.5, 1704.1 );
+			start_chest.angles = ( 0, -90, 0 );
+			start_chest.script_noteworthy = "start_chest";
+			start_chest.zombie_cost = 950;
+			level.chests[ 0 ] = start_chest;
+			level.chests[ 1 ] = normalChests[ 2 ];
+			randy = RandomIntRange(0,3);
+			if ( randy == 1 )
+				treasure_chest_init( "start_chest" );
+			else
+				treasure_chest_init( "roof_chest" );
+		}
 		else
 		{
 			treasure_chest_init( "start_chest" );
@@ -282,6 +305,11 @@ get_chest_pieces() //modified function
 		self.chest_box.origin = ( -423.33, 6952, 64.125 );
 		self.chest_box.angles = ( 0, 10, 0 );
 	}
+	if ( isDefined( level.customMap ) && level.customMap == "rooftop" && self.script_noteworthy == "start_chest" )
+	{
+		self.chest_box.origin = ( 2249, 9869.5, 1704.1 );
+		self.chest_box.angles = ( 0, -90, 0 );
+	}
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = ( -11090, -349, 195 );
@@ -326,6 +354,21 @@ get_chest_pieces() //modified function
 	{
 		self.chest_box.origin = ( 5387, 6594, -24 );
 		self.chest_box.angles = ( 0, 90, 0 );
+	}
+	if ( isDefined( level.customMap ) && level.customMap == "rooftop" && self.script_noteworthy == "start_chest" )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
 	}
 	if ( isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "depot_chest" )
 	{
