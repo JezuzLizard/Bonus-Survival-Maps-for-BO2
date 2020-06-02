@@ -315,11 +315,6 @@ get_chest_pieces() //modified function
 		self.chest_box.origin = ( -11090, -349, 195 );
 		self.chest_box.angles = ( 0, -100, 0 );
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
-	{
-		self.chest_box.origin = ( -10745, -2982, 195 );
-		self.chest_box.angles = ( 0, 92, 0 );
-	}
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
 	{
 		self.chest_box.origin = ( -11772, -2501, 229 );
@@ -355,156 +350,6 @@ get_chest_pieces() //modified function
 		self.chest_box.origin = ( 5387, 6594, -24 );
 		self.chest_box.angles = ( 0, 90, 0 );
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "rooftop" && self.script_noteworthy == "start_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "power" && self.script_noteworthy == "depot_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "farm_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "diner" && self.script_noteworthy == "depot_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 32, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 36, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 36, 0, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "start_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "cornfield" && self.script_noteworthy == "depot_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "house" && self.script_noteworthy == "start_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "depot_chest" )
-	{
-		collision = spawn( "script_model", self.chest_box.origin );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
-		collision.angles = self.chest_box.angles;
-		collision setmodel( "collision_clip_32x32x128" );
-		collision disconnectpaths();
-	}
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
@@ -520,7 +365,37 @@ get_chest_pieces() //modified function
 		collision setmodel( "collision_clip_32x32x128" );
 		collision disconnectpaths();
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "docks" && self.script_noteworthy == "start_chest" )
+	else if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "farm_chest" )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 36, 0, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 36, 0, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+	}
+	else if ( self.chest_box.angles == ( 0, 92, 0 ) || self.chest_box.angles == ( 0, 90, 0 ) || self.chest_box.angles == ( 0, -90, 0 ) )
+	{
+		collision = spawn( "script_model", self.chest_box.origin );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin - ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+		collision = spawn( "script_model", self.chest_box.origin + ( 0, 32, 0 ) );
+		collision.angles = self.chest_box.angles;
+		collision setmodel( "collision_clip_32x32x128" );
+		collision disconnectpaths();
+	}
+	else if ( self.chest_box.angles == ( 0, 10, 0 ) || self.chest_box.angles == ( 0, 1, 0 ) || self.chest_box.angles == ( 0, 0, 0 ) || self.chest_box.angles == ( 0, 180, 0 ) || self.chest_box.angles == ( 0, -180, 0 ) || self.chest_box.angles == ( 0, -185, 0 ) )
 	{
 		collision = spawn( "script_model", self.chest_box.origin );
 		collision.angles = self.chest_box.angles;
