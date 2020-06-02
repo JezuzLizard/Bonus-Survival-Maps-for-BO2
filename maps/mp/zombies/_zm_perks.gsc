@@ -3625,7 +3625,40 @@ perk_machine_spawn_init() //modified function
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
     					collision2 rotateTo(pos[ i ].angles, .1);
     				}
-    				else if ( perk == "specialty_rof" )
+    				else if ( perk == "specialty_weapupgrade" )
+    				{
+    					if ( pos[ i ].angles == ( 0, 180, 0 ) || pos[ i ].angles == ( 0, 0, 0 ) )
+    					{
+    						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
+   							collision2 setModel("collision_geo_cylinder_32x128_standard");
+    						collision2 rotateTo(pos[ i ].angles, .1);
+    						collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
+   							collision3 setModel("collision_geo_cylinder_32x128_standard");
+    						collision3 rotateTo(pos[ i ].angles, .1);
+    						collision4 = spawn("script_model", pos[ i ].origin + ( 20, 0, 0 ) );
+   							collision4 setModel("collision_geo_cylinder_32x128_standard");
+    						collision4 rotateTo(pos[ i ].angles, .1);
+    						collision5 = spawn("script_model", pos[ i ].origin - ( 20, 0, 0 ) );
+   							collision5 setModel("collision_geo_cylinder_32x128_standard");
+    						collision5 rotateTo(pos[ i ].angles, .1);
+    					}
+    					else if ( pos[ i ].angles == ( 0, 270, 0 ) || pos[ i ].angles == ( 0, 90, 0 ) )
+    					{
+    						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 10, 0 ) );
+   							collision2 setModel("collision_geo_cylinder_32x128_standard");
+    						collision2 rotateTo(pos[ i ].angles, .1);
+    						collision3 = spawn("script_model", pos[ i ].origin - ( 0, 10, 0 ) );
+   							collision3 setModel("collision_geo_cylinder_32x128_standard");
+    						collision3 rotateTo(pos[ i ].angles, .1);
+    						collision4 = spawn("script_model", pos[ i ].origin + ( 0, 20, 0 ) );
+   							collision4 setModel("collision_geo_cylinder_32x128_standard");
+    						collision4 rotateTo(pos[ i ].angles, .1);
+    						collision5 = spawn("script_model", pos[ i ].origin - ( 0, 20, 0 ) );
+   							collision5 setModel("collision_geo_cylinder_32x128_standard");
+    						collision5 rotateTo(pos[ i ].angles, .1);
+    					}
+    				}
+    				else if ( pos[ i ].angles == ( 0, 180, 0 ) || pos[ i ].angles == ( 0, 0, 0 ) )
 					{
 						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
@@ -3634,7 +3667,7 @@ perk_machine_spawn_init() //modified function
    						collision3 setModel("collision_geo_cylinder_32x128_standard");
     					collision3 rotateTo(pos[ i ].angles, .1);
     				}
-    				else if ( perk == "specialty_longersprint" || perk == "specialty_additionalprimaryweapon" )
+    				else if ( pos[ i ].angles == ( 0, 270, 0 ) || pos[ i ].angles == ( 0, 90, 0 ) )
 					{
 						collision2 = spawn("script_model", pos[ i ].origin + ( 0, 10, 0 ) );
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
@@ -3642,21 +3675,6 @@ perk_machine_spawn_init() //modified function
     					collision3 = spawn("script_model", pos[ i ].origin - ( 0, 10, 0 ) );
    						collision3 setModel("collision_geo_cylinder_32x128_standard");
     					collision3 rotateTo(pos[ i ].angles, .1);
-    				}
-    				else if ( perk == "specialty_weapupgrade" )
-    				{
-    					collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
-   						collision2 setModel("collision_geo_cylinder_32x128_standard");
-    					collision2 rotateTo(pos[ i ].angles, .1);
-    					collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
-   						collision3 setModel("collision_geo_cylinder_32x128_standard");
-    					collision3 rotateTo(pos[ i ].angles, .1);
-    					collision4 = spawn("script_model", pos[ i ].origin + ( 20, 0, 0 ) );
-   						collision4 setModel("collision_geo_cylinder_32x128_standard");
-    					collision4 rotateTo(pos[ i ].angles, .1);
-    					collision5 = spawn("script_model", pos[ i ].origin - ( 20, 0, 0 ) );
-   						collision5 setModel("collision_geo_cylinder_32x128_standard");
-    					collision5 rotateTo(pos[ i ].angles, .1);
     				}
     			}
 			}
