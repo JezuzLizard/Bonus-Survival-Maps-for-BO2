@@ -11,9 +11,12 @@ init()
 	thread gscRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
-	setDvar( "scr_screecher_ignore_player", 1 );
 	thread init_custom_map();
-	if ( level.customMap == "house" )
+	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" )
+	{
+		setDvar( "scr_screecher_ignore_player", 1 );
+	}
+	if ( isDefined ( level.customMap ) && level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
     }
@@ -24,6 +27,31 @@ init_custom_map()
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread init_buildables();
+	thread init_power();
+	wait 1;
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
+	{
+		thread disable_afterlife_boxes();
+	}
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
+	{
+		
+		thread auto_upgrade_tower();
+		thread disable_gondola();
+		thread disable_doors_docks();
+		level notify( "cable_puzzle_gate_afterlife" );
+	}
+	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "cellblock" )
+	{
+		thread disable_doors_cellblock();
+		level notify( "intro_powerup_activate" );
+		level notify( "cell_1_powerup_activate" );
+		level notify( "cell_2_powerup_activate" );
+	}
+	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "rooftop" )
+	{
+		thread disable_doors_cellblock();
+	}
 }
 
 onplayerconnected()
@@ -34,11 +62,6 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
-		if ( isDefined ( level.customMap ) && level.customMap == "docks" )
-		{
-			player thread tomahawk_upgrade_modified();
-			player thread toggle_redeemer_modified();
-		}
 	}
 }
 
@@ -70,7 +93,32 @@ onplayerspawned()
 		self waittill( "spawned_player" );
 		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
-		self.Redeemed = undefined;
+	}
+}
+
+init_power()
+{
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
+	{
+		wait 2;
+		flag_set( "power_on" );
+		level setclientfield( "zombie_power_on", 1 );
+		level notify( "sleight_on" );
+		wait_network_frame();
+		level notify( "doubletap_on" );
+		wait_network_frame();
+		level notify( "juggernog_on" );
+		wait_network_frame();
+		level notify( "electric_cherry_on" );
+		wait_network_frame();
+		level notify( "deadshot_on" );
+		wait_network_frame();
+		level notify( "divetonuke_on" );
+		wait_network_frame();
+		level notify( "additionalprimaryweapon_on" );
+		wait_network_frame();
+		level notify( "Pack_A_Punch_on" );
+		wait_network_frame();
 	}
 }
 
@@ -271,39 +319,13 @@ init_buildables()
 		removebuildable( "bushatch" );
 		removebuildable( "cattlecatcher" );
 	}
-	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
 	{
-		thread auto_upgrade_tower();
-		thread disable_gondola();
-		thread disable_door();
-		thread disable_afterlife_boxes();
-		thread modified_hellhound();
-		thread spawn_tomahawk_trigger();
 		wait 2;
-		level notify( "cable_puzzle_gate_afterlife" );
-		flag_set( "power_on" );
-		level setclientfield( "zombie_power_on", 1 );
 		buildcraftable( "quest_key1" );
 		buildcraftable( "alcatraz_shield_zm" );
 		buildcraftable( "plane" );
 		changecraftableoption( 0 );
-		wait 1;
-		level notify( "sleight_on" );
-		wait_network_frame();
-		level notify( "doubletap_on" );
-		wait_network_frame();
-		level notify( "juggernog_on" );
-		wait_network_frame();
-		level notify( "electric_cherry_on" );
-		wait_network_frame();
-		level notify( "deadshot_on" );
-		wait_network_frame();
-		level notify( "divetonuke_on" );
-		wait_network_frame();
-		level notify( "additionalprimaryweapon_on" );
-		wait_network_frame();
-		level notify( "Pack_A_Punch_on" );
-		wait_network_frame();
 	}
 }
 
@@ -655,7 +677,8 @@ setPlayersToSpectator()
 		players[ i ] setToSpectator();
 		i++;
 	}
-	wait 5; 
+	wait 5;
+	level.no_end_game_check = 0;
 	spawnAllPlayers();
 }
 
@@ -687,6 +710,17 @@ spawnAllPlayers()
 	level.no_end_game_check = 0;
 }
 
+auto_upgrade_tower()
+{
+	level endon( "end_game");
+	while ( 1 )
+	{
+		level waittill( "trap_activated" );
+		wait 2;
+		level notify( "tower_trap_upgraded" );
+	}
+}
+
 disable_gondola()
 {
 	wait 3;
@@ -701,13 +735,27 @@ disable_gondola()
 	}
 }
 
-disable_door()
+disable_doors_docks()
 {
 	zm_doors = getentarray( "zombie_door", "targetname" );
 	i = 0;
 	while ( i < zm_doors.size )
 	{
 		if ( zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		{
+			zm_doors[ i ].origin = ( 0, 0, 0 );
+		}
+		i++;
+	}
+}
+
+disable_doors_cellblock()
+{
+	zm_doors = getentarray( "zombie_door", "targetname" );
+	i = 0;
+	while ( i < zm_doors.size )
+	{
+		if ( zm_doors[ i ].origin == ( 2429, 9793, 1374 ) || zm_doors[ i ].origin == ( 2281, 9484, 1564 ) || zm_doors[ i ].origin == ( -149, 8679, 1166 ) )
 		{
 			zm_doors[ i ].origin = ( 0, 0, 0 );
 		}
@@ -723,187 +771,7 @@ disable_afterlife_boxes()
 	while ( isDefined( _k87 ) )
 	{
 		struct = _a87[ _k87 ];
-		if ( struct.origin == ( -1390.02, 5371.56, -24 ) || struct.origin == ( 339.684, 6529.53, 312 ) || struct.origin == ( -49.9826, 6533.44, 112 ) )
-		{
-			struct.unitrigger_stub.origin = ( 0, 0, 0 );
-		}
+		struct.unitrigger_stub.origin = ( 0, 0, 0 );
 		_k87 = getNextArrayKey( _a87, _k87 );
-	}
-}
-
-modified_hellhound()
-{
-	level endon( "end_game");
-	
-	tomahawk_effect = getstruct( "tomahawk_pickup_pos", "targetname" );
-	tomahawk_effect.origin = ( 981.75, 5818.75, 314.125 );
-	
-	tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
-	tomahawk_trigger.origin = ( 981.75, 5818.75, 314.125 );
-	
-	tomahawk_upgraded = getent( "spinning_tomahawk_pickup", "targetname" );
-	tomahawk_upgraded.origin = ( 981.75, 5818.75, 314.125 );
-	
-	tomahawk_hellhole_trigger = getent( "trig_cellblock_hellhole", "targetname" );
-	tomahawk_hellhole_trigger.origin = ( -58.3, 7880.5, -69 );
-	
-	level.zombies_required = 0;
-	
-	while( 1 )
-	{
-		a_wolf_structs = getstructarray( "wolf_position", "targetname" );
-		i = 0;
-		while ( i < a_wolf_structs.size )
-		{
-			if ( a_wolf_structs[ i ].souls_received == 1 )
-			{
-				level.zombies_required++;
-			}
-			a_wolf_structs[ i ].souls_received = 0;
-			i++;
-		}
-		if ( level.zombies_required == 18 )
-		{
-			a_wolf_structs = getstructarray( "wolf_position", "targetname" );
-			i = 0;
-			while ( i < a_wolf_structs.size )
-			{
-				a_wolf_structs[ i ].souls_received = 6;
-				i++;
-			}
-			flag_set( "soul_catchers_charged" );
-			level notify( "soul_catchers_charged" );
-			level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
-			break;
-		}
-		else
-		{
-			wait 0.25;
-		}
-	}
-}
-
-auto_upgrade_tower()
-{
-	level endon( "end_game");
-	while ( 1 )
-	{
-		level waittill( "trap_activated" );
-		wait 2;
-		level notify( "tower_trap_upgraded" );
-	}
-}
-
-tomahawk_upgrade_modified()
-{
-	level endon( "end_game");
-	self endon( "disconnect" );
-	
-	self.tomahawk_upgrade_kills = 0;
-	while ( self.tomahawk_upgrade_kills < 30 )
-	{
-		self waittill( "got_a_tomahawk_kill" );
-		self.tomahawk_upgrade_kills++;
-	}
-	wait 1;
-	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
-	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
-	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
-	e_org waittill( "easteregg_scream_complete" );
-	e_org delete();
-	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
-	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
-	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
-	e_org waittill( "easteregg_scream_complete" );
-	e_org delete();
-	self notify( "hellhole_time" );
-	self waittill( "tomahawk_in_hellhole" );
-	if ( isDefined( self.retriever_trigger ) )
-	{
-		self.retriever_trigger setinvisibletoplayer( self );
-	}
-	else
-	{
-		trigger = getent( "retriever_pickup_trigger", "script_noteworthy" );
-		self.retriever_trigger = trigger;
-		self.retriever_trigger setinvisibletoplayer( self );
-	}
-	self takeweapon( "bouncing_tomahawk_zm" );
-	self set_player_tactical_grenade( "none" );
-	self notify( "tomahawk_upgraded_swap" );
-	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
-	e_org = spawn( "script_origin", self.origin + vectorScale( ( 0, 0, 1 ), 64 ) );
-	e_org playsoundwithnotify( "zmb_easteregg_scream", "easteregg_scream_complete" );
-	e_org waittill( "easteregg_scream_complete" );
-	e_org delete();
-	level waittill( "end_of_round" );
-	self.ilostmytommyhawk = 1;
-	tomahawk_pick = getent( "spinning_tomahawk_pickup", "targetname" );
-	tomahawk_pick setclientfield( "play_tomahawk_fx", 2 );
-	self.current_tomahawk_weapon = "upgraded_tomahawk_zm";
-}
-
-toggle_redeemer_modified()
-{
-	level endon( "end_game");
-	self endon( "disconnect" );
-	flag_wait( "tomahawk_pickup_complete" );
-	upgraded_tomahawk_trigger = getent( "redeemer_pickup_trigger", "script_noteworthy" );
-	upgraded_tomahawk_trigger setinvisibletoplayer( self );
-	tomahawk_model = getent( "spinning_tomahawk_pickup", "targetname" );
-	tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
-	while ( 1 )
-	{
-		if ( isDefined( self.current_tomahawk_weapon ) && self.current_tomahawk_weapon == "upgraded_tomahawk_zm" )
-		{
-			break;
-		}
-		else wait 1;
-	}
-	while ( 1 )
-	{
-		if ( isDefined( self.ilostmytommyhawk ) && self.ilostmytommyhawk )
-		{
-			tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
-			tomahawk_trigger setinvisibletoplayer( self );
-			tomahawk_model setvisibletoplayer( self );
-		}
-		else
-		{
-			tomahawk_trigger = getstruct( "tomahawk_trigger_pos", "targetname" );
-			tomahawk_trigger setvisibletoplayer( self );
-			tomahawk_model setinvisibletoplayer( self );
-		}
-		wait 1;
-	}
-}
-
-spawn_tomahawk_trigger()
-{
-	level endon( "end_game" );
-	trig = spawn("trigger_radius", (981.75, 5818.75, 314.125), 1, 25, 25);
-	trig SetCursorHint( "HINT_NOICON" );
-	trig SetHintString(" ");
-	while( 1 )
-	{
-		trig waittill("trigger", player);
-		if(distance(player.origin, (981.75, 5818.75, 314.125)) < 50 && player UseButtonPressed() && isDefined ( player.ilostmytommyhawk ) && player.ilostmytommyhawk && !isDefined( player.Redeemed ) )
-		{
-			gun = player getcurrentweapon();
-			player.Redeemed = true;
-			wait 0.05;
-			player giveweapon( "zombie_tomahawk_flourish" );
-			player switchtoweapon( "zombie_tomahawk_flourish" );
-			player waittill_any( "player_downed", "weapon_change_complete" );
-			level notify( "bouncing_tomahawk_zm_aquired" );
-			player notify( "tomahawk_picked_up" );
-			player notify( "player_obtained_tomahawk" );
-			player setclientfieldtoplayer( "tomahawk_in_use", 1 );
-			player setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
-			player switchtoweapon( gun );
-			player giveweapon( "upgraded_tomahawk_zm" );
-			player givemaxammo( "upgraded_tomahawk_zm" );
-			player set_player_tactical_grenade( "upgraded_tomahawk_zm" );
-		}
 	}
 }
