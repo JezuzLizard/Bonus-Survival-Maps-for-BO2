@@ -2564,7 +2564,6 @@ removeAllPerksHUD(perk)
 			self.perk_hud[ i ] Destroy();
 			self.perk_hud[ i ] = undefined;
 		}
-		iPrintLn(self.perk_hud.size);
 	}
 }
 
@@ -3279,46 +3278,46 @@ extra_perk_spawns() //custom function
 	level.docksPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.docksPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	
-	level.cellblockPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_quickrevive" );
+	level.cellblockPerkArray = array( "specialty_armorvest", "specialty_deadshot", "specialty_rof", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_quickrevive" );
 	
 	level.cellblockPerks[ "specialty_deadshot" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_deadshot" ].origin = ( 2827, 9263, 1336 );
-	level.cellblockPerks[ "specialty_deadshot" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_deadshot" ].origin = ( 2827, 9263, 1335 );
+	level.cellblockPerks[ "specialty_deadshot" ].angles = ( 0, 180, 0 );
 	level.cellblockPerks[ "specialty_deadshot" ].model = "zombie_vending_ads_on";
 	level.cellblockPerks[ "specialty_deadshot" ].script_noteworthy = "specialty_deadshot";
 	level.cellblockPerks[ "specialty_armorvest" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_armorvest" ].origin = ( 1403, 9744, 1336 );
-	level.cellblockPerks[ "specialty_armorvest" ].angles = ( 0, 0, 0 );
+	level.cellblockPerks[ "specialty_armorvest" ].origin = ( 1403.5, 9693.5, 1335 );
+	level.cellblockPerks[ "specialty_armorvest" ].angles = ( 0, 90, 0 );
 	level.cellblockPerks[ "specialty_armorvest" ].model = "zombie_vending_sleight";
 	level.cellblockPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.cellblockPerks[ "specialty_rof" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_rof" ].origin = ( 878, 9956, 1344 );
-	level.cellblockPerks[ "specialty_rof" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_rof" ].origin = ( 878, 9956, 1335 );
+	level.cellblockPerks[ "specialty_rof" ].angles = ( 0, 180, 0 );
 	level.cellblockPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.cellblockPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.cellblockPerks[ "specialty_longersprint" ] = spawnstruct();
 	level.cellblockPerks[ "specialty_longersprint" ].origin = ( 2152, 9671, 1450 );
-	level.cellblockPerks[ "specialty_longersprint" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_longersprint" ].angles = ( 0, 180, 0 );
 	level.cellblockPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
 	level.cellblockPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.cellblockPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].origin = ( 887, 9399, 1344 );
-	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, -90, 0 );
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].origin = ( 1627.6, 9117.5, 1336 );
+	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 90, 0 );
 	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
 	level.cellblockPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
 	level.cellblockPerks[ "specialty_quickrevive" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_quickrevive" ].origin = ( 1786, 10688, 1336 );
-	level.cellblockPerks[ "specialty_quickrevive" ].angles = ( 0, -133, 0 );
+	level.cellblockPerks[ "specialty_quickrevive" ].origin = ( 1777.1, 10675.5, 1335 );
+	level.cellblockPerks[ "specialty_quickrevive" ].angles = ( 0, -43, 0 );
 	level.cellblockPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
 	level.cellblockPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 	level.cellblockPerks[ "specialty_flakjacket" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_flakjacket" ].origin = ( 1584, 9162, 1336 );
-	level.cellblockPerks[ "specialty_flakjacket" ].angles = ( 0, 180, 0 );
+	level.cellblockPerks[ "specialty_flakjacket" ].origin = ( 1584, 9162, 1335 );
+	level.cellblockPerks[ "specialty_flakjacket" ].angles = ( 0, 270, 0 );
 	level.cellblockPerks[ "specialty_flakjacket" ].model = "p6_zm_al_vending_nuke_on";
 	level.cellblockPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
 	level.cellblockPerks[ "specialty_weapupgrade" ] = spawnstruct();
 	level.cellblockPerks[ "specialty_weapupgrade" ].origin = ( 891, 8349, 1544 );
-	level.cellblockPerks[ "specialty_weapupgrade" ].angles = ( 0, 90, 0 );
+	level.cellblockPerks[ "specialty_weapupgrade" ].angles = ( 0, 180, 0 );
 	level.cellblockPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.cellblockPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	
@@ -3614,10 +3613,52 @@ perk_machine_spawn_init() //modified function
 			collision.script_noteworthy = "clip";
 			collision DisconnectPaths();
 			// Connect all of the pieces for easy access.
-			if(level.script != "zm_prison" || level.script == "zm_prison" && level.customMap == "vanilla")
+			if(level.script != "zm_prison" || level.script == "zm_prison" && level.customMap == "vanilla" || level.script == "zm_prison" && level.customMap == "cellblock" )
 			{
 				use_trigger.clip = collision;
 				use_trigger.bump = bump_trigger;
+				if( level.script == "zm_prison" && level.customMap == "cellblock" )
+				{
+					if ( perk == "specialty_quickrevive" || perk == "specialty_armorvest" || perk == "specialty_deadshot" || perk == "specialty_flakjacket" )
+					{
+						collision2 = spawn("script_model", pos[ i ].origin);
+   						collision2 setModel("collision_geo_cylinder_32x128_standard");
+    					collision2 rotateTo(pos[ i ].angles, .1);
+    				}
+    				else if ( perk == "specialty_longersprint" || perk == "specialty_rof" )
+					{
+						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
+   						collision2 setModel("collision_geo_cylinder_32x128_standard");
+    					collision2 rotateTo(pos[ i ].angles, .1);
+    					collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
+   						collision3 setModel("collision_geo_cylinder_32x128_standard");
+    					collision3 rotateTo(pos[ i ].angles, .1);
+    				}
+    				else if ( perk == "specialty_additionalprimaryweapon" )
+					{
+						collision2 = spawn("script_model", pos[ i ].origin + ( 0, 10, 0 ) );
+   						collision2 setModel("collision_geo_cylinder_32x128_standard");
+    					collision2 rotateTo(pos[ i ].angles, .1);
+    					collision3 = spawn("script_model", pos[ i ].origin - ( 0, 10, 0 ) );
+   						collision3 setModel("collision_geo_cylinder_32x128_standard");
+    					collision3 rotateTo(pos[ i ].angles, .1);
+    				}
+    				else if ( perk == "specialty_weapupgrade" )
+    				{
+    					collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
+   						collision2 setModel("collision_geo_cylinder_32x128_standard");
+    					collision2 rotateTo(pos[ i ].angles, .1);
+    					collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
+   						collision3 setModel("collision_geo_cylinder_32x128_standard");
+    					collision3 rotateTo(pos[ i ].angles, .1);
+    					collision4 = spawn("script_model", pos[ i ].origin + ( 20, 0, 0 ) );
+   						collision4 setModel("collision_geo_cylinder_32x128_standard");
+    					collision4 rotateTo(pos[ i ].angles, .1);
+    					collision5 = spawn("script_model", pos[ i ].origin - ( 20, 0, 0 ) );
+   						collision5 setModel("collision_geo_cylinder_32x128_standard");
+    					collision5 rotateTo(pos[ i ].angles, .1);
+    				}
+    			}
 			}
 			use_trigger.machine = perk_machine;
 			//missing code found in cerberus output
@@ -4516,4 +4557,3 @@ _register_undefined_perk( str_perk ) //checked matches cerberus output
 		level._custom_perks[ str_perk ] = spawnstruct();
 	}
 }
-
