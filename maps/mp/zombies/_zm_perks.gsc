@@ -3296,8 +3296,8 @@ extra_perk_spawns() //custom function
 	level.cellblockPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
 	level.cellblockPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
 	level.cellblockPerks[ "specialty_longersprint" ] = spawnstruct();
-	level.cellblockPerks[ "specialty_longersprint" ].origin = ( 2152, 9671, 1450 );
-	level.cellblockPerks[ "specialty_longersprint" ].angles = ( 0, 180, 0 );
+	level.cellblockPerks[ "specialty_longersprint" ].origin = ( -416.35, 9123.5, 1336 );
+	level.cellblockPerks[ "specialty_longersprint" ].angles = ( 0, 90, 0 );
 	level.cellblockPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
 	level.cellblockPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
 	level.cellblockPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
@@ -3625,7 +3625,7 @@ perk_machine_spawn_init() //modified function
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
     					collision2 rotateTo(pos[ i ].angles, .1);
     				}
-    				else if ( perk == "specialty_longersprint" || perk == "specialty_rof" )
+    				else if ( perk == "specialty_rof" )
 					{
 						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
@@ -3634,7 +3634,7 @@ perk_machine_spawn_init() //modified function
    						collision3 setModel("collision_geo_cylinder_32x128_standard");
     					collision3 rotateTo(pos[ i ].angles, .1);
     				}
-    				else if ( perk == "specialty_additionalprimaryweapon" )
+    				else if ( perk == "specialty_longersprint" || perk == "specialty_additionalprimaryweapon" )
 					{
 						collision2 = spawn("script_model", pos[ i ].origin + ( 0, 10, 0 ) );
    						collision2 setModel("collision_geo_cylinder_32x128_standard");
