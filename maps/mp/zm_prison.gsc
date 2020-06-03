@@ -1150,6 +1150,13 @@ alcatraz_afterlife_doors() //checked changed to match cerberus output
 	if ( isDefined( self.script_noteworthy ) && self.script_noteworthy == "afterlife_door" )
 	{
 		self sethintstring( &"ZM_PRISON_AFTERLIFE_DOOR" );
+		if ( isDefined ( level.customMap ) && level.customMap == "cellblock" || isDefined ( level.customMap ) && level.customMap == "rooftop" )
+		{
+			if ( self.origin != ( 2138, 9210, 1375 ) )
+			{
+				self maps/mp/zombies/_zm_blockers::door_opened( 0 );
+			}
+		}
 		/*
 /#
 		self thread afterlife_door_open_sesame();
