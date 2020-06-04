@@ -325,7 +325,7 @@ onplayerdisconnect()
 			for(j=players[i].perks_active.size-1;j>=0;j--)
 			{
 				players[i].perkstogive[players[i].perkstogive.size] = players[i].perks_active[j];
-				players[i] notify(players[i].perks_active[j] + "_stop");
+				players[i] notify(players[i].perks_active[j] + "_take");
 				players[i].perkhud[ j ] Destroy();
 				players[i].perkhud[ j ] = undefined;
 			}
