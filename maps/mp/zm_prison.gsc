@@ -252,7 +252,7 @@ main() //checked changed to match cerberus output
 
 map_setup()
 {
-	wait 3;
+	wait 7;
 	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
 	{
 		thread disable_afterlife_boxes();
