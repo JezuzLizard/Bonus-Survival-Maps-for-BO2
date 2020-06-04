@@ -1405,7 +1405,6 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 	level.zones[ "zone_golden_gate_bridge" ].is_spawning_allowed = 1;
 	self unlink();
 	self setstance( "stand" );
-	wait 2;
 	self thread track_player_completed_cycle();
 	if ( chair_number == 0 )
 	{
@@ -1436,6 +1435,8 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 	wait 1.5;
 	level thread bridge_reset();
 	self disableinvulnerability();
+	self.ignoreme = 0;
+	self.dontspeak = 0;
 }
 
 bridge_reset()
@@ -1453,7 +1454,7 @@ bridge_reset()
 	{
 		flag_clear( "spawn_zombies" );
 		level notify( "bridge_empty" );
-		wait 0.05;
+		wait 3;
 		flag_set( "spawn_zombies" );
 		level waittill( "start_of_round" );
 		prep_for_new_quest();
