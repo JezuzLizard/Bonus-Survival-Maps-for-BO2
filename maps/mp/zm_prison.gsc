@@ -107,7 +107,7 @@ main() //checked changed to match cerberus output
 	level.zombiemode_using_juggernaut_perk = 1;
 	level.zombiemode_using_sleightofhand_perk = 1;
 	level.zombiemode_using_deadshot_perk = 1;
-
+	
 	map = getDvar("customMap");
 	if(isDefined(map) && map != "vanilla")
 	{
@@ -117,6 +117,10 @@ main() //checked changed to match cerberus output
 		level.zombiemode_using_divetonuke_perk = 1;
 		level.phdUsesClientfield = 0;
 		maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	}
+	if ( isDefined(map) && map == "rooftop" )
+	{
+		level.electric_chair_player_thread_custom_func = ::custom_electric_chair_player_thread;
 	}
 	if ( maps/mp/zombies/_zm_utility::is_gametype_active( "zclassic" ) )
 	{
@@ -239,13 +243,45 @@ main() //checked changed to match cerberus output
 	{
 		level thread onplayerconnect();
 		level thread onplayerconnected();
+		level thread map_setup();
 	}
 }
+
+map_setup()
+{
+	wait 3;
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
+	{
+		thread disable_afterlife_boxes();
+	}
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
+	{
+		
+		thread auto_upgrade_tower();
+		thread disable_gondola();
+		thread disable_doors_docks();
+		level notify( "cable_puzzle_gate_afterlife" );
+	}
+	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "cellblock" )
+	{
+		thread disable_doors_cellblock();
+		level notify( "intro_powerup_activate" );
+		level notify( "cell_1_powerup_activate" );
+		level notify( "cell_2_powerup_activate" );
+	}
+	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "rooftop" )
+	{
+		thread disable_doors_cellblock();
+	}
+}
+
 onplayerconnect()
 {
 	level waittill( "connected", player );
 	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors();
 	wait 1;
+	flag_set( "power_on" );
+	level setclientfield( "zombie_power_on", 1 );
 	level notify( "sleight_on" );
 	wait_network_frame();
 	level notify( "doubletap_on" );
@@ -1331,3 +1367,174 @@ is_gametype_active( a_gametypes ) //not in cerberus output
 	return is_gametype_active;
 }
 */
+
+custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_duration )
+{
+	self endon( "death_or_disconnect" );
+	e_home_telepoint = getstruct( "home_telepoint_" + chair_number, "targetname" );
+	e_corpse_location = getstruct( "corpse_starting_point_" + chair_number, "targetname" );
+	self disableweapons();
+	self enableinvulnerability();
+	self setstance( "stand" );
+	self playerlinktodelta( m_linkpoint, "tag_origin", 1, 20, 20, 20, 20 );
+	self setplayerangles( m_linkpoint.angles );
+	self playsoundtoplayer( "zmb_electric_chair_2d", self );
+	self do_player_general_vox( "quest", "chair_electrocution", undefined, 100 );
+	self ghost();
+	self.ignoreme = 1;
+	self.dontspeak = 1;
+	self setclientfieldtoplayer( "isspeaking", 1 );
+	wait ( n_effects_duration - 2 );
+	switch( self.character_name )
+	{
+		case "Arlington":
+			self playsoundontag( "vox_plr_3_arlington_electrocution_0", "J_Head" );
+			break;
+		case "Sal":
+			self playsoundontag( "vox_plr_1_sal_electrocution_0", "J_Head" );
+			break;
+		case "Billy":
+			self playsoundontag( "vox_plr_2_billy_electrocution_0", "J_Head" );
+			break;
+		case "Finn":
+			self playsoundontag( "vox_plr_0_finn_electrocution_0", "J_Head" );
+			break;
+	}
+	wait 2;
+	level.zones[ "zone_golden_gate_bridge" ].is_enabled = 1;
+	level.zones[ "zone_golden_gate_bridge" ].is_spawning_allowed = 1;
+	self unlink();
+	self setstance( "stand" );
+	wait 2;
+	self thread track_player_completed_cycle();
+	if ( chair_number == 0 )
+	{
+		self setorigin( ( 2282.9, 9557.3, 1792 ) );
+	}
+	else if ( chair_number == 1 )
+	{
+		self setorigin( ( 2304.65, 10019, 1792 ) );
+	}
+	else if ( chair_number == 2 )
+	{
+		self setorigin( ( 2642.4, 10023.6, 1792 ) );
+	}
+	else if ( chair_number == 3 )
+	{
+		self setorigin( ( 2290.6, 9444.3, 1792 ) );
+	}
+	else if ( chair_number == 4 )
+	{
+		self setorigin( ( 2436.5, 9394.1, 1792 ) );
+	}
+	else if ( chair_number == 5 )
+	{
+		self setorigin( ( 2540.81, 9263.64, 1792 ) );
+	}
+	self enableweapons();
+	self setclientfieldtoplayer( "rumble_electric_chair", 0 );
+	wait 1.5;
+	level thread bridge_reset();
+	self disableinvulnerability();
+}
+
+bridge_reset()
+{
+	level.players_on_bridge = 0;
+	foreach ( player in level.players )
+	{
+		player.zone = player get_current_zone();
+		if( maps/mp/zombies/_zm_utility::is_player_valid( player ) && player.zone == "zone_golden_gate_bridge" )
+		{
+			level.players_on_bridge++;
+		}
+	}
+	if ( level.players_on_bridge == 0 )
+	{
+		flag_clear( "spawn_zombies" );
+		level notify( "bridge_empty" );
+		wait 0.05;
+		flag_set( "spawn_zombies" );
+		level waittill( "start_of_round" );
+		prep_for_new_quest();
+		waittill_crafted( "refuelable_plane" );
+		maps/mp/zombies/_zm_ai_brutus::transfer_plane_trigger( "fuel", "fly" );
+		t_plane_fly = getent( "plane_fly_trigger", "targetname" );
+		t_plane_fly trigger_on();
+	}
+}
+
+auto_upgrade_tower()
+{
+	level endon( "end_game");
+	level endon( "tower_disabled" );
+	
+	level.enableTowerUpgrade = getDvarIntDefault( "enableTowerUpgrade", 0 );
+	level.zombie_vars[ "enableTowerUpgrade" ] = level.enableTowerUpgrade;
+	
+	if ( !level.enableTowerUpgrade )
+	{
+		level notify ( "tower_disabled" );
+	}
+	while ( 1 )
+	{
+		level waittill( "trap_activated" );
+		wait 2;
+		level notify( "tower_trap_upgraded" );
+	}
+}
+
+disable_gondola()
+{
+	wait 7;
+	level notify( "gondola_powered_on_roof" );
+	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
+	call_triggers = getFirstArrayKey( t_call_triggers );
+	while ( isDefined( call_triggers ) )
+	{
+		trigger = t_call_triggers[ call_triggers ];
+		trigger.origin = ( 0, 0, 0 );
+		return;
+	}
+}
+
+disable_doors_docks()
+{
+	zm_doors = getentarray( "zombie_door", "targetname" );
+	i = 0;
+	while ( i < zm_doors.size )
+	{
+		if ( zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		{
+			zm_doors[ i ].origin = ( 0, 0, 0 );
+		}
+		i++;
+	}
+}
+
+disable_doors_cellblock()
+{
+	zm_doors = getentarray( "zombie_door", "targetname" );
+	i = 0;
+	while ( i < zm_doors.size )
+	{
+		if ( zm_doors[ i ].origin == ( 2429, 9793, 1374 ) || zm_doors[ i ].origin == ( 2281, 9484, 1564 ) || zm_doors[ i ].origin == ( -149, 8679, 1166 ) )
+		{
+			zm_doors[ i ].origin = ( 0, 0, 0 );
+		}
+		i++;
+	}
+}
+
+disable_afterlife_boxes()
+{
+	a_afterlife_triggers = getstructarray( "afterlife_trigger", "targetname" );
+	_a87 = a_afterlife_triggers;
+	_k87 = getFirstArrayKey( _a87 );
+	while ( isDefined( _k87 ) )
+	{
+		struct = _a87[ _k87 ];
+		struct.unitrigger_stub.origin = ( 0, 0, 0 );
+		_k87 = getNextArrayKey( _a87, _k87 );
+	}
+}
