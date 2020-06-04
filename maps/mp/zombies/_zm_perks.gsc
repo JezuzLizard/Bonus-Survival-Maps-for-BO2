@@ -2355,6 +2355,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				if(state == 1)
 				{
 					self thread addPerkHUD("specialty_ads_zombies", 0, (1,1,1), perk);
+					//self setclientfieldtoplayer( "perk_dead_shot", 0 );
 				}
 				else if(state == 2)
 				{
@@ -2363,6 +2364,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				else
 				{
 					self thread removeAllPerksHUD(perk);
+					//self setclientfieldtoplayer( "perk_dead_shot", 0 );
 				}
 			}
 			else
@@ -2397,6 +2399,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				if(state == 1)
 				{
 					self thread addPerkHUD("specialty_doubletap_zombies", 0, (1,1,1), perk);
+					//self setclientfieldtoplayer( "perk_double_tap", 0 );
 				}
 				else if(state == 2)
 				{
@@ -2405,6 +2408,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				else
 				{
 					self thread removeAllPerksHUD(perk);
+					//self setclientfieldtoplayer( "perk_double_tap", 0 );
 				}
 			}
 			else
@@ -2418,7 +2422,9 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				if(state == 1)
 				{
 					self thread addPerkHUD("specialty_juggernaut_zombies", 0, (1,1,1), perk);
+					//self setclientfieldtoplayer( "perk_juggernaut", 0 );
 				}
+
 				else if(state == 2)
 				{
 					self thread fadePerkHUD(perk);
@@ -2426,6 +2432,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				else
 				{
 					self thread removeAllPerksHUD(perk);
+					//self setclientfieldtoplayer( "perk_juggernaut", 0 );
 				}
 			}
 			else
@@ -2481,6 +2488,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				if(state == 1)
 				{
 					self thread addPerkHUD("specialty_fastreload_zombies", 0, (1,1,1), perk);
+					//self setclientfieldtoplayer( "perk_sleight_of_hand", 0 );
 				}
 				else if(state == 2)
 				{
@@ -2489,6 +2497,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				else
 				{
 					self thread removeAllPerksHUD(perk);
+					//self setclientfieldtoplayer( "perk_sleight_of_hand", 0 );
 				}
 			}
 			else
@@ -2511,7 +2520,8 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 				{
 					if(state == 1)
 					{
-						self thread addPerkHUD("specialty_electric_cherry_zombie", 0, (1,1,1));
+						self thread addPerkHUD("specialty_electric_cherry_zombie", 0, (1,1,1), perk);
+						//self [[ level._custom_perks[ perk ].clientfield_set ]]( 0 );
 					}
 					else if(state == 2)
 					{
@@ -2520,6 +2530,7 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 					else
 					{
 						self thread removeAllPerksHUD(perk);
+						//self [[ level._custom_perks[ perk ].clientfield_set ]]( 0 );
 					}
 				}
 			}
@@ -2533,79 +2544,89 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 
 addPerkHUD(shader, x, color, perk)
 {
-	if ( !isDefined( self.perk_hud ) )
-		self.perk_hud = [];
-	hud = create_simple_hud( self );
+	self endon("disconnect");
+	if ( !isDefined( self.perkhud ) )
+	{
+		self.perkhud = [];
+	}
+
+	hud = NewClientHudElem( self );
 	hud.perk = perk;
-	hud.elemtype = "icon";
 	hud.foreground = true;
+	hud.sort = 1;
 	hud.hidewheninmenu = true;
 	hud.color = color;
+	hud.x = -100 + self.perkhud.size * 27;
+	hud.y = 387;
 	hud.alpha = 0;
-	hud.sort = 1;
 	hud SetShader( shader, 48, 48 );
 	hud scaleOverTime( .5, 24, 24 );
 	hud fadeOverTime( .5 );
 	hud.alpha = 1;
-	hud.x = -100 + self.perk_hud.size * 27;
-	hud.y = 387;
-	self.perk_hud[self.perk_hud.size] = hud;
+	self.perkhud[self.perkhud.size] = hud;
+
 }
 
 removeAllPerksHUD(perk)
 {
-	if(self.perk_hud[0].perk == perk)
+	self endon("disconnect");
+	
+	if(self.perkhud[0].perk == perk)
 	{
-		for(i=self.perk_hud.size-1;i>=0;i--)
+		for(i=self.perkhud.size-1;i>=0;i--)
 		{
-			self.perk_hud[ i ] FadeOverTime(.5);
-			self.perk_hud[ i ].alpha = 0;
+			self.perkhud[ i ] FadeOverTime(.5);
+			self.perkhud[ i ].alpha = 0;
 			wait .5;
-			self.perk_hud[ i ] Destroy();
-			self.perk_hud[ i ] = undefined;
+			self.perkhud[ i ] Destroy();
+			self.perkhud[ i ] = undefined;
 		}
 	}
 }
 
 removePerkHUD( perk )
 {
+	self endon("disconnect");
+	
 	new_array = [];
-	for ( i = 0; i < self.perk_hud.size; i++ )
+	for ( i = 0; i < self.perkhud.size; i++ )
 	{
-		if ( self.perk_hud[ i ].perk == perk )
+		if ( self.perkhud[ i ].perk == perk )
 		{
-			self.perk_hud[ i ] FadeOverTime(.5);
-			self.perk_hud[ i ].alpha = 0;
+			self.perkhud[ i ] FadeOverTime(.5);
+			self.perkhud[ i ].alpha = 0;
 			wait .5;
-			self.perk_hud[ i ] Destroy();
+			self.perkhud[ i ] Destroy();
 		}
 		else
 		{
-			new_array[ new_array.size ] = self.perk_hud[ i ];
+			new_array[ new_array.size ] = self.perkhud[ i ];
 		}
 		
 	}
-	self.perk_hud = new_array;
-	for ( i = 0; i < self.perk_hud.size; i++ )
+	self.perkhud = new_array;
+	for ( i = 0; i < self.perkhud.size; i++ )
 	{
-		self.perk_hud[ i ] moveOverTime( .5 );
-		self.perk_hud[ i ].x = -100 + i * 27;
-		self.perk_hud[ i ].y = 387;
+		self.perkhud[ i ] moveOverTime( .5 );
+		self.perkhud[ i ].x = -100 + i * 27;
+		self.perkhud[ i ].y = 387;
 	}
 }
 
 fadePerkHUD( perk )
 {
-	if ( !isDefined( self.perk_hud ) || self.perk_hud.size < 1 )
+	self endon("disconnect");
+	
+	if ( !isDefined( self.perkhud ) || self.perkhud.size < 1 )
 		return;
 		
-	for ( i = 0; i < self.perk_hud.size; i++ )
+	for ( i = 0; i < self.perkhud.size; i++ )
 	{
-		if ( self.perk_hud[ i ].perk != perk )
+		if ( self.perkhud[ i ].perk != perk )
 			continue;
 			
-		self.perk_hud[ i ] fadeOverTime( .5 );
-		self.perk_hud[ i ].alpha = .25;
+		self.perkhud[ i ] fadeOverTime( .5 );
+		self.perkhud[ i ].alpha = .25;
 		
 	}
 }
@@ -3587,6 +3608,7 @@ perk_machine_spawn_init() //modified function
 			use_trigger.targetname = "zombie_vending";			
 			use_trigger.script_noteworthy = perk;
 			use_trigger TriggerIgnoreTeam();
+			use_trigger thread givePoints();
 			//use_trigger thread debug_spot();
 	
 			perk_machine = Spawn( "script_model", pos[ i ].origin );
@@ -3840,6 +3862,26 @@ perk_machine_spawn_init() //modified function
 					break;
 			}
 		}
+	}
+}
+
+givePoints()
+{
+	change_collected = false;
+	while(1)
+	{
+		players = get_players();
+		for(i=0;i<players.size;i++)
+		{
+			if( Distance( players[i].origin, self.origin ) < 60 && players[i] GetStance() == "prone" )
+			{
+				players[i].score += 100;
+				change_collected = true;
+			}
+		}
+		if( isdefined( change_collected ) && change_collected )
+			break;
+		wait .1;
 	}
 }	
 
