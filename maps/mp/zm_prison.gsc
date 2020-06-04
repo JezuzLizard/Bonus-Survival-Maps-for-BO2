@@ -111,8 +111,11 @@ main() //checked changed to match cerberus output
 	map = getDvar("customMap");
 	if(isDefined(map) && map != "vanilla")
 	{
-		level.zombiemode_using_marathon_perk = 1;
-		level.zombiemode_using_revive_perk = 1;
+		if(isDefined(map) && map != "rooftop")
+		{
+			level.zombiemode_using_marathon_perk = 1;
+			level.zombiemode_using_revive_perk = 1;
+		}
 		level.zombiemode_using_additionalprimaryweapon_perk = 1;
 		level.zombiemode_using_divetonuke_perk = 1;
 		level.phdUsesClientfield = 0;
