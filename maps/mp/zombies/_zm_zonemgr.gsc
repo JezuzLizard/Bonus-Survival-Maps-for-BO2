@@ -628,7 +628,14 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 	{
 		[[ level.zone_manager_init_func ]]();
 	}
-	if ( level.customMap == "docks" )
+	if ( isDefined( level.customMap ) && level.customMap == "rooftop" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_roof";
+		initial_zone[ 1 ] = "zone_roof_infirmary";
+		initial_zone[ 2 ] = "zone_infirmary";
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
 		initial_zone = [];
 		initial_zone[ 0 ] = "zone_dock";
