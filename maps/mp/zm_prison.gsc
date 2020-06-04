@@ -308,6 +308,44 @@ onplayerconnected()
 	{
 		level waittill("connected", player);
 		player thread afterlife_doors_close();
+		player thread onplayerdisconnect();
+	}
+}
+
+onplayerdisconnect()
+{
+	self waittill("disconnect");
+	players = get_players();
+	for(i=0;i<players.size;i++)
+	{
+		if(isdefined(players[i]))
+		{
+			if(!isdefined(players[i].perkstogive))
+				players[i].perkstogive = [];
+			for(j=players[i].perks_active.size-1;j>=0;j--)
+			{
+				players[i].perkstogive[players[i].perkstogive.size] = players[i].perks_active[j];
+				players[i] notify(players[i].perks_active[j] + "_stop");
+				players[i].perkhud[ j ] Destroy();
+				players[i].perkhud[ j ] = undefined;
+			}
+			players[i].perkhud = undefined;
+		}
+	}
+	wait 1;
+	for(i=0;i<players.size;i++)
+	{
+		if(isdefined(players[i]))
+		{
+			for(j=players[i].perkstogive.size-1;j>=0;j--)
+			{
+				players[i] maps/mp/zombies/_zm_perks::give_perk(players[i].perkstogive[j], 0);
+				players[i].perkstogive[j] = undefined;
+				wait .05;
+			}
+			players[i].perkstogive = undefined;
+		}
+		wait .05;
 	}
 }
 
