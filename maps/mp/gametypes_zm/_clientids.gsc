@@ -27,31 +27,6 @@ init_custom_map()
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread init_buildables();
-	thread init_power();
-	wait 1;
-	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
-	{
-		thread disable_afterlife_boxes();
-	}
-	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
-	{
-		
-		thread auto_upgrade_tower();
-		thread disable_gondola();
-		thread disable_doors_docks();
-		level notify( "cable_puzzle_gate_afterlife" );
-	}
-	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "cellblock" )
-	{
-		thread disable_doors_cellblock();
-		level notify( "intro_powerup_activate" );
-		level notify( "cell_1_powerup_activate" );
-		level notify( "cell_2_powerup_activate" );
-	}
-	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "rooftop" )
-	{
-		thread disable_doors_cellblock();
-	}
 }
 
 onplayerconnected()
@@ -93,32 +68,6 @@ onplayerspawned()
 		self waittill( "spawned_player" );
 		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
-	}
-}
-
-init_power()
-{
-	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
-	{
-		wait 2;
-		flag_set( "power_on" );
-		level setclientfield( "zombie_power_on", 1 );
-		level notify( "sleight_on" );
-		wait_network_frame();
-		level notify( "doubletap_on" );
-		wait_network_frame();
-		level notify( "juggernog_on" );
-		wait_network_frame();
-		level notify( "electric_cherry_on" );
-		wait_network_frame();
-		level notify( "deadshot_on" );
-		wait_network_frame();
-		level notify( "divetonuke_on" );
-		wait_network_frame();
-		level notify( "additionalprimaryweapon_on" );
-		wait_network_frame();
-		level notify( "Pack_A_Punch_on" );
-		wait_network_frame();
 	}
 }
 
@@ -324,7 +273,20 @@ init_buildables()
 		wait 2;
 		buildcraftable( "quest_key1" );
 		buildcraftable( "alcatraz_shield_zm" );
-		buildcraftable( "plane" );
+		if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
+		{
+			buildcraftable( "packasplat" );
+			buildcraftable( "plane" );
+		}
+		else if ( isDefined ( level.customMap ) && level.customMap == "docks" )
+		{
+			buildcraftable( "plane" );
+		}
+		else if ( isDefined ( level.customMap ) && level.customMap == "rooftop" )
+		{
+			level thread build_plane_later();
+			level thread prison_auto_refuel_plane();
+		}
 		changecraftableoption( 0 );
 	}
 }
@@ -710,68 +672,33 @@ spawnAllPlayers()
 	level.no_end_game_check = 0;
 }
 
-auto_upgrade_tower()
+prison_auto_refuel_plane()
 {
-	level endon( "end_game");
-	while ( 1 )
+	level endon ( "end_game" );
+	for ( ;; )
 	{
-		level waittill( "trap_activated" );
-		wait 2;
-		level notify( "tower_trap_upgraded" );
+		flag_wait( "spawn_fuel_tanks" );
+		wait 0.05;
+		buildcraftable( "refuelable_plane" );
 	}
 }
 
-disable_gondola()
+build_plane_later()
 {
-	wait 3;
-	level notify( "gondola_powered_on_roof" );
-	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
-	call_triggers = getFirstArrayKey( t_call_triggers );
-	while ( isDefined( call_triggers ) )
+	level endon ( "end_game" );
+	level endon ( "plane_built" );
+	
+	level.planeBuiltOnRound = getDvarIntDefault( "planeBuiltOnRound", 10 );
+	level.zombie_vars[ "planeBuiltOnRound" ] = level.planeBuiltOnRound;
+	
+	for ( ;; )
 	{
-		trigger = t_call_triggers[ call_triggers ];
-		trigger.origin = ( 0, 0, 0 );
-		return;
-	}
-}
-
-disable_doors_docks()
-{
-	zm_doors = getentarray( "zombie_door", "targetname" );
-	i = 0;
-	while ( i < zm_doors.size )
-	{
-		if ( zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		level waittill ( "start_of_round" );
+		if ( level.round_number == level.planeBuiltOnRound )
 		{
-			zm_doors[ i ].origin = ( 0, 0, 0 );
+			buildcraftable( "plane" );
+			level notify ( "plane_built" );
 		}
-		i++;
-	}
-}
-
-disable_doors_cellblock()
-{
-	zm_doors = getentarray( "zombie_door", "targetname" );
-	i = 0;
-	while ( i < zm_doors.size )
-	{
-		if ( zm_doors[ i ].origin == ( 2429, 9793, 1374 ) || zm_doors[ i ].origin == ( 2281, 9484, 1564 ) || zm_doors[ i ].origin == ( -149, 8679, 1166 ) )
-		{
-			zm_doors[ i ].origin = ( 0, 0, 0 );
-		}
-		i++;
-	}
-}
-
-disable_afterlife_boxes()
-{
-	a_afterlife_triggers = getstructarray( "afterlife_trigger", "targetname" );
-	_a87 = a_afterlife_triggers;
-	_k87 = getFirstArrayKey( _a87 );
-	while ( isDefined( _k87 ) )
-	{
-		struct = _a87[ _k87 ];
-		struct.unitrigger_stub.origin = ( 0, 0, 0 );
-		_k87 = getNextArrayKey( _a87, _k87 );
+		wait 0.5;
 	}
 }
