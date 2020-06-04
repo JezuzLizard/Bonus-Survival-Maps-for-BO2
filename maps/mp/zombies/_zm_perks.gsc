@@ -2263,7 +2263,8 @@ perk_think( perk ) //checked changed to match cerberus output
 	}
 */
 	perk_str = perk + "_stop";
-	result = self waittill_any_return( "fake_death", "death", "player_downed", perk_str );
+	perk_take = perk +"_take";
+	result = self waittill_any_return( "fake_death", "death", "player_downed", perk_str, perk_take );
 	do_retain = 1;
 	if ( use_solo_revive() && perk == "specialty_quickrevive" )
 	{
