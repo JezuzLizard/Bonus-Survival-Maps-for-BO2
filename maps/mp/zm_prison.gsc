@@ -252,27 +252,15 @@ main() //checked changed to match cerberus output
 
 map_setup()
 {
-	wait 7;
-	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap != "vanilla" )
+	map = getDvar( "customMap" );
+	thread disable_afterlife_boxes();
+	if ( level.script == "zm_prison" && isDefined( map ) && map == "docks" )
 	{
-		thread disable_afterlife_boxes();
-	}
-	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
-	{
-		
 		thread auto_upgrade_tower();
 		thread disable_gondola();
 		thread disable_doors_docks();
-		level notify( "cable_puzzle_gate_afterlife" );
 	}
-	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "cellblock" )
-	{
-		thread disable_doors_cellblock();
-		level notify( "intro_powerup_activate" );
-		level notify( "cell_1_powerup_activate" );
-		level notify( "cell_2_powerup_activate" );
-	}
-	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "rooftop" )
+	else if ( level.script == "zm_prison" && isDefined( map ) && map == "cellblock" || level.script == "zm_prison" && isDefined( map ) && map == "rooftop" )
 	{
 		thread disable_doors_cellblock();
 	}
