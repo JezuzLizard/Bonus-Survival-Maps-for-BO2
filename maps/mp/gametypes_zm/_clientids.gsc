@@ -25,6 +25,8 @@ init_custom_map()
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	thread init_buildables();
+	wait 5;
+	thread map_fixes();
 }
 
 onplayerconnected()
@@ -66,6 +68,20 @@ onplayerspawned()
 		self waittill( "spawned_player" );
 		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
+	}
+}
+
+map_fixes()
+{
+	if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "docks" )
+	{
+		level notify( "cable_puzzle_gate_afterlife" );
+	}
+	else if ( level.script == "zm_prison" && isDefined( level.customMap ) && level.customMap == "cellblock" )
+	{
+		level notify( "intro_powerup_activate" );
+		level notify( "cell_1_powerup_activate" );
+		level notify( "cell_2_powerup_activate" );
 	}
 }
 
