@@ -9,6 +9,7 @@
 init()
 {
 	thread gscRestart();
+	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
 	thread init_custom_map();
@@ -459,6 +460,28 @@ spawnAllPlayers()
 	}
 	level.no_end_game_check = 0;
 }
+
+emptyLobbyRestart()
+{
+	while ( 1 )
+	{
+		players = get_players();
+		if (players.size > 0 )
+		{
+			while ( 1 )
+			{
+				players = get_players();
+				if ( players.size < 1  )
+				{
+					map_restart( false );
+				}
+				wait 60;
+			}
+		}
+		wait 1;
+	}
+}
+
 
 prison_auto_refuel_plane()
 {
