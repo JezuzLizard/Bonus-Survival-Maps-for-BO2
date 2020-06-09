@@ -1978,6 +1978,236 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.rooftopSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.rooftopSpawnpoints[ 7 ].script_int = 2048;
 	}
+	if( level.script == "zm_tomb" )
+	{
+		level.trenchesSpawnpoints = [];
+		level.trenchesSpawnpoints[ 0 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 0 ].origin = ( -1431, 3732, -314 );
+		level.trenchesSpawnpoints[ 0 ].angles = ( 0, 333, 0 );
+		level.trenchesSpawnpoints[ 0 ].radius = 32;
+		level.trenchesSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 1 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 1 ].origin = ( -509, 3697, -295 );
+		level.trenchesSpawnpoints[ 1 ].angles = ( 0, 326, 0 );
+		level.trenchesSpawnpoints[ 1 ].radius = 32;
+		level.trenchesSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 2 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 2 ].origin = ( 738, 3485, -293 );
+		level.trenchesSpawnpoints[ 2 ].angles = ( 0, 127, 0 );
+		level.trenchesSpawnpoints[ 2 ].radius = 32;
+		level.trenchesSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 3 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 3 ].origin = ( 1523, 3955, -322 );
+		level.trenchesSpawnpoints[ 3 ].angles = ( 0, 91, 0 );
+		level.trenchesSpawnpoints[ 3 ].radius = 32;
+		level.trenchesSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 4 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 4 ].origin = ( 1902, 4024, -361 );
+		level.trenchesSpawnpoints[ 4 ].angles = ( 0, 227, 0 );
+		level.trenchesSpawnpoints[ 4 ].radius = 32;
+		level.trenchesSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 5 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 5 ].origin = ( 280, 2147, -125 );
+		level.trenchesSpawnpoints[ 5 ].angles = ( 0, 42, 0 );
+		level.trenchesSpawnpoints[ 5 ].radius = 32;
+		level.trenchesSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 6 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 6 ].origin = ( -78, 2631, -263 );
+		level.trenchesSpawnpoints[ 6 ].angles = ( 0, 4, 0 );
+		level.trenchesSpawnpoints[ 6 ].radius = 32;
+		level.trenchesSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.trenchesSpawnpoints[ 7 ] = spawnstruct();
+		level.trenchesSpawnpoints[ 7 ].origin = ( 2094, 2869, -281 );
+		level.trenchesSpawnpoints[ 7 ].angles = ( 0, 178, 0 );
+		level.trenchesSpawnpoints[ 7 ].radius = 32;
+		level.trenchesSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.trenchesSpawnpoints[ 7 ].script_int = 2048;
+
+		level.excavationSpawnpoints = [];
+		level.excavationSpawnpoints[ 0 ] = spawnstruct();
+		level.excavationSpawnpoints[ 0 ].origin = ( 1392, 802, 104 );
+		level.excavationSpawnpoints[ 0 ].angles = ( 0, 226, 0 );
+		level.excavationSpawnpoints[ 0 ].radius = 32;
+		level.excavationSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 1 ] = spawnstruct();
+		level.excavationSpawnpoints[ 1 ].origin = ( 480, 800, 83 );
+		level.excavationSpawnpoints[ 1 ].angles = ( 0, 329, 0 );
+		level.excavationSpawnpoints[ 1 ].radius = 32;
+		level.excavationSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 2 ] = spawnstruct();
+		level.excavationSpawnpoints[ 2 ].origin = ( -778, 936, 133 );
+		level.excavationSpawnpoints[ 2 ].angles = ( 0, 320, 0 );
+		level.excavationSpawnpoints[ 2 ].radius = 32;
+		level.excavationSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 3 ] = spawnstruct();
+		level.excavationSpawnpoints[ 3 ].origin = ( -1914, 512, 94 );
+		level.excavationSpawnpoints[ 3 ].angles = ( 0, 11, 0 );
+		level.excavationSpawnpoints[ 3 ].radius = 32;
+		level.excavationSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 4 ] = spawnstruct();
+		level.excavationSpawnpoints[ 4 ].origin = ( -1763, -319, 114 );
+		level.excavationSpawnpoints[ 4 ].angles = ( 0, 24, 0 );
+		level.excavationSpawnpoints[ 4 ].radius = 32;
+		level.excavationSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 5 ] = spawnstruct();
+		level.excavationSpawnpoints[ 5 ].origin = ( -907, -382, 100 );
+		level.excavationSpawnpoints[ 5 ].angles = ( 0, 33, 0 );
+		level.excavationSpawnpoints[ 5 ].radius = 32;
+		level.excavationSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 6 ] = spawnstruct();
+		level.excavationSpawnpoints[ 6 ].origin = ( 742, -945, 66 );
+		level.excavationSpawnpoints[ 6 ].angles = ( 0, 131, 0 );
+		level.excavationSpawnpoints[ 6 ].radius = 32;
+		level.excavationSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.excavationSpawnpoints[ 7 ] = spawnstruct();
+		level.excavationSpawnpoints[ 7 ].origin = ( 1286, -266, 99 );
+		level.excavationSpawnpoints[ 7 ].angles = ( 0, 147, 0 );
+		level.excavationSpawnpoints[ 7 ].radius = 32;
+		level.excavationSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.excavationSpawnpoints[ 7 ].script_int = 2048;
+
+		level.tankSpawnpoints = [];
+		level.tankSpawnpoints[ 0 ] = spawnstruct();
+		level.tankSpawnpoints[ 0 ].origin = ( 308, -2021, 247 );
+		level.tankSpawnpoints[ 0 ].angles = ( 0, 129, 0 );
+		level.tankSpawnpoints[ 0 ].radius = 32;
+		level.tankSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 1 ] = spawnstruct();
+		level.tankSpawnpoints[ 1 ].origin = ( 1285, -2074, 168 );
+		level.tankSpawnpoints[ 1 ].angles = ( 0, 198, 0 );
+		level.tankSpawnpoints[ 1 ].radius = 32;
+		level.tankSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 2 ] = spawnstruct();
+		level.tankSpawnpoints[ 2 ].origin = ( 1042, -2753, 51 );
+		level.tankSpawnpoints[ 2 ].angles = ( 0, 142, 0 );
+		level.tankSpawnpoints[ 2 ].radius = 32;
+		level.tankSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 3 ] = spawnstruct();
+		level.tankSpawnpoints[ 3 ].origin = ( 250, -2928, 62 );
+		level.tankSpawnpoints[ 3 ].angles = ( 0, 81, 0 );
+		level.tankSpawnpoints[ 3 ].radius = 32;
+		level.tankSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 4 ] = spawnstruct();
+		level.tankSpawnpoints[ 4 ].origin = ( 213, -2448, 52 );
+		level.tankSpawnpoints[ 4 ].angles = ( 0, 259, 0 );
+		level.tankSpawnpoints[ 4 ].radius = 32;
+		level.tankSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 5 ] = spawnstruct();
+		level.tankSpawnpoints[ 5 ].origin = ( -319, -2363, 112 );
+		level.tankSpawnpoints[ 5 ].angles = ( 0, 328, 0 );
+		level.tankSpawnpoints[ 5 ].radius = 32;
+		level.tankSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 6 ] = spawnstruct();
+		level.tankSpawnpoints[ 6 ].origin = ( 743, -2282, 51 );
+		level.tankSpawnpoints[ 6 ].angles = ( 0, 350, 0 );
+		level.tankSpawnpoints[ 6 ].radius = 32;
+		level.tankSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.tankSpawnpoints[ 7 ] = spawnstruct();
+		level.tankSpawnpoints[ 7 ].origin = ( 633, -2023, 235 );
+		level.tankSpawnpoints[ 7 ].angles = ( 0, 143, 0 );
+		level.tankSpawnpoints[ 7 ].radius = 32;
+		level.tankSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.tankSpawnpoints[ 7 ].script_int = 2048;
+
+		level.crazyplaceSpawnpoints = [];
+		level.crazyplaceSpawnpoints[ 0 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 0 ].origin = ( 11164, -6942, -351 );
+		level.crazyplaceSpawnpoints[ 0 ].angles = ( 0, 223, 0 );
+		level.crazyplaceSpawnpoints[ 0 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 1 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 1 ].origin = ( 11301, -7129, -351 );
+		level.crazyplaceSpawnpoints[ 1 ].angles = ( 0, 206, 0 );
+		level.crazyplaceSpawnpoints[ 1 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 2 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 2 ].origin = ( 9531, -7056, -351 );
+		level.crazyplaceSpawnpoints[ 2 ].angles = ( 0, 282, 0 );
+		level.crazyplaceSpawnpoints[ 2 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 3 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 3 ].origin = ( 9683, -7028, -345 );
+		level.crazyplaceSpawnpoints[ 3 ].angles = ( 0, 255, 0 );
+		level.crazyplaceSpawnpoints[ 3 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 4 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 4 ].origin = ( 9469, -8501, -403 );
+		level.crazyplaceSpawnpoints[ 4 ].angles = ( 0, 349, 0 );
+		level.crazyplaceSpawnpoints[ 4 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 5 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 5 ].origin = ( 9480, -8635, -397 );
+		level.crazyplaceSpawnpoints[ 5 ].angles = ( 0, 9, 0 );
+		level.crazyplaceSpawnpoints[ 5 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 6 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 6 ].origin = ( 11198, -8728, -413 );
+		level.crazyplaceSpawnpoints[ 6 ].angles = ( 0, 152, 0 );
+		level.crazyplaceSpawnpoints[ 6 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.crazyplaceSpawnpoints[ 7 ] = spawnstruct();
+		level.crazyplaceSpawnpoints[ 7 ].origin = ( 11318, -8613, -412 );
+		level.crazyplaceSpawnpoints[ 7 ].angles = ( 0, 150, 0 );
+		level.crazyplaceSpawnpoints[ 7 ].radius = 32;
+		level.crazyplaceSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.crazyplaceSpawnpoints[ 7 ].script_int = 2048;
+	}
 }
 
 init_barriers_for_custom_maps() //custom function
@@ -2212,6 +2442,34 @@ onspawnplayer( predictedspawn ) //modified function
 			for ( i = 0; i < level.rooftopSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.rooftopSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "trenches" )
+		{
+			for ( i = 0; i < level.trenchesSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.trenchesSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "excavation" )
+		{
+			for ( i = 0; i < level.excavationSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.excavationSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "tank" )
+		{
+			for ( i = 0; i < level.tankSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.tankSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" )
+		{
+			for ( i = 0; i < level.crazyplaceSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.crazyplaceSpawnpoints[ i ];
 			}
 		}
 		else
