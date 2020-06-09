@@ -260,7 +260,11 @@ map_setup()
 		thread disable_gondola();
 		thread disable_doors_docks();
 	}
-	else if ( level.script == "zm_prison" && isDefined( map ) && map == "cellblock" || level.script == "zm_prison" && isDefined( map ) && map == "rooftop" )
+	else if ( level.script == "zm_prison" && isDefined( map ) && map == "cellblock" )
+	{
+		thread disable_doors_cellblock();
+	}
+	else if ( level.script == "zm_prison" && isDefined( map ) && map == "rooftop" )
 	{
 		thread disable_doors_cellblock();
 	}
