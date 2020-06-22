@@ -642,6 +642,88 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 		initial_zone[ 1 ] = "zone_dock_puzzle";
 		initial_zone[ 2 ] = "zone_dock_gondola";	
 	}
+	else if ( isDefined( level.customMap ) && level.customMap == "trenches" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_bunker_4a";
+		initial_zone[ 1 ] = "zone_bunker_4b";
+		initial_zone[ 2 ] = "zone_bunker_4c";
+		initial_zone[ 3 ] = "zone_bunker_4d";
+		initial_zone[ 4 ] = "zone_bunker_4e";
+		initial_zone[ 5 ] = "zone_bunker_tank_c";
+		initial_zone[ 6 ] = "zone_bunker_tank_c1";
+		initial_zone[ 7 ] = "zone_bunker_tank_d";
+		initial_zone[ 8 ] = "zone_bunker_tank_d1";
+		initial_zone[ 9 ] = "zone_bunker_1a";
+		initial_zone[ 10 ] = "zone_bunker_1";
+		initial_zone[ 11 ] = "zone_fire_stairs";
+		initial_zone[ 12 ] = "zone_bunker_3a";
+		initial_zone[ 13 ] = "zone_bunker_3b";
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "excavation" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_nml_2a";
+		initial_zone[ 1 ] = "zone_nml_2";
+		initial_zone[ 2 ] = "zone_bunker_tank_e";
+		initial_zone[ 3 ] = "zone_bunker_tank_e1";
+		initial_zone[ 4 ] = "zone_bunker_tank_e2";
+		initial_zone[ 5 ] = "zone_bunker_tank_f";
+		initial_zone[ 6 ] = "zone_nml_1";
+		initial_zone[ 7 ] = "zone_nml_4";
+		initial_zone[ 8 ] = "zone_nml_0";
+		initial_zone[ 9 ] = "zone_nml_5";
+		initial_zone[ 10 ] = "zone_nml_celllar";
+		initial_zone[ 11 ] = "zone_bolt_stairs";
+		initial_zone[ 12 ] = "zone_nml_3";
+		initial_zone[ 13 ] = "zone_nml_2b";
+		initial_zone[ 14 ] = "zone_nml_6";
+		initial_zone[ 15 ] = "zone_nml_8";
+		initial_zone[ 16 ] = "zone_nml_10a";
+		initial_zone[ 17 ] = "zone_nml_10";
+		initial_zone[ 18 ] = "zone_nml_7";
+		initial_zone[ 19 ] = "zone_bunker_tank_a";
+		initial_zone[ 20 ] = "zone_bunker_tank_a1";
+		initial_zone[ 21 ] = "zone_bunker_tank_a2";
+		initial_zone[ 22 ] = "zone_bunker_tank_b";
+		initial_zone[ 23 ] = "zone_nml_9";
+		initial_zone[ 24 ] = "zone_air_stairs";
+		initial_zone[ 25 ] = "zone_nml_11";
+		initial_zone[ 26 ] = "zone_nml_12";
+		initial_zone[ 27 ] = "zone_nml_16";
+		initial_zone[ 28 ] = "zone_nml_17";
+		initial_zone[ 29 ] = "zone_nml_18";
+		initial_zone[ 30 ] = "zone_nml_19";
+		initial_zone[ 31 ] = "ug_bottom_zone";
+		initial_zone[ 32 ] = "zone_nml_13";
+		initial_zone[ 33 ] = "zone_nml_14";
+		initial_zone[ 34 ] = "zone_nml_15";
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "tank" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_village_0";
+		initial_zone[ 1 ] = "zone_village_5";
+		initial_zone[ 2 ] = "zone_village_5a";
+		initial_zone[ 3 ] = "zone_village_5b";
+		initial_zone[ 4 ] = "zone_village_1";
+		initial_zone[ 5 ] = "zone_village_4b";
+		initial_zone[ 6 ] = "zone_village_4a";
+		initial_zone[ 7 ] = "zone_village_4";
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_chamber_0";
+		initial_zone[ 1 ] = "zone_chamber_1";
+		initial_zone[ 2 ] = "zone_chamber_2";
+		initial_zone[ 3 ] = "zone_chamber_3";
+		initial_zone[ 4 ] = "zone_chamber_4";
+		initial_zone[ 5 ] = "zone_chamber_5";
+		initial_zone[ 6 ] = "zone_chamber_6";
+		initial_zone[ 7 ] = "zone_chamber_7";
+		initial_zone[ 8 ] = "zone_chamber_8";
+	}
 	if ( isarray( initial_zone ) )
 	{
 		for ( i = 0; i < initial_zone.size; i++ )
