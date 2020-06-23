@@ -37,6 +37,12 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread [[ level.givecustomcharacters ]]();
+		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
+		{
+			wait 5;
+			player iprintln ( "High Round Record for this map: ^1" + level.HighRound );
+			player iprintln ( "Record set by: ^1" + level.HighRoundPlayers );
+		}
 	}
 }
 
