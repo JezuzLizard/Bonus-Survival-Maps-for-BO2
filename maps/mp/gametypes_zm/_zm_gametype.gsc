@@ -104,6 +104,7 @@ main() //checked matches cerberus output
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
 	thread map_rotation();
 	thread override_map();
+	thread high_round_tracker();
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
@@ -1405,6 +1406,14 @@ getMapString(map) //custom function
 		return "Cellblock";
 	if(map == "rooftop")
 		return "Rooftop/Bridge";
+	if(map == "trenches")
+		return "Trenches";
+	if(map == "excavation")
+		return "No Man's Land";
+	if(map == "tank")
+		return "Tank/Church";
+	if(map == "crazyplace")
+		return "Crazy Place";
 	if(map == "vanilla")
 		return "Vanilla";
 }
@@ -1432,12 +1441,23 @@ override_map()
 			map_restart( false );
 		}
 	}
+	else if ( level.script == "zm_tomb" )
+	{
+		if ( isDefined ( level.customMap ) && level.customMap != "trenches" && level.customMap != "excavation" && level.customMap != "tank" && level.customMap != "crazyplace" && level.customMap != "vanilla" )
+		{
+			setDvar( "customMap", "crazyplace" );
+			setDvar( "customMapRotation", "trenches excavation tank crazyplace" );
+			setDvar( "customMapRotationActive", 1 );
+			map_restart( false );
+		}
+	}
 	return;
 }
 
 map_rotation() //custom function
 {
 	level waittill( "end_game");
+	wait 2;
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
@@ -3068,3 +3088,44 @@ blank() //this function is intentionally empty
 	//empty function
 }
 
+high_round_tracker()
+{
+	level.HighRoundTracking = getDvarIntDefault( "HighRoundTracking", 0 );
+	if ( isDefined ( level.HighRoundTracking ) && !level.HighRoundTracking )
+	{
+		return;
+	}
+	level.HighRound = getDvarIntDefault(  level.customMap + "HighRound", 1 );
+	level.HighRoundPlayers = getDvar( level.customMap + "Players" );
+	if ( level.HighRoundPlayers == "" )
+	{
+		level.HighRoundPlayers = "N/A";
+	}
+	for ( ;; )
+	{
+		level waittill ( "end_game" );
+		if ( level.round_number > level.HighRound )
+		{
+			setDvar( level.customMap + "HighRound", level.round_number );
+			setDvar( level.customMap + "Players", "" );
+			level.HighRound = getDvarIntDefault(  level.customMap + "HighRound", 1 );
+			players = get_players();
+			for ( i = 0; i < players.size; i++ )
+			{
+				if ( getDvar( level.customMap + "Players" ) == "" )
+				{
+					setDvar( level.customMap + "Players", players[i].name );
+					level.HighRoundPlayers = getDvar( level.customMap + "Players" );
+				}
+				else
+				{
+					setDvar( level.customMap + "Players", level.HighRoundPlayers + ", " + players[i].name );
+					level.HighRoundPlayers = getDvar( level.customMap + "Players" );
+				}
+			}
+			iprintln ( "New Record: ^1" + level.HighRound );
+			iprintln ( "Set by: ^1" + level.HighRoundPlayers );
+		}
+		logprint( "Map: " + level.customMap + " Record: " + level.HighRound + " Set by: " + level.HighRoundPlayers );
+	}
+}
