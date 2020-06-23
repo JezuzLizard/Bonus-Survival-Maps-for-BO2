@@ -25,6 +25,6 @@ Report any bugs found to the forum, we will try to fix them as soon as possible.
 
 ## Soon to be added
 ```
-Docks survival on MoTD
-Origins no mans land survival
+Docks, Roof, Cellblock survival on MoTD
+Origins no mans land, Trenches, Tank, Crazy Place survival
 ```
