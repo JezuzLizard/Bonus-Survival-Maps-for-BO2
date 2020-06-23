@@ -242,6 +242,10 @@ main() //checked changed to match cerberus output
 	level thread title_update_main_end();
 	//flag_wait( "start_zombie_round_logic" ); //players can't join if this is uncommented
 	map = getDvar( "customMap" );
+	if(isDefined(map) && map == "docks")
+	{
+		thread acid_bench( map, (751, 6572, 210), (0,191,0) );
+	}
 	if(isDefined(map) && map != "vanilla")
 	{
 		level thread onplayerconnect();
@@ -363,6 +367,150 @@ onplayerdisconnect()
 		}
 		wait .05;
 	}
+}
+
+acid_bench(map, origin, angles)
+{
+	//level.soulFX = loadfx("fx_alcatraz_soul_charge");
+	level.soulDistance = 400;
+	bench = spawn("script_model", origin);
+	bench SetModel("p6_zm_work_bench");
+	bench.angles = angles;
+	bench.souls = 0;
+	//do these for every map separately
+	if(isDefined(map) && map == "docks")
+	{
+		col = spawn("script_model", (758, 6589, 242));
+		col SetModel("collision_clip_64x64x64");
+		col.angles = angles;
+		col2 = spawn("script_model", (764, 6554, 242));
+		col2 SetModel("collision_clip_64x64x64");
+		col2.angles = angles;
+	}
+	acidGatModel = spawn("script_model", origin + (0,0,45));
+	acidGatModel SetModel("p6_anim_zm_al_packasplat");
+	acidGatModel.angles = angles;
+	trigger = spawn("trigger_radius", origin + (0,0,32), 0, 35, 70);
+	trigger.targetname = "acid_gat_trigger";
+	trigger.angles = angles;
+	trigger SetHintString("This Machine Needs Power");
+	trigger SetCursorHint("HINT_NOICON");
+	thread watchZombies(bench);
+	level waittill("soulsAreDone");
+	wait 2;
+	trigger SetHintString("Hold ^3&&1^7 to convert Blundergat into Acidgat");
+	for(;;)
+	{
+		trigger waittill("trigger", player);
+		if(player UseButtonPressed())
+		{
+			weap = player GetCurrentWeapon();
+			if(weap == "blundergat_zm" || weap == "blundergat_upgraded_zm")
+			{
+				if(weap == "blundergat_zm")
+				{
+					player TakeWeapon("blundergat_zm");
+				}
+				else if(weap == "blundergat_upgraded_zm")
+				{
+					player TakeWeapon("blundergat_upgraded_zm");
+				}
+				trigger SetHintString("Converting...");
+				wait 5;
+				trigger SetHintString("Hold ^3&&1^7 for Acidgat");
+				for(;;)
+				{
+					if(player UseButtonPressed() && Distance(player.origin, trigger.origin) < 65)
+					{
+						if(weap == "blundergat_zm")
+						{
+							player GiveWeapon("blundersplat_zm");
+							player SwitchToWeapon("blundersplat_zm");
+							break;
+						}
+						else if(weap == "blundergat_upgraded_zm")
+						{
+							player GiveWeapon("blundersplat_upgraded_zm");
+							player SwitchToWeapon("blundersplat_upgraded_zm");
+							break;
+						}
+					}
+					wait .1;
+				}
+			}
+		}
+		wait .1;
+		trigger SetHintString("Hold ^3&&1^7 to convert Blundergat into Acidgat");
+	}
+}
+
+watchZombies(bench)
+{
+	level endon("soulsAreDone");
+	while(1)
+	{
+		zombies = GetAiSpeciesArray( "axis", "all" );
+		for(i=0;i<zombies.size;i++)
+		{
+			if(!isdefined(zombies[i].soulChest))
+				zombies[i] thread watchMe(bench);
+		}
+		wait(.05);
+	}
+}
+
+watchMe(bench)
+{
+	level endon("soulsAreDone");
+	self.soulChest = true;
+	//IPrintLn("A zombie has been threaded");
+	self waittill("death");
+	if(!isdefined(self))
+	{
+		return;
+	}
+	start = self.origin + (0,0,45);
+	if(!isdefined(start))
+	{
+		return;
+	}
+	closest = level.soulDistance;
+	newbench = undefined;
+	if(Distance(start, bench.origin) < closest )
+	{
+		closest = Distance(start, bench.origin);
+		newbench = bench;
+	}
+	if(!isDefined(newbench) || !isDefined(newbench.origin))
+	{
+		return;
+	}
+	bench.souls++;
+	//IPrintLn(bench.souls);
+	newbench thread sendSoul(start);
+	if(bench.souls >= 15)
+	{
+		level notify("soulsAreDone");
+	}
+}
+
+sendSoul(start)
+{
+	if(isdefined(self))
+	{
+		end = self.origin + (0,0,45);
+	}
+	if(!isdefined(start) || !isdefined(end))
+	{
+		return;
+	}
+	fxOrg = Spawn("script_model", start);
+	fxOrg SetModel("tag_origin");
+	fx = PlayFxOnTag( level._effect[ "powerup_on" ], fxOrg, "tag_origin" );
+	fxOrg MoveTo(end, 2);
+	wait 2;
+	fx Delete();
+	fxOrg Delete();
 }
 
 title_update_main_start() //checked matches cerberus output
