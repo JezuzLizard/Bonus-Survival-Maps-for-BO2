@@ -659,6 +659,8 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 		initial_zone[ 11 ] = "zone_fire_stairs";
 		initial_zone[ 12 ] = "zone_bunker_3a";
 		initial_zone[ 13 ] = "zone_bunker_3b";
+		initial_zone[ 14 ] = "zone_bunker_2a";
+		initial_zone[ 15 ] = "zone_bunker_2";
 	}
 	else if ( isDefined( level.customMap ) && level.customMap == "excavation" )
 	{
