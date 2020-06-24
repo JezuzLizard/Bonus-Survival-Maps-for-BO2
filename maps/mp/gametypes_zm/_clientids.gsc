@@ -14,6 +14,10 @@ init()
 	level.player_out_of_playable_area_monitor = 0;
 	thread init_custom_map();
 	thread setupWunderfizz();
+	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
+	{
+		level thread turn_on_power_origins();
+	}
 	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" )
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
@@ -907,5 +911,48 @@ givePerk(perk)
     	if (self maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined(self.intermission) && self.intermission)
         	return;
     	self notify("burp");
+	}
+}
+
+turn_on_power_origins()
+{
+	level waittill( "connected", player );
+	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors();
+	wait 1;
+	flag_set( "power_on" );
+	level setclientfield( "zombie_power_on", 1 );
+	if ( isDefined ( level.customMap ) && level.customMap != "trenches" )
+	{
+		level notify( "sleight_on" );
+		wait_network_frame();
+	}
+	level notify( "sleight_on" );
+	wait_network_frame();
+	level notify( "doubletap_on" );
+	wait_network_frame();
+	if ( isDefined ( level.customMap ) && level.customMap != "excavation" )
+	{
+		level notify( "juggernog_on" );
+		wait_network_frame();
+		level notify( "marathon_on" );
+		wait_network_frame();
+	}
+	level notify( "electric_cherry_on" );
+	wait_network_frame();
+	level notify( "deadshot_on" );
+	wait_network_frame();
+	level notify( "divetonuke_on" );
+	wait_network_frame();
+	level notify( "additionalprimaryweapon_on" );
+	wait_network_frame();
+	level notify( "Pack_A_Punch_on" );
+	wait_network_frame();
+	t_pap = getent( "specialty_weapupgrade", "script_noteworthy" );
+	t_pap trigger_on();
+	flag_set( "power_on" );
+	level setclientfield( "zone_capture_hud_all_generators_captured", 1 );
+	if ( !flag( "generator_lost_to_recapture_zombies" ) )
+	{
+		level notify( "all_zones_captured_none_lost" );
 	}
 }
