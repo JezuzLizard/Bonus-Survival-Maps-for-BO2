@@ -139,7 +139,6 @@ init() //checked partially changed to match cerberus output
 		[[ level.quantum_bomb_register_result_func ]]( "give_nearest_perk", ::quantum_bomb_give_nearest_perk_result, 10, ::quantum_bomb_give_nearest_perk_validation );
 	}
 	level thread perk_hostmigration();
-
 }
 
 default_vending_precaching() //checked changed to match cerberus output
@@ -231,10 +230,10 @@ default_vending_precaching() //checked changed to match cerberus output
 		precachestring( &"ZOMBIE_PERK_QUICKREVIVE" );
 		level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
 		level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
-		level.machine_assets[ "revive" ] = spawnstruct();
-		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_revive";
-		level.machine_assets[ "revive" ].off_model = "zombie_vending_revive";
-		level.machine_assets[ "revive" ].on_model = "zombie_vending_revive_on";
+		level.machine_assets[ "speedcola" ] = spawnstruct();
+		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_revive";
+		level.machine_assets[ "speedcola" ].off_model = "zombie_vending_revive";
+		level.machine_assets[ "speedcola" ].on_model = "zombie_vending_revive_on";
 	}
 	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
 	{
@@ -244,10 +243,10 @@ default_vending_precaching() //checked changed to match cerberus output
 		precachemodel( "zombie_vending_sleight_on" );
 		precachestring( &"ZOMBIE_PERK_FASTRELOAD" );
 		level._effect[ "sleight_light" ] = loadfx( "misc/fx_zombie_cola_on" );
-		level.machine_assets[ "speedcola" ] = spawnstruct();
-		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_sleight";
-		level.machine_assets[ "speedcola" ].off_model = "zombie_vending_sleight";
-		level.machine_assets[ "speedcola" ].on_model = "zombie_vending_sleight_on";
+		level.machine_assets[ "revive" ] = spawnstruct();
+		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_sleight";
+		level.machine_assets[ "revive" ].off_model = "zombie_vending_sleight";
+		level.machine_assets[ "revive" ].on_model = "zombie_vending_sleight_on";
 	}
 	if ( isDefined( level.zombiemode_using_tombstone_perk ) && level.zombiemode_using_tombstone_perk )
 	{
@@ -1338,7 +1337,7 @@ turn_marathon_on() //checked changed to match cerberus output
 		machine_triggers = getentarray( "vending_marathon", "target" );
 		for ( i = 0; i < machine.size; i++ )
 		{
-			if( level.customMap == "tunnel" || level.customMap == "diner" || level.customMap == "power" || level.customMap == "cornfield" )
+			if( isDefined ( level.customMap ) && level.customMap != "vanilla" )
 				machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
 			else
 				machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
@@ -3252,6 +3251,113 @@ perk_machine_removal( machine, replacement_model ) //checked changed to match ce
 
 extra_perk_spawns() //custom function
 {
+	level.trenchesPerkArray = array( "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_armorvest", "specialty_weapupgrade" );
+	
+	level.trenchesPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.trenchesPerks[ "specialty_additionalprimaryweapon" ].origin = ( -976.359, 2905.5, -112 );
+	level.trenchesPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 90, 0 );
+	level.trenchesPerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
+	level.trenchesPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.trenchesPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.trenchesPerks[ "specialty_armorvest" ].origin = ( 3133.33, 4132.5, -584 );
+	level.trenchesPerks[ "specialty_armorvest" ].angles = ( 0, 170, 0 );
+	level.trenchesPerks[ "specialty_armorvest" ].model = "p6_zm_al_vending_nuke_on";
+	level.trenchesPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.trenchesPerks[ "specialty_longersprint" ] = spawnstruct();
+	level.trenchesPerks[ "specialty_longersprint" ].origin = ( 184.678, 4531.64, -295 );
+	level.trenchesPerks[ "specialty_longersprint" ].angles = ( 0, 178, 0 );
+	level.trenchesPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
+	level.trenchesPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+	level.trenchesPerks[ "specialty_weapupgrade" ] = spawnstruct();
+	level.trenchesPerks[ "specialty_weapupgrade" ].origin = ( 3238.36, 4394.77, -591.75 );
+	level.trenchesPerks[ "specialty_weapupgrade" ].angles = ( 0, 270, 0 );
+	level.trenchesPerks[ "specialty_weapupgrade" ].model = "p6_zm_tm_packapunch";
+	level.trenchesPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	
+	level.excavationPerkArray = array( "specialty_fastreload", "specialty_quickrevive", "specialty_additionalprimaryweapon" );
+	
+	level.excavationPerks[ "specialty_fastreload" ] = spawnstruct();
+	level.excavationPerks[ "specialty_fastreload" ].origin = ( -104.359, -758.326, 224 );
+	level.excavationPerks[ "specialty_fastreload" ].angles = ( 0, 87.718, 0 );
+	level.excavationPerks[ "specialty_fastreload" ].model = "p6_zm_al_vending_nuke_on";
+	level.excavationPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.excavationPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.excavationPerks[ "specialty_quickrevive" ].origin = ( -395.641, 1078.5, 131.5 );
+	level.excavationPerks[ "specialty_quickrevive" ].angles = ( 0, 314, 0 );
+	level.excavationPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
+	level.excavationPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.excavationPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.excavationPerks[ "specialty_additionalprimaryweapon" ].origin = ( -863.388, 2216.36, -119.95 );
+	level.excavationPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 0, 0 );
+	level.excavationPerks[ "specialty_additionalprimaryweapon" ].model = "p6_anim_zm_buildable_pap_on";
+	level.excavationPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	
+	level.tankPerkArray = array( "specialty_longersprint", "specialty_fastreload", "specialty_additionalprimaryweapon", "specialty_armorvest", "specialty_quickrevive", "specialty_weapupgrade" );
+	
+	level.tankPerks[ "specialty_fastreload" ] = spawnstruct();
+	level.tankPerks[ "specialty_fastreload" ].origin = ( 1081.96, -2531.19, 302.1 );
+	level.tankPerks[ "specialty_fastreload" ].angles = ( 0, 286, 0 );
+	level.tankPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+	level.tankPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.tankPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.tankPerks[ "specialty_additionalprimaryweapon" ].origin = ( 132.545, -2446, 302.1 );
+	level.tankPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 55, 0 );
+	level.tankPerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
+	level.tankPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.tankPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.tankPerks[ "specialty_quickrevive" ].origin = ( -48.11, -2140.42, 230 );
+	level.tankPerks[ "specialty_quickrevive" ].angles = ( 0, 113.712, 0 );
+	level.tankPerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
+	level.tankPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.tankPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.tankPerks[ "specialty_armorvest" ].origin = ( 1578.91, -2230.5, -34.5 );
+	level.tankPerks[ "specialty_armorvest" ].angles = ( 0, 284, 0 );
+	level.tankPerks[ "specialty_armorvest" ].model = "p6_zm_al_vending_nuke_on";
+	level.tankPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.tankPerks[ "specialty_longersprint" ] = spawnstruct();
+	level.tankPerks[ "specialty_longersprint" ].origin = ( 172.817, -2415.75, 50 );
+	level.tankPerks[ "specialty_longersprint" ].angles = ( 0, 13, 0 );
+	level.tankPerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
+	level.tankPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+	level.tankPerks[ "specialty_weapupgrade" ] = spawnstruct();
+	level.tankPerks[ "specialty_weapupgrade" ].origin = ( 1427.41, -1577.64, -107.95 );
+	level.tankPerks[ "specialty_weapupgrade" ].angles = ( 0, 356.609, 0 );
+	level.tankPerks[ "specialty_weapupgrade" ].model = "p6_zm_tm_packapunch";
+	level.tankPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	
+	level.crazyplacePerkArray = array( "specialty_longersprint", "specialty_fastreload", "specialty_additionalprimaryweapon", "specialty_armorvest", "specialty_quickrevive", "specialty_weapupgrade" );
+	
+	level.crazyplacePerks[ "specialty_fastreload" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_fastreload" ].origin = ( 9519.64, -7785.12, -463.25 );
+	level.crazyplacePerks[ "specialty_fastreload" ].angles = ( 0, 54.5, 0 );
+	level.crazyplacePerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+	level.crazyplacePerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.crazyplacePerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].origin = ( 10287.4, -7082.78, -463.75 );
+	level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 62, 0 );
+	level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
+	level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.crazyplacePerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_quickrevive" ].origin = ( 10728, -7107, -443.75 );
+	level.crazyplacePerks[ "specialty_quickrevive" ].angles = ( 0, 27, 0 );
+	level.crazyplacePerks[ "specialty_quickrevive" ].model = "p6_zm_al_vending_nuke_on";
+	level.crazyplacePerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.crazyplacePerks[ "specialty_armorvest" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_armorvest" ].origin = ( 9986, -8815.25, -451.75 );
+	level.crazyplacePerks[ "specialty_armorvest" ].angles = ( 0, 194, 0 );
+	level.crazyplacePerks[ "specialty_armorvest" ].model = "p6_zm_al_vending_nuke_on";
+	level.crazyplacePerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.crazyplacePerks[ "specialty_longersprint" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_longersprint" ].origin = ( 10853.9, -8289.79, -447.75 );
+	level.crazyplacePerks[ "specialty_longersprint" ].angles = ( 0, 178, 0 );
+	level.crazyplacePerks[ "specialty_longersprint" ].model = "p6_zm_al_vending_nuke_on";
+	level.crazyplacePerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+	level.crazyplacePerks[ "specialty_weapupgrade" ] = spawnstruct();
+	level.crazyplacePerks[ "specialty_weapupgrade" ].origin = ( 10781.6, -7873.87, -463.875 );
+	level.crazyplacePerks[ "specialty_weapupgrade" ].angles = ( 0, 274.026, 0 );
+	level.crazyplacePerks[ "specialty_weapupgrade" ].model = "p6_zm_tm_packapunch";
+	level.crazyplacePerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	
 	level.docksPerkArray = array( "specialty_deadshot", "specialty_rof", "specialty_fastreload", "specialty_grenadepulldeath", "specialty_weapupgrade", "specialty_longersprint", "specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_quickrevive" );
 	
 	level.docksPerks[ "specialty_deadshot" ] = spawnstruct();
@@ -3545,7 +3651,35 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "docks" )
+	if ( isDefined( level.customMap ) && level.customMap == "trenches" )
+	{
+		foreach ( perk in level.trenchesPerkArray )
+		{
+			pos[ pos.size ] = level.trenchesPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "excavation" )
+	{
+		foreach ( perk in level.excavationPerkArray )
+		{
+			pos[ pos.size ] = level.excavationPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "tank" )
+	{
+		foreach ( perk in level.tankPerkArray )
+		{
+			pos[ pos.size ] = level.tankPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" )
+	{
+		foreach ( perk in level.crazyplacePerkArray )
+		{
+			pos[ pos.size ] = level.crazyplacePerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
 		foreach ( perk in level.docksPerkArray )
 		{
@@ -3611,10 +3745,10 @@ perk_machine_spawn_init() //modified function
 			use_trigger TriggerIgnoreTeam();
 			use_trigger thread givePoints();
 			//use_trigger thread debug_spot();
-	
 			perk_machine = Spawn( "script_model", pos[ i ].origin );
 			perk_machine.angles = pos[ i ].angles;
 			perk_machine SetModel( pos[ i ].model );
+			perk_machine.is_locked = 0;
 			if ( isdefined( level._no_vending_machine_bump_trigs ) && level._no_vending_machine_bump_trigs )
 			{
 				bump_trigger = undefined;
