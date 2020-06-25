@@ -230,10 +230,10 @@ default_vending_precaching() //checked changed to match cerberus output
 		precachestring( &"ZOMBIE_PERK_QUICKREVIVE" );
 		level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
 		level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
-		level.machine_assets[ "speedcola" ] = spawnstruct();
-		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_revive";
-		level.machine_assets[ "speedcola" ].off_model = "zombie_vending_revive";
-		level.machine_assets[ "speedcola" ].on_model = "zombie_vending_revive_on";
+		level.machine_assets[ "revive" ] = spawnstruct();
+		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_revive";
+		level.machine_assets[ "revive" ].off_model = "zombie_vending_revive";
+		level.machine_assets[ "revive" ].on_model = "zombie_vending_revive_on";
 	}
 	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
 	{
@@ -243,10 +243,10 @@ default_vending_precaching() //checked changed to match cerberus output
 		precachemodel( "zombie_vending_sleight_on" );
 		precachestring( &"ZOMBIE_PERK_FASTRELOAD" );
 		level._effect[ "sleight_light" ] = loadfx( "misc/fx_zombie_cola_on" );
-		level.machine_assets[ "revive" ] = spawnstruct();
-		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_sleight";
-		level.machine_assets[ "revive" ].off_model = "zombie_vending_sleight";
-		level.machine_assets[ "revive" ].on_model = "zombie_vending_sleight_on";
+		level.machine_assets[ "speedcola" ] = spawnstruct();
+		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_sleight";
+		level.machine_assets[ "speedcola" ].off_model = "zombie_vending_sleight";
+		level.machine_assets[ "speedcola" ].on_model = "zombie_vending_sleight_on";
 	}
 	if ( isDefined( level.zombiemode_using_tombstone_perk ) && level.zombiemode_using_tombstone_perk )
 	{
