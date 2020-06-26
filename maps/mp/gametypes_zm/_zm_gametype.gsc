@@ -2418,6 +2418,22 @@ init_barriers_for_custom_maps() //custom function
 		housebush25 = spawn("script_model", (5557.4, 6524.5, -80));
 		housebush25 setModel("t5_foliage_bush05");
 		housebush25 rotateTo((0,200,0),.1);
+		
+		housebush26 = spawn("script_model", (5078.68, 7172.37, -64));
+		housebush26 setModel("t5_foliage_bush05");
+		housebush26 rotateTo((0,234,0),.1);
+		
+		housebush27 = spawn("script_model", (5017, 7130.22, -64));
+		housebush27 setModel("t5_foliage_bush05");
+		housebush27 rotateTo((0,45,0),.1);
+		
+		housebush28 = spawn("script_model", (5154.25, 7133.65, -64));
+		housebush28 setModel("t5_foliage_bush05");
+		housebush28 rotateTo((0,130,0),.1);
+		
+		housebush29 = spawn("script_model", (5105.25, 7166.65, -64));
+		housebush29 setModel("t5_foliage_bush05");
+		housebush29 rotateTo((0,292,0),.1);
 
 		//POWER STATION BARRIERS
 		powerbarrier1 = spawn("script_model", (9965,8133,-556));
