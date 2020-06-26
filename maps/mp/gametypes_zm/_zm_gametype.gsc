@@ -2318,6 +2318,106 @@ init_barriers_for_custom_maps() //custom function
 		housebarrier7 setModel("collision_player_wall_512x512x10");
 		housebarrier7 rotateTo((0,159,0),.1);
 		housebarrier7 ConnectPaths();
+		
+		housebush1 = spawn("script_model", (5548.5, 6358, -72));
+		housebush1 setModel("t5_foliage_bush05");
+		housebush1 rotateTo((0,271,0),.1);
+		
+		housebush2 = spawn("script_model", (5543.79, 6269.37, -64.75));
+		housebush2 setModel("t5_foliage_bush05");
+		housebush2 rotateTo((0,-45,0),.1);
+		
+		housebush3 = spawn("script_model", (5553.23, 6446, -76));
+		housebush3 setModel("t5_foliage_bush05");
+		housebush3 rotateTo((0,90,0),.1);
+		
+		housebush4 = spawn("script_model", (5534, 6190.8, -64));
+		housebush4 setModel("t5_foliage_bush05");
+		housebush4 rotateTo((0,180,0),.1);
+		
+		housebush5 = spawn("script_model", (5565.1, 5661, -64));
+		housebush5 setModel("t5_foliage_bush05");
+		housebush5 rotateTo((0,-45,0),.1);
+		
+		housebush6 = spawn("script_model", (5380.4, 5738, -64));
+		housebush6 setModel("t5_foliage_bush05");
+		housebush6 rotateTo((0,80,0),.1);
+		
+		housebush7 = spawn("script_model", (5467, 5702, -64));
+		housebush7 setModel("t5_foliage_bush05");
+		housebush7 rotateTo((0,40,0),.1);
+		
+		housebush8 = spawn("script_model", (5323.1, 5761.7, -64));
+		housebush8 setModel("t5_foliage_bush05");
+		housebush8 rotateTo((0,120,0),.1);
+		
+		housebush9 = spawn("script_model", (5261, 5787.5, -64));
+		housebush9 setModel("t5_foliage_bush05");
+		housebush9 rotateTo((0,150,0),.1);
+		
+		housebush10 = spawn("script_model", (5199, 5813.5, -64));
+		housebush10 setModel("t5_foliage_bush05");
+		housebush10 rotateTo((0,230,0),.1);
+		
+		housebush11 = spawn("script_model", (5137, 5839.5, -64)); //-62, +26
+		housebush11 setModel("t5_foliage_bush05");
+		housebush11 rotateTo((0,0,0),.1);
+		
+		housebush12 = spawn("script_model", (5075, 5865.5, -64));
+		housebush12 setModel("t5_foliage_bush05");
+		housebush12 rotateTo((0,70,0),.1);
+		
+		housebush13 = spawn("script_model", (5013, 5891.5, -64));
+		housebush13 setModel("t5_foliage_bush05");
+		housebush13 rotateTo((0,170,0),.1);
+		
+		housebush14 = spawn("script_model", (4951, 5917.5, -64));
+		housebush14 setModel("t5_foliage_bush05");
+		housebush14 rotateTo((0,0,0),.1);
+		
+		housebush15 = spawn("script_model", (4889, 5943.5, -64));
+		housebush15 setModel("t5_foliage_bush05");
+		housebush15 rotateTo((0,245,0),.1);
+		
+		housebush16 = spawn("script_model", (4810, 5926.5, -64));
+		housebush16 setModel("t5_foliage_bush05");
+		housebush16 rotateTo((0,53,0),.1);
+		
+		housebush17 = spawn("script_model", (4762, 6069, -64));
+		housebush17 setModel("t5_foliage_bush05");
+		housebush17 rotateTo((0,100,0),.1);
+		
+		housebush18 = spawn("script_model", (4777, 6149, -64)); //+15, +80
+		housebush18 setModel("t5_foliage_bush05");
+		housebush18 rotateTo((0,200,0),.1);
+		
+		housebush19 = spawn("script_model", (4792, 6229, -64));
+		housebush19 setModel("t5_foliage_bush05");
+		housebush19 rotateTo((0,100,0),.1);
+		
+		housebush20 = spawn("script_model", (4807, 6309, -64));
+		housebush20 setModel("t5_foliage_bush05");
+		housebush20 rotateTo((0,200,0),.1);
+		
+		housebush21 = spawn("script_model", (4822, 6389, -64));
+		housebush21 setModel("t5_foliage_bush05");
+		housebush21 rotateTo((0,100,0),.1);
+		
+		housebush22 = spawn("script_model", (4837, 6469, -64));
+		housebush22 setModel("t5_foliage_bush05");
+		housebush22 rotateTo((0,200,0),.1);
+		
+		housebush23 = spawn("script_model", (4852, 6549, -64));
+		housebush23 setModel("t5_foliage_bush05");
+		housebush23 rotateTo((0,100,0),.1);
+		
+		housebush24 = spawn("script_model", (4867, 6629, -64));
+		housebush24 setModel("t5_foliage_bush05");
+		housebush24 rotateTo((0,200,0),.1);
+		
+		housebush25 = spawn("script_model", (5557.4, 6524.5, -80));
+		housebush25 setModel("t5_foliage_bush05");
+		housebush25 rotateTo((0,200,0),.1);
 
 		//POWER STATION BARRIERS
 		powerbarrier1 = spawn("script_model", (9965,8133,-556));
