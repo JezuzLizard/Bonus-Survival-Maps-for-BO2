@@ -57,7 +57,7 @@ precache() //checked matches cerberus output
 
 main() //modified function
 {
-	map = getDvar("customMap");
+	map = level.customMap;
 	level.ta_vaultfee = 100;
 	level.ta_tellerfee = 100;
 	if ( !isDefined( level.custom_ai_type ) )
@@ -67,6 +67,11 @@ main() //modified function
 	level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_screecher::init;
 	if(isDefined(map) && map == "vanilla")
 		level.custom_ai_type[ level.custom_ai_type.size ] = maps/mp/zombies/_zm_ai_avogadro::init;
+	if ( !isDefined( level.vsmgr_prio_overlay_zm_ai_avogadro_electrified ) )
+    {
+        level.vsmgr_prio_overlay_zm_ai_avogadro_electrified = 75;
+    }
+    maps/mp/_visionset_mgr::vsmgr_register_info( "overlay", "zm_ai_avogadro_electrified", 1, level.vsmgr_prio_overlay_zm_ai_avogadro_electrified, 15, 1, maps/mp/_visionset_mgr::vsmgr_duration_lerp_thread_per_player, 0 );
 	level.enemy_location_override_func = maps/mp/zm_transit_bus::enemy_location_override;
 	level.adjust_enemyoverride_func = maps/mp/zm_transit_bus::adjust_enemyoverride;
 	door_triggers = getentarray( "electric_door", "script_noteworthy" );
@@ -140,7 +145,7 @@ zm_traversal_override( traversealias ) //checked matches cerberus output
 	sndalias = undefined;
 	chance = 0;
 	sndchance = 0;
-	if ( isDefined( self.isscreecher ) && !self.isscreecher && isDefined( self.is_avogadro ) && !self.is_avogadro )
+	if ( !is_true( self.isscreecher ) && !is_true( self.is_avogadro ) )
 	{
 		if ( isDefined( self.traversestartnode ) && isDefined( self.traversestartnode.script_string ) && self.traversestartnode.script_string == "ignore_traverse_override" )
 		{
@@ -149,7 +154,7 @@ zm_traversal_override( traversealias ) //checked matches cerberus output
 		switch( traversealias )
 		{
 			case "jump_down_48":
-				if ( isDefined( self.has_legs ) && self.has_legs )
+				if ( is_true( self.has_legs ) )
 				{
 					suffix = "_stumble";
 					chance = 0;
@@ -159,7 +164,7 @@ zm_traversal_override( traversealias ) //checked matches cerberus output
 			case "jump_down_190":
 			case "jump_down_222":
 			case "jump_down_90":
-				if ( isDefined( self.has_legs ) && self.has_legs )
+				if ( is_true( self.has_legs ) )
 				{
 					suffix = "_stumble";
 					chance = 30;
@@ -195,7 +200,7 @@ init_bus() //checked matches cerberus output
 
 closest_player_transit( origin, players ) //checked changed to match cerberus output
 {
-	if ( isDefined( level.the_bus ) && level.the_bus.numaliveplayersridingbus > 0 || isDefined( level.calc_closest_player_using_paths ) && !level.calc_closest_player_using_paths )
+	if ( isDefined( level.the_bus ) && level.the_bus.numaliveplayersridingbus > 0 || !is_true( level.calc_closest_player_using_paths ) )
 	{
 		player = getclosest( origin, players );
 	}
@@ -616,3 +621,6 @@ adjust_zombie_count() //custom function
 		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
+
+
+

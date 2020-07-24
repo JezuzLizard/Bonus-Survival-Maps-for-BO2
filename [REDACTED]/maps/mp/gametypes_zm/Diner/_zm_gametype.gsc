@@ -102,14 +102,13 @@ main() //checked matches cerberus output
 	set_gamemode_var( "match_end_func", undefined );
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
-	thread map_rotation();
-	thread override_map();
-	thread high_round_tracker();
+	thread map_rotation(); //custom function
+	thread override_map(); //custom function
+	thread high_round_tracker(); //custom function
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
 {
-	allowed[ 0 ] = mode;
 	entities = getentarray();
 	i = 0;
 	while ( i < entities.size )
@@ -1525,6 +1524,10 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
 	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks", "cellblock", "rooftop"
+	if ( !isDefined( level.customMap ) || level.customMap == "" )
+	{
+		level.customMap = "diner";
+	}
 	level.serverName = getDvar( "serverName" );
 	if ( !isDefined( level.serverName ) || level.serverName == "" )
 	{
