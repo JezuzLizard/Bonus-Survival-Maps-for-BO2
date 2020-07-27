@@ -27,7 +27,7 @@ init() //checked partially changed to match cerberus output
 	
 	//end debug code
 	level.additionalprimaryweapon_limit = 3;
-	level.perk_purchase_limit = 4;
+	level.perk_purchase_limit = 9;
 	if ( !level.createfx_enabled )
 	{
 		perks_register_clientfield(); //fixed
@@ -2326,184 +2326,36 @@ perk_think( perk ) //checked changed to match cerberus output
 
 set_perk_clientfield( perk, state ) //checked matches cerberus output
 {
+	if(isdefined(level.customMap) && level.customMap != "vanilla" && is_true(level.script == "zm_prison"))
+	{
+		self.resetPerkHUD = 1;
+		return;
+	}
 	switch( perk )
 	{
 		case "specialty_additionalprimaryweapon":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_additionalprimaryweapon_zombies", 0, (1,1,1), perk);
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
-			}
+			self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
 			break;
 		case "specialty_deadshot":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_ads_zombies", 0, (1,1,1), perk);
-					//self setclientfieldtoplayer( "perk_dead_shot", 0 );
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-					//self setclientfieldtoplayer( "perk_dead_shot", 0 );
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_dead_shot", state );
-			}
+			self setclientfieldtoplayer( "perk_dead_shot", state );
 			break;
 		case "specialty_flakjacket":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_divetonuke_zombies", 0, (1, 1, 1), perk);
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_dive_to_nuke", state );
-			}
+			self setclientfieldtoplayer( "perk_dive_to_nuke", state );
 			break;
 		case "specialty_rof":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_doubletap_zombies", 0, (1,1,1), perk);
-					//self setclientfieldtoplayer( "perk_double_tap", 0 );
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-					//self setclientfieldtoplayer( "perk_double_tap", 0 );
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_double_tap", state );
-			}
+			self setclientfieldtoplayer( "perk_double_tap", state );
 			break;
 		case "specialty_armorvest":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_juggernaut_zombies", 0, (1,1,1), perk);
-					//self setclientfieldtoplayer( "perk_juggernaut", 0 );
-				}
-
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-					//self setclientfieldtoplayer( "perk_juggernaut", 0 );
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_juggernaut", state );
-			}
+			self setclientfieldtoplayer( "perk_juggernaut", state );
 			break;
 		case "specialty_longersprint":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_doublepoints_zombies", 0, (1, 1, 0), perk);
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_marathon", state );
-			}
+			self setclientfieldtoplayer( "perk_marathon", state );
 			break;
 		case "specialty_quickrevive":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_instakill_zombies", 0, (0, 0.8, 1), perk);
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_quick_revive", state );
-			}
+			self setclientfieldtoplayer( "perk_quick_revive", state );
 			break;
 		case "specialty_fastreload":
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(state == 1)
-				{
-					self thread addPerkHUD("specialty_fastreload_zombies", 0, (1,1,1), perk);
-					//self setclientfieldtoplayer( "perk_sleight_of_hand", 0 );
-				}
-				else if(state == 2)
-				{
-					self thread fadePerkHUD(perk);
-				}
-				else
-				{
-					self thread removeAllPerksHUD(perk);
-					//self setclientfieldtoplayer( "perk_sleight_of_hand", 0 );
-				}
-			}
-			else
-			{
-				self setclientfieldtoplayer( "perk_sleight_of_hand", state );
-			}
+			self setclientfieldtoplayer( "perk_sleight_of_hand", state );
 			break;
 		case "specialty_scavenger":
 			self setclientfieldtoplayer( "perk_tombstone", state );
@@ -2514,102 +2366,8 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 		default:
 		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].clientfield_set ) )
 		{
-			if(level.script == "zm_prison" && level.customMap != "vanilla")
-			{
-				if(perk == "specialty_grenadepulldeath")
-				{
-					if(state == 1)
-					{
-						self thread addPerkHUD("specialty_electric_cherry_zombie", 0, (1,1,1), perk);
-						//self [[ level._custom_perks[ perk ].clientfield_set ]]( 0 );
-					}
-					else if(state == 2)
-					{
-						self thread fadePerkHUD(perk);
-					}
-					else
-					{
-						self thread removeAllPerksHUD(perk);
-						//self [[ level._custom_perks[ perk ].clientfield_set ]]( 0 );
-					}
-				}
-			}
-			else
-			{
-				self [[ level._custom_perks[ perk ].clientfield_set ]]( state );
-			}
+			self [[ level._custom_perks[ perk ].clientfield_set ]]( state );
 		}
-	}
-}
-
-addPerkHUD(shader, x, color, perk)
-{
-	self endon("disconnect");
-	if ( !isDefined( self.perkhud ) )
-	{
-		self.perkhud = [];
-	}
-
-	hud = NewClientHudElem( self );
-	hud.perk = perk;
-	hud.foreground = true;
-	hud.sort = 1;
-	hud.hidewheninmenu = true;
-	hud.color = color;
-	hud.x = -100 + self.perkhud.size * 27;
-	hud.y = 387;
-	hud.alpha = 0;
-	hud SetShader( shader, 48, 48 );
-	hud scaleOverTime( .5, 24, 24 );
-	hud fadeOverTime( .5 );
-	hud.alpha = 1;
-	self.perkhud[self.perkhud.size] = hud;
-
-}
-
-removeAllPerksHUD(perk)
-{
-	self endon("disconnect");
-	
-	if(self.perkhud[0].perk == perk)
-	{
-		for(i=self.perkhud.size-1;i>=0;i--)
-		{
-			self.perkhud[ i ] FadeOverTime(.5);
-			self.perkhud[ i ].alpha = 0;
-			wait .5;
-			self.perkhud[ i ] Destroy();
-			self.perkhud[ i ] = undefined;
-		}
-	}
-}
-
-removePerkHUD( perk )
-{
-	self endon("disconnect");
-	
-	new_array = [];
-	for ( i = 0; i < self.perkhud.size; i++ )
-	{
-		if ( self.perkhud[ i ].perk == perk )
-		{
-			self.perkhud[ i ] FadeOverTime(.5);
-			self.perkhud[ i ].alpha = 0;
-			wait .5;
-			self.perkhud[ i ] Destroy();
-		}
-		else
-		{
-			new_array[ new_array.size ] = self.perkhud[ i ];
-		}
-		
-	}
-	self.perkhud = new_array;
-	for ( i = 0; i < self.perkhud.size; i++ )
-	{
-		self.perkhud[ i ] moveOverTime( .5 );
-		self.perkhud[ i ].x = -100 + i * 27;
-		self.perkhud[ i ].y = 387;
 	}
 }
 
