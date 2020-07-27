@@ -56,6 +56,8 @@ onplayerconnected()
 
 perkHud()
 {
+	if(level.script != "zm_prison" && level.customMap != "vanilla")
+		return;
 	self endon("disconnect");
 	self endon("end_game");
 	self.perkText = self createText("Objective", 1, "LEFT", "TOP", -395, -10, 1, self getPerkDisplay());
