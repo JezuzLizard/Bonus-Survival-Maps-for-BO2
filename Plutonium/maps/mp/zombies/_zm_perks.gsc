@@ -27,7 +27,7 @@ init() //checked partially changed to match cerberus output
 	
 	//end debug code
 	level.additionalprimaryweapon_limit = 3;
-	level.perk_purchase_limit = 9;
+	level.perk_purchase_limit = 4;
 	if ( !level.createfx_enabled )
 	{
 		perks_register_clientfield(); //fixed
