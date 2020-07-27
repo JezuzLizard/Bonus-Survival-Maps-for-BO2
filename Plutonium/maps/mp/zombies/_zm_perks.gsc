@@ -4318,10 +4318,6 @@ get_perk_array( ignore_chugabud ) //checked matches cerberus output
 	{
 		perk_array[ perk_array.size ] = "specialty_fastreload";
 	}
-	if ( self hasperk( "specialty_flakjacket" ) )
-	{
-		perk_array[ perk_array.size ] = "specialty_flakjacket";
-	}
 	if ( self hasperk( "specialty_longersprint" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_longersprint";
