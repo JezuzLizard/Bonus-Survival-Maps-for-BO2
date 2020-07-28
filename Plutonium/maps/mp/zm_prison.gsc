@@ -304,7 +304,6 @@ onplayerconnected()
 	{
 		level waittill("connected", player);
 		player thread afterlife_doors_close();
-		player thread onplayerdisconnect();
 	}
 }
 
