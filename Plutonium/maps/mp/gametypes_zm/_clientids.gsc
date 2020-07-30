@@ -14,6 +14,7 @@ init()
 	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
+	level.player_intersection_tracker_override = ::disable_intersection_tracking;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -24,6 +25,11 @@ init()
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
+}
+
+disable_intersection_tracking( player )
+{
+	return 1;
 }
 
 init_custom_map()
