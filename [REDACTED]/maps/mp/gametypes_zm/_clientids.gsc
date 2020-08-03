@@ -5,10 +5,13 @@
 #include maps/mp/zombies/_zm_game_module;
 #include maps/mp/zombies/_zm_ai_basic;
 #include maps/mp/gametypes_zm/_weapons;
+#include maps/mp/zombies/_zm_perks;
+#include maps/mp/gametypes_zm/_hud_util;
 
 init()
 {
 	level.player_out_of_playable_area_monitor = 0;
+	level.player_intersection_tracker_override = ::disable_intersection_tracking;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -19,6 +22,11 @@ init()
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
+}
+
+disable_intersection_tracking( player )
+{
+	return 1;
 }
 
 init_custom_map()
@@ -37,6 +45,7 @@ onplayerconnected()
 		level waittill( "connected", player );
 		player thread addPerkSlot();
 		player thread onplayerspawned();
+		player thread perkHud();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
@@ -45,6 +54,35 @@ onplayerconnected()
 			player iprintln ( "Record set by: ^1" + level.HighRoundPlayers );
 		}
 	}
+}
+
+perkHud()
+{
+	if(level.script != "zm_prison" && level.customMap != "vanilla")
+		return;
+	self endon("disconnect");
+	self endon("end_game");
+	self.perkText = self createText("Objective", 1, "LEFT", "TOP", -395, -10, 1, self getPerkDisplay());
+	for(;;)
+	{
+		if(self.resetPerkHUD)
+		{
+			self.perkText setSafeText(self, self getPerkDisplay());
+			self.resetPerkHUD = 0;
+		}
+		wait .1;
+	}
+}
+
+getPerkDisplay()
+{
+	myperks = self get_perk_array(0);
+	string = "PERKS: ";
+	for(i=0;i<myperks.size;i++)
+	{
+		string = string + "\n" + getPerkName(myperks[i]);
+	}
+	return string;
 }
 
 addPerkSlot()
@@ -70,9 +108,18 @@ addPerkSlot()
 
 onplayerspawned()
 {
+	self endon("disconnect");
+	level endon("end_game");
+	isFirstSpawn = true;
 	for ( ;; )
 	{
 		self waittill( "spawned_player" );
+		if(isFirstSpawn)
+		{
+			self initOverFlowFix();
+
+			isFirstSpawn = false;
+		}
 		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
 	}
@@ -462,6 +509,11 @@ build_plane_later()
 setupWunderfizz()
 {
 	level.wunderfizzCost = getDvarIntDefault("wunderfizzCost", 1500);
+	if(level.script == "zm_tomb")
+    {
+    	level._effect[ "wunderfizz_loop" ] = loadfx( "maps/zombie_tomb/fx_tomb_dieselmagic_on" );
+    	//thread wunderfizz((2468,4459,-316), (0,180,0), "p6_zm_vending_diesel_magic");
+    }
     if ( isDefined ( level.customMap ) && level.customMap == "house" )
 	{
 		thread wunderfizz((4782,5998,-64),(0,111,0), "zombie_vending_jugg");
@@ -869,4 +921,204 @@ turn_on_power_origins()
 	{
 		level notify( "all_zones_captured_none_lost" );
 	}
+}
+
+createText(font, fontscale, align, relative, x, y, sort, text)
+{
+	textElem = CreateFontString( font, fontscale );
+	textElem setPoint( align, relative, x, y );
+	textElem.sort = sort;
+	textElem.hideWhenInMenu = true;
+
+	textElem.type = "text";
+	addTextTableEntry(textElem, getStringId(text));
+	textElem setSafeText(self, text);
+
+	return textElem;
+}
+
+
+initOverFlowFix()
+{
+	self.stringTable = [];
+	self.stringTableEntryCount = 0;
+	self.textTable = [];
+	self.textTableEntryCount = 0;
+
+	if(isDefined(level.anchorText) == false)
+	{
+		level.anchorText = createServerFontString("default",1.5);
+		level.anchorText setText("anchor");
+		level.anchorText.alpha = 0;
+
+	level.stringCount = 0;
+	}
+}
+
+clearStrings()
+{
+	level.anchorText clearAllTextAfterHudElem();
+	level.stringCount = 0;
+
+	foreach(player in level.players)
+	{
+		player purgeTextTable();
+		player purgeStringTable();
+		player recreateText();
+		player.resetPerkHUD = 1;
+	}
+}
+
+setSafeText(player, text)
+{
+	stringId = player getStringId(text);
+
+	if(stringId == -1)
+	{
+		player addStringTableEntry(text);
+		stringId = player getStringId(text);
+	}
+	else
+	{
+		player editTextTableEntry(self.textTableIndex, stringId);
+	}
+
+
+	if(level.stringCount > 150)
+	clearStrings();
+
+	self setText(text);
+}
+
+recreateText()
+{
+	foreach(entry in self.textTable)
+		entry.element setSafeText(self, lookUpStringById(entry.stringId));
+}
+
+addStringTableEntry(string)
+{
+	entry = spawnStruct();
+	entry.id = self.stringTableEntryCount;
+	entry.string = string;
+
+	self.stringTable[self.stringTable.size] = entry;
+	self.stringTableEntryCount++;
+	level.stringCount++;
+}
+
+lookUpStringById(id)
+{
+	string = "";
+
+	foreach(entry in self.stringTable)
+	{
+		if(entry.id == id)
+		{
+			string = entry.string;
+			break;
+		}
+	}
+
+	return string;
+}
+
+getStringId(string)
+{
+	id = -1;
+
+	foreach(entry in self.stringTable)
+	{
+		if(entry.string == string)
+		{
+			id = entry.id;
+			break;
+		}
+	}
+
+	return id;
+}
+
+getStringTableEntry(id)
+{
+	stringTableEntry = -1;
+
+	foreach(entry in self.stringTable)
+	{
+		if(entry.id == id)
+		{
+			stringTableEntry = entry;
+			break;
+		}
+	}
+	return stringTableEntry;
+}
+
+purgeStringTable()
+{
+	stringTable = [];
+	foreach(entry in self.stringTable)
+	{
+		stringTable[stringTable.size] = getStringTableEntry(entry.stringId);
+	}
+
+	self.stringTable = stringTable;
+}
+
+purgeTextTable()
+{
+	textTable = [];
+
+	foreach(entry in self.textTable)
+	{
+		if(entry.id != -1)
+			textTable[textTable.size] = entry;
+	}
+
+	self.textTable = textTable;
+}
+
+addTextTableEntry(element, stringId)
+{
+	entry = spawnStruct();
+	entry.id = self.textTableEntryCount;
+	entry.element = element;
+	entry.stringId = stringId;
+
+	element.textTableIndex = entry.id;
+
+	self.textTable[self.textTable.size] = entry;
+	self.textTableEntryCount++;
+}
+
+editTextTableEntry(id, stringId)
+{
+	foreach(entry in self.textTable)
+	{
+		if(entry.id == id)
+		{
+			entry.stringId = stringId;
+			break;
+		}
+	}
+}
+
+deleteTextTableEntry(id)
+{
+	foreach(entry in self.textTable)
+	{
+		if(entry.id == id)
+		{
+			entry.id = -1;
+			entry.stringId = -1;
+		}
+	}
+}
+
+clear(player)
+{
+	if(self.type == "text")
+		player deleteTextTableEntry(self.textTableIndex);
+
+	self destroy();
 }

@@ -554,7 +554,7 @@ transit_custom_powerup_vo_response( powerup_player, powerup ) //checked partiall
 		}
 		else if ( distancesquared( player.origin, powerup_player.origin ) < dist )
 		{
-			player do_player_general_vox( "general", "exert_laugh", 10, 5 );
+			//player do_player_general_vox( "general", "exert_laugh", 10, 5 );
 		}
 	}
 }
@@ -568,6 +568,7 @@ override_zombie_count() //custom function
 	{
 		level.zombie_vars[ "zombie_spawn_delay" ] = 1.5;
 	}
+	thread increase_cornfield_zombie_speed();
 	for ( ;; )
 	{
 		level waittill_any( "start_of_round", "intermission", "check_count" );
@@ -590,6 +591,44 @@ override_zombie_count() //custom function
 				level.zombie_move_speed = 30;
 			}
 		}
+	}
+}
+
+zombie_speed_up_distance_check()
+{
+	if ( distance( self.origin, self.closestPlayer.origin ) > 1300 )
+	{
+		return 1;
+	}
+	return 0;
+}
+
+increase_cornfield_zombie_speed()
+{
+	if ( level.customMap != "cornfield" && level.customMap != "house" )
+	{
+		return;
+	}
+	while ( 1 )
+	{
+		zombies = get_round_enemy_array();
+		for ( i = 0; i < zombies.size; i++ )
+		{
+			zombies[ i ].closestPlayer = get_closest_valid_player( zombies[ i ].origin );
+		}
+		zombies = get_round_enemy_array();
+		for ( i = 0; i < zombies.size; i++ )
+		{
+			if ( zombies[ i ] zombie_speed_up_distance_check() )
+			{
+				zombies[ i ] set_zombie_run_cycle( "chase_bus" );
+			}
+			else if ( zombies[ i ].zombie_move_speed != "sprint" )
+			{
+				zombies[ i ] set_zombie_run_cycle( "sprint" );
+			}
+		}
+		wait 1;
 	}
 }
 
@@ -621,6 +660,7 @@ adjust_zombie_count() //custom function
 		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
+
 
 
 
