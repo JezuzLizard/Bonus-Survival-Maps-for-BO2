@@ -14,7 +14,6 @@ init()
 	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
-	level.player_intersection_tracker_override = ::disable_intersection_tracking;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -25,11 +24,7 @@ init()
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
-}
-
-disable_intersection_tracking( player )
-{
-	return 1;
+	level thread insta_kill_rounds_tracker();
 }
 
 init_custom_map()
@@ -1202,4 +1197,78 @@ clear(player)
 		player deleteTextTableEntry(self.textTableIndex);
 
 	self destroy();
+}
+
+insta_kill_rounds_tracker()
+{
+	level.postInstaKillRounds = 0;
+	while ( 1 )
+	{
+		level waittill( "start_of_round" );
+		level.speed_change_round = undefined;
+		if ( level.round_number >= 45 )
+		{
+			health = calculate_insta_kill_rounds();
+			level.postInstaKillRounds++;
+		}
+		if ( !isDefined( health ) )
+		{
+			health = calculate_normal_health();
+		}
+		if ( isDefined( health ) )
+		{
+			level.zombie_health = health;
+		}
+		if ( is_true( level.roundIsInstaKill ) )
+		{
+			players = get_players();
+			for ( i = 0; i < players.size; i++ )
+			{
+				players[ i ] iprintln( "All zombies are insta kill this round" );
+			}
+		}
+	}
+}
+
+calculate_insta_kill_rounds()
+{
+	level.roundIsInstaKill = 0;
+	if ( level.round_number >= 163 )
+	{
+		return undefined;
+	}
+	health = level.zombie_vars[ "zombie_health_start" ];
+	for ( i = 2; i <= ( level.postInstaKillRounds + 163 ); i++ )
+	{
+		if ( i >= 10 )
+		{
+			health += int( health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+		}
+		else
+		{
+			health = int( health + level.zombie_vars[ "zombie_health_increase" ] );
+		}
+	}
+	if ( health < 0 )
+	{
+		level.roundIsInstaKill = 1;
+		return 20;
+	}
+	return undefined;
+}
+
+calculate_normal_health()
+{
+	health = level.zombie_vars[ "zombie_health_start" ];
+	for ( i = 2; i <= level.round_number; i++ )
+	{
+		if ( i >= 10 )
+		{
+			health += int( health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+		}
+		else
+		{
+			health = int( health + level.zombie_vars[ "zombie_health_increase" ] );
+		}
+	}
 }

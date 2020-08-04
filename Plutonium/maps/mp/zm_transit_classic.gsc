@@ -566,7 +566,7 @@ override_zombie_count() //custom function
 	
 	if( level.customMap == "house" || level.customMap == "cornfield" )
 	{
-		level.zombie_vars[ "zombie_spawn_delay" ] = 1.5;
+		level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
 	}
 	thread increase_cornfield_zombie_speed();
 	for ( ;; )
@@ -596,7 +596,7 @@ override_zombie_count() //custom function
 
 zombie_speed_up_distance_check()
 {
-	if ( distance( self.origin, self.closestPlayer.origin ) > 1300 )
+	if ( distance( self.origin, self.closestPlayer.origin ) > 1000 )
 	{
 		return 1;
 	}
@@ -660,6 +660,7 @@ adjust_zombie_count() //custom function
 		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
+
 
 
 
