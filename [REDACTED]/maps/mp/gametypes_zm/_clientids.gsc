@@ -28,6 +28,7 @@ init_custom_map()
 {
 	level thread onplayerconnected();
 	disable_pers_upgrades();
+	flag_wait( "initial_blackscreen_passed" );
 	thread init_buildables();
 	wait 5;
 	thread map_fixes();
@@ -136,7 +137,7 @@ map_fixes()
 
 disable_pers_upgrades() //credit to Jbleezy for this function
 {
-	level waittill("initial_disable_player_pers_upgrades");
+	//level waittill("initial_disable_player_pers_upgrades");
 
 	level.pers_upgrades_keys = [];
 	level.pers_upgrades = [];
@@ -171,7 +172,7 @@ disable_player_pers_upgrades() //credit to Jbleezy for this function
 			index++;
 		}
 	}
-	level notify("initial_disable_player_pers_upgrades");
+	//level notify("initial_disable_player_pers_upgrades");
 }
 
 changecraftableoption( index )
@@ -1125,7 +1126,7 @@ insta_kill_rounds_tracker()
 	{
 		level waittill( "start_of_round" );
 		level.speed_change_round = undefined;
-		if ( level.round_number >= 45 )
+		if ( level.round_number >= 31 )
 		{
 			health = calculate_insta_kill_rounds();
 			level.postInstaKillRounds++;
