@@ -1134,7 +1134,10 @@ insta_kill_rounds_tracker()
 		}
 		if ( !isDefined( health ) )
 		{
-			health = calculate_normal_health();
+			if ( level.zombie_health > 5500000 )
+			{
+				health = 5500000;
+			}
 		}
 		if ( isDefined( health ) )
 		{
@@ -1176,27 +1179,6 @@ calculate_insta_kill_rounds()
 		return 20;
 	}
 	return undefined;
-}
-
-calculate_normal_health()
-{
-	health = level.zombie_vars[ "zombie_health_start" ];
-	for ( i = 2; i <= level.round_number; i++ )
-	{
-		if ( i >= 10 )
-		{
-			health += int( health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
-		}
-		else
-		{
-			health = int( health + level.zombie_vars[ "zombie_health_increase" ] );
-		}
-	}
-	if ( health > 5500000 )
-	{
-		return 5500000;
-	}
-	return health;
 }
 
 actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex ) //checked changed to match cerberus output //checked against bo3 _zm.gsc partially changed to match
