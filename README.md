@@ -24,7 +24,6 @@ MoTD
 ```
 Docks
 Cellblock
-Rooftop/Bridge
 ```
 See INSTRUCTIONS.md for how to install and run.
 
@@ -33,4 +32,9 @@ Report any bugs found to the forum, we will try to fix them as soon as possible.
 ## Soon to be added
 ```
 Origins no mans land, Trenches, Tank, Crazy Place survival
+```
+
+## Cut due to too many issues:
+```
+MOTD Rooftop
 ```
