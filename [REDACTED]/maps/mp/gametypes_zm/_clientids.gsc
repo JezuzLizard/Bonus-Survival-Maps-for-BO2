@@ -1263,17 +1263,24 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 			return 0;
 		}
 	}
-	if ( weapon == "minigun_alcatraz_zm" )
+	if ( self.animname != "brutus_zombie" )
 	{
-		final_damage = ( self.health * 0.24 ) + 666;
+		if ( weapon == "minigun_alcatraz_zm" )
+		{
+			final_damage = ( self.health * 0.24 ) + 666;
+		}
+		else if ( weapon == "minigun_alcatraz_upgraded_zm" )
+		{
+			final_damage = ( self.health * 0.29 ) + 666;
+		}
+		if ( is_true( level.zombiemode_using_deadshot_perk ) && isDefined( attacker ) && isPlayer( attacker ) && attacker hasPerk( "specialty_deadshot" ) && is_headshot( weapon, shitloc, meansofdeath ) )
+		{
+			final_damage *= 2;
+		}
 	}
-	else if ( weapon == "minigun_alcatraz_upgraded_zm" )
+	else if ( self.animname == "brutus_zombie" )
 	{
-		final_damage = ( self.health * 0.29 ) + 666;
-	}
-	if ( is_true( level.zombiemode_using_deadshot_perk ) && isDefined( attacker ) && isPlayer( attacker ) && attacker hasPerk( "specialty_deadshot" ) && is_headshot( weapon, shitloc, meansofdeath ) )
-	{
-		final_damage *= 2;
+		final_damage /= 3;
 	}
 	return int( final_damage );
 }
