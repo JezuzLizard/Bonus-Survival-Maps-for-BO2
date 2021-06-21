@@ -14,6 +14,8 @@ init()
 	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
+	level.player_starting_points = 500000;
+	level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -28,14 +30,44 @@ init()
 	level.callbackactordamage = ::actor_damage_override_wrapper;
 }
 
+meleeCoords()
+{
+	level endon("end_game");
+	for(;;)
+	{
+		if(self meleeButtonPressed())
+		{
+			self IPrintLn("hello there");
+			me = self.origin;
+			you = self GetPlayerAngles();
+			self IPrintLn("Origin = "+ me);
+			angles = (0, (self GetPlayerAngles())[1] + 90, 0);
+			logprint(self.origin + ", " + angles + "\n");
+			wait 1;
+			self IPrintLn("Angles = "+ you);
+		}
+		wait .5;
+	}
+}
+
 init_custom_map()
 {
 	level thread onplayerconnected();
 	disable_pers_upgrades();
 	flag_wait( "initial_blackscreen_passed" );
 	thread init_buildables();
+	if(level.script == "zm_highrise" && level.customMap != "vanilla")
+		thread highrise_setup();
 	wait 5;
 	thread map_fixes();
+}
+
+highrise_setup()
+{
+	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors();
+	wait 1;
+	flag_set( "power_on" );
+	level setclientfield( "zombie_power_on", 1 );
 }
 
 onplayerconnected()
@@ -46,6 +78,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
+		player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
@@ -356,6 +389,16 @@ init_buildables()
 			level thread prison_auto_refuel_plane();
 		}
 		changecraftableoption( 0 );
+	}
+	if ( level.script == "zm_highrise" && isDefined( level.customMap ) && level.customMap != "vanilla" )
+	{
+		removebuildable( "springpad_zm" );
+		removebuildable( "slipgun_zm" );
+		removebuildable( "keys_zm" );
+		removebuildable( "ekeys_zm" );
+		removebuildable( "sq_common" );
+		level.zombie_include_weapons[ "slipgun_zm" ] = 1;
+		level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
 	}
 }
 

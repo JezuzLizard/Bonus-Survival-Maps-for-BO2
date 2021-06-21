@@ -1436,7 +1436,17 @@ override_map()
 			map_restart( false );
 		}
 	}
-	if ( level.script == "zm_prison" )
+	else if ( level.script == "zm_highrise" )
+	{
+		if ( isDefined ( level.customMap ) && level.customMap != "building1top" && level.customMap != "vanilla" )
+		{
+			setDvar( "customMap", "building1top" );
+			setDvar( "customMapRoation", "building1top");
+			setDvar( "customMapRoationActive", 1);
+			map_restart( false );
+		}
+	}
+	else if ( level.script == "zm_prison" )
 	{
 		if ( isDefined ( level.customMap ) && level.customMap != "docks" && level.customMap != "cellblock" && level.customMap != "rooftop" && level.customMap != "vanilla" )
 		{
@@ -1476,6 +1486,10 @@ map_rotation() //custom function
 		if ( level.script == "zm_transit" )
 		{
 			level.customMapRotation = "cornfield diner house power tunnel";
+		}
+		else if ( level.script == "zm_highrise" )
+		{
+			level.customMapRotation = "building1top";
 		}
 		else if ( level.script == "zm_prison" )
 		{
@@ -1830,7 +1844,11 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.houseSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.houseSpawnpoints[ 7 ].script_int = 2048;
 	}
-	if ( level.script == "zm_prison" )
+	else if ( level.script == "zm_highrise" )
+	{
+		//spawnpoints here
+	}
+	else if ( level.script == "zm_prison" )
 	{
 		level.docksSpawnpoints = [];
 		level.docksSpawnpoints[ 0 ] = spawnstruct();
@@ -2003,7 +2021,7 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.rooftopSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.rooftopSpawnpoints[ 7 ].script_int = 2048;
 	}
-	if( level.script == "zm_tomb" )
+	else if( level.script == "zm_tomb" )
 	{
 		level.trenchesSpawnpoints = [];
 		level.trenchesSpawnpoints[ 0 ] = spawnstruct();
