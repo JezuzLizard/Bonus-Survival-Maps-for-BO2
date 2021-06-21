@@ -14,8 +14,8 @@ init()
 	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
-	level.player_starting_points = 500000;
-	level.perk_purchase_limit = 10;
+	//level.player_starting_points = 500000;
+	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -45,6 +45,12 @@ meleeCoords()
 			logprint(self.origin + ", " + angles + "\n");
 			wait 1;
 			self IPrintLn("Angles = "+ you);
+			/*
+			for(i=0;i<level.chests.size;i++)
+			{
+				self IPrintLn(level.chests[i].script_noteworthy);
+				wait 0.5;
+			}*/
 		}
 		wait .5;
 	}
@@ -78,7 +84,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		player thread meleeCoords();
+		//player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
@@ -91,7 +97,7 @@ onplayerconnected()
 
 perkHud()
 {
-	if(level.script != "zm_prison" && level.customMap != "vanilla")
+	if(level.script != "zm_prison" && level.script != "zm_highrise" && level.customMap != "vanilla")
 		return;
 	self endon("disconnect");
 	self endon("end_game");
@@ -398,6 +404,7 @@ init_buildables()
 		removebuildable( "ekeys_zm" );
 		removebuildable( "sq_common" );
 		level.zombie_include_weapons[ "slipgun_zm" ] = 1;
+		level.zombie_include_weapons[ "slipgun_upgraded_zm" ] = 1;
 		level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
 	}
 }
@@ -523,7 +530,7 @@ gscRestart()
 	level waittill( "end_game" );
 	setDvar( "customMapsMapRestarted", 1 );
 	wait 10;
-	map_restart( false );
+	//map_restart( false );
 }
 
 setPlayersToSpectator()

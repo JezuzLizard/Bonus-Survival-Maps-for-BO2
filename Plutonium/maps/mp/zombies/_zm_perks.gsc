@@ -141,6 +141,154 @@ init() //checked partially changed to match cerberus output
 	level thread perk_hostmigration();
 }
 
+highrise_precache()
+{
+	if ( is_true( level.zombiemode_using_pack_a_punch ) )
+	{
+		precacheitem( "zombie_knuckle_crack" );
+		precachemodel( "p6_anim_zm_buildable_pap" );
+		precachemodel( "p6_anim_zm_buildable_pap_on" );
+		precachestring( &"ZOMBIE_PERK_PACKAPUNCH" );
+		precachestring( &"ZOMBIE_PERK_PACKAPUNCH_ATT" );
+		level._effect[ "packapunch_fx" ] = loadfx( "maps/zombie/fx_zmb_highrise_packapunch" );
+		level.machine_assets[ "packapunch" ] = spawnstruct();
+		level.machine_assets[ "packapunch" ].weapon = "zombie_knuckle_crack";
+		level.machine_assets[ "packapunch" ].off_model = "p6_anim_zm_buildable_pap";
+		level.machine_assets[ "packapunch" ].on_model = "p6_anim_zm_buildable_pap_on";
+	}
+	if ( is_true( level.zombiemode_using_additionalprimaryweapon_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_additionalprimaryweapon" );
+		precacheshader( "specialty_additionalprimaryweapon_zombies" );
+		precachemodel( "zombie_vending_three_gun" );
+		precachemodel( "zombie_vending_three_gun_on" );
+		precachestring( &"ZOMBIE_PERK_ADDITIONALWEAPONPERK" );
+		level._effect[ "additionalprimaryweapon_light" ] = loadfx( "misc/fx_zombie_cola_arsenal_on" );
+		level.machine_assets[ "additionalprimaryweapon" ] = spawnstruct();
+		level.machine_assets[ "additionalprimaryweapon" ].weapon = "zombie_perk_bottle_additionalprimaryweapon";
+		level.machine_assets[ "additionalprimaryweapon" ].off_model = "zombie_vending_three_gun";
+		level.machine_assets[ "additionalprimaryweapon" ].on_model = "zombie_vending_three_gun_on";
+	}
+	if ( is_true( level.zombiemode_using_deadshot_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_deadshot" );
+		precacheshader( "specialty_ads_zombies" );
+		precachemodel( "zombie_vending_ads" );
+		precachemodel( "zombie_vending_ads_on" );
+		precachestring( &"ZOMBIE_PERK_DEADSHOT" );
+		level._effect[ "deadshot_light" ] = loadfx( "misc/fx_zombie_cola_dtap_on" );
+		level.machine_assets[ "deadshot" ] = spawnstruct();
+		level.machine_assets[ "deadshot" ].weapon = "zombie_perk_bottle_deadshot";
+		level.machine_assets[ "deadshot" ].off_model = "zombie_vending_ads";
+		level.machine_assets[ "deadshot" ].on_model = "zombie_vending_ads_on";
+	}
+	if ( is_true( level.zombiemode_using_divetonuke_perk ) )
+	{
+		precachemodel( "zombie_vending_nuke_on_lo" );
+		//precachemodel( "zombie_vending_nuke_on" );
+		//level._effect[ "divetonuke_light" ] = loadfx( "misc/fx_zombie_cola_dtap_on" );
+		level.machine_assets[ "divetonuke" ] = spawnstruct();
+		level.machine_assets[ "divetonuke" ].weapon = "zombie_perk_bottle_jugg";
+		level.machine_assets[ "divetonuke" ].off_model = "zombie_vending_nuke_on_lo";
+		level.machine_assets[ "divetonuke" ].on_model = "zombie_vending_nuke_on_lo";
+	}
+	if ( is_true( level.zombiemode_using_doubletap_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_doubletap" );
+		precacheshader( "specialty_doubletap_zombies" );
+		precachemodel( "zombie_vending_doubletap2" );
+		precachemodel( "zombie_vending_doubletap2_on" );
+		precachestring( &"ZOMBIE_PERK_DOUBLETAP" );
+		level._effect[ "doubletap_light" ] = loadfx( "misc/fx_zombie_cola_dtap_on" );
+		level.machine_assets[ "doubletap" ] = spawnstruct();
+		level.machine_assets[ "doubletap" ].weapon = "zombie_perk_bottle_doubletap";
+		level.machine_assets[ "doubletap" ].off_model = "zombie_vending_doubletap2";
+		level.machine_assets[ "doubletap" ].on_model = "zombie_vending_doubletap2_on";
+	}
+	if ( is_true( level.zombiemode_using_juggernaut_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_jugg" );
+		precacheshader( "specialty_juggernaut_zombies" );
+		precachemodel( "zombie_vending_jugg" );
+		precachemodel( "zombie_vending_jugg_on" );
+		precachestring( &"ZOMBIE_PERK_JUGGERNAUT" );
+		level._effect[ "jugger_light" ] = loadfx( "misc/fx_zombie_cola_jugg_on" );
+		level.machine_assets[ "juggernog" ] = spawnstruct();
+		level.machine_assets[ "juggernog" ].weapon = "zombie_perk_bottle_jugg";
+		level.machine_assets[ "juggernog" ].off_model = "zombie_vending_nuke_on_lo";
+		level.machine_assets[ "juggernog" ].on_model = "zombie_vending_nuke_on_lo";
+	}
+	if ( is_true( level.zombiemode_using_marathon_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_marathon" );
+		precacheshader( "specialty_marathon_zombies" );
+		precachemodel( "zombie_vending_marathon" );
+		precachemodel( "zombie_vending_marathon_on" );
+		precachestring( &"ZOMBIE_PERK_MARATHON" );
+		level._effect[ "marathon_light" ] = loadfx( "maps/zombie/fx_zmb_cola_staminup_on" );
+		level.machine_assets[ "marathon" ] = spawnstruct();
+		level.machine_assets[ "marathon" ].weapon = "zombie_perk_bottle_marathon";
+		level.machine_assets[ "marathon" ].off_model = "zombie_vending_marathon";
+		level.machine_assets[ "marathon" ].on_model = "zombie_vending_marathon_on";
+	}
+	if ( is_true( level.zombiemode_using_revive_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_revive" );
+		precacheshader( "specialty_quickrevive_zombies" );
+		precachemodel( "zombie_vending_revive" );
+		precachemodel( "zombie_vending_revive_on" );
+		precachestring( &"ZOMBIE_PERK_QUICKREVIVE" );
+		level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
+		level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
+		level.machine_assets[ "revive" ] = spawnstruct();
+		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_revive";
+		level.machine_assets[ "revive" ].off_model = "zombie_vending_revive";
+		level.machine_assets[ "revive" ].on_model = "zombie_vending_revive_on";
+	}
+	if ( is_true( level.zombiemode_using_sleightofhand_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_sleight" );
+		precacheshader( "specialty_fastreload_zombies" );
+		precachemodel( "zombie_vending_sleight" );
+		precachemodel( "zombie_vending_sleight_on" );
+		precachestring( &"ZOMBIE_PERK_FASTRELOAD" );
+		level._effect[ "sleight_light" ] = loadfx( "misc/fx_zombie_cola_on" );
+		level.machine_assets[ "speedcola" ] = spawnstruct();
+		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_sleight";
+		level.machine_assets[ "speedcola" ].off_model = "zombie_vending_sleight";
+		level.machine_assets[ "speedcola" ].on_model = "zombie_vending_sleight_on";
+	}
+	if ( is_true( level.zombiemode_using_tombstone_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_tombstone" );
+		precacheshader( "specialty_tombstone_zombies" );
+		precachemodel( "zombie_vending_tombstone" );
+		precachemodel( "zombie_vending_tombstone_on" );
+		precachemodel( "ch_tombstone1" );
+		precachestring( &"ZOMBIE_PERK_TOMBSTONE" );
+		level._effect[ "tombstone_light" ] = loadfx( "misc/fx_zombie_cola_on" );
+		level.machine_assets[ "tombstone" ] = spawnstruct();
+		level.machine_assets[ "tombstone" ].weapon = "zombie_perk_bottle_tombstone";
+		level.machine_assets[ "tombstone" ].off_model = "zombie_vending_tombstone";
+		level.machine_assets[ "tombstone" ].on_model = "zombie_vending_tombstone_on";
+	}
+	if ( is_true( level.zombiemode_using_chugabud_perk ) )
+	{
+		precacheitem( "zombie_perk_bottle_whoswho" );
+		precacheshader( "specialty_quickrevive_zombies" );
+		precachemodel( "p6_zm_vending_chugabud" );
+		precachemodel( "p6_zm_vending_chugabud_on" );
+		precachemodel( "ch_tombstone1" );
+		precachestring( &"ZOMBIE_PERK_TOMBSTONE" );
+		level._effect[ "tombstone_light" ] = loadfx( "misc/fx_zombie_cola_on" );
+		level.machine_assets[ "whoswho" ] = spawnstruct();
+		level.machine_assets[ "whoswho" ].weapon = "zombie_perk_bottle_whoswho";
+		level.machine_assets[ "whoswho" ].off_model = "p6_zm_vending_chugabud";
+		level.machine_assets[ "whoswho" ].on_model = "p6_zm_vending_chugabud_on";
+	}
+}
+
+
 default_vending_precaching() //checked changed to match cerberus output
 {
 	if ( isDefined( level.zombiemode_using_pack_a_punch ) && level.zombiemode_using_pack_a_punch )
@@ -2326,7 +2474,7 @@ perk_think( perk ) //checked changed to match cerberus output
 
 set_perk_clientfield( perk, state ) //checked matches cerberus output
 {
-	if(isdefined(level.customMap) && level.customMap != "vanilla" && is_true(level.script == "zm_prison"))
+	if(isdefined(level.customMap) && level.customMap != "vanilla" && (is_true(level.script == "zm_prison") || is_true(level.script == "zm_highrise")))
 	{
 		self.resetPerkHUD = 1;
 		return;
@@ -3360,6 +3508,44 @@ extra_perk_spawns() //custom function
 	level.housePerks["specialty_weapupgrade"].angles = (0,90,0);
 	level.housePerks["specialty_weapupgrade"].model = "tag_origin";
 	level.housePerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+
+	level.building1topPerkArray = array( "specialty_quickrevive", "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_flakjacket", "specialty_additionalprimaryweapon", "specialty_weapupgrade" );
+
+	level.building1topPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.building1topPerks[ "specialty_quickrevive" ].origin = (1435, 1225, 3390);
+	level.building1topPerks[ "specialty_quickrevive" ].angles = (-10, 180, 0 );
+	level.building1topPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+	level.building1topPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.building1topPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.building1topPerks[ "specialty_armorvest" ].origin = (1444.47, 2713.98, 3048.52);
+	level.building1topPerks[ "specialty_armorvest" ].angles = ( 0, 270, 0 );
+	level.building1topPerks[ "specialty_armorvest" ].model = "zombie_vending_nuke_on_lo";
+	level.building1topPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.building1topPerks[ "specialty_rof" ] = spawnstruct();
+	level.building1topPerks[ "specialty_rof" ].origin = (2286.36, 2122.6, 3040.13);
+	level.building1topPerks[ "specialty_rof" ].angles = ( 0, 270, 0 );
+	level.building1topPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+	level.building1topPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+	level.building1topPerks[ "specialty_fastreload" ] = spawnstruct();
+	level.building1topPerks[ "specialty_fastreload" ].origin = (1916.92, 1139.1, 3216.13);
+	level.building1topPerks[ "specialty_fastreload" ].angles = ( 0, 135, 0 );
+	level.building1topPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+	level.building1topPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.building1topPerks[ "specialty_flakjacket" ] = spawnstruct();
+	level.building1topPerks[ "specialty_flakjacket" ].origin = (2095, 2350, 3215);
+	level.building1topPerks[ "specialty_flakjacket" ].angles = ( 0, 315, 0 );
+	level.building1topPerks[ "specialty_flakjacket" ].model = "zombie_vending_nuke_on_lo";
+	level.building1topPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].origin = (1521.58, 2094.12, 3392.13);
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 90, 0 );
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].model = "zombie_vending_three_gun";
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.building1topPerks["specialty_weapupgrade"] = spawnstruct();
+	level.building1topPerks["specialty_weapupgrade"].origin = (1195.34, 1281.47, 3392.13);
+	level.building1topPerks["specialty_weapupgrade"].angles = (0, 90, 0);
+	level.building1topPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+	level.building1topPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
 
 perk_machine_spawn_init() //modified function
@@ -3390,6 +3576,8 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
+		if(level.script == "zm_highrise")
+			structs[i].origin = (0,0,-10000);
 		if ( isdefined( structs[ i ].script_string ) )
 		{
 			tokens = strtok( structs[ i ].script_string, " " );
@@ -3484,6 +3672,13 @@ perk_machine_spawn_init() //modified function
 		foreach( perk in level.housePerkArray )
 		{
 			pos[pos.size] = level.housePerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap == "building1top" )
+	{
+		foreach( perk in level.building1topPerkArray )
+		{
+			pos[pos.size] = level.building1topPerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )

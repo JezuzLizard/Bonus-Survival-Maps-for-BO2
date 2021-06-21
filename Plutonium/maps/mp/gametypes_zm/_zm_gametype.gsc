@@ -1501,6 +1501,18 @@ map_rotation() //custom function
 		level thread random_map_rotation();
 		return;
 	}
+	for(i=0;i<level.mapList.size;i++)
+	{
+		if(isdefined(level.mapList[i+1]) && level.customMap == level.mapList[i])
+		{
+			setDvar("customMap", level.mapList[i+1]);
+			changeMap();
+			return;
+		}
+	}
+	setDvar("customMap", level.mapList[0]);
+	changeMap();
+	return;
 	if( isDefined( level.mapList[ 1 ] ) && level.customMap == level.mapList[ 0 ] )
 	{
 		setDvar( "customMap", level.mapList[ 1 ] );
@@ -1522,6 +1534,17 @@ map_rotation() //custom function
 		setDvar( "customMap", level.mapList[ 0 ] );
 	}
 	return;
+}
+
+changeMap()
+{
+	map = getDvar("customMap");
+	if(map == "tunnel" || map == "diner" || map == "power" || map == "cornfield" || map == "house")
+		setDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
+	else if(map == "docks" || map == "cellblock")
+		setDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
+	else if(map == "building1top")
+		setDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
 }
 
 random_map_rotation() //custom function
