@@ -1939,6 +1939,10 @@ vending_trigger_think() //checked changed to match cerberus output
 				cost = 1000;
 			}
 			break;
+		case "specialty_flakjacket":
+		case "specialty_flakjacket_upgrade":
+			cost = 2000;
+			break;
 	}
 	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].cost ) )
 	{
@@ -3519,7 +3523,7 @@ extra_perk_spawns() //custom function
 	level.building1topPerks[ "specialty_armorvest" ] = spawnstruct();
 	level.building1topPerks[ "specialty_armorvest" ].origin = (1444.47, 2713.98, 3048.52);
 	level.building1topPerks[ "specialty_armorvest" ].angles = ( 0, 270, 0 );
-	level.building1topPerks[ "specialty_armorvest" ].model = "zombie_vending_nuke_on_lo";
+	level.building1topPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
 	level.building1topPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
 	level.building1topPerks[ "specialty_rof" ] = spawnstruct();
 	level.building1topPerks[ "specialty_rof" ].origin = (2286.36, 2122.6, 3040.13);
@@ -3532,8 +3536,8 @@ extra_perk_spawns() //custom function
 	level.building1topPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
 	level.building1topPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
 	level.building1topPerks[ "specialty_flakjacket" ] = spawnstruct();
-	level.building1topPerks[ "specialty_flakjacket" ].origin = (2095, 2350, 3215);
-	level.building1topPerks[ "specialty_flakjacket" ].angles = ( 0, 315, 0 );
+	level.building1topPerks[ "specialty_flakjacket" ].origin = (1421.23, 2102.13, 3219.31);
+	level.building1topPerks[ "specialty_flakjacket" ].angles = ( 0, 45, 0 );
 	level.building1topPerks[ "specialty_flakjacket" ].model = "zombie_vending_nuke_on_lo";
 	level.building1topPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
 	level.building1topPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
@@ -3576,7 +3580,7 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
-		if(level.script == "zm_highrise")
+		if(level.script == "zm_highrise" || is_true(level.disableBSMMagic))
 			structs[i].origin = (0,0,-10000);
 		if ( isdefined( structs[ i ].script_string ) )
 		{
@@ -3788,6 +3792,8 @@ perk_machine_spawn_init() //modified function
     				}
     			}
 			}
+			if(is_true(level.disableBSMMagic))
+				use_trigger.origin = (0,0,-10000);
 			use_trigger.machine = perk_machine;
 			//missing code found in cerberus output
 			if ( isdefined( pos[ i ].blocker_model ) )

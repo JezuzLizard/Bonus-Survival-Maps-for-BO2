@@ -6,19 +6,7 @@
 
 main()
 {
-	thread disableLeapers();
 	level thread sndmusicegg();
-}
-
-disableLeapers()
-{
-	level endon("end_game");
-	while(1)
-	{
-		level waittill( "between_round_over" );
-		level.next_leaper_round = level.round_number + 5;
-	}
-
 }
 
 sndmusicegg()

@@ -47,7 +47,7 @@ init() //modified function
 
 precacheEffectsForWeapons() //custom function
 {
-	if(level.script == "zm_prison" || level.script == "zm_transit")
+	if(level.script == "zm_prison" || level.script == "zm_transit" || level.script == "zm_highrise")
 	{
 		level._effect[ "olympia_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_olympia" );
 		level._effect[ "m16_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
@@ -58,6 +58,15 @@ precacheEffectsForWeapons() //custom function
 		level._effect[ "ak74u_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_ak74u" );
 		level._effect[ "b23r_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_berreta93r" );
 		level._effect[ "claymore_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
+	}
+	if(level.script == "zm_highrise")
+	{
+		level._effect[ "870mcs_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
+		level._effect[ "an94_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_an94" );
+		level._effect[ "pdw57_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_pdw57" );
+		level._effect[ "svu_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_svuas" );
+
+
 	}
 	if(level.script == "zm_prison")
 	{

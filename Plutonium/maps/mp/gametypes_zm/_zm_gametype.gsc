@@ -1566,16 +1566,9 @@ random_map_rotation() //custom function
 init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
-	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks", "cellblock", "rooftop"
-	level.serverName = getDvar( "serverName" );
-	if ( !isDefined( level.serverName ) || level.serverName == "" )
-	{
-		level.OGName = getDvar( "sv_hostname" );
-		setDvar( "serverName", level.OGName );
-		level.serverName = getDvar( "serverName" );
-	}
+	level.disableBSMMagic = getDvarIntDefault("disableBSMMagic", 0);
+	level.customMap = getDvar( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks", "cellblock", "rooftop", "building1top"
 	map = level.customMap;
-	setDvar( "sv_hostname", "" + level.serverName +" ^6| ^7Current Map: ^6" + getMapString(map) );
 	if ( level.script == "zm_transit" )
 	{
 		//TUNNEL
@@ -2539,6 +2532,40 @@ init_barriers_for_custom_maps() //custom function
 		cornfieldclip1 = spawn("script_model", (10045,-1607,-181));
 		cornfieldclip1 setModel("collision_player_wall_512x512x10");
 		cornfieldclip1 rotateTo((0,126,0),.1);
+	}
+	if(level.script == "zm_highrise" && level.customMap != "vanilla")
+	{
+		//BUILDING1TOP BARRIERS
+		collision2 = Spawn( "script_model", (1195.34, 1281.47, 3392.13) + (0,50,0) );
+		collision3 RotateTo((0,90,0), .1);
+		collision2 SetModel( "zm_collision_perks1" );
+		collision3 = Spawn( "script_model", (1195.34, 1281.47, 3392.13) + (0,-50,0) );
+		collision3 RotateTo((0,90,0), .1);
+		collision3 SetModel( "zm_collision_perks1" );
+		building1topbarrier1 = Spawn("script_model", (2179.74, 1110.85, 3206.64));
+		building1topbarrier1 SetModel("collision_player_wall_256x256x10");
+		building1topbarrier1 RotateTo((0,0,0),.1);
+		building1topbarrier2 = Spawn("script_model", (2248.78, 1541.87, 3350));
+		building1topbarrier2 SetModel("collision_player_wall_256x256x10");
+		building1topbarrier2 RotateTo((0,90,0),.1);
+		elevatorbarrier1 = Spawn("script_model", (1651.49, 2168.44, 3392.01) + (0,0,32));
+		elevatorbarrier1 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier1 RotateTo((0,0,0),.1);
+		elevatorbarrier2 = Spawn("script_model", (1958.84, 1676.59, 3391.99) + (0,0,32));
+		elevatorbarrier2 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier2 RotateTo((0,0,0),.1);
+		elevatorbarrier3 = Spawn("script_model", (1957.68, 1676.22, 3216.03) + (0,0,32));
+		elevatorbarrier3 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier3 RotateTo((0,0,0),.1);
+		elevatorbarrier4 = Spawn("script_model", (1475.31, 1218.09, 3218.16) + (0,0,32));
+		elevatorbarrier4 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier4 RotateTo((0,90,0),.1);
+		elevatorbarrier5 = Spawn("script_model", (1647.22, 2171.76, 3215.57) + (0,0,32));
+		elevatorbarrier5 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier5 RotateTo((0,0,0),.1);
+		elevatorbarrier6 = Spawn("script_model", (1647.7, 2167.82, 3040.09) + (0,0,32));
+		elevatorbarrier6 SetModel("collision_player_wall_64x64x10");
+		elevatorbarrier6 RotateTo((0,0,0),.1);
 	}
 }
 

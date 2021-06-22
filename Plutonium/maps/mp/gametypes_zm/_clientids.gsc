@@ -14,8 +14,8 @@ init()
 	thread emptyLobbyRestart();
 	thread setPlayersToSpectator();
 	level.player_out_of_playable_area_monitor = 0;
-	//level.player_starting_points = 500000;
-	//level.perk_purchase_limit = 10;
+	level.player_starting_points = 500000;
+	level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	thread setupWunderfizz();
 	if ( level.script == "zm_tomb" && isDefined ( level.customMap ) && level.customMap != "vanilla" )
@@ -84,7 +84,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		//player thread meleeCoords();
+		player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{

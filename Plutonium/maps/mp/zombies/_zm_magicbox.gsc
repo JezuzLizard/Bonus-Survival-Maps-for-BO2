@@ -41,7 +41,11 @@ init() //modified function
 		level.chests = getstructarray( "treasure_chest_use", "targetname" );
 		normalChests = level.chests;
 
-		if (isDefined(level.customMap) && level.customMap == "tunnel" )
+		if(is_true(level.disableBSMMagic))
+		{
+			level.chests = [];
+		}
+		else if (isDefined(level.customMap) && level.customMap == "tunnel" )
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
