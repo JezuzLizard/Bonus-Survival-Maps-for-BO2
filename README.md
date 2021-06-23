@@ -31,7 +31,7 @@ Report any bugs found to the forum, we will try to fix them as soon as possible.
 
 ## Soon to be added
 ```
-Origins no mans land, Trenches, Tank, Crazy Place survival
+Die Rise: TBD, Buried: TBD, Origins: TBD
 ```
 
 ## Cut due to too many issues:
