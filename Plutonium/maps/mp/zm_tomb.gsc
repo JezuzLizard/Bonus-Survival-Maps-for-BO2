@@ -96,6 +96,7 @@ createfx_callback() //checked changed to match cerberus output
 
 main() //checked matches cerberus output
 {
+	level.customMap = getDvar( "customMap" );
 	level._no_equipment_activated_clientfield = 1;
 	level._no_navcards = 1;
 	level._wallbuy_override_num_bits = 1;
@@ -320,7 +321,7 @@ main() //checked matches cerberus output
 	*/
 	init_weather_manager();
 	level thread maps/mp/zm_tomb_ffotd::main_end();
-	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" )
+	if ( getDvar( "customMap" ) != "vanilla" )
 	{
 		level.oneInchPunchGiveFunc = maps/mp/zombies/_zm_weap_one_inch_punch::one_inch_punch_melee_attack;
 		thread turn_on_power();
