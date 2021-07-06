@@ -200,13 +200,11 @@ init() //modified function
 			level.chests = [];
 			level.chests[ 0 ] = normalChests[4];
 			level.chests[ 1 ] = normalChests[5];
-			randy = RandomIntRange(0,3);
+			randy = RandomIntRange(0,2);
 			if(randy == 0)
 				treasure_chest_init("maze_chest1");
 			else if(randy == 1)
 				treasure_chest_init("maze_chest2");
-			else
-				treasure_chest_init("start_chest");
 		}
 		else if(isdefined(level.customMap) && level.customMap == "trenches")
 		{

@@ -1881,12 +1881,7 @@ override_zombie_count() //custom function
 {
 	level endon( "end_game" );
 	level.speed_change_round = undefined;
-	
-	if( level.customMap == "maze" )
-	{
-		level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
-	}
-	//thread increase_zombie_speed();
+	thread increase_zombie_speed();
 	for ( ;; )
 	{
 		level waittill_any( "start_of_round", "intermission", "check_count" );
