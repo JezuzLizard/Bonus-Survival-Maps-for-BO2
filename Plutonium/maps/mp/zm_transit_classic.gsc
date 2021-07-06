@@ -125,13 +125,12 @@ main() //modified function
 	level.custom_player_death_vo_func = ::transit_custom_death_vox;
 	level.custom_powerup_vo_response = ::transit_custom_powerup_vo_response;
 	level.zombie_vars[ "zombie_intermission_time" ] = 12;
-	flag_wait( "initial_blackscreen_passed" );
-	if(isDefined(map) && map != "vanilla")
-		maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
 	if(isDefined(map) && map != "vanilla")
 		level thread maps/mp/zm_transit::delete_bus_pieces();
+	if(isDefined(map) && map != "vanilla")
+		maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
 	
 }
 
@@ -660,8 +659,3 @@ adjust_zombie_count() //custom function
 		level.zombie_vars["zombie_ai_per_player"] = 6;
 	}
 }
-
-
-
-
-
