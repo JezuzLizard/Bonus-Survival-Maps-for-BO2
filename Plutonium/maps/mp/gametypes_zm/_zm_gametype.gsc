@@ -103,7 +103,7 @@ main() //checked matches cerberus output
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
 	thread map_rotation();
-	thread override_map();
+	//thread override_map();
 	thread high_round_tracker();
 }
 
