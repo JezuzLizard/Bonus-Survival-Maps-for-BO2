@@ -57,7 +57,7 @@ precache() //checked matches cerberus output
 
 main() //modified function
 {
-	map = level.customMap;
+	map = getDvar( "customMap" );
 	level.ta_vaultfee = 100;
 	level.ta_tellerfee = 100;
 	if ( !isDefined( level.custom_ai_type ) )
@@ -127,9 +127,9 @@ main() //modified function
 	level.zombie_vars[ "zombie_intermission_time" ] = 12;
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
-	if(isDefined(map) && map != "vanilla")
+	if( map != "vanilla" )
 		level thread maps/mp/zm_transit::delete_bus_pieces();
-	if(isDefined(map) && map != "vanilla")
+	if( map != "vanilla" )
 		maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
 	
 }
