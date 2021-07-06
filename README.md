@@ -10,6 +10,9 @@ Custom spawn and respawn points.
 Barriers preventing players from leaving the area.
 Denizens disabled.
 House has the wunderfizz machine instead of individual machines.
+MOTD has additional perk(s): PHD Flopper, Mule Kick, Stamin Up, and Quick Revive
+Die Rise has additional perk(s): PHD Flopper
+Randomized Perk and Weapon Location Spawns in Maze.
 ```
 ## Playable Maps:
 Tranzit
