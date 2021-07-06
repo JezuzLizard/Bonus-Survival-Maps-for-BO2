@@ -1325,12 +1325,10 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 	for(;;)
 	{
 		trig waittill("trigger", player);
-		if(has_upgrade(weapon))
-			cost = 4500;
-		if(player UseButtonPressed() && player.score >= cost && player can_buy_weapon())
+		if(player UseButtonPressed() && player can_buy_weapon())
 		{
 
-			if(!player HasWeapon(weapon))
+			if(!player has_weapon_or_upgrade( weapon ) && player.score >= cost)
 			{
 				player.score -= cost;
 				player playsound("zmb_cha_ching");
@@ -1344,11 +1342,23 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 			}
 			else
 			{
-				if(player ammo_give(weapon))
+				if(player has_upgrade(weapon) && player.score >= 4500)
 				{
-					player.score -= ammoCost;
-					player playsound("zmb_cha_ching");
-					wait 3;
+					if(player ammo_give(get_upgrade_weapon(weapon)))
+					{
+						player.score -= 4500;
+						player playsound("zmb_cha_ching");
+						wait 3;
+					}
+				}
+				else if(player.score >= ammoCost)
+				{
+					if(player ammo_give(weapon))
+					{
+						player.score -= ammoCost;
+						player playsound("zmb_cha_ching");
+						wait 3;
+					}
 				}
 			}
 		}
