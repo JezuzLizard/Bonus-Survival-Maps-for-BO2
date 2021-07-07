@@ -1325,7 +1325,7 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 	for(;;)
 	{
 		trig waittill("trigger", player);
-		if(player UseButtonPressed() && player can_buy_weapon())
+		if( player is_player_looking_at( trig.origin + ( 0, 0, 55 ), 0.95, 0, undefined ) && player UseButtonPressed() && player can_buy_weapon())
 		{
 
 			if(!player has_weapon_or_upgrade( weapon ) && player.score >= cost)
