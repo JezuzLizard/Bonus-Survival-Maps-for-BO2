@@ -5,41 +5,20 @@ If you do not include all these files you will be missing core components of the
 Create any folders if they do not exist! 
 
 **Compile _clientids.gsc as _clientids.gsc and place it in maps/mp/gametypes_zm**
-Disables perma perks, spawns in the wunderfizz, builds certain buildables, and adds restart fix.
 
-**Compile _zm_gametype.gsc as _zm_gametype.gsc and place it in maps/mp/gametypes_zm**
-Sets spawnpoints and respawn points. Also sets the map, and contains the map rotation system.
-
-**Compiler _zm_audio_announcer.gsc as _zm_audio_announcer.gsc and place it maps/mp/zombies**
-Fixes the audio announcer not playing his voicelines when powerups are grabbed.
-
-**Compile _zm_perks.gsc as _zm_perks.gsc and place it in maps/mp/zombies**
-Spawns in perk machines for all maps.
-
-**Compile _zm_weapons.gsc as _zm_weapons.gsc and place it in maps/mp/zombies**
-Moves wallbuys to desired locations.
-
-**Compile _zm_magicbox.gsc as _zm_magicbox.gsc and place it in maps/mp/zombies**
-Moves mystery boxes depending on the location.
-
-**Compile _zm_zonemgr.gsc as _zm_zonemgr.gsc and place it maps/mp/zombies**
-Removes certain zombie spawns and moves certain zombies spawns.
-
-**Compile _zm_powerups.gsc as _zm_powerups.gsc and place it maps/mp/zombies**
-Allows powerups to move to the stump on house.
-
-**Compile zm_transit_classic.gsc as zm_transit_classic.gsc and place it in maps/mp**
-Responsible for disabling the bus, and avogadro.
+**All other scripts follow the same process**
 
 # How to launch
 
 Set the map to tranzit and include these special dvars in your dedicated_zm.cfg:
 ```
-set customMapRotation "diner power cornfield tunnel house" // rearrange the order of these or remove locations to change the rotation
+set customMapRotation "diner power cornfield tunnel house docks cellblock building1top maze trenches" // rearrange the order of these or remove locations to change the rotation
 set randomizeMapRotation 0 //set this to 1 to enable randomized map rotation
-set customMapRotationActive 0 //set this to 1 to enable map rotation
-set customMap "tunnel" //the initial map or constant map if map rotation is off
-set perkSlotIncreaseKills 0 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
+set customMapRotationActive 1 //set this to 1 to enable map rotation
+set customMap "diner" //the initial map or constant map if map rotation is off
+set disableBSMMagic 0 //set this to 1 to disable magic (Mystery Box/Perks/Pack a Punch)
+set useBossZombies 1 //set this to 1 to enable bosses (Brutus on Mob/Panzer on Origins)
+set perkSlotIncreaseKills 100 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
 ```
 
 # How to modify
