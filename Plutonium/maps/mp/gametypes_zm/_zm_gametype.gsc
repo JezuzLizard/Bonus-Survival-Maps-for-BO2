@@ -1522,18 +1522,18 @@ map_rotation() //custom function
 	{
 		if(isdefined(level.mapList[i+1]) && level.customMap == level.mapList[i])
 		{
-			setDvar("customMap", level.mapList[i+1]);
-			changeMap();
+			changeMap(level.mapList[i+1]);
 			return;
 		}
 	}
-	setDvar("customMap", level.mapList[0]);
-	changeMap();
+	changeMap(level.mapList[0]);
 }
 
-changeMap()
+changeMap(map)
 {
-	map = getDvar("customMap");
+	if(!isdefined(map))
+		map = GetDvar("customMap");
+	setDvar("customMap", map);
 	if(map == "tunnel" || map == "diner" || map == "power" || map == "cornfield" || map == "house")
 		setDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
 	else if(map == "docks" || map == "cellblock")
@@ -1557,7 +1557,7 @@ random_map_rotation() //custom function
 	else
 	{
 		setDvar( "lastMap", level.customMap );
-		setDvar( "customMap", level.mapList[ level.nextMap ] );
+		changeMap(level.mapList[ level.nextMap ]);
 		return;
 	}
 }
