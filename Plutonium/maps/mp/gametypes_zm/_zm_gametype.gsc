@@ -1490,6 +1490,10 @@ map_rotation() //custom function
 	{
 		return;
 	}
+	if(get_players().size == 0 )
+	{
+		return;
+	}
 	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
 	{
 		if ( level.script == "zm_transit" )
