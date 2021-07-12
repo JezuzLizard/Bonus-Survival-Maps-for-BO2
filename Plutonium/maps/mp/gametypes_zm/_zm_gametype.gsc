@@ -1492,6 +1492,7 @@ map_rotation() //custom function
 	}
 	if(get_players().size == 0 )
 	{
+		map_restart(false);
 		return;
 	}
 	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
