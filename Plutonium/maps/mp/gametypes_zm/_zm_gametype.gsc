@@ -1478,21 +1478,33 @@ override_map()
 	return;
 }
 
+no_player_check()
+{
+	self endon("stop_intermission");
+	wait 1;
+	while(1)
+	{
+		if(get_players().size == 0)
+		{
+			changeMap(level.customMap);
+			map_restart(false);
+			return;
+		}
+		wait .05;
+	}
+}
+
 map_rotation() //custom function
 {
 	level waittill( "end_game");
 	wait 2;
+	level thread no_player_check();
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
 	level.mapList = strTok( level.customMapRotation, " " );
 	if ( !level.customMapRotationActive )
 	{
-		return;
-	}
-	if(get_players().size == 0 )
-	{
-		map_restart(false);
 		return;
 	}
 	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
