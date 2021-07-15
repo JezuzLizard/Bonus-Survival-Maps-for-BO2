@@ -208,7 +208,7 @@ transport_player_to_start_zone()
 		self setorigin( level._fountain_transporter.end_points[ level._fountain_transporter.index ].origin );
 		self setplayerangles( level._fountain_transporter.end_points[ level._fountain_transporter.index ].angles );
 	}
-	//self DoDamage(self.health - 10, (0,0,0));
+	self DoDamage(self.health + 1000, (0,0,0));
 	level._fountain_transporter.index++;
 	wait_network_frame();
 	self play_teleport_fx();
