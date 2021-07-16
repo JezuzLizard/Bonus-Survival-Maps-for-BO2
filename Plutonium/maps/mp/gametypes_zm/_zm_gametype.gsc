@@ -1484,7 +1484,7 @@ map_rotation() //custom function
 {
 	level waittill( "end_game");
 	wait 2;
-	level thread no_player_check();
+	//level thread no_player_check();
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
