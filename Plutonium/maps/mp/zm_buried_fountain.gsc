@@ -137,7 +137,6 @@ fountain_transport_think()
 	while ( 1 )
 	{
 		t_transporter waittill( "trigger", player );
-		player IPrintLnBold("fuck you bitch");
 		if ( !isDefined( player.is_in_fountain_transport_trigger ) || !player.is_in_fountain_transport_trigger )
 		{
 			player.is_in_fountain_transport_trigger = 1;

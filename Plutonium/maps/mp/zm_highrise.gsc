@@ -636,7 +636,7 @@ setup_leapers() //checked matches cerberus output dvar not found
 	}
 	else
 	{
-		if(isdefined(level.customMap) && level.customMap != "vanilla")
+		if(getDvar("customMap") == "vanilla")
 			maps/mp/zombies/_zm_ai_leaper::enable_leaper_rounds();
 	}
 	level.leapers_per_player = 6;
