@@ -3199,6 +3199,10 @@ perk_machine_spawn_init() //modified function
 		{
 			structs[i].origin = (0,0,-10000);
 		}
+		if(level.custom == "zm_transit" && structs[i].script_noteworthy == "specialty_longersprint")
+		{
+			structs[i].origin = (0,0,-10000);
+		}
 		if ( isdefined( structs[ i ].script_string ) )
 		{
 			tokens = strtok( structs[ i ].script_string, " " );
@@ -3303,6 +3307,13 @@ perk_machine_spawn_init() //modified function
 		foreach( perk in level.housePerkArray )
 		{
 			pos[pos.size] = level.housePerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap == "town" )
+	{
+		foreach( perk in level.townPerkArray )
+		{
+			pos[pos.size] = level.townPerks[ perk ];
 		}
 	}
 	else if ( isDefined(level.customMap) && level.customMap == "building1top" )
