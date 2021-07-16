@@ -22,6 +22,7 @@
 
 main() //checked matches cerberus output
 {
+	override_map();
 	maps/mp/gametypes_zm/_globallogic::init();
 	maps/mp/gametypes_zm/_callbacksetup::setupcallbacks();
 	globallogic_setupdefault_zombiecallbacks();
@@ -103,7 +104,6 @@ main() //checked matches cerberus output
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
 	thread map_rotation();
-	//thread override_map();
 	thread high_round_tracker();
 }
 
@@ -1425,57 +1425,43 @@ getMapString(map) //custom function
 
 override_map()
 {
-	wait 3;
-	if ( level.script == "zm_transit" )
+	mapname = ToLower( GetDvar( "mapname" ) );
+	if ( isdefined(mapname) && mapname == "zm_transit" )
 	{
-		if ( isDefined ( level.customMap ) && level.customMap != "tunnel" && level.customMap != "diner" && level.customMap != "power" && level.customMap != "cornfield" && level.customMap != "house" && level.customMap != "vanilla" && level.customMap != "town" && level.customMap != "farm" && level.customMap != "busdepot" )
+		if ( GetDvar("customMap") != "tunnel" && GetDvar("customMap") != "diner" && GetDvar("customMap") != "power" && GetDvar("customMap") != "cornfield" && GetDvar("customMap") != "house" && GetDvar("customMap") != "vanilla" && GetDvar("customMap") != "town" && GetDvar("customMap") != "farm" && GetDvar("customMap") != "busdepot" )
 		{
-			setDvar( "customMap", "house" );
-			setDvar( "customMapRotation", "house power cornfield diner tunnel" );
-			setDvar( "customMapRotationActive", 1 );
-			map_restart( false );
+			SetDvar( "customMap", "house" );
 		}
 	}
-	else if ( level.script == "zm_highrise" )
+	else if ( isdefined(mapname) && mapname == "zm_highrise" )
 	{
-		if ( isDefined ( level.customMap ) && level.customMap != "building1top" && level.customMap != "vanilla" )
+		if ( GetDvar("customMap") != "building1top" )
 		{
-			setDvar( "customMap", "building1top" );
-			setDvar( "customMapRotation", "building1top");
-			setDvar( "customMapRotationActive", 1);
-			map_restart( false );
+			SetDvar( "customMap", "building1top" );
 		}
 	}
-	else if ( level.script == "zm_prison" )
+	else if ( isdefined(mapname) && mapname == "zm_prison" )
 	{
-		if ( isDefined ( level.customMap ) && level.customMap != "docks" && level.customMap != "cellblock" && level.customMap != "rooftop" && level.customMap != "vanilla" )
+		if ( GetDvar("customMap") != "docks" && GetDvar("customMap") != "cellblock" && GetDvar("customMap") != "rooftop" && GetDvar("customMap") != "vanilla" )
 		{
-			setDvar( "customMap", "docks" );
-			setDvar( "customMapRotation", "docks cellblock rooftop" );
-			setDvar( "customMapRotationActive", 1 );
-			map_restart( false );
+			SetDvar( "customMap", "docks" );
 		}
 	}
-	else if ( level.script == "zm_buried" )
+	else if ( isdefined(mapname) && mapname == "zm_buried" )
 	{
-		if ( isdefined(level.customMap) && level.customMap != "maze")
+		if ( GetDvar("customMap") != "maze")
 		{
-			setDvar( "customMap", "maze" );
-			setDvar( "customMapRotation", "maze" );
-			setDvar( "customMapRotationActive", 1);
+			SetDvar( "customMap", "maze" );
 		}
 	}
-	else if ( level.script == "zm_tomb" )
+	else if ( isdefined(mapname) && mapname == "zm_tomb" )
 	{
-		if ( isDefined ( level.customMap ) && level.customMap != "trenches" && level.customMap != "excavation" && level.customMap != "tank" && level.customMap != "crazyplace" && level.customMap != "vanilla" )
+		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "vanilla" )
 		{
-			setDvar( "customMap", "crazyplace" );
-			setDvar( "customMapRotation", "trenches excavation tank crazyplace" );
-			setDvar( "customMapRotationActive", 1 );
-			map_restart( false );
+			SetDvar( "customMap", "trenches" );
 		}
 	}
-	return;
+	level.customMap = GetDvar("customMap");
 }
 
 no_player_check()
@@ -1583,7 +1569,6 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 {
 	level.mapRestarted = getDvarIntDefault( "customMapsMapRestarted", 0 );
 	level.disableBSMMagic = getDvarIntDefault("disableBSMMagic", 0);
-	level.customMap = getDvarStringDefaultMap( "customMap" ); //valid inputs "tunnel", "diner", "power", "house", "cornfield", "docks", "cellblock", "rooftop", "building1top", trenches
 	map = level.customMap;
 	if ( level.script == "zm_transit" )
 	{
@@ -1875,6 +1860,63 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.houseSpawnpoints[ 7 ].radius = 32;
 		level.houseSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.houseSpawnpoints[ 7 ].script_int = 2048;
+
+		level.townSpawnpoints = [];
+		level.townSpawnpoints[ 0 ] = spawnstruct();
+		level.townSpawnpoints[ 0 ].origin = ( 1475, -1405, -61 );
+		level.townSpawnpoints[ 0 ].angles = ( 0, 79, 0 );
+		level.townSpawnpoints[ 0 ].radius = 32;
+		level.townSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 1 ] = spawnstruct();
+		level.townSpawnpoints[ 1 ].origin = (784.983, -482.281, -61.875);
+		level.townSpawnpoints[ 1 ].angles = ( 0, 0, 0 );
+		level.townSpawnpoints[ 1 ].radius = 32;
+		level.townSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 2 ] = spawnstruct();
+		level.townSpawnpoints[ 2 ].origin = (1484.29, 386.917, -61.875);
+		level.townSpawnpoints[ 2 ].angles = ( 0, 267, 0 );
+		level.townSpawnpoints[ 2 ].radius = 32;
+		level.townSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 3 ] = spawnstruct();
+		level.townSpawnpoints[ 3 ].origin = (2066.05, -483.1, -61.875);
+		level.townSpawnpoints[ 3 ].angles = ( 0, 168, 0 );
+		level.townSpawnpoints[ 3 ].radius = 32;
+		level.townSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 4 ] = spawnstruct();
+		level.townSpawnpoints[ 4 ].origin = (1707.79, -458.352, -55.5342);
+		level.townSpawnpoints[ 4 ].angles = ( 0, 180, 0 );
+		level.townSpawnpoints[ 4 ].radius = 32;
+		level.townSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 5 ] = spawnstruct();
+		level.townSpawnpoints[ 5 ].origin = (1486.61, -145.148, -61.875);
+		level.townSpawnpoints[ 5 ].angles = ( 0, 255, 0 );
+		level.townSpawnpoints[ 5 ].radius = 32;
+		level.townSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 6 ] = spawnstruct();
+		level.townSpawnpoints[ 6 ].origin = (1044.67, -170.147, -55.875);
+		level.townSpawnpoints[ 6 ].angles = ( 0, 324, 0 );
+		level.townSpawnpoints[ 6 ].radius = 32;
+		level.townSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.townSpawnpoints[ 7 ] = spawnstruct();
+		level.townSpawnpoints[ 7 ].origin = (1273.88, -740.064, -55.875);
+		level.townSpawnpoints[ 7 ].angles = ( 0, 60, 0 );
+		level.townSpawnpoints[ 7 ].radius = 32;
+		level.townSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.townSpawnpoints[ 7 ].script_int = 2048;
 	}
 	else if ( level.script == "zm_highrise" )
 	{
@@ -2344,43 +2386,6 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 	}
 }
 
-getDvarStringDefaultMap(dvar)
-{
-	if(getdvar(dvar) == ""){
-		if(level.script == "zm_transit")
-		{
-			SetDvar(dvar, "diner");
-			return "diner";	
-		}
-		else if(level.script == "zm_highrise")
-		{
-			SetDvar(dvar, "building1top");
-			return "building1top";
-		}
-		else if (level.script == "zm_prison")
-		{
-			SetDvar(dvar, "cellblock");
-			return "cellblock";
-		}
-		else if (level.script == "zm_buried")
-		{
-			SetDvar(dvar, "maze");
-			return "maze";
-		}
-		else if (level.script == "zm_tomb")
-		{
-			SetDvar(dvar, "trenches");
-			return "trenches";
-		}
-		else
-		{
-			SetDvar(dvar, "vanilla");
-			return "vanilla";
-		}
-	}
-	return getdvar(dvar);
-}
-
 init_barriers_for_custom_maps() //custom function
 {
 	if(level.script == "zm_transit" && isDefined(level.customMap) && level.customMap != "vanilla")
@@ -2762,6 +2767,13 @@ onspawnplayer( predictedspawn ) //modified function
 				spawnpoints[ spawnpoints.size ] = level.houseSpawnpoints[ i ];
 			}
 		}
+		else if ( isdefined( level.customMap ) && level.customMap == "town" )
+		{
+			for( i = 0; i < level.townSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.townSpawnpoints[ i ];
+			}
+		}
 		else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 		{
 			for ( i = 0; i < level.docksSpawnpoints.size; i++ )
@@ -3029,6 +3041,14 @@ get_player_spawns_for_gametype() //modified function
 		for(i=0;i<level.houseSpawnpoints.size;i++)
 		{
 			custom_spawns[custom_spawns.size] = level.houseSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "town")
+	{
+		for(i=0;i<level.townSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.townSpawnpoints[i];
 		}
 		return custom_spawns;
 	}

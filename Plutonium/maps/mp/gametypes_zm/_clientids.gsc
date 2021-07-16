@@ -356,7 +356,7 @@ piece_unspawn()
 
 init_buildables()
 {
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" || isdefined(level.customMap) && level.customMap == "town" )
 	{
 		wait 1;
 		buildbuildable( "dinerhatch", 1 );
@@ -1913,6 +1913,29 @@ extra_perk_spawns() //custom function
 		level.housePerks["specialty_weapupgrade"].angles = (0,90,0);
 		level.housePerks["specialty_weapupgrade"].model = "tag_origin";
 		level.housePerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+
+		level.townPerkArray = array( "specialty_longersprint", "specialty_scavenger", "specialty_quickrevive", "specialty_weapupgrade" );
+
+		level.townPerks[ "specialty_longersprint" ] = spawnstruct();
+		level.townPerks[ "specialty_longersprint" ].origin = (1776.36, 496.844, -55.875);
+		level.townPerks[ "specialty_longersprint" ].angles = ( 0, 270, 0 );
+		level.townPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+		level.townPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+		level.townPerks[ "specialty_scavenger" ] = spawnstruct();
+		level.townPerks[ "specialty_scavenger" ].origin = (1776.36, -1122.84, -55.875);
+		level.townPerks[ "specialty_scavenger" ].angles = ( 0, 270, 0 );
+		level.townPerks[ "specialty_scavenger" ].model = "zombie_vending_tombstone";
+		level.townPerks[ "specialty_scavenger" ].script_noteworthy = "specialty_scavenger";
+		level.townPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.townPerks[ "specialty_quickrevive" ].origin = (1815.64, 119.337, 88.125);
+		level.townPerks[ "specialty_quickrevive" ].angles = ( 0, 90, 0 );
+		level.townPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.townPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+		level.townPerks[ "specialty_weapupgrade" ] = spawnstruct();
+		level.townPerks[ "specialty_weapupgrade" ].origin = (1550, -517.615, -67.875);
+		level.townPerks[ "specialty_weapupgrade" ].angles = ( 0, 180, 0 );
+		level.townPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
+		level.townPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	}
 	else if(level.script == "zm_highrise")
 	{
