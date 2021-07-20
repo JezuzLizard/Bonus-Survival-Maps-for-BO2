@@ -164,7 +164,7 @@ main() //checked changed to match cerberus output
 	level.zombiemode_using_revive_perk = 1;
 	level.zombiemode_using_sleightofhand_perk = 1;
 	level.zombiemode_using_chugabud_perk = 1;
-	if(GetDvar("customMap") != "vanilla")
+	if(isdefined(level.customMap) && level.customMap != "vanilla")
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		maps/mp/zombies/_zm_perks::register_perk_basic_info( "specialty_flakjacket", "divetonuke", 2000, &"ZOMBIE_PERK_DIVETONUKE", "zombie_perk_bottle_jugg" );
@@ -636,7 +636,7 @@ setup_leapers() //checked matches cerberus output dvar not found
 	}
 	else
 	{
-		if(getDvar("customMap") == "vanilla")
+		if(isdefined(level.customMap) && level.customMap == "vanilla")
 			maps/mp/zombies/_zm_ai_leaper::enable_leaper_rounds();
 	}
 	level.leapers_per_player = 6;

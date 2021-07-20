@@ -38,7 +38,7 @@ init_shovel() //checked changed to match cerberus output
 	{
 		s_pos = a_zone[ randomint( a_zone.size ) ];
 		m_shovel = spawn( "script_model", s_pos.origin );
-		if(level.customMap != "vanilla")
+		if(isdefined(level.customMap) && level.customMap != "vanilla")
 			m_shovel.origin = (0,0,-10000);
 		m_shovel.angles = s_pos.angles;
 		m_shovel setmodel( "p6_zm_tm_shovel" );
@@ -187,7 +187,7 @@ dig_disconnect_watch( n_player, v_origin, v_angles ) //checked matches cerberus 
 dig_spots_init() //checked changed to match cerberus output
 {
 	flag_wait( "start_zombie_round_logic" );
-	if(level.customMap != "vanilla")
+	if(isdefined(level.customMap) && level.customMap != "vanilla")
 		return;
 	level.n_dig_spots_cur = 0;
 	level.n_dig_spots_max = 15;

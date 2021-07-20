@@ -42,7 +42,7 @@ init_craftables() //checked changed to match cerberus output
 	flag_init( "staff_lightning_zm_enabled" );
 	flag_init( "staff_water_zm_enabled" );
 	register_clientfields();
-	if(level.customMap == "vanilla")
+	if(isdefined(level.customMap) && level.customMap == "vanilla")
 	{
 		add_zombie_craftable( "equip_dieseldrone_zm", &"ZM_TOMB_CRQ", &"ZM_TOMB_CRQ", &"ZM_TOMB_TQ", ::onfullycrafted_quadrotor, 1 );
 		add_zombie_craftable_vox_category( "equip_dieseldrone_zm", "build_dd" );

@@ -72,7 +72,7 @@ maze_fountain_think()
 	hide_maze_fountain_water();
 	wait_for_maze_fountain_to_be_destroyed();
 	destroy_maze_fountain();
-	if(getDvar("customMap") == "vanilla")
+	if(isdefined(level.customMap) && level.customMap == "vanilla")
 		flag_wait( "courtyard_fountain_broken" );
 	else
 		flag_set( "courtyard_fountain_broken" );
@@ -174,11 +174,11 @@ transport_player_to_start_zone()
 	self play_teleport_fx();
 	self flash_screen_white();
 	wait_network_frame();
-	if ( level._fountain_transporter.index >= level._fountain_transporter.end_points.size && getDvar("customMap") == "vanilla" )
+	if ( level._fountain_transporter.index >= level._fountain_transporter.end_points.size && isdefined(level.customMap) && level.customMap == "vanilla" )
 	{
 		level._fountain_transporter.index = 0;
 	}
-	else if ( level._fountain_transporter.index >= 8 && getDvar("customMap") != "vanilla")
+	else if ( level._fountain_transporter.index >= 8 && isdefined(level.customMap ) && level.customMap != "vanilla")
 	{
 		level._fountain_transporter.index = 0;
 	}
@@ -197,7 +197,7 @@ transport_player_to_start_zone()
 			level._fountain_transporter.index = 0;
 		}
 	}
-	if(GetDvar("customMap") != "vanilla")
+	if(isdefined(level.customMap) && level.customMap != "vanilla")
 	{
 		self setorigin( level.mazeSpawnpoints[ level._fountain_transporter.index ].origin );
 		self setplayerangles( level.mazeSpawnpoints[ level._fountain_transporter.index ].angles );

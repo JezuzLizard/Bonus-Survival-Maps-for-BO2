@@ -96,7 +96,6 @@ createfx_callback() //checked changed to match cerberus output
 
 main() //checked matches cerberus output
 {
-	level.customMap = getDvar( "customMap" );
 	level._no_equipment_activated_clientfield = 1;
 	level._no_navcards = 1;
 	level._wallbuy_override_num_bits = 1;
@@ -228,7 +227,7 @@ main() //checked matches cerberus output
 	maps/mp/zombies/_zm_spawner::register_zombie_death_event_callback( ::tomb_zombie_death_event_callback );
 	level.player_intersection_tracker_override = ::tomb_player_intersection_tracker_override;
 	maps/mp/zm_tomb_challenges::challenges_init();
-	if(getDvar("customMap") != "vanilla")
+	if(isdefined(level.customMap) && level.customMap != "vanilla")
 	{
 		machines = getentarray("random_perk_machine", "targetname");
 		foreach(machine in machines)
@@ -269,7 +268,7 @@ main() //checked matches cerberus output
 	level.n_crystals_pickedup = 0;
 	level thread maps/mp/zm_tomb_main_quest::main_quest_init();
 	level thread maps/mp/zm_tomb_teleporter::teleporter_init();
-	if(getDvar("customMap") == "vanilla")
+	if(isdefined(level.customMap) && level.customMap == "vanilla")
 		level thread maps/mp/zombies/_zm_perk_random::start_random_machine();
 	level.closest_player_override = ::tomb_closest_player_override;
 	level.validate_enemy_path_length = ::tomb_validate_enemy_path_length;
@@ -321,7 +320,7 @@ main() //checked matches cerberus output
 	*/
 	init_weather_manager();
 	level thread maps/mp/zm_tomb_ffotd::main_end();
-	if ( getDvar( "customMap" ) != "vanilla" )
+	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" )
 	{
 		level.oneInchPunchGiveFunc = maps/mp/zombies/_zm_weap_one_inch_punch::one_inch_punch_melee_attack;
 		thread turn_on_power();

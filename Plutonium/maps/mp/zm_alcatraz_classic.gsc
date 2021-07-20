@@ -61,7 +61,7 @@ main() //checked changed to match cerberus output
 		clip connectpaths();
 		clip delete();
 	}
-	map = GetDvar("customMap");
+	map = level.customMap;
 	if(isDefined(map) && map == "vanilla")
 	{
 		level thread give_afterlife();

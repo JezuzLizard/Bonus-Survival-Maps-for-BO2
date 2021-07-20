@@ -108,7 +108,7 @@ main() //checked changed to match cerberus output
 	level.zombiemode_using_sleightofhand_perk = 1;
 	level.zombiemode_using_deadshot_perk = 1;
 	
-	map = getDvar("customMap");
+	map = level.customMap;
 	if(isDefined(map) && map != "vanilla")
 	{
 		if(isDefined(map) && map != "rooftop")
@@ -241,7 +241,7 @@ main() //checked changed to match cerberus output
 	level thread maps/mp/zm_prison_ffotd::main_end();
 	level thread title_update_main_end();
 	//flag_wait( "start_zombie_round_logic" ); //players can't join if this is uncommented
-	map = getDvar( "customMap" );
+	//map = getDvar( "customMap" );
 	if(isDefined(map) && map == "docks")
 	{
 		thread acid_bench( map, (751, 6572, 210), (0,191,0) );
@@ -256,7 +256,7 @@ main() //checked changed to match cerberus output
 
 map_setup()
 {
-	map = getDvar( "customMap" );
+	map = level.customMap;
 	thread disable_afterlife_boxes();
 	if ( level.script == "zm_prison" && isDefined( map ) && map == "docks" )
 	{
@@ -709,7 +709,7 @@ give_personality_characters() //checked matches cerberus output
 #/
 	}
 	*/
-	map = getDvar("customMap");
+	map = level.customMap;
 	if(isDefined(map) && map != "vanilla")
 	{
 		switch(self.characterindex)

@@ -79,11 +79,11 @@ main()
 	level thread piano_init();
 	level thread sliding_bookcase_init();
 	level thread quick_revive_solo_watch();
-	if(getDvar("customMap") == "vanilla")
+	if(isdefined(level.customMap) && level.customMap == "vanilla")
 	{
 		level thread zm_treasure_chest_init();
 	}
-	if(getDvar("customMap") == "maze")
+	if(isdefined(level.customMap) && level.customMap == "maze")
 	{
 		thread maze_reset();
 	}
@@ -1885,7 +1885,7 @@ override_zombie_count() //custom function
 	for ( ;; )
 	{
 		level waittill_any( "start_of_round", "intermission", "check_count" );
-		if ( level.customMap == "maze" )
+		if ( isdefined(level.customMap) && level.customMap == "maze" )
 		{
 			if ( level.round_number <= 2 )
 			{
@@ -1897,7 +1897,7 @@ override_zombie_count() //custom function
 
 increase_zombie_speed()
 {
-	if ( level.customMap != "maze" )
+	if ( isdefined(level.customMap) && level.customMap != "maze" )
 	{
 		return;
 	}
