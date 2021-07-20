@@ -74,6 +74,7 @@ createfx_callback() //checked changed to match cerberus output
 
 main() //checked changed to match cerberus output
 {
+	thread lightning_fixer();
 	maps/mp/zm_prison_fx::main();
 	level thread maps/mp/zm_prison_ffotd::main_start();
 	level thread title_update_main_start();
@@ -1680,5 +1681,18 @@ disable_afterlife_boxes()
 		struct = _a87[ _k87 ];
 		struct.unitrigger_stub.origin = ( 0, 0, 0 );
 		_k87 = getNextArrayKey( _a87, _k87 );
+	}
+}
+
+lightning_fixer()
+{
+	self endon( "disconnect" );
+	level endon( "game_ended" );
+	level waittill( "start_of_round" );
+	for( ;; )
+	{
+		foreach( player in level.players )
+			player setclientfieldtoplayer( "toggle_lightning", 0 );
+		wait 0.2;
 	}
 }
