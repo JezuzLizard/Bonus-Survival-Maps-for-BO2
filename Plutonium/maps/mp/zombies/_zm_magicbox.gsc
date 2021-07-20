@@ -45,12 +45,7 @@ init() //modified function
 		{
 			logprint(chest.script_noteworthy +"\n");
 		}
-
-		if(is_true(level.disableBSMMagic))
-		{
-			level.chests = [];
-		}
-		else if (isDefined(level.customMap) && level.customMap == "tunnel" )
+		if (isDefined(level.customMap) && level.customMap == "tunnel" )
 		{
 			level.chests = [];
 			start_chest = spawnstruct();
@@ -214,9 +209,44 @@ init() //modified function
 			level.chests[2] = normalChests[2];
 			treasure_chest_init("bunker_start_chest");
 		}
+		else if(isdefined(level.customMap) && level.customMap == "crazyplace")
+		{
+			level.chests = [];
+			start_chest = spawnstruct();
+			start_chest.origin = ( 9615, -8120, -464 );
+			start_chest.angles = ( 0, 125, 0 );
+			start_chest.script_noteworthy = "bunker_start_chest";
+			start_chest.zombie_cost = 950;
+			start_chest2 = spawnstruct();
+			start_chest2.origin = (10191, -7145, -464);
+			start_chest2.angles = ( 0, 0, 0 );
+			start_chest2.script_noteworthy = "bunker_tank_chest";
+			start_chest2.zombie_cost = 950;
+			level.chests[0] = start_chest;
+			level.chests[1] = start_chest2;
+			treasure_chest_init("bunker_start_chest");
+		}
 		else
 		{
+			logprint("why?" + "\n");
 			treasure_chest_init( "start_chest" );
+		}
+	}
+	else
+	{
+		if(getDvar("customMap") == "farm" )
+		{
+			chest1 = getstruct( "farm_chest", "script_noteworthy" );
+			level.chests = [];
+			level.chests[ level.chests.size ] = chest1;
+			treasure_chest_init( "farm_chest" );
+		}
+		else if(getDvar("customMap") == "busdepot" )
+		{
+			chest1 = getstruct( "depot_chest", "script_noteworthy" );
+			level.chests = [];
+			level.chests[ level.chests.size ] = chest1;
+			maps/mp/zombies/_zm_magicbox::treasure_chest_init( "depot_chest" );
 		}
 	}
 	if ( level.createfx_enabled )
@@ -364,6 +394,16 @@ get_chest_pieces() //modified function
 	{
 		self.chest_box.origin = ( 2249, 9869.5, 1704.1 );
 		self.chest_box.angles = ( 0, -90, 0 );
+	}
+	if ( isdefined( level.customMap ) && level.customMap == "crazyplace" && self.script_noteworthy == "bunker_start_chest" )
+	{
+		self.chest_box.origin = ( 9615, -8120, -464 );
+		self.chest_box.angles = ( 0, 125, 0 );
+	}
+	if ( isdefined( level.customMap ) && level.customMap == "crazyplace" && self.script_noteworthy == "bunker_tank_chest" )
+	{
+		self.chest_box.origin = (10191, -7145, -464);
+		self.chest_box.angles = ( 0, 0, 0 );
 	}
 	if ( isDefined( level.customMap ) && level.customMap == "tunnel" && self.script_noteworthy == "start_chest" )
 	{

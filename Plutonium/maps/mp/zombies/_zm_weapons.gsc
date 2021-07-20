@@ -968,6 +968,10 @@ init_spawnable_weapon_upgrade() //modified function
 	{
 		thread customWallbuy("one_inch_punch_zm", "One Inch Punch", 6000, 3000, (-696.237, 2316.02, -111.875), (0, 0, 0), "staff_soul");
 	}
+	if( isdefined(level.customMap) && level.customMap == "crazyplace" )
+	{
+		thread customWallbuy("one_inch_punch_zm", "One Inch Punch", 6000, 3000, (10339, -7905, -411), (0, 0, 0), "staff_soul");
+	}
 	else if( isdefined(level.customMap) && level.customMap == "maze" )
 	{
 		rWS = [];
@@ -1325,7 +1329,7 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 	for(;;)
 	{
 		trig waittill("trigger", player);
-		if( player is_player_looking_at( trig.origin + ( 0, 0, 55 ), 0.95, 0, undefined ) && player UseButtonPressed() && player can_buy_weapon())
+		if(player UseButtonPressed() && player can_buy_weapon())
 		{
 
 			if(!player has_weapon_or_upgrade( weapon ) && player.score >= cost)

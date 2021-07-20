@@ -3191,15 +3191,11 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
-		if(level.script == "zm_highrise" || is_true(level.disableBSMMagic))
+		if(is_true(level.disableBSMMagic))
 		{
 			structs[i].origin = (0,0,-10000);
 		}
 		if(level.script == "zm_buried" && structs[i].script_noteworthy != "specialty_weapupgrade")
-		{
-			structs[i].origin = (0,0,-10000);
-		}
-		if(level.custom == "zm_transit" && structs[i].script_noteworthy == "specialty_longersprint")
 		{
 			structs[i].origin = (0,0,-10000);
 		}
@@ -3211,9 +3207,16 @@ perk_machine_spawn_init() //modified function
 			{
 				if ( tokens[ k ] == match_string )
 				{
-					if(getDvar("customMap") == "trenches")
+					if(is_true(level.customMap == "trenches") )
 					{
 						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint")
+							structs[i] Delete();
+						else
+							pos[ pos.size ] = structs[ i ];
+					}
+					else if( is_true(level.customMap == "crazyplace") )
+					{
+						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint" || structs[i].script_noteworthy == "specialty_rof" || structs[i].script_noteworthy == "specialty_quickrevive")
 							structs[i] Delete();
 						else
 							pos[ pos.size ] = structs[ i ];
@@ -3232,7 +3235,7 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "trenches" )
+	if ( isDefined( level.customMap ) && level.customMap == "trenches" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.trenchesPerkArray )
 		{
@@ -3260,42 +3263,42 @@ perk_machine_spawn_init() //modified function
 			pos[ pos.size ] = level.crazyplacePerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
+	else if ( isDefined( level.customMap ) && level.customMap == "docks" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.docksPerkArray )
 		{
 			pos[ pos.size ] = level.docksPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
+	else if ( isDefined( level.customMap ) && level.customMap == "cellblock" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.cellblockPerkArray )
 		{
 			pos[ pos.size ] = level.cellblockPerks[ perk ];
 		}
 	}
-	else if ( isDefined(level.customMap) && level.customMap == "cornfield" )
+	else if ( isDefined(level.customMap) && level.customMap == "cornfield" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.cornfieldPerkArray )
 		{
 			pos[ pos.size ] = level.cornfieldPerks[ perk ];
 		}
 	}
-	else if ( isDefined(level.customMap) && level.customMap == "power" )
+	else if ( isDefined(level.customMap) && level.customMap == "power" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.powerStationPerkArray )
 		{
 			pos[ pos.size ] = level.powerStationPerks[ perk ];
 		}
 	}
-	else if ( isDefined(level.customMap) && level.customMap =="diner" )
+	else if ( isDefined(level.customMap) && level.customMap =="diner" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.dinerPerkArray )
 		{
 			pos[ pos.size ] = level.dinerPerks[ perk ];
 		}
 	}
-	else if ( isDefined(level.customMap) && level.customMap == "tunnel" )
+	else if ( isDefined(level.customMap) && level.customMap == "tunnel" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.tunnelPerkArray )
 		{
@@ -3309,11 +3312,18 @@ perk_machine_spawn_init() //modified function
 			pos[pos.size] = level.housePerks[ perk ];
 		}
 	}
-	else if ( isDefined(level.customMap) && level.customMap == "town" )
+	else if ( getDvar("customMap") == "farm" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
-		foreach( perk in level.townPerkArray )
+		foreach( perk in level.farmPerkArray )
 		{
-			pos[pos.size] = level.townPerks[ perk ];
+			pos[pos.size] = level.farmPerks[ perk ];
+		}
+	}
+	else if ( getDvar("customMap") == "busdepot" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic)
+	{
+		foreach( perk in level.busPerkArray )
+		{
+			pos[pos.size] = level.busPerks[ perk ];
 		}
 	}
 	else if ( isDefined(level.customMap) && level.customMap == "building1top" )
@@ -3377,6 +3387,10 @@ perk_machine_spawn_init() //modified function
 			{
 				collision SetModel( "collision_player_cylinder_32x128" );
 				collision ConnectPaths();
+			}
+			else if(level.script == "zm_highrise" && is_true(level.customMap == "vanilla"))
+			{
+
 			}
 			else
 			{
@@ -3450,7 +3464,7 @@ perk_machine_spawn_init() //modified function
     				}
     			}
 			}
-			if(is_true(level.disableBSMMagic))
+			if(is_true(level.disableBSMMagic) && level.script == "zm_highrise")
 				use_trigger.origin = (0,0,-10000);
 			use_trigger.machine = perk_machine;
 			//missing code found in cerberus output
