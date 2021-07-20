@@ -3216,7 +3216,7 @@ perk_machine_spawn_init() //modified function
 					}
 					else if( is_true(level.customMap == "crazyplace") )
 					{
-						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint" || structs[i].script_noteworthy == "specialty_rof" || structs[i].script_noteworthy == "specialty_quickrevive")
+						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint" || structs[i].script_noteworthy == "specialty_rof" || structs[i].script_noteworthy == "specialty_quickrevive" || structs[i].script_noteworthy == "specialty_fastreload" )
 							structs[i] Delete();
 						else
 							pos[ pos.size ] = structs[ i ];

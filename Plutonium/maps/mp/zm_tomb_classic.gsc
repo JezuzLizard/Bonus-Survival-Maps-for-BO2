@@ -29,6 +29,8 @@ main() //checked matches cerberus output
 	flag_wait( "initial_blackscreen_passed" );
 	if(isdefined(level.customMap) && level.customMap == "crazyplace")
 		thread openChamber();
+	if(isdefined(level.customMap) && level.customMap == "trenches")
+		thread deactivateTank();
 }
 
 zm_treasure_chest_init() //checked matches cerberus output
@@ -53,6 +55,15 @@ openChamber()
 			flag_set( "any_crystal_picked_up" );
 			break;
 		}
+	}
+}
+
+deactivateTank()
+{
+	trig = getentarray( "trig_tank_station_call", "targetname" );
+	foreach(t in trig)
+	{
+		t disable_trigger();
 	}
 }
 
