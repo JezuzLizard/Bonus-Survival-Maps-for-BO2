@@ -18,7 +18,7 @@ init()
 	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	thread setupWunderfizz();
-	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" )
+	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" || getDvar("customMap") == "farm")
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
@@ -80,7 +80,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		//player thread meleeCoords();
+		player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
@@ -93,7 +93,9 @@ onplayerconnected()
 
 perkHud()
 {
-	if(level.script != "zm_prison" && level.script != "zm_highrise" && level.customMap != "vanilla")
+	if(level.script != "zm_prison" && level.script != "zm_highrise")
+		return;
+	if(isdefined(level.customMap) && level.customMap == "vanilla")
 		return;
 	self endon("disconnect");
 	self endon("end_game");
@@ -356,7 +358,7 @@ piece_unspawn()
 
 init_buildables()
 {
-	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house" || isdefined(level.customMap) && level.customMap == "town" )
+	if ( isDefined( level.customMap ) && level.customMap == "tunnel" || isDefined( level.customMap ) && level.customMap == "diner" || isDefined( level.customMap ) && level.customMap == "power" || isDefined( level.customMap ) && level.customMap == "cornfield" || isDefined( level.customMap ) && level.customMap == "house")
 	{
 		wait 1;
 		buildbuildable( "dinerhatch", 1 );
@@ -614,7 +616,7 @@ prison_auto_refuel_plane()
 	for ( ;; )
 	{
 		flag_wait( "spawn_fuel_tanks" );
-		wait 0.05;
+		wait 2;
 		buildcraftable( "refuelable_plane" );
 	}
 }
@@ -672,6 +674,10 @@ setupWunderfizz()
 			level.currentWunderfizzLocation = chooseLocation(level.currentWunderfizzLocation);
 			level notify("wunderfizzMove");
 		}
+    }
+    else if(isdefined(level.customMap) && level.customMap == "crazyplace")
+    {
+    	wunderfizzSetup(( 10287.4,-7082.78,-463.75 ), (0,62,0), "p6_zm_vending_diesel_magic");
     }
     else if(isDefined ( level.customMap ) && level.customMap == "house")
     {
@@ -1632,18 +1638,13 @@ extra_perk_spawns() //custom function
 		level.tankPerks[ "specialty_weapupgrade" ].model = "p6_zm_tm_packapunch";
 		level.tankPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 		
-		level.crazyplacePerkArray = array( "specialty_longersprint", "specialty_fastreload", "specialty_additionalprimaryweapon", "specialty_armorvest", "specialty_quickrevive", "specialty_weapupgrade" );
+		level.crazyplacePerkArray = array( "specialty_longersprint", "specialty_fastreload", "specialty_armorvest", "specialty_quickrevive", "specialty_weapupgrade" );
 		
 		level.crazyplacePerks[ "specialty_fastreload" ] = spawnstruct();
 		level.crazyplacePerks[ "specialty_fastreload" ].origin = ( 9519.64, -7785.12, -463.25 );
 		level.crazyplacePerks[ "specialty_fastreload" ].angles = ( 0, 54.5, 0 );
 		level.crazyplacePerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
 		level.crazyplacePerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
-		level.crazyplacePerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
-		level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].origin = ( 10287.4, -7082.78, -463.75 );
-		level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 62, 0 );
-		level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].model = "p6_zm_al_vending_nuke_on";
-		level.crazyplacePerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
 		level.crazyplacePerks[ "specialty_quickrevive" ] = spawnstruct();
 		level.crazyplacePerks[ "specialty_quickrevive" ].origin = ( 10728, -7107, -443.75 );
 		level.crazyplacePerks[ "specialty_quickrevive" ].angles = ( 0, 27, 0 );
@@ -1914,28 +1915,41 @@ extra_perk_spawns() //custom function
 		level.housePerks["specialty_weapupgrade"].model = "tag_origin";
 		level.housePerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 
-		level.townPerkArray = array( "specialty_longersprint", "specialty_scavenger", "specialty_quickrevive", "specialty_weapupgrade" );
+		level.farmPerkArray = array( "specialty_weapupgrade" );
 
-		level.townPerks[ "specialty_longersprint" ] = spawnstruct();
-		level.townPerks[ "specialty_longersprint" ].origin = (1776.36, 496.844, -55.875);
-		level.townPerks[ "specialty_longersprint" ].angles = ( 0, 270, 0 );
-		level.townPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
-		level.townPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
-		level.townPerks[ "specialty_scavenger" ] = spawnstruct();
-		level.townPerks[ "specialty_scavenger" ].origin = (1776.36, -1122.84, -55.875);
-		level.townPerks[ "specialty_scavenger" ].angles = ( 0, 270, 0 );
-		level.townPerks[ "specialty_scavenger" ].model = "zombie_vending_tombstone";
-		level.townPerks[ "specialty_scavenger" ].script_noteworthy = "specialty_scavenger";
-		level.townPerks[ "specialty_quickrevive" ] = spawnstruct();
-		level.townPerks[ "specialty_quickrevive" ].origin = (1815.64, 119.337, 88.125);
-		level.townPerks[ "specialty_quickrevive" ].angles = ( 0, 90, 0 );
-		level.townPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
-		level.townPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
-		level.townPerks[ "specialty_weapupgrade" ] = spawnstruct();
-		level.townPerks[ "specialty_weapupgrade" ].origin = (1550, -517.615, -67.875);
-		level.townPerks[ "specialty_weapupgrade" ].angles = ( 0, 180, 0 );
-		level.townPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
-		level.townPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+		level.farmPerks["specialty_weapupgrade"] = spawnstruct();
+		level.farmPerks["specialty_weapupgrade"].origin = (7057, -5727, -49);
+		level.farmPerks["specialty_weapupgrade"].angles = (0,90,0);
+		level.farmPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+		level.farmPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+
+		level.busPerkArray = array( "specialty_quickrevive", "specialty_weapupgrade", "specialty_armorvest", "specialty_rof", "specialty_fastreload" );
+
+		level.busPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.busPerks[ "specialty_quickrevive" ].origin = (-6706, 5016, -56);
+		level.busPerks[ "specialty_quickrevive" ].angles = (0, 180, 0 );
+		level.busPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.busPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+		level.busPerks["specialty_weapupgrade"] = spawnstruct();
+		level.busPerks["specialty_weapupgrade"].origin = (-6834, 4553, -65);
+		level.busPerks["specialty_weapupgrade"].angles = (0,230,0);
+		level.busPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+		level.busPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+		level.busPerks["specialty_armorvest"] = spawnstruct();
+		level.busPerks["specialty_armorvest"].origin = (-6122, 4110, -52);
+		level.busPerks["specialty_armorvest"].angles = (0,180,0);
+		level.busPerks["specialty_armorvest"].model = "zombie_vending_jugg";
+		level.busPerks["specialty_armorvest"].script_noteworthy = "specialty_armorvest";
+		level.busPerks[ "specialty_rof" ] = spawnstruct();
+		level.busPerks[ "specialty_rof" ].origin = (-6241, 5337, -56);
+		level.busPerks[ "specialty_rof" ].angles = ( 0, 180, 0 );
+		level.busPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+		level.busPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+		level.busPerks[ "specialty_fastreload" ] = spawnstruct();
+		level.busPerks[ "specialty_fastreload" ].origin = (-7489, 4217, -64);
+		level.busPerks[ "specialty_fastreload" ].angles = ( 0, 120, 0 );
+		level.busPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+		level.busPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
 	}
 	else if(level.script == "zm_highrise")
 	{

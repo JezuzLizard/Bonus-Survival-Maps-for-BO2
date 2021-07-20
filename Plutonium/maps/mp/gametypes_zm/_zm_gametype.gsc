@@ -1426,6 +1426,8 @@ getMapString(map) //custom function
 override_map()
 {
 	mapname = ToLower( GetDvar( "mapname" ) );
+	if( GetDvar("customMap") == "" )
+		SetDvar("customMap", "vanilla");
 	if ( isdefined(mapname) && mapname == "zm_transit" )
 	{
 		if ( GetDvar("customMap") != "tunnel" && GetDvar("customMap") != "diner" && GetDvar("customMap") != "power" && GetDvar("customMap") != "cornfield" && GetDvar("customMap") != "house" && GetDvar("customMap") != "vanilla" && GetDvar("customMap") != "town" && GetDvar("customMap") != "farm" && GetDvar("customMap") != "busdepot" )
@@ -1435,7 +1437,7 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_highrise" )
 	{
-		if ( GetDvar("customMap") != "building1top" )
+		if ( GetDvar("customMap") != "building1top" && GetDvar("customMap") != "vanilla" )
 		{
 			SetDvar( "customMap", "building1top" );
 		}
@@ -1456,27 +1458,19 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_tomb" )
 	{
-		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "vanilla" )
+		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "vanilla" )
 		{
 			SetDvar( "customMap", "trenches" );
 		}
 	}
-	level.customMap = GetDvar("customMap");
-}
-
-no_player_check()
-{
-	self endon("stop_intermission");
-	wait 1;
-	while(1)
+	map = ToLower(GetDvar("customMap"));
+	if(map == "town" || map == "busdepot" || map == "farm")
 	{
-		if(get_players().size == 0)
-		{
-			changeMap(level.customMap);
-			map_restart(false);
-			return;
-		}
-		wait .05;
+		level.customMap = "vanilla";
+	}
+	else
+	{
+		level.customMap = map;
 	}
 }
 
@@ -1484,7 +1478,6 @@ map_rotation() //custom function
 {
 	level waittill( "end_game");
 	wait 2;
-	//level thread no_player_check();
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
@@ -1523,7 +1516,7 @@ map_rotation() //custom function
 	}
 	for(i=0;i<level.mapList.size;i++)
 	{
-		if(isdefined(level.mapList[i+1]) && level.customMap == level.mapList[i])
+		if(isdefined(level.mapList[i+1]) && getDvar("customMap") == level.mapList[i])
 		{
 			changeMap(level.mapList[i+1]);
 			return;
@@ -1539,7 +1532,13 @@ changeMap(map)
 	setDvar("customMap", map);
 	if(map == "tunnel" || map == "diner" || map == "power" || map == "cornfield" || map == "house")
 		setDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
-	else if(map == "docks" || map == "cellblock")
+	else if(map == "town")
+		setDvar("sv_maprotation","exec zm_standard_town.cfg map zm_transit");
+	else if(map == "farm")
+		setDvar("sv_maprotation","exec zm_standard_farm.cfg map zm_transit");
+	else if(map == "busdepot")
+		setDvar("sv_maprotation","exec zm_standard_transit.cfg map zm_transit");
+	else if(map == "docks" || map == "cellblock" || map == "rooftop")
 		setDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
 	else if(map == "building1top")
 		setDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
@@ -1553,13 +1552,13 @@ random_map_rotation() //custom function
 {
 	level.nextMap = RandomInt( level.mapList.size );
 	level.lastMap = getDvar( "lastMap" );
-	if( level.customMap == level.mapList[ level.nextMap ] || level.mapList[ level.nextMap ] == level.lastMap )
+	if( getDvar("customMap") == level.mapList[ level.nextMap ] || level.mapList[ level.nextMap ] == level.lastMap )
 	{
 		return random_map_rotation();
 	}
 	else
 	{
-		setDvar( "lastMap", level.customMap );
+		setDvar( "lastMap", getDvar("customMap") );
 		changeMap(level.mapList[ level.nextMap ]);
 		return;
 	}
@@ -1917,6 +1916,63 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.townSpawnpoints[ 7 ].radius = 32;
 		level.townSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 		level.townSpawnpoints[ 7 ].script_int = 2048;
+
+		level.farmSpawnpoints = [];
+		level.farmSpawnpoints[ 0 ] = spawnstruct();
+		level.farmSpawnpoints[ 0 ].origin = (7047.84, -5716.24, -48.6452);
+		level.farmSpawnpoints[ 0 ].angles = ( 0, 0, 0 );
+		level.farmSpawnpoints[ 0 ].radius = 32;
+		level.farmSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 0 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 1 ] = spawnstruct();
+		level.farmSpawnpoints[ 1 ].origin = (7780.54, -5534.08, 22.0331);
+		level.farmSpawnpoints[ 1 ].angles = ( 0, 312, 0 );
+		level.farmSpawnpoints[ 1 ].radius = 32;
+		level.farmSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 1 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 2 ] = spawnstruct();
+		level.farmSpawnpoints[ 2 ].origin = (8393.6, -5599.27, 45.5198);
+		level.farmSpawnpoints[ 2 ].angles = ( 0, 210, 0 );
+		level.farmSpawnpoints[ 2 ].radius = 32;
+		level.farmSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 2 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 3 ] = spawnstruct();
+		level.farmSpawnpoints[ 3 ].origin = (8435.45, -6051.42, 78.4683);
+		level.farmSpawnpoints[ 3 ].angles = ( 0, 131, 0 );
+		level.farmSpawnpoints[ 3 ].radius = 32;
+		level.farmSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 3 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 4 ] = spawnstruct();
+		level.farmSpawnpoints[ 4 ].origin = (7756.5, -6310.07, 117.125);
+		level.farmSpawnpoints[ 4 ].angles = ( 0, 38, 0 );
+		level.farmSpawnpoints[ 4 ].radius = 32;
+		level.farmSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 4 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 5 ] = spawnstruct();
+		level.farmSpawnpoints[ 5 ].origin = (7715.74, -4835.88, 37.6189);
+		level.farmSpawnpoints[ 5 ].angles = ( 0, 278, 0 );
+		level.farmSpawnpoints[ 5 ].radius = 32;
+		level.farmSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 5 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 6 ] = spawnstruct();
+		level.farmSpawnpoints[ 6 ].origin = (7931.78, -4819.38, 48.125);
+		level.farmSpawnpoints[ 6 ].angles = ( 0, 291, 0 );
+		level.farmSpawnpoints[ 6 ].radius = 32;
+		level.farmSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 6 ].script_int = 2048;
+		
+		level.farmSpawnpoints[ 7 ] = spawnstruct();
+		level.farmSpawnpoints[ 7 ].origin = (8474.06, -5218, 48.125);
+		level.farmSpawnpoints[ 7 ].angles = ( 0, 215, 0 );
+		level.farmSpawnpoints[ 7 ].radius = 32;
+		level.farmSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+		level.farmSpawnpoints[ 7 ].script_int = 2048;
 	}
 	else if ( level.script == "zm_highrise" )
 	{
@@ -2767,11 +2823,18 @@ onspawnplayer( predictedspawn ) //modified function
 				spawnpoints[ spawnpoints.size ] = level.houseSpawnpoints[ i ];
 			}
 		}
-		else if ( isdefined( level.customMap ) && level.customMap == "town" )
+		else if ( getDvar("customMap") == "town" )
 		{
 			for( i = 0; i < level.townSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.townSpawnpoints[ i ];
+			}
+		}
+		else if ( getDvar("customMap") == "farm" )
+		{
+			for( i = 0; i < level.farmSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.farmSpawnpoints[ i ];
 			}
 		}
 		else if ( isDefined( level.customMap ) && level.customMap == "docks" )
@@ -3044,11 +3107,19 @@ get_player_spawns_for_gametype() //modified function
 		}
 		return custom_spawns;
 	}
-	else if( isDefined( level.customMap ) && level.customMap == "town")
+	else if(getDvar("customMap") == "town")
 	{
 		for(i=0;i<level.townSpawnpoints.size;i++)
 		{
 			custom_spawns[custom_spawns.size] = level.townSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if(getDvar("customMap") == "farm")
+	{
+		for(i=0;i<level.farmSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.farmSpawnpoints[i];
 		}
 		return custom_spawns;
 	}
