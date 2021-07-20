@@ -80,7 +80,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		player thread meleeCoords();
+		//player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
