@@ -104,7 +104,6 @@ main() //checked matches cerberus output
 	setscoreboardcolumns( "score", "kills", "downs", "revives", "headshots" );
 	onplayerconnect_callback( ::onplayerconnect_check_for_hotjoin );
 	thread map_rotation();
-	thread high_round_tracker();
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
@@ -3617,46 +3616,4 @@ hide_gump_loading_for_hotjoiners() //checked matches cerberus output
 blank() //this function is intentionally empty
 {
 	//empty function
-}
-
-high_round_tracker()
-{
-	level.HighRoundTracking = getDvarIntDefault( "HighRoundTracking", 0 );
-	if ( isDefined ( level.HighRoundTracking ) && !level.HighRoundTracking )
-	{
-		return;
-	}
-	level.HighRound = getDvarIntDefault(  level.customMap + "HighRound", 1 );
-	level.HighRoundPlayers = getDvar( level.customMap + "Players" );
-	if ( level.HighRoundPlayers == "" )
-	{
-		level.HighRoundPlayers = "N/A";
-	}
-	for ( ;; )
-	{
-		level waittill ( "end_game" );
-		if ( level.round_number > level.HighRound )
-		{
-			setDvar( level.customMap + "HighRound", level.round_number );
-			setDvar( level.customMap + "Players", "" );
-			level.HighRound = getDvarIntDefault(  level.customMap + "HighRound", 1 );
-			players = get_players();
-			for ( i = 0; i < players.size; i++ )
-			{
-				if ( getDvar( level.customMap + "Players" ) == "" )
-				{
-					setDvar( level.customMap + "Players", players[i].name );
-					level.HighRoundPlayers = getDvar( level.customMap + "Players" );
-				}
-				else
-				{
-					setDvar( level.customMap + "Players", level.HighRoundPlayers + ", " + players[i].name );
-					level.HighRoundPlayers = getDvar( level.customMap + "Players" );
-				}
-			}
-			iprintln ( "New Record: ^1" + level.HighRound );
-			iprintln ( "Set by: ^1" + level.HighRoundPlayers );
-		}
-		logprint( "Map: " + level.customMap + " Record: " + level.HighRound + " Set by: " + level.HighRoundPlayers );
-	}
 }
