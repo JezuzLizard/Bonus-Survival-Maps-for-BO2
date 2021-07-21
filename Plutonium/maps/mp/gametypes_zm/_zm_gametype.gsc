@@ -1556,7 +1556,7 @@ changeMap(map)
 		SetDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
 	else if(map == "maze")
 		SetDvar("sv_maprotation", "exec zm_classic_processing.cfg map zm_buried");
-	else if(map == "trenches")
+	else if(map == "trenches" || map == "crazyplace")
 		SetDvar("sv_maprotation", "exec zm_classic_tomb.cfg map zm_tomb");
 }
 
