@@ -86,6 +86,7 @@ main()
 	if(isdefined(level.customMap) && level.customMap == "maze")
 	{
 		thread maze_reset();
+		level.zombie_weapons[ "time_bomb_zm" ].is_in_box = 0;
 	}
 	level thread maps/mp/zm_buried_ee::init_ghost_piano();
 	//level thread buried_set_underground_lighting();
@@ -113,6 +114,7 @@ main()
 
 maze_reset()
 {
+	level endon("end_game");
 	while(1)
 	{
 		level waittill("between_round_over");
