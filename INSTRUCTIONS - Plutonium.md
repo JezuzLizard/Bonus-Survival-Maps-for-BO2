@@ -21,6 +21,9 @@ set useBossZombies 1 //set this to 1 to enable bosses (Brutus on Mob/Panzer on O
 set perkSlotIncreaseKills 150 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
 ```
 
+# How to install/launch solo
+https://www.youtube.com/watch?v=nWcWPGfl7pA
+
 # How to modify
 
 Just like any script thats open source you can mod these scripts to your hearts content.
