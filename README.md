@@ -31,6 +31,7 @@ MoTD
 ```
 Docks
 Cellblock
+Rooftop (WARNING ALPHA VERSION)
 ```
 Buried
 ```
@@ -39,6 +40,7 @@ Maze
 Origins
 ```
 Trenches
+Crazyplace
 ```
 
 See INSTRUCTIONS.md for how to install and run.
