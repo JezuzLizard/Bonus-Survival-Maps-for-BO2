@@ -20,6 +20,8 @@ set disableBSMMagic 0 //set this to 1 to disable magic (Perks/Pack a Punch) Box 
 set useBossZombies 1 //set this to 1 to enable bosses (Brutus on Mob/Panzer on Origins) (on by default)
 set perkSlotIncreaseKills 150 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
 ```
+Then set the sv_maprotation to the FIRST MAP IN YOUR ROTATION. This is important. Only the first map goes into sv_maprotation. The mod does the rest of the work.
+If you set the wrong map in sv_maprotation, the mod will fix itself for you after the first game ends.
 
 # How to install/launch solo
 https://www.youtube.com/watch?v=nWcWPGfl7pA
