@@ -12,13 +12,13 @@ Create any folders if they do not exist!
 
 Set the map to tranzit and include these special dvars in your dedicated_zm.cfg:
 ```
-set customMapRotation "diner power cornfield tunnel house docks cellblock building1top maze trenches" // rearrange the order of these or remove locations to change the rotation
+set customMapRotation "diner power cornfield tunnel house town farm busdepot nuketown docks cellblock rooftop building1top maze trenches crazyplace" // rearrange the order of these or remove locations to change the rotation
 set randomizeMapRotation 0 //set this to 1 to enable randomized map rotation
 set customMapRotationActive 1 //set this to 1 to enable map rotation
 set customMap "diner" //the initial map or constant map if map rotation is off
-set disableBSMMagic 0 //set this to 1 to disable magic (Mystery Box/Perks/Pack a Punch)
-set useBossZombies 1 //set this to 1 to enable bosses (Brutus on Mob/Panzer on Origins)
-set perkSlotIncreaseKills 100 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
+set disableBSMMagic 0 //set this to 1 to disable magic (Perks/Pack a Punch) Box enabled still
+set useBossZombies 1 //set this to 1 to enable bosses (Brutus on Mob/Panzer on Origins) (on by default)
+set perkSlotIncreaseKills 150 // Set Amount of Kills each player must earn to increase their perk slots (0 turns off this option)
 ```
 
 # How to modify
