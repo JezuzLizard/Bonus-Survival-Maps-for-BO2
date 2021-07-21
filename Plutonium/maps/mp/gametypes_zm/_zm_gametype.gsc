@@ -1434,6 +1434,13 @@ override_map()
 			SetDvar( "customMap", "house" );
 		}
 	}
+	else if ( isdefined(mapname) && mapname == "zm_nuked" )
+	{
+		if ( GetDvar("customMap") != "nuketown" && GetDvar("customMap") != "vanilla")
+		{
+			SetDvar("customMap", "nuketown");
+		}
+	}
 	else if ( isdefined(mapname) && mapname == "zm_highrise" )
 	{
 		if ( GetDvar("customMap") != "building1top" && GetDvar("customMap") != "vanilla" )
@@ -1450,7 +1457,7 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_buried" )
 	{
-		if ( GetDvar("customMap") != "maze")
+		if ( GetDvar("customMap") != "maze" && GetDvar("customMap") != "vanilla")
 		{
 			SetDvar( "customMap", "maze" );
 		}
@@ -1463,7 +1470,7 @@ override_map()
 		}
 	}
 	map = ToLower(GetDvar("customMap"));
-	if(map == "town" || map == "busdepot" || map == "farm")
+	if(map == "town" || map == "busdepot" || map == "farm" || map == "nuketown")
 	{
 		level.customMap = "vanilla";
 	}
@@ -1503,6 +1510,10 @@ map_rotation() //custom function
 		{
 			level.customMapRotation = "maze";
 		}
+		else if ( level.script == "zm_nuked" )
+		{
+			level.customMapRotation = "nuketown";
+		}
 		else if (level.script == "zm_tomb")
 		{
 			level.customMapRotation = "trenches";
@@ -1528,23 +1539,25 @@ changeMap(map)
 {
 	if(!isdefined(map))
 		map = GetDvar("customMap");
-	setDvar("customMap", map);
+	SetDvar("customMap", map);
 	if(map == "tunnel" || map == "diner" || map == "power" || map == "cornfield" || map == "house")
-		setDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
+		SetDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
 	else if(map == "town")
-		setDvar("sv_maprotation","exec zm_standard_town.cfg map zm_transit");
+		SetDvar("sv_maprotation","exec zm_standard_town.cfg map zm_transit");
 	else if(map == "farm")
-		setDvar("sv_maprotation","exec zm_standard_farm.cfg map zm_transit");
+		SetDvar("sv_maprotation","exec zm_standard_farm.cfg map zm_transit");
 	else if(map == "busdepot")
-		setDvar("sv_maprotation","exec zm_standard_transit.cfg map zm_transit");
+		SetDvar("sv_maprotation","exec zm_standard_transit.cfg map zm_transit");
+	else if(map == "nuketown")
+		SetDvar("sv_maprotation","exec zm_standard_nuked.cfg map zm_nuked");
 	else if(map == "docks" || map == "cellblock" || map == "rooftop")
-		setDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
+		SetDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
 	else if(map == "building1top")
-		setDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
+		SetDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
 	else if(map == "maze")
-		setDvar("sv_maprotation", "exec zm_classic_processing.cfg map zm_buried");
+		SetDvar("sv_maprotation", "exec zm_classic_processing.cfg map zm_buried");
 	else if(map == "trenches")
-		setDvar("sv_maprotation", "exec zm_classic_tomb.cfg map zm_tomb");
+		SetDvar("sv_maprotation", "exec zm_classic_tomb.cfg map zm_tomb");
 }
 
 random_map_rotation() //custom function
