@@ -3191,7 +3191,7 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
-		if(is_true(level.disableBSMMagic))
+		if(is_true(level.disableBSMMagic) || level.customMap == "building1top")
 		{
 			structs[i].origin = (0,0,-10000);
 		}
