@@ -3167,6 +3167,14 @@ get_player_spawns_for_gametype() //modified function
 		}
 		return custom_spawns;
 	}
+	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" )
+	{
+		for ( i = 0; i < level.crazyplaceSpawnpoints.size; i++ )
+		{
+			custom_spawns[ custom_spawns.size ] = level.crazyplaceSpawnpoints[ i ];
+		}
+		return custom_spawns;
+	}
 	return player_spawns;
 }
 
