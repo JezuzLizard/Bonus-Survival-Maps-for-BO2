@@ -1578,6 +1578,7 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 	wait 1.5;
 	level thread bridge_reset();
 	self disableinvulnerability();
+	self Show();
 	self.ignoreme = 0;
 	self.dontspeak = 0;
 }
