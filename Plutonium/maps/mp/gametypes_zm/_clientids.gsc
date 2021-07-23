@@ -79,7 +79,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		//player thread meleeCoords();
+		player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 		if ( isDefined ( level.HighRoundTracking ) && level.HighRoundTracking )
 		{
@@ -630,13 +630,12 @@ build_plane_later()
 	
 	for ( ;; )
 	{
-		level waittill ( "start_of_round" );
+		level waittill ( "between_round_over" );
 		if ( level.round_number >= level.planeBuiltOnRound )
 		{
 			buildcraftable( "plane" );
 			level notify ( "plane_built" );
 		}
-		wait 0.5;
 	}
 }
 

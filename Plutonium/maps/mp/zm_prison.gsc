@@ -124,6 +124,7 @@ main() //checked changed to match cerberus output
 	if ( isDefined(map) && map == "rooftop" )
 	{
 		level.electric_chair_player_thread_custom_func = ::custom_electric_chair_player_thread;
+		level.track_quest_status_thread_custom_func = ::bridge_reset;
 	}
 	if ( maps/mp/zombies/_zm_utility::is_gametype_active( "zclassic" ) )
 	{
@@ -721,6 +722,7 @@ give_personality_characters() //checked matches cerberus output
 				self.skeleton = "base";
 				self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
 				self.characterindex = 0;
+				self.character_name = "Gerard";
 				break;
 			case 1:
 				self setmodel( "c_zom_player_oleary_fb" );
@@ -729,6 +731,7 @@ give_personality_characters() //checked matches cerberus output
 				self.skeleton = "base";
 				self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
 				self.characterindex = 0;
+				self.character_name = "Cahz";
 				break;
 			case 2:
 				self setmodel( "c_zom_player_oleary_fb" );
@@ -737,6 +740,7 @@ give_personality_characters() //checked matches cerberus output
 				self.skeleton = "base";
 				self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
 				self.characterindex = 0;
+				self.character_name = "Jezuz";
 			case 3:
 				self setmodel( "c_zom_player_oleary_fb" );
 				self set_player_is_female( 0 );
@@ -744,6 +748,7 @@ give_personality_characters() //checked matches cerberus output
 				self.skeleton = "base";
 				self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
 				self.characterindex = 0;
+				self.character_name = "Rekti";
 		}
 	}
 	else{
@@ -1548,7 +1553,6 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 	level.zones[ "zone_golden_gate_bridge" ].is_spawning_allowed = 1;
 	self unlink();
 	self setstance( "stand" );
-	self thread track_player_completed_cycle();
 	if ( chair_number == 0 )
 	{
 		self setorigin( ( 2282.9, 9557.3, 1792 ) );
@@ -1576,7 +1580,7 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 	self enableweapons();
 	self setclientfieldtoplayer( "rumble_electric_chair", 0 );
 	wait 1.5;
-	level thread bridge_reset();
+	//level thread bridge_reset();
 	self disableinvulnerability();
 	self Show();
 	self.ignoreme = 0;
@@ -1585,27 +1589,40 @@ custom_electric_chair_player_thread( m_linkpoint, chair_number, n_effects_durati
 
 bridge_reset()
 {
-	level.players_on_bridge = 0;
-	foreach ( player in level.players )
+	while(1)
 	{
-		player.zone = player get_current_zone();
-		if( maps/mp/zombies/_zm_utility::is_player_valid( player ) && player.zone == "zone_golden_gate_bridge" )
+		while( level.characters_in_nml.size == 0)
 		{
-			level.players_on_bridge++;
+			wait 1;
 		}
-	}
-	if ( level.players_on_bridge == 0 )
-	{
-		flag_clear( "spawn_zombies" );
-		level notify( "bridge_empty" );
-		wait 3;
-		flag_set( "spawn_zombies" );
-		level waittill( "start_of_round" );
-		prep_for_new_quest();
-		waittill_crafted( "refuelable_plane" );
-		maps/mp/zombies/_zm_ai_brutus::transfer_plane_trigger( "fuel", "fly" );
-		t_plane_fly = getent( "plane_fly_trigger", "targetname" );
-		t_plane_fly trigger_on();
+		while (level.characters_in_nml.size > 0)
+		{
+			wait 1;
+		}
+		if( flag( "plane_trip_to_nml_successful" ) )
+		{
+			flag_clear( "plane_trip_to_nml_successful" );
+		}
+		/*
+		level.players_on_bridge = 0;
+		foreach ( player in level.players )
+		{
+			player.zone = player get_current_zone();
+			if( maps/mp/zombies/_zm_utility::is_player_valid( player ) && player.zone == "zone_golden_gate_bridge" )
+			{
+				level.players_on_bridge++;
+			}
+		}*/
+		//if ( level.players_on_bridge == 0 )
+		//{
+			level notify( "bridge_empty" );
+			level waittill( "start_of_round" );
+			prep_for_new_quest();
+			waittill_crafted( "refuelable_plane" );
+			maps/mp/zombies/_zm_ai_brutus::transfer_plane_trigger( "fuel", "fly" );
+			t_plane_fly = getent( "plane_fly_trigger", "targetname" );
+			t_plane_fly trigger_on();
+		//}
 	}
 }
 
