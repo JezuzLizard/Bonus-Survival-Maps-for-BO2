@@ -525,7 +525,7 @@ get_chest_pieces() //modified function
 	self.unitrigger_stub.angles = self.angles;
 	self.unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
 	self.unitrigger_stub.script_width = 104;
-	self.unitrigger_stub.script_height = 50;
+	self.unitrigger_stub.script_height = 60;
 	self.unitrigger_stub.script_length = 60;
 	self.unitrigger_stub.trigger_target = self;
 	unitrigger_force_per_player_triggers( self.unitrigger_stub, 1 );
