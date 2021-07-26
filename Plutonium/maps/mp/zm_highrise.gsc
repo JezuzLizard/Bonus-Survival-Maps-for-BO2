@@ -264,6 +264,15 @@ main() //checked changed to match cerberus output
 	trigs = getentarray( "force_from_prone", "targetname" );
 	array_thread( trigs, ::player_force_from_prone );
 	level._dont_unhide_quickervive_on_hotjoin = 1;
+	if(isdefined(level.customMap) && level.customMap != "vanilla")
+	{
+		level waittill("initial_blackscreen_passed");
+		foreach(elevator in level.elevators)
+		{
+			elevator.body.lock_doors = 1;
+			elevator.body maps/mp/_zm_highrise_elevators::perkelevatordoor(0);
+		}
+	}
 }
 
 init_divetonuke() //checked matches cerberus output
