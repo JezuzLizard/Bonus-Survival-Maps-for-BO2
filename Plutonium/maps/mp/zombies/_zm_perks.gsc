@@ -3221,6 +3221,13 @@ perk_machine_spawn_init() //modified function
 						else
 							pos[ pos.size ] = structs[ i ];
 					}
+					else if( is_true(level.customMap == "excavation") )
+					{
+						if(structs[i].script_noteworthy == "specialty_weapupgrade" || structs[i].script_noteworthy == "specialty_quickrevive" || structs[i].script_noteworthy == "specialty_fastreload" )
+							structs[i] Delete();
+						else
+							pos[ pos.size ] = structs[ i ];
+					}
 					else
 					{
 						pos[ pos.size ] = structs[ i ];
@@ -3256,7 +3263,7 @@ perk_machine_spawn_init() //modified function
 			pos[ pos.size ] = level.tankPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" )
+	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
 		foreach ( perk in level.crazyplacePerkArray )
 		{

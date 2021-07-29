@@ -270,7 +270,7 @@ main() //checked changed to match cerberus output
 		foreach(elevator in level.elevators)
 		{
 			elevator.body.lock_doors = 1;
-			elevator.body maps/mp/_zm_highrise_elevators::perkelevatordoor(0);
+			elevator.body maps/mp/zm_highrise_elevators::perkelevatordoor(0);
 		}
 	}
 }

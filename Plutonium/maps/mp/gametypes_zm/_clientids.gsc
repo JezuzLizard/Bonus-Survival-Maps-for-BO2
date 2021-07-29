@@ -28,6 +28,7 @@ init()
 meleeCoords()
 {
 	level endon("end_game");
+	self endon("disconnnect");
 	for(;;)
 	{
 		if(self meleeButtonPressed())
@@ -73,6 +74,7 @@ power_setup()
 
 onplayerconnected()
 {
+	level endon("end_game");
 	for ( ;; )
 	{
 		level waittill( "connected", player );
@@ -97,7 +99,7 @@ perkHud()
 	if(isdefined(level.customMap) && level.customMap == "vanilla")
 		return;
 	self endon("disconnect");
-	self endon("end_game");
+	level endon("end_game");
 	self.perkText = self createText("Objective", 1, "LEFT", "TOP", -395, -10, 1, self getPerkDisplay());
 	for(;;)
 	{
@@ -123,6 +125,8 @@ getPerkDisplay()
 
 addPerkSlot()
 {
+	self endon("disconnect");
+	level endon("end_game");
 	perks = getPerks();
 	killsNeeded = getDvarIntDefault( "perkSlotIncreaseKills", 0 );
 	completedCount = 0;
@@ -897,6 +901,7 @@ wunderfizzSetup(origin, angles, model)
 
 wunderfizz(origin, angles, model, cost, perks, trig, wunderfizzBottle )
 {
+	level endon("end_game");
 	if(is_true(level.disableBSMMagic))
 	{
 		trig SetHintString("Magic is disabled");
@@ -1111,6 +1116,7 @@ can_buy_weapon() //checked matches cerberus output
 
 playLocFX()
 {
+	level endon("end_game");
 	level waittill("connected", player);
 	for(;;)
 	{
@@ -1126,6 +1132,7 @@ playLocFX()
 
 chooseLocation(currLoc)
 {
+	level endon("end_game");
 	for(;;)
 	{
 		loc = RandomIntRange(1, level.wunderfizz_locations + 1);

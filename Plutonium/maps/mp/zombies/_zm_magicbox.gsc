@@ -179,12 +179,12 @@ init() //modified function
 			start_chest = spawnstruct();
 			start_chest.origin = ( 1608.58, 1053.19, 3221.79 );
 			start_chest.angles = ( 0, 0, 0 );
-			start_chest.script_noteworthy = "start_chest";
+			start_chest.script_noteworthy = "ob6_chest";
 			start_chest.zombie_cost = 950;
 			start_chest2 = spawnstruct();
 			start_chest2.origin = (2177.11, 2416.36, 3040.13);
 			start_chest2.angles = ( 0, 180, 0 );
-			start_chest2.script_noteworthy = "ob6_chest";
+			start_chest2.script_noteworthy = "start_chest";
 			start_chest2.zombie_cost = 950;
 			level.chests[ 0 ] = start_chest;
 			level.chests[ 1 ] = start_chest2;
@@ -375,12 +375,12 @@ set_treasure_chest_cost( cost ) //checked matches cerberus output
 get_chest_pieces() //modified function
 {
 	self.chest_box = getent( self.script_noteworthy + "_zbarrier", "script_noteworthy" );
-	if ( isDefined( level.customMap ) && level.customMap == "building1top" && self.script_noteworthy == "start_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "building1top" && self.script_noteworthy == "ob6_chest" )
 	{
 		self.chest_box.origin = (1608.58, 1053.19, 3221.79);
 		self.chest_box.angles = (0, 0, 0);
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "building1top" && self.script_noteworthy == "ob6_chest" )
+	if ( isDefined( level.customMap ) && level.customMap == "building1top" && self.script_noteworthy == "start_chest" )
 	{
 		self.chest_box.origin = (2177.11, 2416.36, 3040.13);
 		self.chest_box.angles = (0, 180, 0);

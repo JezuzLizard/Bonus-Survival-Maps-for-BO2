@@ -1311,6 +1311,7 @@ init_spawnable_weapon_upgrade() //modified function
 
 customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom function
 {
+	level endon("end_game");
 	if(!isdefined(weapon) || !isdefined(origin) || !isdefined(angles))
 		return;
 	if(!isdefined(cost))

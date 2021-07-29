@@ -1464,7 +1464,7 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_tomb" )
 	{
-		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "vanilla" )
+		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "excavation" && GetDvar("customMap") != "vanilla" )
 		{
 			SetDvar( "customMap", "trenches" );
 		}
@@ -3172,6 +3172,14 @@ get_player_spawns_for_gametype() //modified function
 		for ( i = 0; i < level.crazyplaceSpawnpoints.size; i++ )
 		{
 			custom_spawns[ custom_spawns.size ] = level.crazyplaceSpawnpoints[ i ];
+		}
+		return custom_spawns;
+	}
+	else if ( isdefined( level.customMap ) && level.customMap == "excavation" )
+	{
+		for ( i = 0; i < level.excavationSpawnpoints.size; i++ )
+		{
+			custom_spawns[ custom_spawns.size ] = level.excavationSpawnpoints[ i ];
 		}
 		return custom_spawns;
 	}
