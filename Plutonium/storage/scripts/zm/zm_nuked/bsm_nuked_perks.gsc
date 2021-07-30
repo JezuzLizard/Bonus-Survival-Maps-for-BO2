@@ -21,69 +21,6 @@ main()
 
 extra_perk_spawns() //custom function
 {
-	level.mazePerkArray = array( "specialty_quickrevive", "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_additionalprimaryweapon", "specialty_longersprint", "specialty_weapupgrade" );
-
-	pLA = [];
-	pLA[0] = spawnstruct();
-	pLA[0].origin = (4897.65, 724.522, 2.91781);
-	pLA[0].angles = (0,0,0);
-	pLA[1] = spawnstruct();
-	pLA[1].origin = (6704.95, 944.359, 108.125);
-	pLA[1].angles = (0,5,0);
-	pLA[2] = spawnstruct();
-	pLA[2].origin = (6994.16, 360.486, 108.125);
-	pLA[2].angles = (0,236,0);
-	pLA[3] = spawnstruct();
-	pLA[3].origin = (5439, 870, 4.125);
-	pLA[3].angles = (0,180,0);
-	pLA[4] = spawnstruct();
-	pLA[4].origin = (3434.58, 848.447, 57.4652);
-	pLA[4].angles = (0,90,0);
-	pLA[5] = spawnstruct();
-	pLA[5].origin = (5211.65, 57.4669, 4.125);
-	pLA[5].angles = (0,90,0);
-	pLA[6] = spawnstruct();
-	pLA[6].origin = (4115.64, -126.73, 4.125);
-	pLA[6].angles = (0,90,0);
-	pLA[7] = spawnstruct();
-	pLA[7].origin = (4586.63, 1100.12, 4.125);
-	pLA[7].angles = (0,270,0);
-	pLA = array_randomize(pLA);
-	level.mazePerks[ "specialty_armorvest" ] = spawnstruct();
-	level.mazePerks[ "specialty_armorvest" ].origin = pLA[0].origin;
-	level.mazePerks[ "specialty_armorvest" ].angles = pLA[0].angles;
-	level.mazePerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
-	level.mazePerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
-	level.mazePerks[ "specialty_quickrevive" ] = spawnstruct();
-	level.mazePerks[ "specialty_quickrevive" ].origin = pLA[1].origin;
-	level.mazePerks[ "specialty_quickrevive" ].angles = pLA[1].angles;
-	level.mazePerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
-	level.mazePerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
-	level.mazePerks[ "specialty_rof" ] = spawnstruct();
-	level.mazePerks[ "specialty_rof" ].origin = pLA[2].origin;
-	level.mazePerks[ "specialty_rof" ].angles = pLA[2].angles;
-	level.mazePerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
-	level.mazePerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
-	level.mazePerks[ "specialty_fastreload" ] = spawnstruct();
-	level.mazePerks[ "specialty_fastreload" ].origin = pLA[3].origin;
-	level.mazePerks[ "specialty_fastreload" ].angles = pLA[3].angles;
-	level.mazePerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
-	level.mazePerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
-	level.mazePerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].origin = pLA[4].origin;
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].angles = pLA[4].angles;
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].model = "zombie_vending_three_gun";
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
-	level.mazePerks[ "specialty_longersprint" ] = spawnstruct();
-	level.mazePerks[ "specialty_longersprint" ].origin = pLA[5].origin;
-	level.mazePerks[ "specialty_longersprint" ].angles = pLA[5].angles;
-	level.mazePerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
-	level.mazePerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
-	level.mazePerks[ "specialty_weapupgrade" ] = spawnstruct();
-	level.mazePerks[ "specialty_weapupgrade" ].origin = pLA[6].origin;
-	level.mazePerks[ "specialty_weapupgrade" ].angles = pLA[6].angles;
-	level.mazePerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
-	level.mazePerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 }
 
 perk_machine_spawn_init() //modified function
@@ -118,10 +55,6 @@ perk_machine_spawn_init() //modified function
 		{
 			structs[i].origin = (0,0,-10000);
 		}
-		if(is_true(level.customMap == "maze"))
-		{
-			structs[i].origin = (0,0,-10000);
-		}
 		if ( isdefined( structs[ i ].script_string ) )
 		{
 			tokens = strtok( structs[ i ].script_string, " " );
@@ -140,13 +73,6 @@ perk_machine_spawn_init() //modified function
 			pos[ pos.size ] = structs[ i ];
 		}
 		i++;
-	}
-	if ( isdefined(level.customMap) && level.customMap == "maze" )
-	{
-		foreach( perk in level.mazePerkArray )
-		{
-			pos[pos.size] = level.mazePerks[ perk ];
-		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )
 	{
@@ -191,16 +117,8 @@ perk_machine_spawn_init() //modified function
 			}
 			collision = Spawn( "script_model", pos[ i ].origin, 1 );
 			collision.angles = pos[ i ].angles;
-			if(level.script == "zm_buried" && level.customMap == "maze")
-			{
-				collision SetModel( "collision_player_cylinder_32x128" );
-				collision ConnectPaths();
-			}
-			else
-			{
-				collision SetModel( "zm_collision_perks1" );
-				collision DisconnectPaths();
-			}
+			collision SetModel( "zm_collision_perks1" );
+			collision DisconnectPaths();
 			collision.script_noteworthy = "clip";
 			// Connect all of the pieces for easy access.
 			use_trigger.clip = collision;
