@@ -17,73 +17,95 @@
 main()
 {
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
+	replacefunc(maps/mp/zombies/_zm_perks::set_perk_clientfield, ::set_perk_clientfield);
+}
+
+set_perk_clientfield( perk, state ) //checked matches cerberus output
+{
+	if(level.customMap != "vanilla")
+	{
+		self.resetPerkHUD = 1;
+		return;
+	}
+	switch( perk )
+	{
+		case "specialty_additionalprimaryweapon":
+			self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
+			break;
+		case "specialty_deadshot":
+			self setclientfieldtoplayer( "perk_dead_shot", state );
+			break;
+		case "specialty_flakjacket":
+			self setclientfieldtoplayer( "perk_dive_to_nuke", state );
+			break;
+		case "specialty_rof":
+			self setclientfieldtoplayer( "perk_double_tap", state );
+			break;
+		case "specialty_armorvest":
+			self setclientfieldtoplayer( "perk_juggernaut", state );
+			break;
+		case "specialty_longersprint":
+			self setclientfieldtoplayer( "perk_marathon", state );
+			break;
+		case "specialty_quickrevive":
+			self setclientfieldtoplayer( "perk_quick_revive", state );
+			break;
+		case "specialty_fastreload":
+			self setclientfieldtoplayer( "perk_sleight_of_hand", state );
+			break;
+		case "specialty_scavenger":
+			self setclientfieldtoplayer( "perk_tombstone", state );
+			break;
+		case "specialty_finalstand":
+			self setclientfieldtoplayer( "perk_chugabud", state );
+			break;
+		default:
+		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].clientfield_set ) )
+		{
+			self [[ level._custom_perks[ perk ].clientfield_set ]]( state );
+		}
+	}
 }
 
 extra_perk_spawns() //custom function
 {
-	level.mazePerkArray = array( "specialty_quickrevive", "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_additionalprimaryweapon", "specialty_longersprint", "specialty_weapupgrade" );
+	level.building1topPerkArray = array( "specialty_quickrevive", "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_flakjacket", "specialty_additionalprimaryweapon", "specialty_weapupgrade" );
 
-	pLA = [];
-	pLA[0] = spawnstruct();
-	pLA[0].origin = (4897.65, 724.522, 2.91781);
-	pLA[0].angles = (0,0,0);
-	pLA[1] = spawnstruct();
-	pLA[1].origin = (6704.95, 944.359, 108.125);
-	pLA[1].angles = (0,5,0);
-	pLA[2] = spawnstruct();
-	pLA[2].origin = (6994.16, 360.486, 108.125);
-	pLA[2].angles = (0,236,0);
-	pLA[3] = spawnstruct();
-	pLA[3].origin = (5439, 870, 4.125);
-	pLA[3].angles = (0,180,0);
-	pLA[4] = spawnstruct();
-	pLA[4].origin = (3434.58, 848.447, 57.4652);
-	pLA[4].angles = (0,90,0);
-	pLA[5] = spawnstruct();
-	pLA[5].origin = (5211.65, 57.4669, 4.125);
-	pLA[5].angles = (0,90,0);
-	pLA[6] = spawnstruct();
-	pLA[6].origin = (4115.64, -126.73, 4.125);
-	pLA[6].angles = (0,90,0);
-	pLA[7] = spawnstruct();
-	pLA[7].origin = (4586.63, 1100.12, 4.125);
-	pLA[7].angles = (0,270,0);
-	pLA = array_randomize(pLA);
-	level.mazePerks[ "specialty_armorvest" ] = spawnstruct();
-	level.mazePerks[ "specialty_armorvest" ].origin = pLA[0].origin;
-	level.mazePerks[ "specialty_armorvest" ].angles = pLA[0].angles;
-	level.mazePerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
-	level.mazePerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
-	level.mazePerks[ "specialty_quickrevive" ] = spawnstruct();
-	level.mazePerks[ "specialty_quickrevive" ].origin = pLA[1].origin;
-	level.mazePerks[ "specialty_quickrevive" ].angles = pLA[1].angles;
-	level.mazePerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
-	level.mazePerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
-	level.mazePerks[ "specialty_rof" ] = spawnstruct();
-	level.mazePerks[ "specialty_rof" ].origin = pLA[2].origin;
-	level.mazePerks[ "specialty_rof" ].angles = pLA[2].angles;
-	level.mazePerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
-	level.mazePerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
-	level.mazePerks[ "specialty_fastreload" ] = spawnstruct();
-	level.mazePerks[ "specialty_fastreload" ].origin = pLA[3].origin;
-	level.mazePerks[ "specialty_fastreload" ].angles = pLA[3].angles;
-	level.mazePerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
-	level.mazePerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
-	level.mazePerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].origin = pLA[4].origin;
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].angles = pLA[4].angles;
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].model = "zombie_vending_three_gun";
-	level.mazePerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
-	level.mazePerks[ "specialty_longersprint" ] = spawnstruct();
-	level.mazePerks[ "specialty_longersprint" ].origin = pLA[5].origin;
-	level.mazePerks[ "specialty_longersprint" ].angles = pLA[5].angles;
-	level.mazePerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
-	level.mazePerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
-	level.mazePerks[ "specialty_weapupgrade" ] = spawnstruct();
-	level.mazePerks[ "specialty_weapupgrade" ].origin = pLA[6].origin;
-	level.mazePerks[ "specialty_weapupgrade" ].angles = pLA[6].angles;
-	level.mazePerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
-	level.mazePerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	level.building1topPerks[ "specialty_quickrevive" ] = spawnstruct();
+	level.building1topPerks[ "specialty_quickrevive" ].origin = (1435, 1225, 3390);
+	level.building1topPerks[ "specialty_quickrevive" ].angles = (-10, 180, 0 );
+	level.building1topPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+	level.building1topPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	level.building1topPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.building1topPerks[ "specialty_armorvest" ].origin = (1444.47, 2713.98, 3048.52);
+	level.building1topPerks[ "specialty_armorvest" ].angles = ( 0, 270, 0 );
+	level.building1topPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+	level.building1topPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.building1topPerks[ "specialty_rof" ] = spawnstruct();
+	level.building1topPerks[ "specialty_rof" ].origin = (2286.36, 2122.6, 3040.13);
+	level.building1topPerks[ "specialty_rof" ].angles = ( 0, 270, 0 );
+	level.building1topPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+	level.building1topPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+	level.building1topPerks[ "specialty_fastreload" ] = spawnstruct();
+	level.building1topPerks[ "specialty_fastreload" ].origin = (1916.92, 1139.1, 3216.13);
+	level.building1topPerks[ "specialty_fastreload" ].angles = ( 0, 135, 0 );
+	level.building1topPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+	level.building1topPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	level.building1topPerks[ "specialty_flakjacket" ] = spawnstruct();
+	level.building1topPerks[ "specialty_flakjacket" ].origin = (1421.23, 2102.13, 3219.31);
+	level.building1topPerks[ "specialty_flakjacket" ].angles = ( 0, 45, 0 );
+	level.building1topPerks[ "specialty_flakjacket" ].model = "zombie_vending_nuke_on_lo";
+	level.building1topPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].origin = (1521.58, 2094.12, 3392.13);
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 90, 0 );
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].model = "zombie_vending_three_gun";
+	level.building1topPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.building1topPerks["specialty_weapupgrade"] = spawnstruct();
+	level.building1topPerks["specialty_weapupgrade"].origin = (1195.34, 1281.47, 3392.13);
+	level.building1topPerks["specialty_weapupgrade"].angles = (0, 90, 0);
+	level.building1topPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+	level.building1topPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
 
 perk_machine_spawn_init() //modified function
@@ -114,11 +136,7 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
-		if(is_true(level.disableBSMMagic))
-		{
-			structs[i].origin = (0,0,-10000);
-		}
-		if(is_true(level.customMap == "maze"))
+		if(is_true(level.disableBSMMagic) || level.customMap == "building1top")
 		{
 			structs[i].origin = (0,0,-10000);
 		}
@@ -141,11 +159,11 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( isdefined(level.customMap) && level.customMap == "maze" && !is_true(level.disableBSMMagic) )
+	if ( isDefined(level.customMap) && level.customMap == "building1top" )
 	{
-		foreach( perk in level.mazePerkArray )
+		foreach( perk in level.building1topPerkArray )
 		{
-			pos[pos.size] = level.mazePerks[ perk ];
+			pos[pos.size] = level.building1topPerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )
@@ -168,11 +186,6 @@ perk_machine_spawn_init() //modified function
 			perk_machine = Spawn( "script_model", pos[ i ].origin );
 			perk_machine.angles = pos[ i ].angles;
 			perk_machine SetModel( pos[ i ].model );
-			if(level.customMap == "maze")
-			{
-				perk_machine NotSolid();
-				perk_machine ConnectPaths();
-			}
 			perk_machine.is_locked = 0;
 			if ( isdefined( level._no_vending_machine_bump_trigs ) && level._no_vending_machine_bump_trigs )
 			{
@@ -191,12 +204,7 @@ perk_machine_spawn_init() //modified function
 			}
 			collision = Spawn( "script_model", pos[ i ].origin, 1 );
 			collision.angles = pos[ i ].angles;
-			if(level.script == "zm_buried" && level.customMap == "maze")
-			{
-				collision SetModel( "collision_player_cylinder_32x128" );
-				collision ConnectPaths();
-			}
-			else
+			if(!is_true(level.customMap == "vanilla"))
 			{
 				collision SetModel( "zm_collision_perks1" );
 				collision DisconnectPaths();
@@ -205,6 +213,8 @@ perk_machine_spawn_init() //modified function
 			// Connect all of the pieces for easy access.
 			use_trigger.clip = collision;
 			use_trigger.bump = bump_trigger;
+			if(is_true(level.disableBSMMagic) && level.script == "zm_highrise")
+				use_trigger.origin = (0,0,-10000);
 			use_trigger.machine = perk_machine;
 			//missing code found in cerberus output
 			if ( isdefined( pos[ i ].blocker_model ) )
