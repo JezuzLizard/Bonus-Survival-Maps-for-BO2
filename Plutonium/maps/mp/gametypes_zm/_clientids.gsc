@@ -618,6 +618,10 @@ setupWunderfizz()
 			level notify("wunderfizzMove");
     	}
     }
+    else if(isDefined ( level.customMap ) && level.customMap == "redroom")
+    {
+    	wunderfizzSetup(( 3524.74, 1910.39, 1381 ),(-12.5,5.4,0), "zombie_vending_jugg");
+    }
 }
 
 getPerks()
@@ -757,6 +761,8 @@ getPerkModel(perk)
 	{
 		if(level.script == "zm_prison")
 			return "p6_zm_al_vending_nuke_on";
+		else if( level.script == "zm_highrise")
+			return "zombie_vending_nuke_on_lo";
 		else
 			return "zombie_vending_ads";
 	}
@@ -1847,6 +1853,44 @@ extra_perk_spawns() //custom function
 	level.building1topPerks["specialty_weapupgrade"].angles = (0, 90, 0);
 	level.building1topPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
 	level.building1topPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+	
+	level.redroomPerkArray = array( "specialty_quickrevive", "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_flakjacket", "specialty_additionalprimaryweapon", "specialty_weapupgrade" );
+
+		level.redroomPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.redroomPerks[ "specialty_quickrevive" ].origin = (1435, 1225, 3390);
+		level.redroomPerks[ "specialty_quickrevive" ].angles = (-10, 180, 0 );
+		level.redroomPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.redroomPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+		level.redroomPerks[ "specialty_armorvest" ] = spawnstruct();
+		level.redroomPerks[ "specialty_armorvest" ].origin = (1444.47, 2713.98, 3048.52);
+		level.redroomPerks[ "specialty_armorvest" ].angles = ( 0, 270, 0 );
+		level.redroomPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+		level.redroomPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+		level.redroomPerks[ "specialty_rof" ] = spawnstruct();
+		level.redroomPerks[ "specialty_rof" ].origin = (2286.36, 2122.6, 3040.13);
+		level.redroomPerks[ "specialty_rof" ].angles = ( 0, 270, 0 );
+		level.redroomPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+		level.redroomPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+		level.redroomPerks[ "specialty_fastreload" ] = spawnstruct();
+		level.redroomPerks[ "specialty_fastreload" ].origin = (1916.92, 1139.1, 3216.13);
+		level.redroomPerks[ "specialty_fastreload" ].angles = ( 0, 135, 0 );
+		level.redroomPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+		level.redroomPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+		level.redroomPerks[ "specialty_flakjacket" ] = spawnstruct();
+		level.redroomPerks[ "specialty_flakjacket" ].origin = (1421.23, 2102.13, 3219.31);
+		level.redroomPerks[ "specialty_flakjacket" ].angles = ( 0, 45, 0 );
+		level.redroomPerks[ "specialty_flakjacket" ].model = "zombie_vending_nuke_on_lo";
+		level.redroomPerks[ "specialty_flakjacket" ].script_noteworthy = "specialty_flakjacket";
+		level.redroomPerks[ "specialty_additionalprimaryweapon" ] = spawnstruct();
+		level.redroomPerks[ "specialty_additionalprimaryweapon" ].origin = (1521.58, 2094.12, 3392.13);
+		level.redroomPerks[ "specialty_additionalprimaryweapon" ].angles = ( 0, 90, 0 );
+		level.redroomPerks[ "specialty_additionalprimaryweapon" ].model = "zombie_vending_three_gun";
+		level.redroomPerks[ "specialty_additionalprimaryweapon" ].script_noteworthy = "specialty_additionalprimaryweapon";
+		level.redroomPerks["specialty_weapupgrade"] = spawnstruct();
+		level.redroomPerks["specialty_weapupgrade"].origin = (1195.34, 1281.47, 3392.13);
+		level.redroomPerks["specialty_weapupgrade"].angles = (0, 90, 0);
+		level.redroomPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+		level.redroomPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 	}
 	else if(level.script == "zm_buried")
 	{
