@@ -26,6 +26,7 @@ Tunnel
 Die Rise
 ```
 Spawn Area (building1top)
+Red Room (redroom)
 ```
 MoTD
 ```
