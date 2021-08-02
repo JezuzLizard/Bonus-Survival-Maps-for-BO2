@@ -628,7 +628,12 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 	{
 		[[ level.zone_manager_init_func ]]();
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "rooftop" )
+	if ( isDefined( level.customMap ) && level.customMap == "redroom" )
+	{
+		initial_zone = [];
+		initial_zone[ 0 ] = "zone_orange_level3b";
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "rooftop" )
 	{
 		initial_zone = [];
 		initial_zone[ 0 ] = "zone_roof";
