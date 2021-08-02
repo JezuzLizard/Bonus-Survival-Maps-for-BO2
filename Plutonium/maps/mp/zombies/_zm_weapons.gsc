@@ -1213,6 +1213,33 @@ init_spawnable_weapon_upgrade() //modified function
 				thread playchalkfx("an94_effect", spawn_list[ i ].origin, (0,270,0));
 			}
 		}
+		else if(isdefined(level.customMap) && level.customMap == "redroom")
+		{
+			if( spawn_list[i].zombie_weapon_upgrade == "tazer_knuckles_zm")
+			{
+				spawn_list[ i ].origin = (3255, 1024.4, 1365) + (-14,0,0);
+				spawn_list[ i ].angles = (0, 270, 0);
+				thread playchalkfx("galvaknuckles_effect", spawn_list[ i ].origin, (0,270,0));
+			}
+			else if( spawn_list[i].zombie_weapon_upgrade == "an94_zm")
+			{
+				spawn_list[ i ].origin = (3830, 1430, 1500) + (14,0,0);
+				spawn_list[ i ].angles = (0, 90, 0);
+				thread playchalkfx("an94_effect", spawn_list[ i ].origin, (0,90,0));
+			}
+			else if( spawn_list[i].zombie_weapon_upgrade == "m14_zm")
+			{
+				spawn_list[ i ].origin = (3210, 1868, 1370) + (0,14,0);
+				spawn_list[ i ].angles = (0, 180, 0);
+				thread playchalkfx("m14_effect", spawn_list[ i ].origin, (12.5,180,0));
+			}
+			else if( spawn_list[i].zombie_weapon_upgrade == "rottweil72_zm")
+			{
+				spawn_list[ i ].origin = (3675.37, 1932.36, 1473.8) + (0,14,0);
+				spawn_list[ i ].angles = (0, 180, 0);
+				thread playchalkfx("olympia_effect", spawn_list[ i ].origin, (12.5,180,0));
+			}
+		}
 		if ( isDefined( level._wallbuy_override_num_bits ) )
 		{
 			numbits = level._wallbuy_override_num_bits;
