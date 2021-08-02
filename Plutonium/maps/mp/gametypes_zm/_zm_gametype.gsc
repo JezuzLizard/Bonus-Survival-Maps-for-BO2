@@ -1552,7 +1552,7 @@ changeMap(map)
 		SetDvar("sv_maprotation","exec zm_standard_nuked.cfg map zm_nuked");
 	else if(map == "docks" || map == "cellblock" || map == "rooftop")
 		SetDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
-	else if(map == "building1top")
+	else if(map == "building1top" || map == "redroom")
 		SetDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
 	else if(map == "maze")
 		SetDvar("sv_maprotation", "exec zm_classic_processing.cfg map zm_buried");
