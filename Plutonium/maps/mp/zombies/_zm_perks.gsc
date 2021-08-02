@@ -3340,6 +3340,13 @@ perk_machine_spawn_init() //modified function
 			pos[pos.size] = level.building1topPerks[ perk ];
 		}
 	}
+	else if ( isDefined(level.customMap) && level.customMap == "redroom" )
+	{
+		foreach( perk in level.redroomPerkArray )
+		{
+			pos[pos.size] = level.redroomPerks[ perk ];
+		}
+	}
 	else if ( isdefined(level.customMap) && level.customMap == "maze" )
 	{
 		foreach( perk in level.mazePerkArray )
