@@ -1464,7 +1464,7 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_tomb" )
 	{
-		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "excavation" && GetDvar("customMap") != "vanilla" )
+		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "vanilla" )
 		{
 			SetDvar( "customMap", "trenches" );
 		}
@@ -1483,6 +1483,7 @@ override_map()
 map_rotation() //custom function
 {
 	level waittill( "end_game");
+	wait 2;
 	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
 	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
 	level.customMapRotation = getDvar( "customMapRotation" );
@@ -1987,7 +1988,6 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 	}
 	else if ( level.script == "zm_highrise" )
 	{
-		//spawnpoints here
 		//REDROOM
 		level.redroomSpawnpoints = [];
 		level.redroomSpawnpoints[ 0 ] = spawnstruct();
@@ -1996,49 +1996,49 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 		level.redroomSpawnpoints[ 0 ].radius = 32;
 		level.redroomSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 0 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 1 ] = spawnstruct();
 		level.redroomSpawnpoints[ 1 ].origin = ( 3308, 1359, 1488 );
 		level.redroomSpawnpoints[ 1 ].angles = ( 0, 90, 0 );
 		level.redroomSpawnpoints[ 1 ].radius = 32;
 		level.redroomSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 1 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 2 ] = spawnstruct();
 		level.redroomSpawnpoints[ 2 ].origin = ( 3258, 1359, 1488 );
 		level.redroomSpawnpoints[ 2 ].angles = ( 0, 90, 0 );
 		level.redroomSpawnpoints[ 2 ].radius = 32;
 		level.redroomSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 2 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 3 ] = spawnstruct();
 		level.redroomSpawnpoints[ 3 ].origin = ( 3208, 1359, 1488 );
 		level.redroomSpawnpoints[ 3 ].angles = ( 0, 90, 0 );
 		level.redroomSpawnpoints[ 3 ].radius = 32;
 		level.redroomSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 3 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 4 ] = spawnstruct();
 		level.redroomSpawnpoints[ 4 ].origin = ( 3266, 1718, 1488 );
 		level.redroomSpawnpoints[ 4 ].angles = ( 0, 270, 0 );
 		level.redroomSpawnpoints[ 4 ].radius = 32;
 		level.redroomSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 4 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 5 ] = spawnstruct();
 		level.redroomSpawnpoints[ 5 ].origin = ( 3216, 1718, 1488 );
 		level.redroomSpawnpoints[ 5 ].angles = ( 0, 270, 0 );
 		level.redroomSpawnpoints[ 5 ].radius = 32;
 		level.redroomSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 5 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 6 ] = spawnstruct();
 		level.redroomSpawnpoints[ 6 ].origin = ( 3166, 1718, 1488 );
 		level.redroomSpawnpoints[ 6 ].angles = ( 0, 270, 0 );
 		level.redroomSpawnpoints[ 6 ].radius = 32;
 		level.redroomSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
 		level.redroomSpawnpoints[ 6 ].script_int = 2048;
-
+		
 		level.redroomSpawnpoints[ 7 ] = spawnstruct();
 		level.redroomSpawnpoints[ 7 ].origin = ( 3116, 1718, 1488 );
 		level.redroomSpawnpoints[ 7 ].angles = ( 0, 270, 0 );
@@ -2807,7 +2807,7 @@ init_barriers_for_custom_maps() //custom function
 		elevatorbarrier6 = Spawn("script_model", (1647.7, 2167.82, 3040.09) + (0,0,32));
 		elevatorbarrier6 SetModel("collision_player_wall_64x64x10");
 		elevatorbarrier6 RotateTo((0,0,0),.1);
-		
+
 		//REDROOM BARRIERS
 		redroombarrier1 = spawn("script_model", ( 3039, 806.27, 1121.68 ));
 		redroombarrier1 setModel( "collision_player_wall_512x512x10" );
@@ -2951,13 +2951,6 @@ onspawnplayer( predictedspawn ) //modified function
 				spawnpoints[ spawnpoints.size ] = level.rooftopSpawnpoints[ i ];
 			}
 		}
-		else if ( isdefined( level.customMap ) && level.customMap == "redroom" )
-		{
-			for(i=0; i<level.redroomSpawnpoints.size;i++)
-			{
-				spawnpoints[spawnpoints.size] = level.redroomSpawnpoints[i];
-			}
-		}
 		else if ( isDefined( level.customMap ) && level.customMap == "trenches" )
 		{
 			for ( i = 0; i < level.trenchesSpawnpoints.size; i++ )
@@ -2991,6 +2984,13 @@ onspawnplayer( predictedspawn ) //modified function
 			for(i=0; i<level.mazeSpawnpoints.size;i++)
 			{
 				spawnpoints[spawnpoints.size] = level.mazeSpawnpoints[i];
+			}
+		}
+		else if ( isdefined( level.customMap ) && level.customMap == "redroom" )
+		{
+			for(i=0; i<level.redroomSpawnpoints.size;i++)
+			{
+				spawnpoints[spawnpoints.size] = level.redroomSpawnpoints[i];
 			}
 		}
 		else
@@ -3347,7 +3347,6 @@ menu_init() //checked matches cerberus output
 
 menu_onplayerconnect() //checked matches cerberus output
 {
-	level endon("end_game");
 	for ( ;; )
 	{
 		level waittill( "connecting", player );
@@ -3590,7 +3589,6 @@ init() //checked matches cerberus output
 
 onplayerconnect() //checked matches cerberus output
 {
-	level endon("end_game");
 	for ( ;; )
 	{
 		level waittill( "connected", player );
