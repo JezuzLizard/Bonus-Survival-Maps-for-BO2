@@ -266,6 +266,7 @@ main() //checked changed to match cerberus output
 	level._dont_unhide_quickervive_on_hotjoin = 1;
 	if(isdefined(level.customMap) && level.customMap != "vanilla")
 	{
+		level thread override_zombie_count();
 		level waittill("initial_blackscreen_passed");
 		foreach(elevator in level.elevators)
 		{
@@ -1933,4 +1934,44 @@ highrise_special_weapon_magicbox_check(weapon)
 		}
 	}
 	return 1;
+}
+
+override_zombie_count() //custom function
+{
+	level endon( "end_game" );
+	level.speed_change_round = undefined;
+	thread increase_zombie_speed();
+	for ( ;; )
+	{
+		level waittill_any( "start_of_round", "intermission", "check_count" );
+		if ( isdefined(level.customMap) && level.customMap == "redroom" )
+		{
+			if ( level.round_number <= 2 )
+			{
+				level.zombie_move_speed = 20;
+			}
+		}
+	}
+}
+
+increase_zombie_speed()
+{
+	if ( isdefined(level.customMap) && level.customMap != "redroom" )
+	{
+		return;
+	}
+	while ( 1 )
+	{
+		zombies = get_round_enemy_array();
+		for ( i = 0; i < zombies.size; i++ )
+		{
+			zombies[ i ].closestPlayer = get_closest_valid_player( zombies[ i ].origin );
+		}
+		zombies = get_round_enemy_array();
+		for ( i = 0; i < zombies.size; i++ )
+		{
+			zombies[ i ] set_zombie_run_cycle( "sprint" );
+		}
+		wait 1;
+	}
 }
