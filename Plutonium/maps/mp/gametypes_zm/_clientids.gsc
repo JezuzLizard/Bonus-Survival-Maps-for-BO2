@@ -665,7 +665,7 @@ getPerks()
 	{
 		perks[perks.size] = "specialty_quickrevive";
 	}
-	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk )
+	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk && level.customMap != "building1top" && level.customMap != "redroom" )
 	{
 		perks[perks.size] = "specialty_finalstand";
 	}
@@ -770,6 +770,8 @@ getPerkModel(perk)
 	{
 		if(level.script == "zm_prison")
 			return "p6_zm_al_vending_nuke_on";
+		else if(level.script == "zm_highrise")
+			return "zombie_vending_nuke_on_lo";
 		else
 			return "zombie_vending_ads";
 	}
