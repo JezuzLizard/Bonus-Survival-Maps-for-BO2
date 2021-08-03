@@ -11,7 +11,7 @@
 init()
 {
 	//level.is_forever_solo_game = 1;
-	level.player_out_of_playable_area_monitor = 0;
+	//level.player_out_of_playable_area_monitor = 0;
 	//level.player_starting_points = 500000;
 	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
