@@ -405,8 +405,11 @@ init_buildables()
 		removebuildable( "keys_zm" );
 		removebuildable( "ekeys_zm" );
 		removebuildable( "sq_common" );
-		level.zombie_include_weapons[ "slipgun_zm" ] = 1;
-		level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
+		if(is_true(level.customMap == "building1top"))
+		{
+			level.zombie_include_weapons[ "slipgun_zm" ] = 1;
+			level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
+		}
 	}
 	if ( level.script == "zm_tomb" && isdefined( level.customMap ) && level.customMap != "vanilla" )
 	{
