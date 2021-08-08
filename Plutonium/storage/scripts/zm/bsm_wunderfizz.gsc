@@ -61,89 +61,18 @@ setupWunderfizz()
 			level notify("wunderfizzMove");
     	}
     }
-}
-
-getPerks()
-{
-	perks = [];
-	//Order is Rainbow
-	if(isDefined(level.zombiemode_using_juggernaut_perk) && level.zombiemode_using_juggernaut_perk)
-	{
-		perks[perks.size] = "specialty_armorvest";
-	}
-	if(isDefined(level._custom_perks[ "specialty_nomotionsensor"] ))
-	{
-		perks[perks.size] = "specialty_nomotionsensor";
-	}
-	if ( isDefined( level.zombiemode_using_doubletap_perk ) && level.zombiemode_using_doubletap_perk )
-	{
-		perks[perks.size] = "specialty_rof";
-	}
-	if ( isDefined( level.zombiemode_using_marathon_perk ) && level.zombiemode_using_marathon_perk )
-	{
-		perks[perks.size] = "specialty_longersprint";
-	}
-	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
-	{
-		perks[perks.size] = "specialty_fastreload";
-	}
-	if(isDefined(level.zombiemode_using_additionalprimaryweapon_perk) && level.zombiemode_using_additionalprimaryweapon_perk)
-	{
-		perks[perks.size] = "specialty_additionalprimaryweapon";
-	}
-	if ( isDefined( level.zombiemode_using_revive_perk ) && level.zombiemode_using_revive_perk )
-	{
-		perks[perks.size] = "specialty_quickrevive";
-	}
-	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk )
-	{
-		perks[perks.size] = "specialty_finalstand";
-	}
-	if ( isDefined( level._custom_perks[ "specialty_grenadepulldeath" ] ))
-	{
-		perks[perks.size] = "specialty_grenadepulldeath";
-	}
-	if ( isDefined( level._custom_perks[ "specialty_flakjacket" ]) && level.script != "zm_buried" )
-	{
-		perks[perks.size] = "specialty_flakjacket";
-	}
-	if ( isDefined( level.zombiemode_using_deadshot_perk ) && level.zombiemode_using_deadshot_perk )
-	{
-		perks[perks.size] = "specialty_deadshot";
-	}
-	if ( isDefined( level.zombiemode_using_tombstone_perk ) && level.zombiemode_using_tombstone_perk )
-	{
-		perks[perks.size] = "specialty_scavenger";
-	}
-	return perks;
-}
-
-getPerkName(perk)
-{
-	if(perk == "specialty_armorvest")
-		return "Juggernog";
-	if(perk == "specialty_rof")
-		return "Double Tap";
-	if(perk == "specialty_longersprint")
-		return "Stamin-Up";
-	if(perk == "specialty_fastreload")
-		return "Speed Cola";
-	if(perk == "specialty_additionalprimaryweapon")
-		return "Mule Kick";
-	if(perk == "specialty_quickrevive")
-		return "Quick Revive";
-	if(perk == "specialty_finalstand")
-		return "Who's Who";
-	if(perk == "specialty_grenadepulldeath")
-		return "Electric Cherry";
-	if(perk == "specialty_flakjacket")
-		return "PHD Flopper";
-	if(perk == "specialty_deadshot")
-		return "Deadshot Daiquiri";
-	if(perk == "specialty_scavenger")
-		return "Tombstone";
-	if(perk == "specialty_nomotionsensor")
-		return "Vulture Aid";
+    else if(isDefined ( level.customMap ) && level.customMap == "redroom")
+    {
+    	wunderfizzSetup((2988, 1141, 1438),(0, 270, 12.4), "zombie_vending_jugg");
+    	//DO NOT TOUCH BELOW IF YOU DON'T KNOW WHAT YOU'RE DOING
+    	if(wunderfizzUseRandomStart)
+    	{
+    		level waittill("connected", player);
+    		wait 1;
+			level.currentWunderfizzLocation = chooseLocation(level.currentWunderfizzLocation);
+			level notify("wunderfizzMove");
+    	}
+    }
 }
 
 getPerkModel(perk)
@@ -200,6 +129,8 @@ getPerkModel(perk)
 	{
 		if(level.script == "zm_prison")
 			return "p6_zm_al_vending_nuke_on";
+		else if(level.script == "zm_highrise")
+			return "zombie_vending_nuke_on_lo";
 		else
 			return "zombie_vending_ads";
 	}

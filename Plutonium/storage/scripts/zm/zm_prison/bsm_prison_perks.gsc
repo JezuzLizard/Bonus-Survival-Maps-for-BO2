@@ -19,6 +19,315 @@ main()
 	replacefunc(maps/mp/zombies/_zm_perks::perks_register_clientfield, ::perks_register_clientfield); 
 	replacefunc(maps/mp/zombies/_zm_perks::set_perk_clientfield, ::set_perk_clientfield);
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
+	replacefunc(maps/mp/zombies/_zm_perks::init, ::perks_init);
+	if(GetDvar("customMap") != "vanilla")
+	{
+		if(GetDvar("customMap") != "rooftop")
+		{
+			level.zombiemode_using_marathon_perk = 1;
+			level.zombiemode_using_revive_perk = 1;
+		}
+		level.zombiemode_using_additionalprimaryweapon_perk = 1;
+		level.zombiemode_using_divetonuke_perk = 1;
+	}
+}
+
+perks_init() //checked partially changed to match cerberus output
+{
+	//begin debug code
+	level.custom_zm_perks_loaded = 1;
+	maps/mp/zombies/_zm_bot::init();
+	if ( !isDefined( level.debugLogging_zm_perks ) )
+	{
+		level.debugLogging_zm_perks = 0;
+	}
+	
+	//end debug code
+	level.additionalprimaryweapon_limit = 3;
+	level.perk_purchase_limit = 4;
+	if ( !level.createfx_enabled )
+	{
+		perks_register_clientfield(); //fixed
+	}
+	if ( !level.enable_magic )
+	{
+		return;
+	}
+	initialize_custom_perk_arrays();
+	perk_machine_spawn_init();
+	vending_weapon_upgrade_trigger = [];
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for ( i = 0; i < vending_triggers.size; i++ )
+	{
+		if ( isDefined( vending_triggers[ i ].script_noteworthy ) && vending_triggers[ i ].script_noteworthy == "specialty_weapupgrade" )
+		{
+			vending_weapon_upgrade_trigger[ vending_weapon_upgrade_trigger.size ] = vending_triggers[ i ];
+			arrayremovevalue( vending_triggers, vending_triggers[ i ] );
+		}
+	}
+	old_packs = getentarray( "zombie_vending_upgrade", "targetname" );
+	i = 0;
+	for ( i = 0; i < old_packs.size; i++ )
+	{
+		vending_weapon_upgrade_trigger[ vending_weapon_upgrade_trigger.size ] = old_packs[ i ];
+	}
+	flag_init( "pack_machine_in_use" );
+	if ( vending_triggers.size < 1 )
+	{
+		return;
+	}
+	if ( vending_weapon_upgrade_trigger.size >= 1 )
+	{
+		array_thread( vending_weapon_upgrade_trigger, ::vending_weapon_upgrade );
+	}
+	level.machine_assets = [];
+	custom_vending_precaching();
+	if ( !isDefined( level.packapunch_timeout ) )
+	{
+		level.packapunch_timeout = 15;
+	}
+	set_zombie_var( "zombie_perk_cost", 2000 );
+	set_zombie_var( "zombie_perk_juggernaut_health", 160 );
+	set_zombie_var( "zombie_perk_juggernaut_health_upgrade", 190 );
+	array_thread( vending_triggers, ::vending_trigger_think );
+	array_thread( vending_triggers, ::electric_perks_dialog );
+
+	if ( isDefined( level.zombiemode_using_doubletap_perk ) && level.zombiemode_using_doubletap_perk )
+	{
+		level thread turn_doubletap_on();
+	}
+	if ( isDefined( level.zombiemode_using_marathon_perk ) && level.zombiemode_using_marathon_perk )
+	{
+		level thread turn_marathon_on();
+	}
+	if ( isDefined( level.zombiemode_using_juggernaut_perk ) && level.zombiemode_using_juggernaut_perk )
+	{
+		level thread turn_jugger_on();
+	}
+	if ( isDefined( level.zombiemode_using_revive_perk ) && level.zombiemode_using_revive_perk )
+	{
+		level thread turn_revive_on();
+	}
+	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
+	{
+		level thread turn_sleight_on();
+	}
+	if ( isDefined( level.zombiemode_using_deadshot_perk ) && level.zombiemode_using_deadshot_perk )
+	{
+		level thread turn_deadshot_on();
+	}
+	if ( isDefined( level.zombiemode_using_tombstone_perk ) && level.zombiemode_using_tombstone_perk )
+	{
+		level thread turn_tombstone_on();
+	}
+	if ( isDefined( level.zombiemode_using_additionalprimaryweapon_perk ) && level.zombiemode_using_additionalprimaryweapon_perk )
+	{
+		level thread turn_additionalprimaryweapon_on();
+	}
+	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk )
+	{
+		level thread turn_chugabud_on();
+	}
+	if ( level._custom_perks.size > 0 )
+	{
+		a_keys = getarraykeys( level._custom_perks );
+		for ( i = 0; i < a_keys.size; i++ )
+		{
+			if ( isdefined( level._custom_perks[ a_keys[ i ] ].perk_machine_thread ) )
+			{
+				level thread [[ level._custom_perks[ a_keys[ i ] ].perk_machine_thread ]]();
+			}
+		}
+	}
+	if ( isDefined( level._custom_turn_packapunch_on ) )
+	{
+		level thread [[ level._custom_turn_packapunch_on ]]();
+	}
+	else
+	{
+		level thread turn_packapunch_on();
+	}
+	if ( isDefined( level.quantum_bomb_register_result_func ) )
+	{
+		[[ level.quantum_bomb_register_result_func ]]( "give_nearest_perk", ::quantum_bomb_give_nearest_perk_result, 10, ::quantum_bomb_give_nearest_perk_validation );
+	}
+	level thread perk_hostmigration();
+}
+
+custom_vending_precaching() //checked changed to match cerberus output
+{
+	precacheshader( "specialty_electric_cherry_zombie" );
+	if ( level._custom_perks.size > 0 )
+	{
+		a_keys = getarraykeys( level._custom_perks );
+		for ( i = 0; i < a_keys.size; i++ )
+		{
+			if ( isDefined( level._custom_perks[ a_keys[ i ] ].precache_func ) )
+			{
+				level [[ level._custom_perks[ a_keys[ i ] ].precache_func ]]();
+			}
+		}
+	}
+	if ( isDefined( level.zombiemode_using_pack_a_punch ) && level.zombiemode_using_pack_a_punch )
+	{
+		precacheitem( "zombie_knuckle_crack" );
+		precachemodel( "p6_anim_zm_buildable_pap" );
+		precachemodel( "p6_anim_zm_buildable_pap_on" );
+		precachestring( &"ZOMBIE_PERK_PACKAPUNCH" );
+		precachestring( &"ZOMBIE_PERK_PACKAPUNCH_ATT" );
+		level._effect[ "packapunch_fx" ] = loadfx( "maps/zombie/fx_zombie_packapunch" );
+		level.machine_assets[ "packapunch" ] = spawnstruct();
+		level.machine_assets[ "packapunch" ].weapon = "zombie_knuckle_crack";
+		level.machine_assets[ "packapunch" ].off_model = "p6_zm_al_vending_pap_on";
+		level.machine_assets[ "packapunch" ].on_model = "p6_zm_al_vending_pap_on";
+		level.machine_assets[ "packapunch" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "packapunch" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_additionalprimaryweapon_perk ) && level.zombiemode_using_additionalprimaryweapon_perk )
+	{
+		precacheitem( "zombie_perk_bottle_additionalprimaryweapon" );
+		precacheshader( "specialty_additionalprimaryweapon_zombies" );
+		precachemodel( "p6_zm_al_vending_three_gun_on" );
+		precachestring( &"ZOMBIE_PERK_ADDITIONALWEAPONPERK" );
+		level._effect[ "additionalprimaryweapon_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "additionalprimaryweapon" ] = spawnstruct();
+		level.machine_assets[ "additionalprimaryweapon" ].weapon = "zombie_perk_bottle_sleight";
+		level.machine_assets[ "additionalprimaryweapon" ].off_model = "p6_zm_al_vending_three_gun_on";
+		level.machine_assets[ "additionalprimaryweapon" ].on_model = "p6_zm_al_vending_three_gun_on";
+		level.machine_assets[ "additionalprimaryweapon" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "additionalprimaryweapon" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_deadshot_perk ) && level.zombiemode_using_deadshot_perk )
+	{
+		precacheitem( "zombie_perk_bottle_deadshot" );
+		precacheshader( "specialty_ads_zombies" );
+		precachemodel( "p6_zm_al_vending_ads_on" );
+		precachestring( &"ZOMBIE_PERK_DEADSHOT" );
+		level._effect[ "deadshot_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "deadshot" ] = spawnstruct();
+		level.machine_assets[ "deadshot" ].weapon = "zombie_perk_bottle_deadshot";
+		level.machine_assets[ "deadshot" ].off_model = "p6_zm_al_vending_ads_on";
+		level.machine_assets[ "deadshot" ].on_model = "p6_zm_al_vending_ads_on";
+		level.machine_assets[ "deadshot" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "deadshot" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_divetonuke_perk ) && level.zombiemode_using_divetonuke_perk )
+	{
+		//precacheitem( "zombie_perk_bottle_nuke" );
+		precacheshader( "specialty_divetonuke_zombies" );
+		precachemodel( "p6_zm_al_vending_nuke_on" );
+		//precachestring( &"ZOMBIE_PERK_DIVETONUKE" );
+		//level._effect[ "divetonuke_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "divetonuke" ] = spawnstruct();
+		level.machine_assets[ "divetonuke" ].weapon = "zombie_perk_bottle_deadshot";
+		level.machine_assets[ "divetonuke" ].off_model = "p6_zm_al_vending_nuke_on";
+		level.machine_assets[ "divetonuke" ].on_model = "p6_zm_al_vending_nuke_on";
+		level.machine_assets[ "divetonuke" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "divetonuke" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_doubletap_perk ) && level.zombiemode_using_doubletap_perk )
+	{
+		precacheitem( "zombie_perk_bottle_doubletap" );
+		precacheshader( "specialty_doubletap_zombies" );
+		precachemodel( "p6_zm_al_vending_doubletap2_on" );
+		precachestring( &"ZOMBIE_PERK_DOUBLETAP" );
+		level._effect[ "doubletap_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "doubletap" ] = spawnstruct();
+		level.machine_assets[ "doubletap" ].weapon = "zombie_perk_bottle_doubletap";
+		level.machine_assets[ "doubletap" ].off_model = "p6_zm_al_vending_doubletap2_on";
+		level.machine_assets[ "doubletap" ].on_model = "p6_zm_al_vending_doubletap2_on";
+		level.machine_assets[ "doubletap" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "doubletap" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_juggernaut_perk ) && level.zombiemode_using_juggernaut_perk )
+	{
+		precacheitem( "zombie_perk_bottle_jugg" );
+		precacheshader( "specialty_juggernaut_zombies" );
+		precachemodel( "p6_zm_al_vending_jugg_on" );
+		precachestring( &"ZOMBIE_PERK_JUGGERNAUT" );
+		level._effect[ "jugger_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "juggernog" ] = spawnstruct();
+		level.machine_assets[ "juggernog" ].weapon = "zombie_perk_bottle_jugg";
+		level.machine_assets[ "juggernog" ].off_model = "p6_zm_al_vending_jugg_on";
+		level.machine_assets[ "juggernog" ].on_model = "p6_zm_al_vending_jugg_on";
+		level.machine_assets[ "juggernog" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "juggernog" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_marathon_perk ) && level.zombiemode_using_marathon_perk )
+	{
+		precachestring( &"ZOMBIE_PERK_MARATHON" );
+		precacheshader("specialty_doublepoints_zombies");
+		//level._effect[ "marathon_light" ] = loadfx( "maps/zombie/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "marathon" ] = spawnstruct();
+		level.machine_assets[ "marathon" ].weapon = "zombie_perk_bottle_doubletap";
+		level.machine_assets[ "marathon" ].off_model = "p6_zm_al_vending_doubletap2_on";
+		level.machine_assets[ "marathon" ].on_model = "p6_zm_al_vending_doubletap2_on";
+	}
+	if ( isDefined( level.zombiemode_using_revive_perk ) && level.zombiemode_using_revive_perk )
+	{
+		precacheshader( "specialty_instakill_zombies" );
+		//precachemodel( "zombie_vending_revive" );
+		//precachemodel( "zombie_vending_revive_on" );
+		precachestring( &"ZOMBIE_PERK_QUICKREVIVE" );
+		//level._effect[ "revive_light" ] = loadfx( "misc/fx_zombie_cola_revive_on" );
+		//level._effect[ "revive_light_flicker" ] = loadfx( "maps/zombie/fx_zmb_cola_revive_flicker" );
+		level.machine_assets[ "revive" ] = spawnstruct();
+		level.machine_assets[ "revive" ].weapon = "zombie_perk_bottle_cherry";
+		level.machine_assets[ "revive" ].off_model = "p6_zm_vending_electric_cherry_off";
+		level.machine_assets[ "revive" ].on_model = "p6_zm_vending_electric_cherry_on";
+	}
+	if ( isDefined( level.zombiemode_using_sleightofhand_perk ) && level.zombiemode_using_sleightofhand_perk )
+	{
+		precacheitem( "zombie_perk_bottle_sleight" );
+		precacheshader( "specialty_fastreload_zombies" );
+		precachemodel( "p6_zm_al_vending_sleight_on" );
+		precachestring( &"ZOMBIE_PERK_FASTRELOAD" );
+		level._effect[ "sleight_light" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_perk_smk" );
+		level.machine_assets[ "speedcola" ] = spawnstruct();
+		level.machine_assets[ "speedcola" ].weapon = "zombie_perk_bottle_sleight";
+		level.machine_assets[ "speedcola" ].off_model = "p6_zm_al_vending_sleight_on";
+		level.machine_assets[ "speedcola" ].on_model = "p6_zm_al_vending_sleight_on";
+		level.machine_assets[ "speedcola" ].power_on_callback = ::custom_vending_power_on;
+		level.machine_assets[ "speedcola" ].power_off_callback = ::custom_vending_power_off;
+	}
+	if ( isDefined( level.zombiemode_using_tombstone_perk ) && level.zombiemode_using_tombstone_perk )
+	{
+		precacheitem( "zombie_perk_bottle_tombstone" );
+		precacheshader( "specialty_tombstone_zombies" );
+		precachemodel( "zombie_vending_tombstone" );
+		precachemodel( "zombie_vending_tombstone_on" );
+		precachemodel( "ch_tombstone1" );
+		precachestring( &"ZOMBIE_PERK_TOMBSTONE" );
+		level._effect[ "tombstone_light" ] = loadfx( "misc/fx_zombie_cola_on" );
+		level.machine_assets[ "tombstone" ] = spawnstruct();
+		level.machine_assets[ "tombstone" ].weapon = "zombie_perk_bottle_tombstone";
+		level.machine_assets[ "tombstone" ].off_model = "zombie_vending_tombstone";
+		level.machine_assets[ "tombstone" ].on_model = "zombie_vending_tombstone_on";
+	}
+	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk )
+	{
+		precacheitem( "zombie_perk_bottle_whoswho" );
+		precacheshader( "specialty_quickrevive_zombies" );
+		precachemodel( "p6_zm_vending_chugabud" );
+		precachemodel( "p6_zm_vending_chugabud_on" );
+		precachemodel( "ch_tombstone1" );
+		precachestring( &"ZOMBIE_PERK_TOMBSTONE" );
+		level._effect[ "tombstone_light" ] = loadfx( "misc/fx_zombie_cola_on" );
+		level.machine_assets[ "whoswho" ] = spawnstruct();
+		level.machine_assets[ "whoswho" ].weapon = "zombie_perk_bottle_whoswho";
+		level.machine_assets[ "whoswho" ].off_model = "p6_zm_vending_chugabud";
+		level.machine_assets[ "whoswho" ].on_model = "p6_zm_vending_chugabud_on";
+	}
+}
+
+custom_vending_power_on() //checked matches cerberus output
+{
+	self setclientfield( "toggle_perk_machine_power", 2 );
+}
+
+custom_vending_power_off() //checked matches cerberus output
+{
+	self setclientfield( "toggle_perk_machine_power", 1 );
 }
 
 set_perk_clientfield( perk, state ) //checked matches cerberus output

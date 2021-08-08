@@ -106,6 +106,20 @@ extra_perk_spawns() //custom function
 	level.building1topPerks["specialty_weapupgrade"].angles = (0, 90, 0);
 	level.building1topPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
 	level.building1topPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+	
+	level.redroomPerkArray = array( "specialty_weapupgrade", "specialty_armorvest" );
+
+	level.redroomPerks[ "specialty_armorvest" ] = spawnstruct();
+	level.redroomPerks[ "specialty_armorvest" ].origin = (3382, 1169, 1350);
+	level.redroomPerks[ "specialty_armorvest" ].angles = (0, 80, 0);
+	level.redroomPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+	level.redroomPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+
+	level.redroomPerks["specialty_weapupgrade"] = spawnstruct();
+	level.redroomPerks["specialty_weapupgrade"].origin = ( 3524.74, 1910.39, 1370 );
+	level.redroomPerks["specialty_weapupgrade"].angles = (0,0,0);
+	level.redroomPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+	level.redroomPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
 
 perk_machine_spawn_init() //modified function
@@ -136,7 +150,7 @@ perk_machine_spawn_init() //modified function
 	i = 0;
 	while ( i < structs.size )
 	{
-		if(is_true(level.disableBSMMagic) || level.customMap == "building1top")
+		if(is_true(level.disableBSMMagic) || level.customMap == "building1top" || level.customMap == "redroom" )
 		{
 			structs[i].origin = (0,0,-10000);
 		}
@@ -148,7 +162,14 @@ perk_machine_spawn_init() //modified function
 			{
 				if ( tokens[ k ] == match_string )
 				{
-					pos[ pos.size ] = structs[ i ];
+					if(is_true(level.customMap == "redroom") && structs[i].script_noteworthy == "specialty_weapupgrade")
+					{
+						structs[i] Delete();
+					}
+					else
+					{
+						pos[ pos.size ] = structs[ i ];
+					}
 				}
 				k++;
 			}
@@ -164,6 +185,13 @@ perk_machine_spawn_init() //modified function
 		foreach( perk in level.building1topPerkArray )
 		{
 			pos[pos.size] = level.building1topPerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap == "redroom" )
+	{
+		foreach( perk in level.redroomPerkArray )
+		{
+			pos[pos.size] = level.redroomPerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )

@@ -7,18 +7,43 @@
 #include maps/mp/gametypes_zm/_weapons;
 #include maps/mp/zombies/_zm_perks;
 #include maps/mp/gametypes_zm/_hud_util;
+#include maps/mp/zombies/_zm_pers_upgrades;
+
+main()
+{
+	replacefunc(maps/mp/zombies/_zm_perks::get_perk_array, ::get_perk_array);
+	replacefunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, ::pers_upgrade_init);
+}
 
 init()
 {
-	level.player_out_of_playable_area_monitor = 0;
+	//level.player_out_of_playable_area_monitor = 0;
 	level.player_starting_points = 500000;
-	level.perk_purchase_limit = 10;
+	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" || getDvar("customMap") == "farm")
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
 	level.callbackactordamage = ::actor_damage_override_wrapper;
+}
+
+pers_upgrade_init() //checked matches cerberus output
+{
+	setup_pers_upgrade_boards();
+	setup_pers_upgrade_revive();
+	setup_pers_upgrade_multi_kill_headshots();
+	setup_pers_upgrade_cash_back();
+	setup_pers_upgrade_insta_kill();
+	setup_pers_upgrade_jugg();
+	setup_pers_upgrade_carpenter();
+	setup_pers_upgrade_flopper();
+	setup_pers_upgrade_perk_lose();
+	setup_pers_upgrade_pistol_points();
+	setup_pers_upgrade_double_points();
+	setup_pers_upgrade_sniper();
+	setup_pers_upgrade_box_weapon();
+	setup_pers_upgrade_nube();
 }
 
 meleeCoords()
@@ -46,6 +71,58 @@ meleeCoords()
 		}
 		wait .5;
 	}
+}
+
+get_perk_array( ignore_chugabud ) //checked matches cerberus output
+{
+	perk_array = [];
+	if ( self hasperk( "specialty_armorvest" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_armorvest";
+	}
+	if ( self hasperk( "specialty_deadshot" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_deadshot";
+	}
+	if ( self hasperk( "specialty_fastreload" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_fastreload";
+	}
+	if ( self hasperk( "specialty_longersprint" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_longersprint";
+	}
+	if ( self hasperk( "specialty_quickrevive" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_quickrevive";
+	}
+	if ( self hasperk( "specialty_rof" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_rof";
+	}
+	if ( self hasperk( "specialty_additionalprimaryweapon" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_additionalprimaryweapon";
+	}
+	if ( !isDefined( ignore_chugabud ) || ignore_chugabud == 0 )
+	{
+		if ( self hasperk( "specialty_finalstand" ) )
+		{
+			perk_array[ perk_array.size ] = "specialty_finalstand";
+		}
+	}
+	if ( level._custom_perks.size > 0 )
+	{
+		a_keys = getarraykeys( level._custom_perks );
+		for ( i = 0; i < a_keys.size; i++ )
+		{
+			if ( self hasperk( a_keys[ i ] ) )
+			{
+				perk_array[ perk_array.size ] = a_keys[ i ];
+			}
+		}
+	}
+	return perk_array; 
 }
 
 init_custom_map()
@@ -77,7 +154,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		//player thread meleeCoords();
+		player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 	}
 }
@@ -394,8 +471,11 @@ init_buildables()
 		removebuildable( "keys_zm" );
 		removebuildable( "ekeys_zm" );
 		removebuildable( "sq_common" );
-		level.zombie_include_weapons[ "slipgun_zm" ] = 1;
-		level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
+		if(is_true(level.customMap == "building1top"))
+		{
+			level.zombie_include_weapons[ "slipgun_zm" ] = 1;
+			level.zombie_weapons[ "slipgun_zm" ].is_in_box = 1;
+		}
 	}
 	if ( level.script == "zm_tomb" && isdefined( level.customMap ) && level.customMap != "vanilla" )
 	{
@@ -541,7 +621,7 @@ build_plane_later()
 	level endon ( "end_game" );
 	level endon ( "plane_built" );
 	
-	level.planeBuiltOnRound = getDvarIntDefault( "planeBuiltOnRound", 10 );
+	level.planeBuiltOnRound = getDvarIntDefault( "planeBuiltOnRound", 1 );
 	level.zombie_vars[ "planeBuiltOnRound" ] = level.planeBuiltOnRound;
 	
 	for ( ;; )
@@ -550,7 +630,7 @@ build_plane_later()
 		if ( level.round_number >= level.planeBuiltOnRound )
 		{
 			buildcraftable( "plane" );
-			level notify ( "plane_built" );
+			break;
 		}
 	}
 }
@@ -596,7 +676,7 @@ getPerks()
 	{
 		perks[perks.size] = "specialty_quickrevive";
 	}
-	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk )
+	if ( isDefined( level.zombiemode_using_chugabud_perk ) && level.zombiemode_using_chugabud_perk && level.customMap != "building1top" && level.customMap != "redroom")
 	{
 		perks[perks.size] = "specialty_finalstand";
 	}

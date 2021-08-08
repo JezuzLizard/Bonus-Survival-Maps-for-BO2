@@ -26,14 +26,12 @@ main()
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::game_objects_allowed, ::game_objects_allowed);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, ::onspawnplayer);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype, ::get_player_spawns_for_gametype);
-	override_map();
 	init_spawnpoints_for_custom_survival_maps();
 }
 
 init()
 {
 	init_barriers_for_custom_maps();
-	thread map_rotation();
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion
@@ -88,172 +86,65 @@ game_objects_allowed( mode, location ) //checked partially changed to match cerb
 	}
 }
 
-getMapString(map) //custom function
-{
-	if(map == "tunnel")
-		return "Tunnel";
-	if(map == "diner")
-		return "Diner";
-	if(map == "power")
-		return "Power Station";
-	if(map == "house")
-		return "Cabin";
-	if(map == "cornfield")
-		return "Cornfield";
-	if(map == "docks")
-		return "Docks";
-	if(map == "cellblock")
-		return "Cellblock";
-	if(map == "rooftop")
-		return "Rooftop/Bridge";
-	if(map == "trenches")
-		return "Trenches";
-	if(map == "excavation")
-		return "No Man's Land";
-	if(map == "tank")
-		return "Tank/Church";
-	if(map == "crazyplace")
-		return "Crazy Place";
-	if(map == "vanilla")
-		return "Vanilla";
-}
-
-override_map()
-{
-	mapname = ToLower( GetDvar( "mapname" ) );
-	if( GetDvar("customMap") == "" )
-		SetDvar("customMap", "vanilla");
-	if ( isdefined(mapname) && mapname == "zm_transit" )
-	{
-		if ( GetDvar("customMap") != "tunnel" && GetDvar("customMap") != "diner" && GetDvar("customMap") != "power" && GetDvar("customMap") != "cornfield" && GetDvar("customMap") != "house" && GetDvar("customMap") != "vanilla" && GetDvar("customMap") != "town" && GetDvar("customMap") != "farm" && GetDvar("customMap") != "busdepot" )
-		{
-			SetDvar( "customMap", "house" );
-		}
-	}
-	else if ( isdefined(mapname) && mapname == "zm_nuked" )
-	{
-		if ( GetDvar("customMap") != "nuketown" && GetDvar("customMap") != "vanilla")
-		{
-			SetDvar("customMap", "nuketown");
-		}
-	}
-	else if ( isdefined(mapname) && mapname == "zm_highrise" )
-	{
-		if ( GetDvar("customMap") != "building1top" && GetDvar("customMap") != "vanilla" )
-		{
-			SetDvar( "customMap", "building1top" );
-		}
-	}
-	else if ( isdefined(mapname) && mapname == "zm_prison" )
-	{
-		if ( GetDvar("customMap") != "docks" && GetDvar("customMap") != "cellblock" && GetDvar("customMap") != "rooftop" && GetDvar("customMap") != "vanilla" )
-		{
-			SetDvar( "customMap", "docks" );
-		}
-	}
-	else if ( isdefined(mapname) && mapname == "zm_buried" )
-	{
-		if ( GetDvar("customMap") != "maze" && GetDvar("customMap") != "vanilla")
-		{
-			SetDvar( "customMap", "maze" );
-		}
-	}
-	else if ( isdefined(mapname) && mapname == "zm_tomb" )
-	{
-		if ( GetDvar("customMap") != "trenches" && GetDvar("customMap") != "crazyplace" && GetDvar("customMap") != "excavation" && GetDvar("customMap") != "vanilla" )
-		{
-			SetDvar( "customMap", "trenches" );
-		}
-	}
-	map = ToLower(GetDvar("customMap"));
-	if(map == "town" || map == "busdepot" || map == "farm" || map == "nuketown")
-	{
-		level.customMap = "vanilla";
-	}
-	else
-	{
-		level.customMap = map;
-	}
-}
-
-map_rotation() //custom function
-{
-	level waittill( "end_game");
-	wait 2;
-	level.randomizeMapRotation = getDvarIntDefault( "randomizeMapRotation", 0 );
-	level.customMapRotationActive = getDvarIntDefault( "customMapRotationActive", 0 );
-	level.customMapRotation = getDvar( "customMapRotation" );
-	level.mapList = strTok( level.customMapRotation, " " );
-	if ( !level.customMapRotationActive )
-	{
-		return;
-	}
-	if ( !isDefined( level.customMapRotation ) || level.customMapRotation == "" )
-	{
-		level.customMapRotation = "nuketown cellblock trenches busdepot building1top maze";
-	}
-	if ( level.randomizeMapRotation && level.mapList.size > 3 )
-	{
-		level thread random_map_rotation();
-		return;
-	}
-	for(i=0;i<level.mapList.size;i++)
-	{
-		if(isdefined(level.mapList[i+1]) && getDvar("customMap") == level.mapList[i])
-		{
-			changeMap(level.mapList[i+1]);
-			return;
-		}
-	}
-	changeMap(level.mapList[0]);
-}
-
-changeMap(map)
-{
-	if(!isdefined(map))
-		map = GetDvar("customMap");
-	SetDvar("customMap", map);
-	if(map == "tunnel" || map == "diner" || map == "power" || map == "cornfield" || map == "house")
-		SetDvar("sv_maprotation","exec zm_classic_transit.cfg map zm_transit");
-	else if(map == "town")
-		SetDvar("sv_maprotation","exec zm_standard_town.cfg map zm_transit");
-	else if(map == "farm")
-		SetDvar("sv_maprotation","exec zm_standard_farm.cfg map zm_transit");
-	else if(map == "busdepot")
-		SetDvar("sv_maprotation","exec zm_standard_transit.cfg map zm_transit");
-	else if(map == "nuketown")
-		SetDvar("sv_maprotation","exec zm_standard_nuked.cfg map zm_nuked");
-	else if(map == "docks" || map == "cellblock" || map == "rooftop")
-		SetDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
-	else if(map == "building1top")
-		SetDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");
-	else if(map == "maze")
-		SetDvar("sv_maprotation", "exec zm_classic_processing.cfg map zm_buried");
-	else if(map == "trenches" || map == "crazyplace")
-		SetDvar("sv_maprotation", "exec zm_classic_tomb.cfg map zm_tomb");
-}
-
-random_map_rotation() //custom function
-{
-	level.nextMap = RandomInt( level.mapList.size );
-	level.lastMap = getDvar( "lastMap" );
-	if( getDvar("customMap") == level.mapList[ level.nextMap ] || level.mapList[ level.nextMap ] == level.lastMap )
-	{
-		return random_map_rotation();
-	}
-	else
-	{
-		setDvar( "lastMap", getDvar("customMap") );
-		changeMap(level.mapList[ level.nextMap ]);
-		return;
-	}
-}
-
 init_spawnpoints_for_custom_survival_maps() //custom function
 {
-	level.disableBSMMagic = getDvarIntDefault("disableBSMMagic", 0);
 	//TUNNEL
-	
+	level.redroomSpawnpoints = [];
+	level.redroomSpawnpoints[ 0 ] = spawnstruct();
+	level.redroomSpawnpoints[ 0 ].origin = ( 3358, 1359, 1488 );
+	level.redroomSpawnpoints[ 0 ].angles = ( 0, 90, 0 );
+	level.redroomSpawnpoints[ 0 ].radius = 32;
+	level.redroomSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 0 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 1 ] = spawnstruct();
+	level.redroomSpawnpoints[ 1 ].origin = ( 3308, 1359, 1488 );
+	level.redroomSpawnpoints[ 1 ].angles = ( 0, 90, 0 );
+	level.redroomSpawnpoints[ 1 ].radius = 32;
+	level.redroomSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 1 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 2 ] = spawnstruct();
+	level.redroomSpawnpoints[ 2 ].origin = ( 3258, 1359, 1488 );
+	level.redroomSpawnpoints[ 2 ].angles = ( 0, 90, 0 );
+	level.redroomSpawnpoints[ 2 ].radius = 32;
+	level.redroomSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 2 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 3 ] = spawnstruct();
+	level.redroomSpawnpoints[ 3 ].origin = ( 3208, 1359, 1488 );
+	level.redroomSpawnpoints[ 3 ].angles = ( 0, 90, 0 );
+	level.redroomSpawnpoints[ 3 ].radius = 32;
+	level.redroomSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 3 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 4 ] = spawnstruct();
+	level.redroomSpawnpoints[ 4 ].origin = ( 3266, 1718, 1488 );
+	level.redroomSpawnpoints[ 4 ].angles = ( 0, 270, 0 );
+	level.redroomSpawnpoints[ 4 ].radius = 32;
+	level.redroomSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 4 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 5 ] = spawnstruct();
+	level.redroomSpawnpoints[ 5 ].origin = ( 3216, 1718, 1488 );
+	level.redroomSpawnpoints[ 5 ].angles = ( 0, 270, 0 );
+	level.redroomSpawnpoints[ 5 ].radius = 32;
+	level.redroomSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 5 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 6 ] = spawnstruct();
+	level.redroomSpawnpoints[ 6 ].origin = ( 3166, 1718, 1488 );
+	level.redroomSpawnpoints[ 6 ].angles = ( 0, 270, 0 );
+	level.redroomSpawnpoints[ 6 ].radius = 32;
+	level.redroomSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 6 ].script_int = 2048;
+
+	level.redroomSpawnpoints[ 7 ] = spawnstruct();
+	level.redroomSpawnpoints[ 7 ].origin = ( 3116, 1718, 1488 );
+	level.redroomSpawnpoints[ 7 ].angles = ( 0, 270, 0 );
+	level.redroomSpawnpoints[ 7 ].radius = 32;
+	level.redroomSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+	level.redroomSpawnpoints[ 7 ].script_int = 2048;
 }
 
 init_barriers_for_custom_maps() //custom function
@@ -290,6 +181,30 @@ init_barriers_for_custom_maps() //custom function
 		elevatorbarrier6 = Spawn("script_model", (1647.7, 2167.82, 3040.09) + (0,0,32));
 		elevatorbarrier6 SetModel("collision_player_wall_64x64x10");
 		elevatorbarrier6 RotateTo((0,0,0),.1);
+
+		redroombarrier1 = spawn("script_model", ( 3039, 806.27, 1121.68 ));
+		redroombarrier1 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier1 rotateTo((0,151.5,0),.1);
+
+		redroombarrier2 = spawn("script_model", ( 3342.63,  631, 1121.68 ));
+		redroombarrier2 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier2 rotateTo((0,151.5,0),.1);
+
+		redroombarrier3 = spawn("script_model", ( 2732, 980, 1121.68 ));
+		redroombarrier3 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier3 rotateTo((0,151.5,0),.1);
+
+		redroombarrier4 = spawn("script_model", ( 3039, 806.27, 1221.68 ));
+		redroombarrier4 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier4 rotateTo((0,151.5,0),.1);
+
+		redroombarrier5 = spawn("script_model", ( 3342.63,  631, 1221.68 ));
+		redroombarrier5 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier5 rotateTo((0,151.5,0),.1);
+
+		redroombarrier6 = spawn("script_model", ( 2732, 980, 1221.68 ));
+		redroombarrier6 setModel( "collision_player_wall_512x512x10" );
+		redroombarrier6 rotateTo((0,151.5,0),.1);
 	}
 }
 
@@ -322,11 +237,11 @@ onspawnplayer( predictedspawn ) //modified function
 		match_string = level.scr_zm_ui_gametype + "_" + location;
 		spawnpoints = [];
 		//custom spawns here
-		if ( isdefined( level.customMap ) && level.customMap == "maze" )
+		if ( isdefined( level.customMap ) && level.customMap == "redroom" )
 		{
-			for(i=0; i<level.mazeSpawnpoints.size;i++)
+			for(i=0; i<level.redroomSpawnpoints.size;i++)
 			{
-				spawnpoints[spawnpoints.size] = level.mazeSpawnpoints[i];
+				spawnpoints[spawnpoints.size] = level.redroomSpawnpoints[i];
 			}
 		}
 		else
@@ -504,5 +419,13 @@ get_player_spawns_for_gametype() //modified function
 	}
 	custom_spawns = [];
 	//CUSTOM SPAWNS HERE
+	if ( isdefined( level.customMap ) && level.customMap == "redroom" )
+	{
+		for(i=0; i<level.redroomSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.redroomSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
 	return player_spawns;
 }
