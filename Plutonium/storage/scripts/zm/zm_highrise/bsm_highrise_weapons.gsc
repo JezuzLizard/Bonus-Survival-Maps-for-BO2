@@ -96,6 +96,10 @@ precacheEffectsForWeapons() //custom function
 	level._effect[ "ak74u_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_ak74u" );
 	level._effect[ "b23r_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_berreta93r" );
 	level._effect[ "claymore_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
+	level._effect[ "870mcs_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
+	level._effect[ "an94_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_an94" );
+	level._effect[ "pdw57_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_pdw57" );
+	level._effect[ "svu_effect" ] = loadfx( "maps/zombie/fx_zmb_wall_buy_svuas" );
 }
 
 init_spawnable_weapon_upgrade()

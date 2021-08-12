@@ -108,13 +108,11 @@ prespawn()
 
 ghost_death_func()
 {
-
 	if ( get_current_ghost_count() == 0 && level.zombie_total == 0 )
 	{
 		level.ghost_round_last_ghost_origin = self.origin;
 		level notify("last_ghost_down");
 	}
-	IPrintLn(get_current_zombie_count());
 	self stoploopsound( 1 );
 	self playsound( "zmb_ai_ghost_death" );
 	self setclientfield( "ghost_impact_fx", 1 );
@@ -167,7 +165,7 @@ ghost_death_func()
 ghost_round_think()
 {
 	flag_init( "ghost_round" );
-	level.next_ghost_round = level.round_number + 1;
+	level.next_ghost_round = level.round_number + randomintrange( 4, 7 );
 	old_spawn_func = level.round_spawn_func;
 	old_wait_func = level.round_wait_func;
 	while ( 1 )
@@ -184,7 +182,7 @@ ghost_round_think()
 			thread sndghostroundmus();
 			thread sndghostroundmus_end();
 			level.zombie_ghost_round_states.is_started = 1;
-			level.next_ghost_round = level.round_number + 2;
+			level.next_ghost_round = level.round_number + randomintrange( 4, 7 );
 		}
 		else if ( flag( "ghost_round" ) )
 		{
@@ -216,10 +214,11 @@ ghost_round_spawning()
 		players = get_players();
 		valid_players = array_randomize( players );
 		spawn_point = find_ghost_spawn(valid_players[0]);
+		if(!isdefined(spawn_point))
+			continue;
 		ghost_ai = spawn_zombie( level.female_ghost_spawner, level.female_ghost_spawner.targetname, spawn_point );
 		if ( isDefined( ghost_ai ) )
 		{
-			IPrintLn("Ghost Spawned");
 			ghost_ai setclientfield( "ghost_fx", 3 );
 			ghost_ai.spawn_point = spawn_point;
 			ghost_ai.is_ghost = 1;
@@ -227,8 +226,11 @@ ghost_round_spawning()
 			level.zombie_total--;
 			level.zombie_ghost_count++;
 		}
-		wait 1.5;
-		IPrintLn(get_current_ghost_count());
+		else
+		{
+			continue;
+		}
+		wait 1;
 	}
 }
 
@@ -304,9 +306,9 @@ ghost_round_aftermath()
 {
 	level waittill("last_ghost_down");
 	level notify( "ghost_round_ending" );
-	power_up_origin = level.ghost_round_last_ghost_origin + (0,0,10);
+	power_up_origin = level.ghost_round_last_ghost_origin;
 	level thread maps/mp/zombies/_zm_powerups::specific_powerup_drop( "full_ammo", power_up_origin );
-	wait 4;
+	wait 2;
 	level.ghost_intermission = 0;
 	level.zombie_ghost_round_states.is_started = 0;
 }

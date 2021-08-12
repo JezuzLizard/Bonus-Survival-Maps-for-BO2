@@ -26,12 +26,32 @@ main()
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::game_objects_allowed, ::game_objects_allowed);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, ::onspawnplayer);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype, ::get_player_spawns_for_gametype);
+	replacefunc(maps/mp/gametypes_zm/_zm_gametype::add_map_location_gamemode, ::add_map_location_gamemode);
 	init_spawnpoints_for_custom_survival_maps();
 }
 
 init()
 {
 	init_barriers_for_custom_maps();
+}
+
+add_map_location_gamemode( mode, location, precache_func, main_func ) //checked matches cerberus output
+{
+	if ( !isDefined( level.gamemode_map_location_precache[ mode ] ) )
+	{
+	/*
+/#
+		println( "*** ERROR : " + mode + " has not been added to the map using add_map_gamemode." );
+#/
+	*/
+		return;
+	}
+	level.gamemode_map_location_precache[ mode ][ location ] = precache_func;
+	level.gamemode_map_location_main[ mode ][ location ] = main_func;
+	if(mode == "zstandard" && location == "transit")
+	{
+		level.gamemode_map_location_main[ mode ][ location ] = scripts/zm/zm_transit/bsm_transit_main::main_busdepot;
+	}
 }
 
 game_objects_allowed( mode, location ) //checked partially changed to match cerberus output changed at own discretion

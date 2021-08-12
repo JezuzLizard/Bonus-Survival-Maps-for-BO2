@@ -63,7 +63,7 @@ setupWunderfizz()
     }
     else if(isDefined ( level.customMap ) && level.customMap == "redroom")
     {
-    	wunderfizzSetup((2988, 1141, 1438),(0, 270, 12.4), "zombie_vending_jugg");
+    	wunderfizzSetup(( 3524.74, 1910.39, 1381 ),(-12.5,5.4,0), "zombie_vending_jugg");
     	//DO NOT TOUCH BELOW IF YOU DON'T KNOW WHAT YOU'RE DOING
     	if(wunderfizzUseRandomStart)
     	{

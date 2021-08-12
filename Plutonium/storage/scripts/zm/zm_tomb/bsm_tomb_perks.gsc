@@ -16,6 +16,8 @@
 
 main()
 {
+	if(GetDvar("customMap") == "vanilla")
+		return;
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
 	replacefunc(maps/mp/zombies/_zm_perks::wait_for_player_to_take, ::wait_for_player_to_take);
 }
@@ -249,7 +251,31 @@ perk_machine_spawn_init() //modified function
 			{
 				if ( tokens[ k ] == match_string )
 				{
-					pos[ pos.size ] = structs[ i ];
+					if(is_true(level.customMap == "trenches") )
+					{
+						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint")
+							structs[i] Delete();
+						else
+							pos[ pos.size ] = structs[ i ];
+					}
+					else if( is_true(level.customMap == "crazyplace") )
+					{
+						if(structs[i].script_noteworthy == "specialty_armorvest" || structs[i].script_noteworthy == "specialty_longersprint" || structs[i].script_noteworthy == "specialty_rof" || structs[i].script_noteworthy == "specialty_quickrevive" || structs[i].script_noteworthy == "specialty_fastreload" )
+							structs[i] Delete();
+						else
+							pos[ pos.size ] = structs[ i ];
+					}
+					else if( is_true(level.customMap == "excavation") )
+					{
+						if(structs[i].script_noteworthy == "specialty_weapupgrade" || structs[i].script_noteworthy == "specialty_quickrevive" || structs[i].script_noteworthy == "specialty_fastreload" )
+							structs[i] Delete();
+						else
+							pos[ pos.size ] = structs[ i ];
+					}
+					else
+					{
+						pos[ pos.size ] = structs[ i ];
+					}
 				}
 				k++;
 			}
@@ -260,18 +286,32 @@ perk_machine_spawn_init() //modified function
 		}
 		i++;
 	}
-	if ( isDefined( level.customMap ) && level.customMap == "docks" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
+	if ( isDefined( level.customMap ) && level.customMap == "trenches" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
 	{
-		foreach ( perk in level.docksPerkArray )
+		foreach ( perk in level.trenchesPerkArray )
 		{
-			pos[ pos.size ] = level.docksPerks[ perk ];
+			pos[ pos.size ] = level.trenchesPerks[ perk ];
 		}
 	}
-	else if ( isDefined( level.customMap ) && level.customMap == "cellblock" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
+	else if ( isDefined( level.customMap ) && level.customMap == "excavation" )
 	{
-		foreach ( perk in level.cellblockPerkArray )
+		foreach ( perk in level.excavationPerkArray )
 		{
-			pos[ pos.size ] = level.cellblockPerks[ perk ];
+			pos[ pos.size ] = level.excavationPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "tank" )
+	{
+		foreach ( perk in level.tankPerkArray )
+		{
+			pos[ pos.size ] = level.tankPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "crazyplace" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
+	{
+		foreach ( perk in level.crazyplacePerkArray )
+		{
+			pos[ pos.size ] = level.crazyplacePerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )
@@ -321,71 +361,6 @@ perk_machine_spawn_init() //modified function
 			collision DisconnectPaths();
 			collision.script_noteworthy = "clip";
 			// Connect all of the pieces for easy access.
-			if(level.customMap == "vanilla" || level.customMap == "cellblock" )
-			{
-				use_trigger.clip = collision;
-				use_trigger.bump = bump_trigger;
-				if( level.customMap == "cellblock" )
-				{
-					if ( perk == "specialty_quickrevive" || perk == "specialty_armorvest" || perk == "specialty_deadshot" || perk == "specialty_flakjacket" )
-					{
-						collision2 = spawn("script_model", pos[ i ].origin);
-   						collision2 setModel("collision_geo_cylinder_32x128_standard");
-    					collision2 rotateTo(pos[ i ].angles, .1);
-    				}
-    				else if ( perk == "specialty_weapupgrade" )
-    				{
-    					if ( pos[ i ].angles == ( 0, 180, 0 ) || pos[ i ].angles == ( 0, 0, 0 ) )
-    					{
-    						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
-   							collision2 setModel("collision_geo_cylinder_32x128_standard");
-    						collision2 rotateTo(pos[ i ].angles, .1);
-    						collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
-   							collision3 setModel("collision_geo_cylinder_32x128_standard");
-    						collision3 rotateTo(pos[ i ].angles, .1);
-    						collision4 = spawn("script_model", pos[ i ].origin + ( 20, 0, 0 ) );
-   							collision4 setModel("collision_geo_cylinder_32x128_standard");
-    						collision4 rotateTo(pos[ i ].angles, .1);
-    						collision5 = spawn("script_model", pos[ i ].origin - ( 20, 0, 0 ) );
-   							collision5 setModel("collision_geo_cylinder_32x128_standard");
-    						collision5 rotateTo(pos[ i ].angles, .1);
-    					}
-    					else if ( pos[ i ].angles == ( 0, 270, 0 ) || pos[ i ].angles == ( 0, 90, 0 ) )
-    					{
-    						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 10, 0 ) );
-   							collision2 setModel("collision_geo_cylinder_32x128_standard");
-    						collision2 rotateTo(pos[ i ].angles, .1);
-    						collision3 = spawn("script_model", pos[ i ].origin - ( 0, 10, 0 ) );
-   							collision3 setModel("collision_geo_cylinder_32x128_standard");
-    						collision3 rotateTo(pos[ i ].angles, .1);
-    						collision4 = spawn("script_model", pos[ i ].origin + ( 0, 20, 0 ) );
-   							collision4 setModel("collision_geo_cylinder_32x128_standard");
-    						collision4 rotateTo(pos[ i ].angles, .1);
-    						collision5 = spawn("script_model", pos[ i ].origin - ( 0, 20, 0 ) );
-   							collision5 setModel("collision_geo_cylinder_32x128_standard");
-    						collision5 rotateTo(pos[ i ].angles, .1);
-    					}
-    				}
-    				else if ( pos[ i ].angles == ( 0, 180, 0 ) || pos[ i ].angles == ( 0, 0, 0 ) )
-					{
-						collision2 = spawn("script_model", pos[ i ].origin + ( 10, 0, 0 ) );
-   						collision2 setModel("collision_geo_cylinder_32x128_standard");
-    					collision2 rotateTo(pos[ i ].angles, .1);
-    					collision3 = spawn("script_model", pos[ i ].origin - ( 10, 0, 0 ) );
-   						collision3 setModel("collision_geo_cylinder_32x128_standard");
-    					collision3 rotateTo(pos[ i ].angles, .1);
-    				}
-    				else if ( pos[ i ].angles == ( 0, 270, 0 ) || pos[ i ].angles == ( 0, 90, 0 ) )
-					{
-						collision2 = spawn("script_model", pos[ i ].origin + ( 0, 10, 0 ) );
-   						collision2 setModel("collision_geo_cylinder_32x128_standard");
-    					collision2 rotateTo(pos[ i ].angles, .1);
-    					collision3 = spawn("script_model", pos[ i ].origin - ( 0, 10, 0 ) );
-   						collision3 setModel("collision_geo_cylinder_32x128_standard");
-    					collision3 rotateTo(pos[ i ].angles, .1);
-    				}
-    			}
-			}
 			use_trigger.machine = perk_machine;
 			//missing code found in cerberus output
 			if ( isdefined( pos[ i ].blocker_model ) )

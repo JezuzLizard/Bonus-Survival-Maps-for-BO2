@@ -11,14 +11,18 @@
 
 main()
 {
+	if(GetDvar("customMap") == "vanilla")
+		return;
 	replacefunc(maps/mp/zombies/_zm_perks::get_perk_array, ::get_perk_array);
 	replacefunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, ::pers_upgrade_init);
 }
 
 init()
 {
+	if(level.customMap == "vanilla")
+		return;
 	//level.player_out_of_playable_area_monitor = 0;
-	level.player_starting_points = 500000;
+	//level.player_starting_points = 500000;
 	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" || getDvar("customMap") == "farm")
@@ -154,7 +158,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		player thread meleeCoords();
+		//player thread meleeCoords();
 		player thread [[ level.givecustomcharacters ]]();
 	}
 }

@@ -107,17 +107,11 @@ extra_perk_spawns() //custom function
 	level.building1topPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
 	level.building1topPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 	
-	level.redroomPerkArray = array( "specialty_weapupgrade", "specialty_armorvest" );
-
-	level.redroomPerks[ "specialty_armorvest" ] = spawnstruct();
-	level.redroomPerks[ "specialty_armorvest" ].origin = (3382, 1169, 1350);
-	level.redroomPerks[ "specialty_armorvest" ].angles = (0, 80, 0);
-	level.redroomPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
-	level.redroomPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+	level.redroomPerkArray = array( "specialty_weapupgrade" );
 
 	level.redroomPerks["specialty_weapupgrade"] = spawnstruct();
-	level.redroomPerks["specialty_weapupgrade"].origin = ( 3524.74, 1910.39, 1370 );
-	level.redroomPerks["specialty_weapupgrade"].angles = (0,0,0);
+	level.redroomPerks["specialty_weapupgrade"].origin = (2988, 1141, 1438);
+	level.redroomPerks["specialty_weapupgrade"].angles = (0, 270, 12.4);
 	level.redroomPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
 	level.redroomPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
 }
