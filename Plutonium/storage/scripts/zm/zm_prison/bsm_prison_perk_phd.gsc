@@ -5,11 +5,10 @@
 
 main()
 {
-	if(getDvar("customMap") != "vanilla")
-	{
-		level.zombiemode_using_divetonuke_perk = 1;
-		replacefunc(maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level, ::enable_divetonuke_perk_for_level);
-	}	
+	if(GetDvar("customMap") == "vanilla")
+		return;
+	//replacefunc(maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level, ::enable_divetonuke_perk_for_level);
+	//maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 }
 
 enable_divetonuke_perk_for_level()

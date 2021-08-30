@@ -26,6 +26,7 @@
 
 main()
 {
+	if(GetDvar("customMap") == "vanilla") return;
 	replacefunc(maps/mp/zm_alcatraz_classic::give_afterlife, ::give_afterlife);
 	replacefunc(maps/mp/zombies/_zm_ai_brutus::init, ::init_brutus);
 	replacefunc(maps/mp/zombies/_zm_blockers::door_think, ::door_think);
@@ -34,6 +35,8 @@ main()
 
 init()
 {
+	if(level.customMap == "vanilla")
+		return;
 	map = level.customMap;
 	if ( isDefined(map) && map == "rooftop" )
 	{
@@ -545,20 +548,7 @@ sendSoul(start)
 
 give_afterlife() //checked changed to match cerberus output
 {
-	if(isdefined(level.customMap) && level.customMap != "vanilla") return;
-	onplayerconnect_callback( maps/mp/zombies/_zm_afterlife::init_player );
-	flag_wait( "initial_players_connected" );
-	wait 0.5;
-	n_start_pos = 1;
-	a_players = getplayers();
-	foreach ( player in a_players )
-	{
-		if ( isDefined( player.afterlife ) && !player.afterlife )
-		{
-			player thread fake_kill_player( n_start_pos );
-			n_start_pos++;
-		}
-	}
+	
 }
 
 init_brutus() //checked changed to match cerberus output

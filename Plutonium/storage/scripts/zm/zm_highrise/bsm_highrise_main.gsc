@@ -109,22 +109,22 @@ override_zombie_count() //custom function
 	for ( ;; )
 	{
 		level waittill_any( "start_of_round", "intermission", "check_count" );
-		//if ( isdefined(level.customMap) && level.customMap == "redroom" )
-		//{
+		if ( isdefined(level.customMap) && level.customMap == "redroom" )
+		{
 			if ( level.round_number <= 2 )
 			{
 				level.zombie_move_speed = 20;
 			}
-	//	}
+		}
 	}
 }
 
 increase_zombie_speed()
 {
-	//if ( isdefined(level.customMap) && level.customMap != "redroom" )
-	//{
-	//	return;
-	//}
+	if ( isdefined(level.customMap) && level.customMap != "redroom" )
+	{
+		return;
+	}
 	while ( 1 )
 	{
 		zombies = get_round_enemy_array();

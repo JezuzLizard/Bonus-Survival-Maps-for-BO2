@@ -7,47 +7,27 @@
 #include maps/mp/gametypes_zm/_weapons;
 #include maps/mp/zombies/_zm_perks;
 #include maps/mp/gametypes_zm/_hud_util;
-#include maps/mp/zombies/_zm_pers_upgrades;
 
 main()
 {
 	if(GetDvar("customMap") == "vanilla")
 		return;
 	replacefunc(maps/mp/zombies/_zm_perks::get_perk_array, ::get_perk_array);
-	replacefunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, ::pers_upgrade_init);
 }
 
 init()
 {
+	//level.player_out_of_playable_area_monitor = 0;
+	level.player_starting_points = 500;
+	//level.perk_purchase_limit = 10;
 	if(level.customMap == "vanilla")
 		return;
-	//level.player_out_of_playable_area_monitor = 0;
-	//level.player_starting_points = 500000;
-	//level.perk_purchase_limit = 10;
 	thread init_custom_map();
 	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" || getDvar("customMap") == "farm")
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
 	level.callbackactordamage = ::actor_damage_override_wrapper;
-}
-
-pers_upgrade_init() //checked matches cerberus output
-{
-	setup_pers_upgrade_boards();
-	setup_pers_upgrade_revive();
-	setup_pers_upgrade_multi_kill_headshots();
-	setup_pers_upgrade_cash_back();
-	setup_pers_upgrade_insta_kill();
-	setup_pers_upgrade_jugg();
-	setup_pers_upgrade_carpenter();
-	setup_pers_upgrade_flopper();
-	setup_pers_upgrade_perk_lose();
-	setup_pers_upgrade_pistol_points();
-	setup_pers_upgrade_double_points();
-	setup_pers_upgrade_sniper();
-	setup_pers_upgrade_box_weapon();
-	setup_pers_upgrade_nube();
 }
 
 meleeCoords()
@@ -132,7 +112,6 @@ get_perk_array( ignore_chugabud ) //checked matches cerberus output
 init_custom_map()
 {
 	level thread onplayerconnected();
-	disable_pers_upgrades();
 	flag_wait( "initial_blackscreen_passed" );
 	thread init_buildables();
 	if(level.script == "zm_highrise" && is_true(level.customMap != "vanilla") || level.script == "zm_buried" && is_true(level.customMap != "vanilla"))
@@ -225,13 +204,13 @@ onplayerspawned()
 	for ( ;; )
 	{
 		self waittill( "spawned_player" );
+		//bot = AddTestClient();
 		if(isFirstSpawn)
 		{
 			self initOverFlowFix();
 
 			isFirstSpawn = false;
 		}
-		self thread disable_player_pers_upgrades();
 		level notify ( "check_count" );
 	}
 }
@@ -248,46 +227,6 @@ map_fixes()
 		level notify( "cell_1_powerup_activate" );
 		level notify( "cell_2_powerup_activate" );
 	}
-}
-
-disable_pers_upgrades() //credit to Jbleezy for this function
-{
-	//level waittill("initial_disable_player_pers_upgrades");
-
-	level.pers_upgrades_keys = [];
-	level.pers_upgrades = [];
-}
-
-disable_player_pers_upgrades() //credit to Jbleezy for this function
-{
-	flag_wait( "initial_blackscreen_passed" );
-
-	if ( isDefined( self.pers_upgrades_awarded ) )
-	{
-		upgrade = getFirstArrayKey( self.pers_upgrades_awarded );
-		while ( isDefined( upgrade ) )
-		{
-			self.pers_upgrades_awarded[ upgrade ] = 0;
-			upgrade = getNextArrayKey( self.pers_upgrades_awarded, upgrade );
-		}
-	}
-
-	if ( isDefined( level.pers_upgrades_keys ) )
-	{
-		index = 0;
-		while ( index < level.pers_upgrades_keys.size )
-		{
-			str_name = level.pers_upgrades_keys[ index ];
-			stat_index = 0;
-			while ( stat_index < level.pers_upgrades[ str_name ].stat_names.size )
-			{
-				self maps/mp/zombies/_zm_stats::zero_client_stat( level.pers_upgrades[str_name].stat_names[ stat_index ], 0 );
-				stat_index++;
-			}
-			index++;
-		}
-	}
-	//level notify("initial_disable_player_pers_upgrades");
 }
 
 changecraftableoption( index )

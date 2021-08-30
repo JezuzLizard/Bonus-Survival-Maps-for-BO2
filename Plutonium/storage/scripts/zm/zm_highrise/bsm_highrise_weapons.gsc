@@ -321,7 +321,7 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 
 			if(!player has_weapon_or_upgrade( weapon ) && player.score >= cost)
 			{
-				player.score -= cost;
+				player maps/mp/zombies/_zm_score::minus_to_player_score(cost,1);
 				player playsound("zmb_cha_ching");
 				if(weapon == "one_inch_punch_zm" && isdefined(level.oneInchPunchGiveFunc))
 				{
@@ -337,7 +337,7 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 				{
 					if(player ammo_give(get_upgrade_weapon(weapon)))
 					{
-						player.score -= 4500;
+						player maps/mp/zombies/_zm_score::minus_to_player_score(4500,1);
 						player playsound("zmb_cha_ching");
 						wait 3;
 					}
@@ -346,7 +346,7 @@ customWallbuy(weapon, displayName, cost, ammoCost, origin, angles, fx) //custom 
 				{
 					if(player ammo_give(weapon))
 					{
-						player.score -= ammoCost;
+						player maps/mp/zombies/_zm_score::minus_to_player_score(ammoCost,1);
 						player playsound("zmb_cha_ching");
 						wait 3;
 					}

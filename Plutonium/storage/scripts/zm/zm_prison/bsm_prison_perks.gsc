@@ -16,20 +16,21 @@
 
 main()
 {
+	if(GetDvar("customMap") == "vanilla")
+		return;
 	replacefunc(maps/mp/zombies/_zm_perks::perks_register_clientfield, ::perks_register_clientfield); 
 	replacefunc(maps/mp/zombies/_zm_perks::set_perk_clientfield, ::set_perk_clientfield);
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
 	replacefunc(maps/mp/zombies/_zm_perks::init, ::perks_init);
-	if(GetDvar("customMap") != "vanilla")
+	if(GetDvar("customMap") != "rooftop")
 	{
-		if(GetDvar("customMap") != "rooftop")
-		{
-			level.zombiemode_using_marathon_perk = 1;
-			level.zombiemode_using_revive_perk = 1;
-		}
-		level.zombiemode_using_additionalprimaryweapon_perk = 1;
-		level.zombiemode_using_divetonuke_perk = 1;
+		level.zombiemode_using_marathon_perk = 1;
+		level.zombiemode_using_revive_perk = 1;
 	}
+	level.zombiemode_using_additionalprimaryweapon_perk = 1;
+	level.zombiemode_using_divetonuke_perk = 1;
+	replacefunc(maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level, scripts/zm/zm_prison/bsm_prison_perk_phd::enable_divetonuke_perk_for_level);
+	maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 }
 
 perks_init() //checked partially changed to match cerberus output

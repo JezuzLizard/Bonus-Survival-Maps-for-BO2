@@ -14,9 +14,18 @@ init()
 
 override_map()
 {
+	level.zeGamemode = ToLower( GetDvar( "zegamemode"));
 	mapname = ToLower( GetDvar( "mapname" ) );
+	//if(level.zeGamemode == "" || level.zeGamemode != "vanilla" || level.zeGamemode != "sharpshooter" || level.zeGamemode != "survival" )
+	//	level.zeGamemode = "survival";
 	if( GetDvar("customMap") == "" )
 		SetDvar("customMap", "vanilla");
+	if( (level.zeGamemode != "vanilla" && GetDvar("customMap") == "vanilla") || (level.zeGamemode == "vanilla" && GetDvar("customMap") != "vanilla")  )
+	{
+		SetDvar( "zegamemode", "vanilla" );
+		SetDvar( "customMap", "vanilla" );
+		map_restart(false);
+	}
 	if ( isdefined(mapname) && mapname == "zm_transit" )
 	{
 		if ( GetDvar("customMap") != "tunnel" && GetDvar("customMap") != "diner" && GetDvar("customMap") != "power" && GetDvar("customMap") != "cornfield" && GetDvar("customMap") != "house" && GetDvar("customMap") != "vanilla" && GetDvar("customMap") != "town" && GetDvar("customMap") != "farm" && GetDvar("customMap") != "busdepot" )
@@ -69,6 +78,10 @@ override_map()
 		level.customMap = map;
 	}
 	level.disableBSMMagic = getDvarIntDefault("disableBSMMagic", 0);
+	if(level.zeGamemode == "sharpshooter")
+	{
+		level.disableBSMMagic = 1;
+	}
 	level notify("customMapSet");
 }
 
