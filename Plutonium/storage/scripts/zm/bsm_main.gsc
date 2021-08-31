@@ -34,6 +34,7 @@ init()
 logspam()
 {
 	level endon("end_game");
+	level waittill("connected", player);
 	while(1)
 	{
 		logprint("Server Up " + level.round_number + "\n" );
