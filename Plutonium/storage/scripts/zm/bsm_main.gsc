@@ -36,7 +36,7 @@ logspam()
 	level endon("end_game");
 	while(1)
 	{
-		logprint("Server Up " + level.round_number + "\n);
+		logprint("Server Up " + level.round_number + "\n" );
 		wait 1;
 	}
 }
