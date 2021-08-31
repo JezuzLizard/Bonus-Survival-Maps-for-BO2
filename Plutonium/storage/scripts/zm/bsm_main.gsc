@@ -28,6 +28,17 @@ init()
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
 	level.callbackactordamage = ::actor_damage_override_wrapper;
+	thread logspam();
+}
+
+logspam()
+{
+	level endon("end_game");
+	while(1)
+	{
+		logprint("Server Up");
+		wait 1;
+	}
 }
 
 meleeCoords()
