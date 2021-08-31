@@ -138,7 +138,6 @@ onplayerconnected()
 		player thread onplayerspawned();
 		player thread perkHud();
 		//player thread meleeCoords();
-		player thread [[ level.givecustomcharacters ]]();
 	}
 }
 
