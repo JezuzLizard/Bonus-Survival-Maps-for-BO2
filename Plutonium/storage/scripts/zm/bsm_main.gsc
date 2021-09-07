@@ -27,6 +27,7 @@ init()
 	{
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
+	level.get_player_perk_purchase_limit = ::get_player_perk_purchase_limit;
 	level.callbackactordamage = ::actor_damage_override_wrapper;
 }
 
