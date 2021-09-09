@@ -358,6 +358,10 @@ map_setup()
 		thread disable_gondola();
 		thread disable_doors_docks();
 	}
+	else if ( isdefined(map) && map == "showers")
+	{
+		thread disable_doors_showers();
+	}
 	else if ( level.script == "zm_prison" && isDefined( map ) && map == "cellblock" )
 	{
 		thread disable_doors_cellblock();
@@ -787,6 +791,20 @@ disable_doors_docks()
 	while ( i < zm_doors.size )
 	{
 		if ( zm_doors[ i ].origin == ( 101, 8124, 311 ) )
+		{
+			zm_doors[ i ].origin = ( 0, 0, 0 );
+		}
+		i++;
+	}
+}
+
+disable_doors_showers()
+{
+	zm_doors = getentarray( "zombie_door", "targetname" );
+	i = 0;
+	while ( i < zm_doors.size )
+	{
+		if ( zm_doors[ i ].origin == (1227, 9983, 1170) )
 		{
 			zm_doors[ i ].origin = ( 0, 0, 0 );
 		}

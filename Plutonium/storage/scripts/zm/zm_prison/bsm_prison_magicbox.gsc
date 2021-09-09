@@ -60,6 +60,18 @@ init_magicbox() //modified function
 			level.chests[ 1 ] = normalChests[ 3 ];
 			treasure_chest_init("start_chest");
 		}
+		else if (isDefined(level.customMap) && level.customMap == "showers")
+		{
+			level.chests = [];
+			start_chest = spawnstruct();
+			start_chest.origin = ( 1755, 10678, 1144 );
+			start_chest.angles = ( 0, 180, 0 );
+			start_chest.script_noteworthy = "start_chest";
+			start_chest.zombie_cost = 950;
+			level.chests[ 0 ] = start_chest;
+			//level.chests[ 1 ] = normalChests[ 3 ];
+			treasure_chest_init("start_chest");
+		}
 		else if (isDefined(level.customMap) && level.customMap == "cellblock")
 		{
 			level.chests = [];
@@ -115,6 +127,11 @@ get_chest_pieces() //modified function
 	{
 		self.chest_box.origin = ( 2249, 9869.5, 1704.1 );
 		self.chest_box.angles = ( 0, -90, 0 );
+	}
+	if ( isDefined( level.customMap ) && level.customMap == "showers" && self.script_noteworthy == "start_chest" )
+	{
+		self.chest_box.origin = ( 1755, 10678, 1144 );
+		self.chest_box.angles = ( 0, 180, 0 );
 	}
 	if ( self.chest_box.angles == ( 0, 92, 0 ) || self.chest_box.angles == ( 0, 90, 0 ) || self.chest_box.angles == ( 0, -90, 0 ) )
 	{

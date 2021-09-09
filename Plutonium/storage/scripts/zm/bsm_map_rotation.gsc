@@ -16,8 +16,8 @@ override_map()
 {
 	level.zeGamemode = ToLower( GetDvar( "zegamemode"));
 	mapname = ToLower( GetDvar( "mapname" ) );
-	//if(level.zeGamemode == "" || level.zeGamemode != "vanilla" || level.zeGamemode != "sharpshooter" || level.zeGamemode != "survival" )
-	//	level.zeGamemode = "survival";
+	if(level.zeGamemode == "" || level.zeGamemode != "vanilla" || level.zeGamemode != "sharpshooter" || level.zeGamemode != "survival" )
+		level.zeGamemode = "survival";
 	if( GetDvar("customMap") == "" )
 		SetDvar("customMap", "vanilla");
 	if( (level.zeGamemode != "vanilla" && GetDvar("customMap") == "vanilla") || (level.zeGamemode == "vanilla" && GetDvar("customMap") != "vanilla")  )
@@ -49,7 +49,7 @@ override_map()
 	}
 	else if ( isdefined(mapname) && mapname == "zm_prison" )
 	{
-		if ( GetDvar("customMap") != "docks" && GetDvar("customMap") != "cellblock" && GetDvar("customMap") != "rooftop" && GetDvar("customMap") != "vanilla" )
+		if ( GetDvar("customMap") != "showers" && GetDvar("customMap") != "docks" && GetDvar("customMap") != "cellblock" && GetDvar("customMap") != "rooftop" && GetDvar("customMap") != "vanilla" )
 		{
 			SetDvar( "customMap", "docks" );
 		}
@@ -132,7 +132,7 @@ changeMap(map)
 		SetDvar("sv_maprotation","exec zm_standard_transit.cfg map zm_transit");
 	else if(map == "nuketown")
 		SetDvar("sv_maprotation","exec zm_standard_nuked.cfg map zm_nuked");
-	else if(map == "docks" || map == "cellblock" || map == "rooftop")
+	else if(map == "showers" || map == "docks" || map == "cellblock" || map == "rooftop")
 		SetDvar("sv_maprotation","exec zm_classic_prison.cfg map zm_prison");
 	else if(map == "building1top" || map == "redroom")
 		SetDvar("sv_maprotation", "exec zm_classic_rooftop.cfg map zm_highrise");

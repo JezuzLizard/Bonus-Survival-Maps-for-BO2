@@ -18,10 +18,10 @@ main()
 init()
 {
 	//level.player_out_of_playable_area_monitor = 0;
-	level.player_starting_points = 500;
+	//level.player_starting_points = 500000;
 	//level.perk_purchase_limit = 10;
-	if(level.customMap == "vanilla")
-		return;
+	//if(level.customMap == "vanilla")
+	//	return;
 	thread init_custom_map();
 	if ( isDefined ( level.customMap ) && level.customMap != "vanilla" || getDvar("customMap") == "farm")
 	{
@@ -47,6 +47,14 @@ meleeCoords()
 			logprint(self.origin + ", " + angles + "\n");
 			wait 1;
 			self IPrintLn("Angles = "+ you);
+			zm_doors = getentarray( "zombie_door", "targetname" );
+			for(i=0;i<zm_doors.size;i++)
+			{
+				if(Distance(zm_doors[i].origin, self.origin) < 200)
+				{
+					self IPrintLn(zm_doors[i].origin);
+				}
+			}
 			/*
 			for(i=0;i<level.chests.size;i++)
 			{
@@ -113,6 +121,7 @@ get_perk_array( ignore_chugabud ) //checked matches cerberus output
 init_custom_map()
 {
 	level thread onplayerconnected();
+	//level thread onplayerconnect();
 	flag_wait( "initial_blackscreen_passed" );
 	thread init_buildables();
 	if(level.script == "zm_highrise" && is_true(level.customMap != "vanilla") || level.script == "zm_buried" && is_true(level.customMap != "vanilla"))
@@ -129,6 +138,14 @@ power_setup()
 	level setclientfield( "zombie_power_on", 1 );
 }
 
+onplayerconnect()
+{
+	level waittill( "connected", player );
+	flag_wait( "initial_blackscreen_passed" );
+	wait 5;
+	AddTestClient();
+}
+
 onplayerconnected()
 {
 	level endon("end_game");
@@ -138,7 +155,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		//player thread meleeCoords();
+		player thread meleeCoords();
 	}
 }
 

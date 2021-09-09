@@ -256,6 +256,63 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 	level.rooftopSpawnpoints[ 7 ].radius = 32;
 	level.rooftopSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
 	level.rooftopSpawnpoints[ 7 ].script_int = 2048;
+
+	level.showersSpawnpoints = [];
+	level.showersSpawnpoints[ 0 ] = spawnstruct();
+	level.showersSpawnpoints[ 0 ].origin = (1659.41, 9084.87, 1144.13);
+	level.showersSpawnpoints[ 0 ].angles = ( 0, 63, 0 );
+	level.showersSpawnpoints[ 0 ].radius = 32;
+	level.showersSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 0 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 1 ] = spawnstruct();
+	level.showersSpawnpoints[ 1 ].origin = (2059.66, 9093.35, 1144.13);
+	level.showersSpawnpoints[ 1 ].angles = ( 0, 127, 0 );
+	level.showersSpawnpoints[ 1 ].radius = 32;
+	level.showersSpawnpoints[ 1 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 1 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 2 ] = spawnstruct();
+	level.showersSpawnpoints[ 2 ].origin = (2153.44, 9566.08, 1144.13);
+	level.showersSpawnpoints[ 2 ].angles = ( 0, 155, 0 );
+	level.showersSpawnpoints[ 2 ].radius = 32;
+	level.showersSpawnpoints[ 2 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 2 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 3 ] = spawnstruct();
+	level.showersSpawnpoints[ 3 ].origin = (2156.9, 10068.7, 1152.13);
+	level.showersSpawnpoints[ 3 ].angles = ( 0, 205, 0 );
+	level.showersSpawnpoints[ 3 ].radius = 32;
+	level.showersSpawnpoints[ 3 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 3 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 4 ] = spawnstruct();
+	level.showersSpawnpoints[ 4 ].origin = (1943.4, 9769.12, 1149.46);
+	level.showersSpawnpoints[ 4 ].angles = ( 0, 21, 0 );
+	level.showersSpawnpoints[ 4 ].radius = 32;
+	level.showersSpawnpoints[ 4 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 4 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 5 ] = spawnstruct();
+	level.showersSpawnpoints[ 5 ].origin = (2060.05, 10354.2, 1144.13);
+	level.showersSpawnpoints[ 5 ].angles = ( 0, 242, 0 );
+	level.showersSpawnpoints[ 5 ].radius = 32;
+	level.showersSpawnpoints[ 5 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 5 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 6 ] = spawnstruct();
+	level.showersSpawnpoints[ 6 ].origin = (1608.47, 10308, 1144.13);
+	level.showersSpawnpoints[ 6 ].angles = ( 0, 308, 0 );
+	level.showersSpawnpoints[ 6 ].radius = 32;
+	level.showersSpawnpoints[ 6 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 6 ].script_int = 2048;
+	
+	level.showersSpawnpoints[ 7 ] = spawnstruct();
+	level.showersSpawnpoints[ 7 ].origin = (1781.52, 9561.23, 1152.13);
+	level.showersSpawnpoints[ 7 ].angles = ( 0, 242, 0 );
+	level.showersSpawnpoints[ 7 ].radius = 32;
+	level.showersSpawnpoints[ 7 ].script_noteworthy = "initial_spawn";
+	level.showersSpawnpoints[ 7 ].script_int = 2048;
 }
 
 onspawnplayer( predictedspawn ) //modified function
@@ -291,6 +348,13 @@ onspawnplayer( predictedspawn ) //modified function
 			for ( i = 0; i < level.docksSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.docksSpawnpoints[ i ];
+			}
+		}
+		else if ( isDefined( level.customMap ) && level.customMap == "showers" )
+		{
+			for ( i = 0; i < level.showersSpawnpoints.size; i++ )
+			{
+				spawnpoints[ spawnpoints.size ] = level.showersSpawnpoints[ i ];
 			}
 		}
 		else if ( isDefined( level.customMap ) && level.customMap == "cellblock" )
@@ -494,6 +558,14 @@ get_player_spawns_for_gametype() //modified function
 		for(i=0;i<level.cellblockSpawnpoints.size;i++)
 		{
 			custom_spawns[custom_spawns.size] = level.cellblockSpawnpoints[i];
+		}
+		return custom_spawns;
+	}
+	else if( isDefined( level.customMap ) && level.customMap == "showers")
+	{
+		for(i=0;i<level.showersSpawnpoints.size;i++)
+		{
+			custom_spawns[custom_spawns.size] = level.showersSpawnpoints[i];
 		}
 		return custom_spawns;
 	}

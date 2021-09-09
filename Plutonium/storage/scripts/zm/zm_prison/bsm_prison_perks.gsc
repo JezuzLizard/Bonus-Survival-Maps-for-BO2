@@ -522,6 +522,15 @@ extra_perk_spawns() //custom function
 	level.cellblockPerks[ "specialty_weapupgrade" ].angles = ( 0, 180, 0 );
 	level.cellblockPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
 	level.cellblockPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+
+	//level.showersPerkArray = array( "specialty_weapupgrade" );
+
+	//level.showersPerks[ "specialty_weapupgrade" ] = spawnstruct();
+	//level.showersPerks[ "specialty_weapupgrade" ].origin = ( 2054, 10678, 1144 );
+	//level.showersPerks[ "specialty_weapupgrade" ].angles = ( 0, 0, 0 );
+	//level.showersPerks[ "specialty_weapupgrade" ].model = "p6_zm_al_vending_pap_on";
+	//level.showersPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+
 }
 
 perk_machine_spawn_init() //modified function
@@ -587,6 +596,13 @@ perk_machine_spawn_init() //modified function
 		foreach ( perk in level.cellblockPerkArray )
 		{
 			pos[ pos.size ] = level.cellblockPerks[ perk ];
+		}
+	}
+	else if ( isDefined( level.customMap ) && level.customMap == "showers" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
+	{
+		foreach ( perk in level.showersPerkArray )
+		{
+			pos[ pos.size ] = level.showersPerks[ perk ];
 		}
 	}
 	if ( !IsDefined( pos ) || pos.size == 0 )

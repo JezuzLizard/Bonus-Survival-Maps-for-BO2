@@ -417,15 +417,5 @@ get_player_spawns_for_gametype() //modified function
 		player_spawns[ player_spawns.size ] = structs[ i ];
 		i++;
 	}
-	custom_spawns = [];
-	//CUSTOM SPAWNS HERE
-	if ( isdefined( level.customMap ) && level.customMap == "redroom" )
-	{
-		for(i=0; i<level.redroomSpawnpoints.size;i++)
-		{
-			custom_spawns[custom_spawns.size] = level.redroomSpawnpoints[i];
-		}
-		return custom_spawns;
-	}
 	return player_spawns;
 }

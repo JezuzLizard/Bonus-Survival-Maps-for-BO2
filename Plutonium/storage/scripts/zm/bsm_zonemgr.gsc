@@ -37,6 +37,13 @@ manage_zones( initial_zone ) //checked changed to match cerberus output
 		initial_zone[ 1 ] = "zone_roof_infirmary";
 		initial_zone[ 2 ] = "zone_infirmary";
 	}
+	if ( isDefined( level.customMap ) && level.customMap == "showers" )
+	{
+		initial_zone = [];
+		initial_zone[ 1 ] = "zone_citadel";
+		initial_zone[ 0 ] = "zone_citadel_shower";
+		initial_zone[ 2 ] = "cellblock_shower";
+	}
 	else if ( isDefined( level.customMap ) && level.customMap == "docks" )
 	{
 		initial_zone = [];
