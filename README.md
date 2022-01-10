@@ -1,4 +1,3 @@
-# Bonus-Survival-Maps-for-BO2
 # BO2 Zombies Experience Mod
 
 ## Features
