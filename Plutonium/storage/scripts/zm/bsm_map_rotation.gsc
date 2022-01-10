@@ -14,15 +14,15 @@ init()
 
 override_map()
 {
-	level.zeGamemode = ToLower( GetDvar( "zegamemode"));
+	level.zeGamemode = ToLower( GetDvar( "zeGamemode"));
 	mapname = ToLower( GetDvar( "mapname" ) );
-	if(level.zeGamemode == "" || level.zeGamemode != "vanilla" || level.zeGamemode != "sharpshooter" || level.zeGamemode != "survival" )
+	if(level.zeGamemode == "" || level.zeGamemode != "vanilla" && level.zeGamemode != "sharpshooter" && level.zeGamemode != "survival" )
 		level.zeGamemode = "survival";
 	if( GetDvar("customMap") == "" )
 		SetDvar("customMap", "vanilla");
 	if( (level.zeGamemode != "vanilla" && GetDvar("customMap") == "vanilla") || (level.zeGamemode == "vanilla" && GetDvar("customMap") != "vanilla")  )
 	{
-		SetDvar( "zegamemode", "vanilla" );
+		SetDvar( "zeGamemode", "vanilla" );
 		SetDvar( "customMap", "vanilla" );
 		map_restart(false);
 	}

@@ -18,7 +18,7 @@ main()
 init()
 {
 	//level.player_out_of_playable_area_monitor = 0;
-	//level.player_starting_points = 500000;
+	level.player_starting_points = 500000;
 	//level.perk_purchase_limit = 10;
 	//if(level.customMap == "vanilla")
 	//	return;
@@ -28,7 +28,7 @@ init()
 		setDvar( "scr_screecher_ignore_player", 1 );
 	}
 	level.get_player_perk_purchase_limit = ::get_player_perk_purchase_limit;
-	level.callbackactordamage = ::actor_damage_override_wrapper;
+	//level.callbackactordamage = ::actor_damage_override_wrapper;
 }
 
 meleeCoords()
@@ -39,6 +39,7 @@ meleeCoords()
 	{
 		if(self meleeButtonPressed())
 		{
+			
 			self IPrintLn("hello there");
 			me = self.origin;
 			you = self GetPlayerAngles();
@@ -47,14 +48,29 @@ meleeCoords()
 			logprint(self.origin + ", " + angles + "\n");
 			wait 1;
 			self IPrintLn("Angles = "+ you);
-			zm_doors = getentarray( "zombie_door", "targetname" );
-			for(i=0;i<zm_doors.size;i++)
+
+
+			/*IPrintLn("Changing Weapon Tier");
+			weapon = maps/mp/zombies/_zm_weapons::get_base_name(self GetCurrentWeapon());
+			if(!isdefined(self.weaponTiers))
 			{
-				if(Distance(zm_doors[i].origin, self.origin) < 200)
-				{
-					self IPrintLn(zm_doors[i].origin);
-				}
+				self.weaponTiers = [];
 			}
+			if(!isdefined(self.weaponTiers[weapon]))
+			{
+				self.weaponTiers[weapon] = 0;
+			}
+			else
+			{
+				if(self.weaponTiers[weapon] == 4)
+				{
+					self.weaponTiers[weapon] = 0;
+				}
+				else
+				{
+					self.weaponTiers[weapon]++;
+				}
+			}*/
 			/*
 			for(i=0;i<level.chests.size;i++)
 			{
@@ -121,7 +137,6 @@ get_perk_array( ignore_chugabud ) //checked matches cerberus output
 init_custom_map()
 {
 	level thread onplayerconnected();
-	//level thread onplayerconnect();
 	flag_wait( "initial_blackscreen_passed" );
 	thread init_buildables();
 	if(level.script == "zm_highrise" && is_true(level.customMap != "vanilla") || level.script == "zm_buried" && is_true(level.customMap != "vanilla"))
@@ -136,14 +151,6 @@ power_setup()
 	wait 1;
 	flag_set( "power_on" );
 	level setclientfield( "zombie_power_on", 1 );
-}
-
-onplayerconnect()
-{
-	level waittill( "connected", player );
-	flag_wait( "initial_blackscreen_passed" );
-	wait 5;
-	AddTestClient();
 }
 
 onplayerconnected()
