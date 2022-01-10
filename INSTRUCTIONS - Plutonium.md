@@ -4,7 +4,7 @@ If you do not include all these files you will be missing core components of the
 
 Create any folders if they do not exist! 
 
-**Compile _clientids.gsc as _clientids.gsc and place it in maps/mp/gametypes_zm**
+**Compile bsm_main.gsc as bsm_main.gsc and place it in %localappdata%/Plutonium/storage/t6/scripts/zm/**
 
 **All other scripts follow the same process**
 
@@ -12,6 +12,7 @@ Create any folders if they do not exist!
 
 Set the map to tranzit and include these special dvars in your dedicated_zm.cfg:
 ```
+set zeGamemode "survival"
 set customMapRotation "diner power cornfield tunnel house town farm busdepot nuketown docks cellblock rooftop building1top maze trenches crazyplace" // rearrange the order of these or remove locations to change the rotation
 set randomizeMapRotation 0 //set this to 1 to enable randomized map rotation
 set customMapRotationActive 1 //set this to 1 to enable map rotation
@@ -22,9 +23,6 @@ set perkSlotIncreaseKills 150 // Set Amount of Kills each player must earn to in
 ```
 Then set the sv_maprotation to the **FIRST MAP IN YOUR ROTATION.** This is important. Only the first map goes into sv_maprotation. The mod does the rest of the work.
 If you set the wrong map in sv_maprotation, the mod will fix itself for you after the first game ends.
-
-# How to install/launch solo
-https://www.youtube.com/watch?v=nWcWPGfl7pA
 
 # How to modify
 
