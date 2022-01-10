@@ -10,14 +10,12 @@ main()
 		return;
 	replacefunc(maps/mp/zm_buried_fountain::maze_fountain_think, ::maze_fountain_think);
 	replacefunc(maps/mp/zm_buried_fountain::transport_player_to_start_zone, ::transport_player_to_start_zone);
-	replacefunc(maps/mp/zm_buried_fountain::show_maze_fountain_water, ::show_maze_fountain_water);
 }
 
 maze_fountain_think()
 {
 	hide_maze_fountain_water();
 	destroy_maze_fountain();
-	flag_set( "courtyard_fountain_broken" );
 	flag_set( "fountain_transport_active" );
 }
 
@@ -28,14 +26,6 @@ hide_maze_fountain_water()
 	m_water = getent( "maze_fountain_water", "targetname" );
 	t_water linkto( m_water );
 	m_water.origin = m_water.origin + (0,0,-475);
-}
-
-show_maze_fountain_water()
-{
-	m_water = getent( "maze_fountain_water", "targetname" );
-	m_water.origin = m_water.origin + (0,0,398);
-	m_water ghost();
-	fountain_debug_print( "maze water ready" );
 }
 
 transport_player_to_start_zone()

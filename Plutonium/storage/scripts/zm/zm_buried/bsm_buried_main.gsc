@@ -45,15 +45,19 @@ override_zombie_count() //custom function
 {
 	level endon( "end_game" );
 	level.speed_change_round = undefined;
-	thread increase_zombie_speed();
+	//thread increase_zombie_speed();
 	for ( ;; )
 	{
 		level waittill_any( "start_of_round", "intermission", "check_count" );
 		if ( isdefined(level.customMap) && level.customMap == "maze" )
 		{
-			if ( level.round_number <= 2 )
+			if ( level.round_number <= 5 )
 			{
-				level.zombie_move_speed = 20;
+				level.zombie_move_speed = 40;
+			}
+			else
+			{
+				level.zombie_move_speed = 80;
 			}
 		}
 	}
@@ -75,7 +79,7 @@ increase_zombie_speed()
 		zombies = get_round_enemy_array();
 		for ( i = 0; i < zombies.size; i++ )
 		{
-			zombies[ i ] set_zombie_run_cycle( "sprint" );
+			zombies[ i ] set_zombie_run_cycle( "run" );
 		}
 		wait 1;
 	}

@@ -6,6 +6,8 @@
 
 main()
 {
+	if(GetDvar("zeGamemode") != "survival")
+		return;
 	replacefunc(maps/mp/zombies/_zm_ai_ghost::ghost_round_think, ::ghost_round_think);
 	replacefunc(maps/mp/zombies/_zm_ai_ghost::init_ghost_spawners, ::init_ghost_spawners);
 }
@@ -238,7 +240,7 @@ find_ghost_spawn(player)
 {
 	while(1)
 	{
-		point = level.zombie_spawn_locations[RandomInt(level.zombie_spawn_locations.size)];
+		point = level.zombie_spawn_locations[RandomInt(level.zombie_spawn_locations.size-1)];
 		if(!player maps/mp/zombies/_zm_zonemgr::is_player_in_zone(point.zone_name) || point.script_string != "find_flesh")
 			continue;
 		else
