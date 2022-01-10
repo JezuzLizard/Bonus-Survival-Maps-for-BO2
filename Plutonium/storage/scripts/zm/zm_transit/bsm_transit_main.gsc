@@ -13,6 +13,7 @@ main()
 	replacefunc(maps/mp/zm_transit_classic::diner_hatch_access, ::diner_hatch_access);
 	replacefunc(maps/mp/zm_transit_standard_farm::farm_treasure_chest_init, ::treasure_chest_init);
 	replacefunc(maps/mp/zm_transit_standard_station::station_treasure_chest_init, ::treasure_chest_init);
+	replacefunc(maps/mp/zm_transit_classic::init_bus, ::init_bus);
 }
 
 init()
@@ -22,9 +23,11 @@ init()
 	level thread override_zombie_count();
 	flag_wait( "initial_blackscreen_passed" );
 	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors(); //added to turn on the power and open doors
+}
+
+init_bus() //checked matches cerberus output
+{
 	flag_wait( "start_zombie_round_logic" );
-	wait 1;
-	level thread maps/mp/zm_transit::delete_bus_pieces();
 }
 
 treasure_chest_init()

@@ -456,7 +456,7 @@ init_spawnpoints_for_custom_survival_maps() //custom function
 
 	level.farmSpawnpoints = [];
 	level.farmSpawnpoints[ 0 ] = spawnstruct();
-	level.farmSpawnpoints[ 0 ].origin = (7047.84, -5716.24, -48.6452);
+	level.farmSpawnpoints[ 0 ].origin = (7166, -5755, -46);
 	level.farmSpawnpoints[ 0 ].angles = ( 0, 0, 0 );
 	level.farmSpawnpoints[ 0 ].radius = 32;
 	level.farmSpawnpoints[ 0 ].script_noteworthy = "initial_spawn";
