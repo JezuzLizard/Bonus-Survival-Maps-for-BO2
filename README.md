@@ -50,10 +50,5 @@ Report any bugs found to the forum, we will try to fix them as soon as possible.
 
 ## Soon to be added
 ```
-Die Rise: TBD, MOTD: Rooftop, Buried: TBD, Origins: TBD
-```
-
-## Cut due to too many issues:
-```
-MOTD Rooftop
+Die Rise: TBD, MOTD: TBD, Buried: TBD, Origins: TBD
 ```
