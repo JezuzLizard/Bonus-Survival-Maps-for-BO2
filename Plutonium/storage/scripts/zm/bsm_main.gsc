@@ -18,7 +18,7 @@ main()
 init()
 {
 	//level.player_out_of_playable_area_monitor = 0;
-	level.player_starting_points = 500000;
+	//level.player_starting_points = 500000;
 	//level.perk_purchase_limit = 10;
 	//if(level.customMap == "vanilla")
 	//	return;
@@ -162,7 +162,7 @@ onplayerconnected()
 		player thread addPerkSlot();
 		player thread onplayerspawned();
 		player thread perkHud();
-		player thread meleeCoords();
+		//player thread meleeCoords();
 	}
 }
 
