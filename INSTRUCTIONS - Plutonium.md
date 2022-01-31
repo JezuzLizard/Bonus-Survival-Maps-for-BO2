@@ -8,6 +8,10 @@ Create any folders if they do not exist!
 
 **All other scripts follow the same process**
 
+If using pre-compiled scripts,
+
+**place scripts folder inside of the .zip file into %localappdata%/Plutonium/storage/t6/**
+
 # How to launch
 
 Set the map to tranzit and include these special dvars in your dedicated_zm.cfg:
