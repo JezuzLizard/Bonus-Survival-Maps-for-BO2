@@ -895,44 +895,53 @@ clear(player)
 	self destroy();
 }
 
-full_ammo_powerup( drop_item, player )
+full_ammo_powerup_override( drop_item, player )
 {
 	players = get_players( player.team );
 
 	if ( isdefined( level._get_game_module_players ) )
 		players = [[ level._get_game_module_players ]]( player );
 
-	for ( i = 0; i < players.size; i++ )
+	i = 0;
+	while ( i < players.size )
 	{
 		if ( players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+		{
+			i++;
 			continue;
-
+		}
 		primary_weapons = players[i] getweaponslist( 1 );
 		players[i] notify( "zmb_max_ammo" );
 		players[i] notify( "zmb_lost_knife" );
 		players[i] notify( "zmb_disable_claymore_prompt" );
 		players[i] notify( "zmb_disable_spikemore_prompt" );
 
-		for ( x = 0; x < primary_weapons.size; x++ )
+		x = 0;
+		while ( x < primary_weapons.size )
 		{
 			if ( level.headshots_only && is_lethal_grenade( primary_weapons[x] ) )
+			{
+				x++;
 				continue;
-
-			if ( isdefined( level.zombie_include_equipment ) && isdefined( level.zombie_include_equipment[primary_weapons[x]] ) )
+			}
+			if ( isdefined( level.zombie_include_equipment ) && isdefined( level.zombie_include_equipment[ primary_weapons[ x ] ] ) )
+			{
+				x++;
 				continue;
-
-			if ( isdefined( level.zombie_weapons_no_max_ammo ) && isdefined( level.zombie_weapons_no_max_ammo[primary_weapons[x]] ) )
+			}
+			if ( isdefined( level.zombie_weapons_no_max_ammo ) && isdefined( level.zombie_weapons_no_max_ammo[ primary_weapons[ x ] ] ) )
+			{
+				x++;
 				continue;
-
+			}
 			if ( players[i] hasweapon( primary_weapons[x] ) )
 			{
 				players[i] givemaxammo( primary_weapons[x] );
-				clip_ammo = player getweaponammoclip( primary_weapons[x] );
 				clip_max_ammo = weaponclipsize( primary_weapons[x] );
-				if ( clip_ammo < clip_max_ammo )
-					clip_ammo++;
-				player setweaponammoclip( primary_weapons[x], clip_ammo );
+				players[i] setweaponammoclip( primary_weapons[x], clip_max_ammo );
 			}
+			x++;
 		}
+		i++;
 	}
 }
