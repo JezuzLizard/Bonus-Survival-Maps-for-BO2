@@ -1,0 +1,114 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"label": "build all",
+			"type": "shell",
+			"command": "${cwd}/.vscode/ConsoleApp1.exe",
+			"args": [
+				"${workspaceFolder}\\scripts",
+				"${workspaceFolder}\\build"
+			],
+			"problemMatcher": [
+				{
+					"fileLocation": [
+						"absolute"
+					],
+					"pattern": [
+						{
+							"regexp": "(^Bad syntax)|(\\s\\d*)",
+							"message": 1,
+							"line": 4
+						},
+						{
+							"regexp": "(^.*:*.gsc)",
+							"file": 1
+						},
+						{
+							"regexp": "(WARNING)",
+							"severity": 1
+						}
+					]
+				}
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "build folder",
+			"type": "shell",
+			"command": "${cwd}/.vscode/ConsoleApp1.exe",
+			"args": [
+				"${fileDirname}",
+				"${workspaceFolder}\\build\\",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": [
+				{
+					"fileLocation": [
+						"absolute"
+					],
+					"pattern": [
+						{
+							"regexp": "(^Bad syntax)|(\\s\\d*)",
+							"message": 1,
+							"line": 4
+						},
+						{
+							"regexp": "(^.*:*.gsc)",
+							"file": 1
+						},
+						{
+							"regexp": "(WARNING)",
+							"severity": 1
+						}
+					]
+				}
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "build file",
+			"type": "shell",
+			"command": "${cwd}/.vscode/ConsoleApp1.exe",
+			"args": [
+				"${file}",
+				"${workspaceFolder}\\build\\",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": [
+				{
+					"fileLocation": [
+						"absolute"
+					],
+					"pattern": [
+						{
+							"regexp": "(^Bad syntax)|(\\s\\d*)",
+							"message": 1,
+							"line": 4
+						},
+						{
+							"regexp": "(^.*:*.gsc)",
+							"file": 1
+						},
+						{
+							"regexp": "(WARNING)",
+							"severity": 1
+						}
+					]
+				}
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
