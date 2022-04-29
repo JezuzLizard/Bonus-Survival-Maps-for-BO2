@@ -31,19 +31,19 @@ main()
 	level.zombiemode_using_divetonuke_perk = 1;
 	replacefunc(maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level, scripts/zm/zm_prison/bsm_prison_perk_phd::enable_divetonuke_perk_for_level);
 	maps/mp/zombies/_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	precacheShader( "specialty_additionalprimaryweapon_zombies" );
+	precacheShader( "specialty_divetonuke_zombies" );
+	precacheShader( "specialty_juggernaut_zombies" );
+	precacheShader( "specialty_quickrevive_zombies" );
+	precacheShader( "specialty_fastreload_zombies" );
+	precacheShader( "specialty_doubletap_zombies" );
+	precacheShader( "specialty_marathon_zombies" );
+	precacheShader( "specialty_ads_zombies" );
+	precacheShader( "specialty_electric_cherry_zombie" );
 }
 
 perks_init() //checked partially changed to match cerberus output
 {
-	//begin debug code
-	level.custom_zm_perks_loaded = 1;
-	maps/mp/zombies/_zm_bot::init();
-	if ( !isDefined( level.debugLogging_zm_perks ) )
-	{
-		level.debugLogging_zm_perks = 0;
-	}
-	
-	//end debug code
 	level.additionalprimaryweapon_limit = 3;
 	level.perk_purchase_limit = 4;
 	if ( !level.createfx_enabled )
@@ -336,6 +336,14 @@ set_perk_clientfield( perk, state ) //checked matches cerberus output
 	if(level.customMap != "vanilla")
 	{
 		self.resetPerkHUD = 1;
+		if ( is_true( state ) )
+		{
+			self t5_perk_hud_create( perk );
+		}
+		else 
+		{
+			self t5_perk_hud_destroy( perk );
+		}
 		return;
 	}
 	switch( perk )
@@ -901,3 +909,89 @@ givePoints()
 		wait .1;
 	}
 }	
+
+t5_perk_hud_create( perk )
+{
+	if ( !IsDefined( self.perk_hud ) )
+	{
+		self.perk_hud = [];
+	}
+	shader = "";
+	switch( perk )
+	{
+	case "specialty_armorvest":
+		shader = "specialty_juggernaut_zombies";
+		break;
+	case "specialty_quickrevive":
+		shader = "specialty_quickrevive_zombies";
+		shader = "specialty_marathon_zombies";
+		if ( level.script == "zm_prison" )
+		{
+			shader = "specialty_electric_cherry_zombie";
+			color = ( 0, 0.4, 0.9 );
+		}
+		break;
+	case "specialty_fastreload":
+		shader = "specialty_fastreload_zombies";
+		break;
+	case "specialty_rof":
+		shader = "specialty_doubletap_zombies";
+		break;
+	case "specialty_longersprint":
+		shader = "specialty_marathon_zombies";
+		if ( level.script == "zm_prison" )
+		{
+			shader = "specialty_fastreload_zombies";
+			color = ( 0.9, 0.4, 0 );
+		}
+		break;
+	case "specialty_flakjacket":
+		shader = "specialty_divetonuke_zombies";
+		break;
+	case "specialty_deadshot":
+		shader = "specialty_ads_zombies"; 
+		break;
+	case "specialty_additionalprimaryweapon":
+		shader = "specialty_additionalprimaryweapon_zombies";
+		break;
+	case "specialty_scavenger":
+		shader = "specialty_tombstone_zombies";
+		break;
+	case "specialty_finalstand":
+		shader = "specialty_chugabud_zombies";
+		break;
+	case "specialty_grenadepulldeath":
+		shader = "specialty_electric_cherry_zombie";
+		break;
+	case "specialty_nomotionsensor":
+		shader = "specialty_vulture_zombies";
+		break;
+	default:
+		shader = "";
+		break;
+	}
+	hud = create_simple_hud( self );
+	hud.foreground = true; 
+	hud.sort = 1; 
+	hud.hidewheninmenu = false; 
+	hud.alignX = "left"; 
+	hud.alignY = "bottom";
+	hud.horzAlign = "user_left"; 
+	hud.vertAlign = "user_bottom";
+	hud.x = self.perk_hud.size * 30; 
+	hud.y = hud.y - 70; 
+	hud.alpha = 1;
+	if ( isDefined( color ) )
+	{
+		hud.color = color;
+	}
+	hud SetShader( shader, 24, 24 );
+	self.perk_hud[ perk ] = hud;
+}
+
+
+t5_perk_hud_destroy( perk )
+{
+	self.perk_hud[ perk ] destroy_hud();
+	self.perk_hud[ perk ] = undefined;
+}

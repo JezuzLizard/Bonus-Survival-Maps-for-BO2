@@ -168,7 +168,7 @@ onplayerconnected()
 
 perkHud()
 {
-	if(level.script != "zm_prison" && level.script != "zm_highrise")
+	if(level.script != "zm_highrise")
 		return;
 	if(isdefined(level.customMap) && level.customMap == "vanilla")
 		return;
