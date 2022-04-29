@@ -924,7 +924,6 @@ t5_perk_hud_create( perk )
 		break;
 	case "specialty_quickrevive":
 		shader = "specialty_quickrevive_zombies";
-		shader = "specialty_marathon_zombies";
 		if ( level.script == "zm_prison" )
 		{
 			shader = "specialty_electric_cherry_zombie";
