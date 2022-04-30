@@ -54,6 +54,12 @@ init()
 		level thread map_setup();
 	}
 	level.callbackactordamage = ::actor_damage_override_wrapper;
+	level._callbacks[ "on_player_connect" ][ 16 ] = ::player_lightning_manager_override;
+}
+
+player_lightning_manager_override()
+{
+	self setclientfieldtoplayer( "toggle_lightning", 0 );
 }
 
 door_think() //checked changed to match cerberus output
